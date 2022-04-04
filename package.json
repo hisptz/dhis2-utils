@@ -1,0 +1,16 @@
+{
+  "name": "dhis-utils",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:hisptz/dhis2-utils.git",
+  "author": "HISP Tanzania",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build:lib": "yarn workspace @hisptz/dhis2-ui build",
+    "start:docs": "yarn workspace docs start"
+  }
+}
