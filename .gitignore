@@ -122,3 +122,4 @@ dist
 .env.test.local
 .env.production.local
 
+/packages/lib/build/

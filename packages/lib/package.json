@@ -1,38 +1,38 @@
 {
-    "name": "@hisptz/dhis-utils",
-    "version": "1.0.0",
-    "description": "",
-    "main": "./build/cjs/index.js",
-    "module": "./build/es/index.js",
-    "types": "./dist/types/index.d.ts",
-    "exports": {
-        "import": "./build/es/index.js",
-        "require": "./build/cjs/index.js"
-    },
-    "files": [
-        "build/**"
-    ],
-    "scripts": {
-        "build:types": "../../node_modules/.bin/tsc --project tsconfig.json --emitDeclarationOnly --declaration --outDir ./build/types",
-        "postbuild": "yarn build:types",
-        "build": "../../node_modules/.bin/d2-app-scripts build",
-        "test": "../../node_modules/.bin/d2-app-scripts test"
-    },
-    "keywords": [],
-    "license": "ISC",
-    "dependencies": {
-        "typescript": "^4.6.3"
-    },
-    "devDependencies": {
-        "@dhis2/cli-app-scripts": "^9.0.0",
-        "@types/jest": "^27.4.1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/hisptz/dhis2-utis.git"
-    },
-    "author": "HISP Tanzania",
-    "bugs": {
-        "url": "https://github.com/hisptz/dhis2-utils/issues"
-    }
+  "name": "@hisptz/dhis2-utils",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./build/cjs/index.js",
+  "module": "./build/es/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    "import": "./build/es/index.js",
+    "require": "./build/cjs/index.js"
+  },
+  "files": [
+    "build/**"
+  ],
+  "scripts": {
+    "build:types": "tsc --project tsconfig.json",
+    "postbuild": "yarn build:types",
+    "build": "d2-app-scripts build --no-verify",
+    "test": "d2-app-scripts test"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^4.6.3"
+  },
+  "devDependencies": {
+    "@dhis2/cli-app-scripts": "^9.0.0",
+    "@types/jest": "^27.4.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hisptz/dhis2-utis.git"
+  },
+  "author": "HISP Tanzania",
+  "bugs": {
+    "url": "https://github.com/hisptz/dhis2-utils/issues"
+  }
 }
