@@ -6,6 +6,14 @@ A package of reusable **functions**, **interfaces**, **constants**, and other im
 ### Interfaces
 - Legend definition
 - Legend
+- TrackedEntityAttribute
+- TrackedEntityInstance
+- Event
+- DataElement
+- OrganisationUnit
+- Program
+- Enrollment
+- ProgramStage
 
 
 
@@ -47,3 +55,4 @@ A package of reusable **functions**, **interfaces**, **constants**, and other im
 - `getPagination`
 - `convertLocalToTimezone`
 - `getDhisStringDate`
+- 
