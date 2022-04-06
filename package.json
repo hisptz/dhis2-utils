@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "build:lib": "yarn workspace @hisptz/dhis2-utils build",
-    "build:docs": "yarn workspace docs start",
-    "start:docs": "yarn workspace docs build"
+    "build:docs": "yarn workspace docs build",
+    "start:docs": "yarn workspace docs start"
   }
 }
