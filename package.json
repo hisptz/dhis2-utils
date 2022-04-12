@@ -1,5 +1,5 @@
 {
-  "name": "dhis-utils",
+  "name": "dhis2-utils",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "git@github.com:hisptz/dhis2-utils.git",
@@ -10,7 +10,8 @@
     "packages/*"
   ],
   "scripts": {
-    "build:lib": "yarn workspace @hisptz/dhis2-ui build",
+    "build:lib": "yarn workspace @hisptz/dhis2-utils build",
+    "build:docs": "yarn workspace docs build",
     "start:docs": "yarn workspace docs start"
   }
 }
