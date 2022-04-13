@@ -1,3 +1,10 @@
+/*
+* Base DHIS2 Resource Interface
+*
+* This interface is the base interface for all DHIS2 resources.
+*
+*
+* */
 export interface DHIS2Resource {
     id: string;
     displayName?: string;
@@ -14,6 +21,9 @@ export interface DHIS2Resource {
 }
 
 //TODO: Add more acceptable types
+/*
+* DHIS2 Access string
+* */
 export type DHIS2AccessString = "rw------" | "r-------" | "-------" | "rwrw----"
 
 //TODO: Copy from react library
