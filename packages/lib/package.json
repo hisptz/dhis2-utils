@@ -4,7 +4,8 @@
   "description": "",
   "main": "./build/cjs/index.js",
   "module": "./build/es/index.js",
-  "types": "./dist/types/index.d.ts",
+  "types": "./build/types/index.d.ts",
+  "typings": "./build/types/index.d.ts",
   "exports": {
     "import": "./build/es/index.js",
     "require": "./build/cjs/index.js"
@@ -21,6 +22,8 @@
   "keywords": [],
   "license": "ISC",
   "dependencies": {
+    "@microsoft/api-documenter": "^7.17.6",
+    "@microsoft/api-extractor": "^7.21.3",
     "typescript": "^4.6.3"
   },
   "devDependencies": {

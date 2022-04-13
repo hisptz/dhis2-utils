@@ -10,6 +10,7 @@
     "declaration": true,
     /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
     "emitDeclarationOnly": true,
+    "declarationMap": true,
     /* Only output d.ts files and not JavaScript files. */
     "outDir": "./build/types",
     /* Specify an output folder for all emitted files. */
