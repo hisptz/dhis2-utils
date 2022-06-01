@@ -1,9 +1,8 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
-
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
-
+const path = require("path")
 /** @type {import('@docusaurus/types').Config} */
 const config = {
     title: 'DHIS2 Utils Documentation',
@@ -55,6 +54,11 @@ const config = {
                         docId: 'intro',
                         position: 'left',
                         label: 'Docs',
+                    },
+                    {
+                        to: "api",
+                        label: "API",
+                        position: "left"
                     },
                     {
                         href: 'https://github.com/hisptz/dhis2-utils',
@@ -113,6 +117,31 @@ const config = {
                 darkTheme: darkCodeTheme,
             },
         }),
+    plugins: [
+        [
+            'docusaurus-plugin-typedoc-api',
+            {
+                projectRoot: path.join(__dirname, "../lib"),
+                banner: "API References",
+                packages: [
+                    {
+                        path: 'src',
+                        entry: {
+                            index: "index.ts",
+                            utils: {
+                                path: "utils/index.ts",
+                                label: "Utilities"
+                            },
+                            interfaces: {
+                                path: "interfaces/index.ts",
+                                label: "Interfaces & Types"
+                            }
+                        }
+                    }
+                ]
+            }
+        ]
+    ]
 };
 
 module.exports = config;
