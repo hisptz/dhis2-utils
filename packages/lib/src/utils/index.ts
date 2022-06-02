@@ -1,1 +1,1 @@
-export {default as uid} from "./uid"
+export * from "./common"
