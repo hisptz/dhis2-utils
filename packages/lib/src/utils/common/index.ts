@@ -1,8 +1,8 @@
-import {AccessObject} from "../../interfaces";
+import {AccessObject, CustomLegend, LegendDefinition} from "../../interfaces";
 
 /**
- * The uid function generates a unique identifier.
- * @returns A random string of numbers, letters, and symbols
+ * The uid function generates a unique identifier acceptable as a DHIS2 resource id.
+ * @returns A random string of length 11
  */
 export function uid(): string {
     const letters = "abcdefghijklmnopqrstuvwxyz" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -72,5 +72,40 @@ export function constructAppUrl(baseUrl: string, config: { name: string, title: 
     return appUrl
 }
 
+/**
+ *
+ * Return auto-calculated legend values for given legendDefinitions
+ *
+ * @param [legendDefinitions] Legend definitions
+ * @returns Legend values
+ * */
+export function generateLegendDefaults(legendDefinitions: LegendDefinition, {
+    weight,
+    highIsGood
+}: { weight: number, highIsGood: boolean }): Array<CustomLegend> {
+    return [];
+}
 
+
+/**
+ *
+ * Return a legend definition object that matches the value based on the specified legends
+ *
+ * @param value The value to match
+ *
+ * @param legends The legends to match against
+ *
+ * @param options object of consisting of the following properties:
+ *  - max: the maximum value acceptable
+ *  - min: the minimum value acceptable
+ *  - legendDefinitions: Array of legend definitions to match the legends with
+ *
+ * */
+export function findLegend(value: number | string, legends: Array<CustomLegend>, options: { max: number, legendDefinitions: Array<{ id: string; label: string; color: string; }> }): LegendDefinition {
+    return {
+        id: "",
+        label: "",
+        color: ""
+    };
+}
 
