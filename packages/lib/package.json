@@ -1,7 +1,7 @@
 {
   "name": "@hisptz/dhis2-utils",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.0-alpha.00",
+  "description": "A package of reusable functions, interfaces, constants, and other implementations for DHIS2 related applications",
   "main": "./build/cjs/index.js",
   "module": "./build/es/index.js",
   "types": "./build/types/index.d.ts",
@@ -17,7 +17,8 @@
     "build:types": "tsc --project tsconfig.json",
     "postbuild": "yarn build:types",
     "build": "d2-app-scripts build --no-verify",
-    "test": "d2-app-scripts test"
+    "test": "d2-app-scripts test",
+    "publish": "npm publish"
   },
   "keywords": [],
   "license": "ISC",
