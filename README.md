@@ -25,7 +25,7 @@ A package of reusable **functions**, **interfaces**, **constants**, and other im
 - `getSelectedOrgUnitSelectionDisplay`: Returns a display name for selected organisation unit based on organisation units passed
   Inputs: `orgUnitSelection: { orgUnits: Array<{id: string; displayName: string}>, levels: Array<string>, groups: Array<string>, userOrgUnit: boolean, userSubUnit: boolean, userSubX2Unit: boolean }`
   Output: `string`
-- `uid`: Generates a unique ID acceptable to DHIS2 metadata
+- `index`: Generates a unique ID acceptable to DHIS2 metadata
   Input: none
   Output: `string`
 
