@@ -125,4 +125,10 @@ dist
 /packages/lib/build/
 /packages/lib/temp/
 /packages/lib/etc/
-/.yarn/
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
