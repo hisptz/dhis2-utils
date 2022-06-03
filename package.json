@@ -1,0 +1,20 @@
+{
+  "name": "dhis2-utils",
+  "version": "1.0.0-alpha.00",
+  "main": "index.js",
+  "repository": "git@github.com:hisptz/dhis2-utils.git",
+  "author": "HISP Tanzania",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build:lib": "yarn workspace @hisptz/dhis2-utils build",
+    "build:docs": "yarn workspace docs build",
+    "start:docs": "yarn workspace docs start",
+    "test": "yarn workspace @hisptz/dhis2-utils test",
+    "publish": "yarn workspace @hisptz/dhis2-utils publish"
+  },
+  "packageManager": "yarn@3.2.1"
+}
