@@ -1,0 +1,22 @@
+name: Build
+
+on:
+  check_run:
+    types:
+      - created
+      - rerequested
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "16.x"
+          yarn: true
+      - run: yarn
+      - run: yarn build:lib

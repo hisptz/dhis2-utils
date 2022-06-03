@@ -23,15 +23,15 @@ describe("Translate Access Tests", () => {
     })
 
     it("Should return read access when provided with r-----", () => {
-        expect(translateAccess("r-----")).toBe({read: true, write: false})
+        expect(translateAccess("r-----")).toStrictEqual({read: true, write: false})
     })
 
     it("Should return write access when provided with rw----", () => {
-        expect(translateAccess("rw----")).toBe({read: true, write: true})
+        expect(translateAccess("rw----")).toStrictEqual({read: true, write: true})
     })
 
     it("Should return read and write access when provided with rw-rw-", () => {
-        expect(translateAccess("rw----")).toBe({read: true, write: true})
+        expect(translateAccess("rw----")).toStrictEqual({read: true, write: true})
     })
 
 })
