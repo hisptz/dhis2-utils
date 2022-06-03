@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "build:types": "tsc --project tsconfig.json",
-    "postbuild": "yarn build:types && yarn generate:docs",
+    "postbuild": "yarn build:types",
     "build": "d2-app-scripts build --no-verify",
     "test": "d2-app-scripts test"
   },
