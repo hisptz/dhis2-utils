@@ -4,7 +4,7 @@
   "description": "A package of reusable functions, interfaces, constants, and other implementations for DHIS2 related applications",
   "main": "./build/cjs/index.js",
   "module": "./build/es/index.js",
-  "types": "./build/types/src/index.d.ts",
+  "types": "./build/types/index.d.ts",
   "typings": "./build/types/index.d.ts",
   "exports": {
     "import": "./build/es/index.js",
