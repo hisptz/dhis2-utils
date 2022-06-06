@@ -4,7 +4,7 @@
   "description": "A package of reusable functions, interfaces, constants, and other implementations for DHIS2 related applications",
   "main": "./build/cjs/index.js",
   "module": "./build/es/index.js",
-  "types": "./build/types/index.d.ts",
+  "types": "./build/types/src/index.d.ts",
   "typings": "./build/types/index.d.ts",
   "exports": {
     "import": "./build/es/index.js",
@@ -18,7 +18,7 @@
     "postbuild": "yarn build:types",
     "build": "d2-app-scripts build --no-verify",
     "test": "d2-app-scripts test",
-    "publish": "npm publish"
+    "publish": "yarn publish --access public"
   },
   "keywords": [],
   "license": "ISC",
