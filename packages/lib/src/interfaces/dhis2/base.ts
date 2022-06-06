@@ -27,7 +27,7 @@ export interface DHIS2Resource {
 export type DHIS2AccessString = "rw------" | "r-------" | "-------" | "rwrw----"
 
 //TODO: Copy from react library
-export type DHIS2ValueType = "LONG_TEXT" | ""
+export type DHIS2ValueType = "LONG_TEXT" | "TEXT" | "BOOLEAN" | "DATE" | "AGE" | "NUMBER"
 
 export interface DHIS2Access {
     read?: boolean;

@@ -85,20 +85,22 @@ export interface Program extends DHIS2Resource {
     trackedEntityType?: TrackedEntityType;
     programType?: string;
     programStages?: ProgramStage[];
-    programTrackedEntityAttributes?: {
-        trackedEntityAttribute: TrackedEntityAttribute;
-        program: Program
-
-    };
+    programTrackedEntityAttributes?: ProgramTrackedEntityAttribute[];
 }
 
-export interface ProgramRuleAction extends DHIS2Resource{
-   content?: string;
-   displayContent?: string;
-   programRuleActionType?: string;
-   evaluationTime?: string;
-   programRule: ProgramRule;
-   evaluationEnvironments: string[];
+export interface ProgramTrackedEntityAttribute extends DHIS2Resource {
+    trackedEntityAttribute: TrackedEntityAttribute;
+    program: Program,
+    displayName: string
+}
+
+export interface ProgramRuleAction extends DHIS2Resource {
+    content?: string;
+    displayContent?: string;
+    programRuleActionType?: string;
+    evaluationTime?: string;
+    programRule: ProgramRule;
+    evaluationEnvironments: string[];
 
 }
 
@@ -111,11 +113,11 @@ export interface ProgramRule extends DHIS2Resource {
 
 
 export interface ProgramStageSection {
-   displayFormName?: string;
-   sortOrder?: number;
-   programStage?: ProgramStage;
-   dataElements?: DataElement[];
-   programIndicators?: ProgramIndicator[];
+    displayFormName?: string;
+    sortOrder?: number;
+    programStage?: ProgramStage;
+    dataElements?: DataElement[];
+    programIndicators?: ProgramIndicator[];
 }
 
 export interface ProgramStageDataElements {
