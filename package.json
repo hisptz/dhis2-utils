@@ -14,6 +14,6 @@
     "build:docs": "yarn workspace docs build",
     "start:docs": "yarn workspace docs start",
     "test": "yarn workspace @hisptz/dhis2-utils test",
-    "publish": "yarn workspace @hisptz/dhis2-utils run publish"
+    "publish:lib": "yarn workspace @hisptz/dhis2-utils run publish:lib"
   }
 }

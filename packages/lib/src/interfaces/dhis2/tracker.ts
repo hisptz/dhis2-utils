@@ -1,5 +1,5 @@
 import {DHIS2Resource} from "./base";
-import {DataElement, LegendSet, OptionSet, Program} from "./metadata";
+import { LegendSet, OptionSet, Program} from "./metadata";
 import {DHIS2AccessString, DHIS2ValueType} from "./base";
 
 export interface Attribute extends DHIS2Resource {
@@ -69,3 +69,4 @@ export interface Relationship extends DHIS2Resource {
 }
 
 
+export type ProgramType = "WITH_REGISTRATION" | "WITHOUT_REGISTRATION"
