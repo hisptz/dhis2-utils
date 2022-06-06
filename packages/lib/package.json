@@ -18,7 +18,7 @@
     "postbuild": "yarn build:types",
     "build": "d2-app-scripts build --no-verify",
     "test": "d2-app-scripts test",
-    "publish": "npm publish"
+    "publish": "yarn publish --access public"
   },
   "keywords": [],
   "license": "ISC",
