@@ -14,7 +14,6 @@ const config = {
     favicon: 'img/favicon.ico',
     organizationName: 'hisptz', // Usually your GitHub org/user name.
     projectName: 'dhis2-utils', // Usually your repo name.
-
     presets: [
         [
             'classic',
