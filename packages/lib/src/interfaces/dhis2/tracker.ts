@@ -47,12 +47,11 @@ export interface Event extends Omit<DHIS2Resource, "id"> {
     enrollmentStatus: string;
     enrollment: string;
 
-
 }
 
 
 export interface Enrollment extends DHIS2Resource {
-    program?: Program;
+    program?: string;
     events?: Event[];
     enrollment?: string;
     trackedEntityInstance?: string;

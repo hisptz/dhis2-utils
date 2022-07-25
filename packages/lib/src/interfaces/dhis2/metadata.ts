@@ -149,6 +149,10 @@ export interface ProgramIndicator extends DHIS2Resource {
     analyticsPeriodBoundaries: AnalyticsPeriodBoundaries[];
 }
 
+export interface ProgramIndicatorGroups extends DHIS2Resource {
+    programIndicators?: ProgramIndicator[];
+}
+
 export interface Indicator extends DHIS2Resource {
     indicatorType: { id: string };
     indicatorGroups: { id: string }[];

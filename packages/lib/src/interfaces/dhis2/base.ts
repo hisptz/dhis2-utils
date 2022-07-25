@@ -14,7 +14,11 @@ export interface DHIS2Resource {
     href?: string;
     lastUpdated?: string;
     created?: string;
-    sharing?: string;
+    sharing?: string | {
+        external: boolean;
+        users: Record<string, any>;
+        userGroups: Record<string, any>;
+    };
     translations?: any[];
 
     [key: string]: any;
@@ -51,8 +55,8 @@ export interface DHIS2Sharing {
 }
 
 export interface Icon extends DHIS2Resource {
-  key: string;
-  description?: string;
-  href?: string;
-  keywords?: string[];
+    key: string;
+    description?: string;
+    href?: string;
+    keywords?: string[];
 }
