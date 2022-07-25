@@ -17,10 +17,10 @@ jobs:
           yarn: true
       - run: yarn
       - run: yarn build:lib
-      - run: zip -r ${{env.GITHUB_REF}}.zip packages/lib/build
+      - run: zip -r "hisptz-dhis2-utils-${{env.GITHUB_REF}}".zip packages/lib/build
       - uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           prerelease: false
           files: |
-            - ${{env.GITHUB_REF}}.zip
+            - "hisptz-dhis2-utils-${{env.GITHUB_REF}}".zip
