@@ -16,7 +16,10 @@ jobs:
         with:
           node-version: 16
       - run: yarn
-      - run: yarn build
+      - name: Build lib
+        working-directory: packages/lib
+        run: yarn build
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
+          package: packages/lib/package.json
