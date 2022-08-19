@@ -25,6 +25,7 @@
   "keywords": [],
   "license": "ISC",
   "dependencies": {
+    "@dhis2/d2-i18n": "^1.1.0",
     "typescript": "^4.6.3"
   },
   "devDependencies": {
