@@ -53,6 +53,10 @@ export const FIXED_PERIOD_TYPES: PeriodTypeInterface[] = [
         unit: "week",
         regex: /^([0-9]{4})(Wed)W([0-9]{1,2})$/, // YYYY"WedW"[1-53]
         rank: 2,
+        offset: {
+            unit: "day",
+            value: 2,
+        },
         idGenerator: (interval) => `${interval.start.toFormat('yyyy')}WedW${interval.start.weekNumber}`,
         nameGenerator: (interval) => `${i18n.t("Week")} ${interval.start.weekNumber} ${interval.start.toFormat(`yyyy-MM-dd`)} - ${interval.end.toFormat(`yyyy-MM-dd`)}`,
     },
@@ -63,6 +67,10 @@ export const FIXED_PERIOD_TYPES: PeriodTypeInterface[] = [
         unit: "week",
         regex: /^([0-9]{4})(Thu)W([0-9]{1,2})$/, // YYYY"ThuW"[1-53]
         rank: 2,
+        offset: {
+            unit: "day",
+            value: 3,
+        },
         idGenerator: (interval) => `${interval.start.toFormat('yyyy')}ThuW${interval.start.weekNumber}`,
         nameGenerator: (interval) => `${i18n.t("Week")} ${interval.start.weekNumber} ${interval.start.toFormat(`yyyy-MM-dd`)} - ${interval.end.toFormat(`yyyy-MM-dd`)}`,
     },
@@ -73,6 +81,10 @@ export const FIXED_PERIOD_TYPES: PeriodTypeInterface[] = [
         unit: "week",
         regex: /^([0-9]{4})(Sat)W([0-9]{1,2})$/, // YYYY"SatW"[1-53]
         rank: 2,
+        offset: {
+            unit: "day",
+            value: 5
+        },
         idGenerator: (interval) => `${interval.start.toFormat('yyyy')}SatW${interval.start.weekNumber}`,
         nameGenerator: (interval) => `${i18n.t("Week")} ${interval.start.weekNumber} ${interval.start.toFormat(`yyyy-MM-dd`)} - ${interval.end.toFormat(`yyyy-MM-dd`)}`,
     },
@@ -83,6 +95,10 @@ export const FIXED_PERIOD_TYPES: PeriodTypeInterface[] = [
         unit: "week",
         regex: /^([0-9]{4})(Sun)W([0-9]{1,2})$/, // YYYY"SunW"[1-53]
         rank: 2,
+        offset: {
+            unit: "day",
+            value: 6
+        },
         idGenerator: (interval) => `${interval.start.toFormat('yyyy')}SunW${interval.start.weekNumber}`,
         nameGenerator: (interval) => `${i18n.t("Week")} ${interval.start.weekNumber} ${interval.start.toFormat(`yyyy-MM-dd`)} - ${interval.end.toFormat(`yyyy-MM-dd`)}`,
     },
@@ -126,29 +142,33 @@ export const FIXED_PERIOD_TYPES: PeriodTypeInterface[] = [
         regex: /^([0-9]{4})Q([1234])$/, // YYYY"Q"[1-4]
         rank: 6,
         idGenerator: (interval) => `${interval.start.toFormat('yyyy')}Q${interval.start.quarter}`,
-        nameGenerator: (interval) => `${i18n.t("Quarter")} ${interval.start.quarter} ${interval.start.toFormat(`MM yyyy`)} - ${interval.end.toFormat(`MM yyyy`)}`
+        nameGenerator: (interval) => `${interval.start.monthLong} - ${interval.end.monthLong} ${interval.start.toFormat(`yyyy`)}`
     },
     {
         id: PeriodTypeEnum.SIXMONTHLY,
         name: i18n.t("Six-monthly"),
         type: PeriodTypeTypes.FIXED,
-        unit: "quarter",
+        unit: "month",
         regex: /^([0-9]{4})S([12])$/, // YYYY"S"[1/2]
         rank: 7,
-        factor: 2,
-        idGenerator: (interval) => `${interval.start.year}S${Math.floor(interval.start.quarter / 2)}`,
-        nameGenerator: (interval) => `${interval.start.toFormat(`MM yyyy`)} - ${interval.end.toFormat(`MM yyyy`)}`,
+        factor: 6,
+        idGenerator: (interval) => `${interval.start.year}S${Math.ceil(interval.start.quarter / 2)}`,
+        nameGenerator: (interval) => `${interval.start.monthLong} - ${interval.end.monthLong} ${interval.start.toFormat(`yyyy`)}`
     },
     {
         id: PeriodTypeEnum.SIXMONTHLYAPR,
         name: i18n.t("Six-monthly (April)"),
         type: PeriodTypeTypes.FIXED,
-        unit: "quarter",
+        unit: "month",
         regex: /^([0-9]{4})AprilS([12])$/, // YYYY"AprilS"[1/2]
         rank: 7,
-        factor: 2,
-        idGenerator: (interval) => `${interval.start.year}AprilS${Math.floor(interval.start.quarter / 2)}`,
-        nameGenerator: (interval) => `${interval.start.toFormat(`MM yyyy`)} - ${interval.end.toFormat(`MM yyyy`)}`,
+        factor: 6,
+        offset: {
+            unit: "month",
+            value: 3
+        },
+        idGenerator: (interval) => `${interval.start.year}AprilS${Math.ceil(interval.start.quarter / 2)}`,
+        nameGenerator: (interval) => `${interval.start.monthLong} - ${interval.end.monthLong} ${interval.start.toFormat(`yyyy`)}` //TODO: Fix issues with naming of the periods when they are of different years
     },
     {
         id: PeriodTypeEnum.YEARLY,
@@ -166,7 +186,12 @@ export const FIXED_PERIOD_TYPES: PeriodTypeInterface[] = [
         type: PeriodTypeTypes.FIXED,
         unit: "year",
         regex: /^([0-9]{4})Nov$/, // YYYY"Nov"
-        rank: 8, idGenerator: (interval) => `${interval.start.year}Nov`,
+        rank: 8,
+        offset: {
+            unit: "month",
+            value: 10
+        },
+        idGenerator: (interval) => `${interval.start.year}Nov`,
         nameGenerator: (interval) => `${interval.start.toFormat(`MM yyyy`)} - ${interval.end.toFormat(`MM yyyy`)}`,
     },
     {
@@ -176,6 +201,10 @@ export const FIXED_PERIOD_TYPES: PeriodTypeInterface[] = [
         unit: "year",
         regex: /^([0-9]{4})Oct$/, // YYYY"Oct"
         rank: 8,
+        offset: {
+            unit: "month",
+            value: 9
+        },
         idGenerator: (interval) => `${interval.start.year}Oct`,
         nameGenerator: (interval) => `${interval.start.toFormat(`MM yyyy`)} - ${interval.end.toFormat(`MM yyyy`)}`,
     },
@@ -186,6 +215,10 @@ export const FIXED_PERIOD_TYPES: PeriodTypeInterface[] = [
         unit: "year",
         regex: /^([0-9]{4})July$/, // YYYY"July"
         rank: 8,
+        offset: {
+            unit: "month",
+            value: 6
+        },
         idGenerator: (interval) => `${interval.start.year}July`,
         nameGenerator: (interval) => `${interval.start.toFormat(`MM yyyy`)} - ${interval.end.toFormat(`MM yyyy`)}`,
     },
@@ -196,7 +229,11 @@ export const FIXED_PERIOD_TYPES: PeriodTypeInterface[] = [
         unit: "year",
         regex: /^([0-9]{4})April$/, // YYYY"April",
         rank: 8,
+        offset: {
+            unit: "month",
+            value: 3
+        },
         idGenerator: (interval) => `${interval.start.year}April`,
-        nameGenerator: (interval) => `${interval.start.toFormat(`MM yyyy`)} - ${interval.end.toFormat(`MM yyyy`)}`,
+        nameGenerator: (interval) => `${interval.start.toFormat(`MMMM yyyy`)} - ${interval.end.toFormat(`MMMM yyyy`)}`,
     }
 ]

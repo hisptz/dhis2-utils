@@ -1,4 +1,4 @@
-import {DateInput, Duration, DurationLikeObject, Interval} from "luxon";
+import {DateTime, DurationLikeObject, Interval} from "luxon";
 import {Period} from "../models/period";
 
 export enum PeriodTypeTypes {
@@ -14,6 +14,10 @@ export interface PeriodTypeInterface {
     type: PeriodTypeTypes;
     rank: number;
     factor?: number;
+    offset?: {
+        unit: keyof DurationLikeObject;
+        value: number;
+    };
     idGenerator: (period: Period) => string;
     nameGenerator: (period: Period) => string;
 }
@@ -21,8 +25,8 @@ export interface PeriodTypeInterface {
 export interface PeriodInterface {
     id: string;
     name: string;
-    startDate: DateInput;
-    endDate: DateInput;
+    startDate: DateTime;
+    endDate: DateTime;
     type: string;
     iso: string;
     interval: Interval;
