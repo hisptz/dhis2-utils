@@ -1,7 +1,7 @@
 import {DateTime, DurationLikeObject, Interval} from "luxon";
-import {Period} from "../models/period";
+import {BasePeriod} from "../models/periods/basePeriod";
 
-export enum PeriodTypeTypes {
+export enum PeriodTypeCategory {
     FIXED = 'FIXED',
     RELATIVE = 'RELATIVE',
 }
@@ -10,16 +10,17 @@ export interface PeriodTypeInterface {
     id: string;
     name: string;
     unit: string;
-    regex: RegExp;
-    type: PeriodTypeTypes;
-    rank: number;
+    regex?: RegExp;
+    type: PeriodTypeCategory;
+    rank?: number;
     factor?: number;
     offset?: {
         unit: keyof DurationLikeObject;
         value: number;
     };
-    idGenerator: (period: Period) => string;
-    nameGenerator: (period: Period) => string;
+    idGenerator?: (period: BasePeriod) => string;
+    nameGenerator?: (period: BasePeriod) => string;
+    getPeriods?: () => { id: string; name: string }[];
 }
 
 export interface PeriodInterface {

@@ -1,27 +1,85 @@
-import {FIXED_PERIOD_TYPES} from "../constants";
-import {PeriodType} from "./periodType";
-import {PeriodPreference} from "../interfaces";
+import {FIXED_PERIOD_TYPES} from "../constants/fixed";
+import {BasePeriodType} from "./periodTypes/basePeriodType";
+import {PeriodPreference, PeriodTypeCategory} from "../interfaces";
+import {RELATIVE_PERIOD_TYPES} from "../constants/relative";
+import {FixedPeriodType} from "./periodTypes/fixedPeriodType";
+import {RelativePeriodType} from "./periodTypes/relativePeriodType";
 
 
 abstract class PeriodCategory {
     year: number;
-    preference?: PeriodPreference;
+    preference?: PeriodPreference = {allowFuturePeriods: false};
 
-    protected constructor(year: number, preference?: PeriodPreference) {
+    constructor(year: number, preference?: PeriodPreference) {
         this.year = year;
         this.preference = preference;
     }
 
-    abstract get periodTypes(): PeriodType[];
+    abstract get periodTypes(): BasePeriodType[];
 
 }
 
-
 export class FixedPeriods extends PeriodCategory {
-    get periodTypes(): PeriodType[] {
-        return FIXED_PERIOD_TYPES.map(periodTypeConfig => new PeriodType(periodTypeConfig, {
+    get periodTypes(): BasePeriodType[] {
+        return FIXED_PERIOD_TYPES.map(periodTypeConfig => new FixedPeriodType(periodTypeConfig, {
             year: this.year,
             preference: this.preference
         }))
+    }
+}
+
+export class RelativePeriods extends PeriodCategory {
+    get periodTypes(): BasePeriodType[] {
+        return RELATIVE_PERIOD_TYPES.map(periodTypeConfig => new RelativePeriodType(periodTypeConfig, this.preference ?? {allowFuturePeriods: false}))
+    }
+}
+
+export class PeriodUtility {
+    year: number = new Date().getFullYear();
+    preference: PeriodPreference = {
+        allowFuturePeriods: false,
+    }
+    category?: PeriodCategory;
+
+    constructor() {
+    }
+
+    get periodTypes(): BasePeriodType[] {
+        return this.category?.periodTypes ?? [];
+    }
+
+    static fromObject({
+                          year,
+                          preference,
+                          category
+                      }: { year: number, preference?: PeriodPreference; category: PeriodTypeCategory }): PeriodUtility {
+        const utility = new PeriodUtility();
+        utility.setYear(year);
+        utility.setCategory(category);
+        if (preference) {
+            utility.setPreference(preference);
+        }
+        return utility;
+    }
+
+    setCategory(category: PeriodTypeCategory): PeriodUtility {
+        switch (category) {
+            case PeriodTypeCategory.FIXED:
+                this.category = new FixedPeriods(this.year, this.preference);
+                break;
+            case PeriodTypeCategory.RELATIVE:
+                this.category = new RelativePeriods(this.year, this.preference);
+        }
+        return this;
+    }
+
+    setYear(year: number): PeriodUtility {
+        this.year = year;
+        return this;
+    }
+
+    setPreference(preference: PeriodPreference): PeriodUtility {
+        this.preference = preference;
+        return this;
     }
 }

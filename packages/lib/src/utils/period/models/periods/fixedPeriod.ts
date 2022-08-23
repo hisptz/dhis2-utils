@@ -1,15 +1,24 @@
-import {DateInput, DateTime, Duration, Interval} from "luxon";
-import {PeriodInterface, PeriodTypeInterface} from "../interfaces";
-import {PeriodType} from "./periodType";
+import {PeriodInterface, PeriodTypeInterface} from "../../interfaces";
+import {DateTime, Interval} from "luxon";
+import {BasePeriod} from "./basePeriod";
 
-
-export class Period {
+export class FixedPeriod extends BasePeriod {
     id: string;
     name: string;
     type: PeriodTypeInterface;
     start: DateTime;
     end: DateTime;
     interval: Interval;
+
+    constructor(interval: Interval, {type}: { type: PeriodTypeInterface }) {
+        super();
+        this.start = interval.start.startOf('day');
+        this.end = interval.end.endOf('day').minus({days: 1});
+        this.type = type;
+        this.interval = interval;
+        this.id = this._generateId();
+        this.name = this._generateName();
+    }
 
     get(): PeriodInterface | undefined {
         return this._generatePeriod();
@@ -39,19 +48,16 @@ export class Period {
     }
 
     private _generateId(): string {
-        return this.type.idGenerator(this);
+        if (this.type.idGenerator) {
+            return this.type.idGenerator(this);
+        }
+        return '';
     }
 
     private _generateName(): string {
-        return this.type.nameGenerator(this);
-    }
-
-    constructor(interval: Interval, {type}: { type: PeriodTypeInterface }) {
-        this.start = interval.start.startOf('day');
-        this.end = interval.end.endOf('day').minus({days: 1});
-        this.type = type;
-        this.interval = interval;
-        this.id = this._generateId();
-        this.name = this._generateName();
+        if (this.type.nameGenerator) {
+            return this.type.nameGenerator(this);
+        }
+        return '';
     }
 }
