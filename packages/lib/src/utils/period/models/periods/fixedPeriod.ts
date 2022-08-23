@@ -1,6 +1,9 @@
 import {PeriodInterface, PeriodTypeInterface} from "../../interfaces";
 import {DateTime, Interval} from "luxon";
 import {BasePeriod} from "./basePeriod";
+import {FIXED_PERIOD_TYPES} from "../../constants/fixed";
+import {head} from "lodash";
+import {FixedPeriodType} from "../periodTypes/fixedPeriodType";
 
 export class FixedPeriod extends BasePeriod {
     id: string;
@@ -59,5 +62,28 @@ export class FixedPeriod extends BasePeriod {
             return this.type.nameGenerator(this);
         }
         return '';
+    }
+
+    static getById(id: string): BasePeriod {
+        const periodTypeConfig = [...FIXED_PERIOD_TYPES].find((periodType: PeriodTypeInterface) => {
+            if (periodType.regex) {
+                return id.match(periodType.regex);
+            }
+        })
+        if (!periodTypeConfig) {
+            throw Error("Invalid/Unsupported period id provided")
+        }
+        const year = parseInt(head(id.match(/(\d{4})/)) ?? '')
+        if (year) {
+            const periodType = new FixedPeriodType(periodTypeConfig, {year})
+            const periods = periodType.periods;
+
+            const period = periods.find(period => period.id === id);
+            if (!period) {
+                throw Error("Invalid/Unsupported fixed period id provided")
+            }
+            return period;
+        }
+        throw "Invalid/Unsupported period id"
     }
 }

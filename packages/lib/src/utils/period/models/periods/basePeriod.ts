@@ -1,7 +1,6 @@
 import {DateTime, Interval} from "luxon";
 import {PeriodInterface, PeriodTypeInterface} from "../../interfaces";
 
-
 export abstract class BasePeriod {
     abstract id: string;
     abstract name: string;
@@ -13,8 +12,3 @@ export abstract class BasePeriod {
     abstract get(): PeriodInterface | undefined;
 
 }
-
-
-
-
-

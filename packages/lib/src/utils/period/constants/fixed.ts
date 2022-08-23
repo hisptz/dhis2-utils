@@ -214,5 +214,5 @@ export const FIXED_PERIOD_TYPES: PeriodTypeInterface[] = [
         },
         idGenerator: (interval) => `${interval.start.year}April`,
         nameGenerator: (interval) => `${interval.start.toFormat(`MMMM yyyy`)} - ${interval.end.toFormat(`MMMM yyyy`)}`,
-    }
-]
+    },
+];

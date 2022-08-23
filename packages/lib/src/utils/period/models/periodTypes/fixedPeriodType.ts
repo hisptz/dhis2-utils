@@ -40,4 +40,7 @@ export class FixedPeriodType extends BasePeriodType {
             return new FixedPeriod(interval, {type: this.config})
         }));
     }
+
+
+
 }

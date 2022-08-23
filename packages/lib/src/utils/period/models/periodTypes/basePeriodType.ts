@@ -32,7 +32,6 @@ export class BasePeriodType {
     get periods(): BasePeriod[] {
         return [];
     }
-
 }
 
 

@@ -1,6 +1,8 @@
 import {PeriodInterface, PeriodTypeInterface} from "../../interfaces";
 import {DateTime, Interval} from "luxon";
 import {BasePeriod} from "./basePeriod";
+import {FIXED_PERIOD_TYPES} from "../../constants/fixed";
+import {RELATIVE_PERIOD_TYPES} from "../../constants/relative";
 
 export class RelativePeriod extends BasePeriod {
     id: string;
@@ -32,4 +34,28 @@ export class RelativePeriod extends BasePeriod {
         }
     };
 
+    static getById(id: string): RelativePeriod {
+        const periodTypeConfig = [...FIXED_PERIOD_TYPES, ...RELATIVE_PERIOD_TYPES].find((periodType: PeriodTypeInterface) => {
+
+            if (periodType.getPeriods) {
+                return periodType.getPeriods().find(periodObject => periodObject.id === id)
+            }
+        })
+        if (!periodTypeConfig) {
+            throw Error("Invalid/Unsupported period id provided")
+        }
+
+        if (periodTypeConfig.getPeriods) {
+            const periods = periodTypeConfig.getPeriods();
+            const periodObject = periods.find(period => period.id === id);
+
+            if (!periodObject) {
+                throw Error("Invalid/Unsupported relative period id provided")
+            }
+
+            return new RelativePeriod(periodObject, periodTypeConfig)
+        }
+
+        throw Error("Invalid/Unsupported period id provided")
+    }
 }

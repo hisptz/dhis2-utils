@@ -1,7 +1,8 @@
 import {PeriodPreference} from "../../interfaces";
-import {Settings} from "luxon";
+import {DateTime, Settings} from "luxon";
 import {PeriodTypeEnum} from "../../constants";
 import {FixedPeriodType} from "./fixedPeriodType";
+import {FixedPeriod} from "../periods/fixedPeriod";
 
 const year = 2021;
 
@@ -77,7 +78,7 @@ const fixedPeriodsTests = [
     {
         id: PeriodTypeEnum.FYAPR,
         description: "Financial Year April period type test",
-        periodIdTest:/^([0-9]{4})April$/,
+        periodIdTest: /^([0-9]{4})April$/,
         periodNameTest: /([A-za-z]+) (\d{4}) - ([A-za-z]+) (\d{4})/,
         noOfPeriods: 10,
     }
@@ -106,6 +107,26 @@ const fixedPeriodsWithOffsets = [
         weekDayStart: 7,
         description: "Starts on a sunday",
     }
+]
+
+const periodIdTest = [
+    {
+        test: "20220203",
+        value: {
+            id: "20220203",
+            startDate: DateTime.fromObject({
+                year: 2022,
+                day: 2,
+                month: 3
+            }).startOf('day'),
+            endDate: DateTime.fromObject({
+                year: 2022,
+                day: 2,
+                month: 3
+            }).endOf('day')
+        }
+    },
+
 ]
 
 
@@ -140,3 +161,17 @@ describe("Fixed Weekly Periods With Offsets Test", () => {
     })
 })
 
+describe("Get period by id tests", () => {
+
+    periodIdTest.forEach((test) => {
+        it(`should return period with id ${test.value.id}`, () => {
+            const period = FixedPeriod.getById(test.test);
+            console.log({
+                start: period.start.toLocaleString(),
+                end: period.end.toLocaleString()
+            });
+            expect(period.id).toBe(test.value.id);
+            expect(period.start.toMillis()).toBe(test.value.startDate.toMillis())
+        })
+    })
+})
