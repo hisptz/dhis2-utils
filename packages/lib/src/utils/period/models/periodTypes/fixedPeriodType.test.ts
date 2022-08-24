@@ -63,7 +63,7 @@ const fixedPeriodsTests = [
     },
     {
         id: PeriodTypeEnum.SIXMONTHLYAPR,
-        periodIdTest: /^([0-9]{4})S([12])$/,
+        periodIdTest: /^([0-9]{4})AprilS([12])$/,
         periodNameTest: /([A-za-z]+) - ([A-za-z]+) (\d{4})/,
         noOfPeriods: 2,
         description: "Six-Monthly Period type test",
@@ -237,10 +237,10 @@ describe("Fixed Period Test", () => {
             const periodNames = periods.map(period => period.name);
             expect(periodType.periods.length).toBe(test.noOfPeriods);
             periodIds.forEach(periodId => {
-                expect(periodId.match(test.periodIdTest)).toBeTruthy();
+                expect((periodId.match(test.periodIdTest)?.length ?? 0) > 1).toBe(true);
             });
             periodNames.forEach(periodName => {
-                expect(periodName.match(test.periodNameTest)).toBeTruthy();
+                expect((periodName.match(test.periodNameTest)?.length ?? 0) > 1).toBe(true);
             });
         });
     });
