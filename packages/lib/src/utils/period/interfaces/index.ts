@@ -1,17 +1,6 @@
 import {DateTime, DurationLikeObject, Interval} from "luxon";
 import {BasePeriod} from "../models";
-import {PeriodTypeEnum} from "../constants";
-
-
-/**
- * Categories of periods, currently supports
- - Fixed
- - Relative
- * */
-export enum PeriodTypeCategory {
-    FIXED = 'FIXED',
-    RELATIVE = 'RELATIVE',
-}
+import {PeriodTypeCategory, PeriodTypeEnum} from "../constants";
 
 
 export interface PeriodTypeInterface {
@@ -21,33 +10,33 @@ export interface PeriodTypeInterface {
     name: string;
     /** Period type unit (luxon) eg `days`, `months`, `years` e.t.c */
     unit: string;
-    /** A regular expression that can be used to test the id of a period that falls under this type */
+    /** A regular expression that can be used to test the id of a Period that falls under this type */
     regex?: RegExp;
     /** Either `FIXED`, `RELATIVE`*/
     type: PeriodTypeCategory;
-    /** Ranking of this period type to other period types */
+    /** Ranking of this Period type to other Period types */
     rank?: number;
     /** Used for specific periods whose interval spans over the specified unit,*/
     factor?: number;
-    /** Used for specific period types whose period calculation has offset from default starting dates of intervals*/
+    /** Used for specific Period types whose Period calculation has offset from default starting dates of intervals*/
     offset?: {
         /** Unit by which the periods should be offset*/
         unit: keyof DurationLikeObject;
         /** Value by which the specified unit should be offset to */
         value: number;
     };
-    /** A generator functions that returns a valid id for the given period when it is provided with the period interval
+    /** A generator functions that returns a valid id for the given Period when it is provided with the Period interval
      * @param [@link(Interval)]
      * @returns string
      * */
     idGenerator?: (period: BasePeriod) => string;
-    /** A generator functions that returns a valid id for the given period when it is provided with the period interval
+    /** A generator functions that returns a valid id for the given Period when it is provided with the Period interval
      * @param [@link(Interval)]
      * @returns string
      * */
     nameGenerator?: (period: BasePeriod) => string;
     /**
-     * For relative periods. Returns a list of period objects for the period type
+     * For relative periods. Returns a list of Period objects for the Period type
      *
      * @return periodObject
      *
@@ -56,36 +45,36 @@ export interface PeriodTypeInterface {
 }
 
 /**
- * The interface that defined a period payload obtained through the get() method in the period class
+ * The interface that defined a Period payload obtained through the get() method in the Period class
  *
  * */
 export interface PeriodInterface {
-    /** period id*/
+    /** Period id*/
     id: string;
-    /** period name*/
+    /** Period name*/
     name: string;
-    /** period start date in JS */
+    /** Period start date in JS */
     startDate: Date;
-    /** period end date in JS date*/
+    /** Period end date in JS date*/
     endDate: Date;
-    /** period start date in DateTime (luxon) object*/
+    /** Period start date in DateTime (luxon) object*/
     start: DateTime;
-    /** period end date in DateTime (luxon) object*/
+    /** Period end date in DateTime (luxon) object*/
     end: DateTime;
-    /** period type */
+    /** Period type */
     type: PeriodTypeEnum;
-    /** period iso (luxon) */
+    /** Period iso (luxon) */
     iso: string;
-    /** period interval (luxon) */
+    /** Period interval (luxon) */
     interval: Interval;
-    /** this period's previous period*/
+    /** this Period's previous Period*/
     previous?: PeriodInterface;
-    /** this period's next period*/
+    /** this Period's next Period*/
     next?: PeriodInterface;
 }
 
 export interface PeriodPreference {
-    /** allow the period utility instance to return future dates */
+    /** allow the Period utility instance to return future dates */
     allowFuturePeriods: boolean;
 }
 

@@ -1,9 +1,10 @@
 import {FIXED_PERIOD_TYPES} from "../constants/fixed";
 import {BasePeriodType, FixedPeriodType, RelativePeriodType} from "./periodTypes";
-import {PeriodPreference, PeriodTypeCategory} from "../interfaces";
+import {PeriodPreference} from "../interfaces";
 import {RELATIVE_PERIOD_TYPES} from "../constants/relative";
 import {BasePeriod, FixedPeriod, RelativePeriod} from "./periods";
 import {isEmpty} from "lodash";
+import {PeriodTypeCategory} from "../constants";
 
 
 abstract class PeriodCategory {
@@ -36,7 +37,7 @@ export class RelativePeriods extends PeriodCategory {
 
 
 /**
- * This is the main class in period utility. To use it, create an object through the constructor, then set the year and preference if any
+ * This is the main class in Period utility. To use it, create an object through the constructor, then set the year and preference if any
  * */
 export class PeriodUtility {
     year: number = new Date().getFullYear();
@@ -49,7 +50,7 @@ export class PeriodUtility {
     }
 
     /**
-     * Gets the all period types within the specified category
+     * Gets the all Period types within the specified category
      * @returns [@link(BasePeriodType[])]
      * */
     get periodTypes(): BasePeriodType[] {
@@ -76,7 +77,7 @@ export class PeriodUtility {
     }
 
     /**
-     * Gets the period category from id
+     * Gets the Period category from id
      * @param periodId
      * @return [@link(PeriodTypeCategory)]
      *
@@ -90,8 +91,8 @@ export class PeriodUtility {
     }
 
     /**
-     * Get a period from its id
-     * @param id - period id
+     * Get a Period from its id
+     * @param id - Period id
      * @return [@link(BasePeriod)]
      *
      * */
@@ -103,13 +104,13 @@ export class PeriodUtility {
             case PeriodTypeCategory.RELATIVE:
                 return RelativePeriod.getById(id);
             default:
-                throw "Invalid/Unsupported period id"
+                throw "Invalid/Unsupported Period id"
         }
 
     }
 
     /**
-     * Sets the period category
+     * Returns the period instance of the specified period id
      * @param category
      * @return [@link(PeriodUtility)]
      *
@@ -126,7 +127,7 @@ export class PeriodUtility {
     }
 
     /**
-     * Sets the period year
+     * Sets the Period year
      * @param year
      * @return [@link(PeriodUtility)]
      *
@@ -137,7 +138,7 @@ export class PeriodUtility {
     }
 
     /**
-     * Sets the period preferences
+     * Sets the Period preferences
      * @param preference
      * @return [@link(PeriodUtility)]
      *
@@ -148,7 +149,7 @@ export class PeriodUtility {
     }
 
     /**
-     * Sets the period category
+     * Sets the Period category
      * @param periodTypeId
      * @return [@link(BasePeriodType)]
      *

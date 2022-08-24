@@ -1,6 +1,5 @@
-
 /**
- * This contains list of currently supported period types
+ * This contains list of currently supported Period types
  * */
 export enum PeriodTypeEnum {
     DAILY = 'DAILY',
@@ -22,4 +21,14 @@ export enum PeriodTypeEnum {
     FYOCT = 'FYOCT',
     FYJUL = 'FYJUL',
     FYAPR = 'FYAPR',
+}
+
+/**
+ * Categories of periods, currently supports
+ - Fixed
+ - Relative
+ * */
+export enum PeriodTypeCategory {
+    FIXED = 'FIXED',
+    RELATIVE = 'RELATIVE',
 }

@@ -1,7 +1,7 @@
-import {PeriodTypeCategory, PeriodTypeInterface} from "../interfaces";
+import {PeriodTypeInterface} from "../interfaces";
 import i18n from '@dhis2/d2-i18n';
 import {padStart} from "lodash";
-import {PeriodTypeEnum} from "./index";
+import {PeriodTypeCategory, PeriodTypeEnum} from "./index";
 
 
 export const FIXED_PERIOD_TYPES: PeriodTypeInterface[] = [

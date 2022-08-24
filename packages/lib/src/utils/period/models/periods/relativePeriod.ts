@@ -44,7 +44,7 @@ export class RelativePeriod extends BasePeriod {
             }
         })
         if (!periodTypeConfig) {
-            throw Error("Invalid/Unsupported period id provided")
+            throw Error("Invalid/Unsupported Period id provided")
         }
 
         if (periodTypeConfig.getPeriods) {
@@ -52,12 +52,12 @@ export class RelativePeriod extends BasePeriod {
             const periodObject = periods.find(period => period.id === id);
 
             if (!periodObject) {
-                throw Error("Invalid/Unsupported relative period id provided")
+                throw Error("Invalid/Unsupported relative Period id provided")
             }
 
             return new RelativePeriod(periodObject, periodTypeConfig)
         }
 
-        throw Error("Invalid/Unsupported period id provided")
+        throw Error("Invalid/Unsupported Period id provided")
     }
 }

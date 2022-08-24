@@ -1,8 +1,8 @@
 import {PeriodUtility} from "./models";
-import {PeriodTypeCategory} from "./interfaces";
+import {PeriodTypeCategory} from "./constants";
 
 
-describe("Instantiate period utility class for fixed periods", () => {
+describe("Instantiate Period utility class for fixed periods", () => {
     const periodUtility = PeriodUtility.fromObject({
         year: 2021,
         preference: {
@@ -14,7 +14,7 @@ describe("Instantiate period utility class for fixed periods", () => {
         expect(periodUtility.periodTypes.length).toBe(17)
     })
 })
-describe("Instantiate period utility class for relative periods", () => {
+describe("Instantiate Period utility class for relative periods", () => {
     const periodUtility = PeriodUtility.fromObject({
         year: 2021,
         preference: {
@@ -26,7 +26,7 @@ describe("Instantiate period utility class for relative periods", () => {
         expect(periodUtility.periodTypes.length).toBe(9)
     })
 })
-describe("Get period by id", ()=>{
+describe("Get Period by id", ()=>{
     const fixedPeriod = PeriodUtility.getPeriodById('20220203');
     const relativePeriod = PeriodUtility.getPeriodById('LAST_MONTH');
 

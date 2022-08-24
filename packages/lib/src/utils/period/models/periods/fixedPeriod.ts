@@ -73,7 +73,7 @@ export class FixedPeriod extends BasePeriod {
             }
         })
         if (!periodTypeConfig) {
-            throw Error("Invalid/Unsupported period id provided")
+            throw Error("Invalid/Unsupported Period id provided")
         }
         const year = parseInt(head(id.match(/(\d{4})/)) ?? '')
         if (year) {
@@ -82,10 +82,10 @@ export class FixedPeriod extends BasePeriod {
 
             const period = periods.find(period => period.id === id);
             if (!period) {
-                throw Error("Invalid/Unsupported fixed period id provided")
+                throw Error("Invalid/Unsupported fixed Period id provided")
             }
             return period;
         }
-        throw "Invalid/Unsupported period id"
+        throw "Invalid/Unsupported Period id"
     }
 }

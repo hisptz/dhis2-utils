@@ -3,7 +3,7 @@ import {PeriodInterface, PeriodTypeInterface} from "../../interfaces";
 
 
 /**
- * Abstract period class to be implemented by period classes
+ * Abstract Period class to be implemented by Period classes
  * */
 export abstract class BasePeriod {
     abstract id: string;

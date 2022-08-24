@@ -17,67 +17,67 @@ const fixedPeriodsTests = [
         periodIdTest: /^([0-9]{4})([0-9]{2})([0-9]{2})$/,
         periodNameTest: /([0-9]{4})-([0-9]{2})-([0-9]{2})/,
         noOfPeriods: 365,
-        description: "Daily period type test",
+        description: "Daily Period type test",
     },
     {
         id: PeriodTypeEnum.WEEKLY,
         periodIdTest: /^([0-9]{4})()W([0-9]{1,2})$/,
         periodNameTest: /Week ([0-9]+) ([0-9]{4})-([0-9]{2})-([0-9]{2}) - ([0-9]{4})-([0-9]{2})-([0-9]{2})/,
         noOfPeriods: 52,
-        description: "Weekly period type test",
+        description: "Weekly Period type test",
     },
     {
         id: PeriodTypeEnum.BIWEEKLY,
         periodIdTest: /^([0-9]{4})BiW([0-9]{1,2})$/,
         periodNameTest: /Bi-Week ([0-9]+) ([0-9]{4})-([0-9]{2})-([0-9]{2}) - ([0-9]{4})-([0-9]{2})-([0-9]{2})/,
         noOfPeriods: Math.ceil(52 / 2),
-        description: "Bi-Weekly period type test",
+        description: "Bi-Weekly Period type test",
     },
     {
         id: PeriodTypeEnum.MONTHLY,
         periodIdTest: /^([0-9]{4})([0-9]{2})$/,
         periodNameTest: /^([A-Za-z])+ ([0-9]{4})$/,
         noOfPeriods: 12,
-        description: "Monthly period type test",
+        description: "Monthly Period type test",
     },
     {
         id: PeriodTypeEnum.BIMONTHLY,
         periodIdTest: /^([0-9]{4})([0-9]{2})B$/,
         periodNameTest: /([A-za-z]+) - ([A-za-z]+) (\d{4})/,
         noOfPeriods: 6,
-        description: "Bi-Monthly period type test",
+        description: "Bi-Monthly Period type test",
     },
     {
         id: PeriodTypeEnum.QUARTERLY,
         periodIdTest: /^([0-9]{4})Q([1234])$/,
         periodNameTest: /([A-za-z]+) - ([A-za-z]+) (\d{4})/,
         noOfPeriods: 4,
-        description: "Quarterly period type test",
+        description: "Quarterly Period type test",
     },
     {
         id: PeriodTypeEnum.SIXMONTHLY,
         periodIdTest: /^([0-9]{4})S([12])$/,
         periodNameTest: /([A-za-z]+) - ([A-za-z]+) (\d{4})/,
         noOfPeriods: 2,
-        description: "Six-Monthly period type test",
+        description: "Six-Monthly Period type test",
     },
     {
         id: PeriodTypeEnum.SIXMONTHLYAPR,
         periodIdTest: /^([0-9]{4})S([12])$/,
         periodNameTest: /([A-za-z]+) - ([A-za-z]+) (\d{4})/,
         noOfPeriods: 2,
-        description: "Six-Monthly period type test",
+        description: "Six-Monthly Period type test",
     },
     {
         id: PeriodTypeEnum.YEARLY,
         periodIdTest: /^([0-9]{4})$/,
         periodNameTest: /(\d{4})/,
         noOfPeriods: 10,
-        description: "Yearly period type test",
+        description: "Yearly Period type test",
     },
     {
         id: PeriodTypeEnum.FYAPR,
-        description: "Financial Year April period type test",
+        description: "Financial Year April Period type test",
         periodIdTest: /^([0-9]{4})April$/,
         periodNameTest: /([A-za-z]+) (\d{4}) - ([A-za-z]+) (\d{4})/,
         noOfPeriods: 10,
@@ -256,7 +256,7 @@ describe("Fixed Weekly Periods With Offsets Test", () => {
     })
 })
 
-describe("Get period by id tests", () => {
+describe("Get Period by id tests", () => {
     periodIdTest.forEach((test) => {
         it(`should return period with id ${test.value.id}`, () => {
             const period = FixedPeriod.getById(test.test);

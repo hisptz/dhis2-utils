@@ -1,6 +1,6 @@
 import i18n from '@dhis2/d2-i18n';
-import {PeriodTypeEnum} from "./index";
-import {PeriodTypeCategory, PeriodTypeInterface} from "../interfaces";
+import {PeriodTypeCategory, PeriodTypeEnum} from "./index";
+import {PeriodTypeInterface} from "../interfaces";
 
 const getDaysPeriodType = () => [
     {id: 'TODAY', name: i18n.t('Today')},
