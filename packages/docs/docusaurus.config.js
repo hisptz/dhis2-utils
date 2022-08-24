@@ -8,7 +8,7 @@ const config = {
     title: 'DHIS2 Utils Documentation',
     tagline: 'Reusable utilities for DHIS2',
     url: 'https://hisptz.github.io',
-    baseUrl: '/',
+    baseUrl: '/dhis2-utils/',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
     favicon: 'img/favicon.ico',
