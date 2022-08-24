@@ -1,6 +1,5 @@
 import {PeriodUtility} from "./models";
 import {PeriodTypeCategory} from "./interfaces";
-import {PeriodTypeEnum} from "./constants";
 
 
 describe("Instantiate period utility class for fixed periods", () => {
@@ -27,11 +26,6 @@ describe("Instantiate period utility class for relative periods", () => {
         expect(periodUtility.periodTypes.length).toBe(9)
     })
 })
-
-describe("Get period type by id", () => {
-    const periodType = new PeriodUtility().setCategory(PeriodTypeCategory.FIXED).setYear(2022).getPeriodType(PeriodTypeEnum.WEEKLYSAT);
-})
-
 describe("Get period by id", ()=>{
     const fixedPeriod = PeriodUtility.getPeriodById('20220203');
     const relativePeriod = PeriodUtility.getPeriodById('LAST_MONTH');

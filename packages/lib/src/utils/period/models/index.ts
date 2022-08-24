@@ -1,12 +1,8 @@
 import {FIXED_PERIOD_TYPES} from "../constants/fixed";
-import {BasePeriodType} from "./periodTypes/basePeriodType";
+import {BasePeriodType, FixedPeriodType, RelativePeriodType} from "./periodTypes";
 import {PeriodPreference, PeriodTypeCategory} from "../interfaces";
 import {RELATIVE_PERIOD_TYPES} from "../constants/relative";
-import {FixedPeriodType} from "./periodTypes/fixedPeriodType";
-import {RelativePeriodType} from "./periodTypes/relativePeriodType";
-import {BasePeriod} from "./periods/basePeriod";
-import {FixedPeriod} from "./periods/fixedPeriod";
-import {RelativePeriod} from "./periods/relativePeriod";
+import {BasePeriod, FixedPeriod, RelativePeriod} from "./periods";
 import {isEmpty} from "lodash";
 
 
@@ -31,7 +27,6 @@ export class FixedPeriods extends PeriodCategory {
         }))
     }
 }
-
 export class RelativePeriods extends PeriodCategory {
     get periodTypes(): BasePeriodType[] {
         return RELATIVE_PERIOD_TYPES.map(periodTypeConfig => new RelativePeriodType(periodTypeConfig, this.preference ?? {allowFuturePeriods: false}))
@@ -112,3 +107,7 @@ export class PeriodUtility {
 
     }
 }
+
+
+export * from "./periods";
+export * from "./periodTypes";
