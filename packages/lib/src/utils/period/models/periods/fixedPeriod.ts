@@ -32,12 +32,14 @@ export class FixedPeriod extends BasePeriod {
             id: this.id,
             type: this.type.id,
             name: this.name,
-            endDate: this.end,
+            end: this.end,
+            endDate: this.end.toJSDate(),
             interval: this.interval,
             iso: this.interval.toISO(),
             next: undefined,
             previous: undefined,
-            startDate: this.start,
+            start: this.start,
+            startDate: this.start.toJSDate(),
 
         }
     }

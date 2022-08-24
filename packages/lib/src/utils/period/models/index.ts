@@ -27,12 +27,17 @@ export class FixedPeriods extends PeriodCategory {
         }))
     }
 }
+
 export class RelativePeriods extends PeriodCategory {
     get periodTypes(): BasePeriodType[] {
         return RELATIVE_PERIOD_TYPES.map(periodTypeConfig => new RelativePeriodType(periodTypeConfig, this.preference ?? {allowFuturePeriods: false}))
     }
 }
 
+
+/**
+ * This is the main class in period utility. To use it, create an object through the constructor, then set the year and preference if any
+ * */
 export class PeriodUtility {
     year: number = new Date().getFullYear();
     preference: PeriodPreference = {
@@ -43,10 +48,19 @@ export class PeriodUtility {
     constructor() {
     }
 
+    /**
+     * Gets the all period types within the specified category
+     * @returns [@link(BasePeriodType[])]
+     * */
     get periodTypes(): BasePeriodType[] {
         return this.category?.periodTypes ?? [];
     }
 
+    /**
+     * Instantiates this class with an object containing year, category, and preference. Can be used instead of the respective setters.
+     * @param optionObject - an object with year, preference, and category
+     *@returns [@link(PeriodUtility)]
+     * */
     static fromObject({
                           year,
                           preference,
@@ -61,31 +75,12 @@ export class PeriodUtility {
         return utility;
     }
 
-    setCategory(category: PeriodTypeCategory): PeriodUtility {
-        switch (category) {
-            case PeriodTypeCategory.FIXED:
-                this.category = new FixedPeriods(this.year, this.preference);
-                break;
-            case PeriodTypeCategory.RELATIVE:
-                this.category = new RelativePeriods(this.year, this.preference);
-        }
-        return this;
-    }
-
-    setYear(year: number): PeriodUtility {
-        this.year = year;
-        return this;
-    }
-
-    setPreference(preference: PeriodPreference): PeriodUtility {
-        this.preference = preference;
-        return this;
-    }
-
-    getPeriodType(periodTypeId: string): BasePeriodType | undefined {
-        return this.periodTypes.find(type => type.id === periodTypeId)
-    }
-
+    /**
+     * Gets the period category from id
+     * @param periodId
+     * @return [@link(PeriodTypeCategory)]
+     *
+     * */
     static getPeriodCategoryFromPeriodId(id: string): PeriodTypeCategory {
         if (!isEmpty(id.match(/(\d{4})/))) {
             return PeriodTypeCategory.FIXED;
@@ -94,6 +89,12 @@ export class PeriodUtility {
         }
     }
 
+    /**
+     * Get a period from its id
+     * @param id - period id
+     * @return [@link(BasePeriod)]
+     *
+     * */
     static getPeriodById(id: string): BasePeriod {
         const periodCategory = this.getPeriodCategoryFromPeriodId(id);
         switch (periodCategory) {
@@ -106,8 +107,56 @@ export class PeriodUtility {
         }
 
     }
-}
 
+    /**
+     * Sets the period category
+     * @param category
+     * @return [@link(PeriodUtility)]
+     *
+     * */
+    setCategory(category: PeriodTypeCategory): PeriodUtility {
+        switch (category) {
+            case PeriodTypeCategory.FIXED:
+                this.category = new FixedPeriods(this.year, this.preference);
+                break;
+            case PeriodTypeCategory.RELATIVE:
+                this.category = new RelativePeriods(this.year, this.preference);
+        }
+        return this;
+    }
+
+    /**
+     * Sets the period year
+     * @param year
+     * @return [@link(PeriodUtility)]
+     *
+     * */
+    setYear(year: number): PeriodUtility {
+        this.year = year;
+        return this;
+    }
+
+    /**
+     * Sets the period preferences
+     * @param preference
+     * @return [@link(PeriodUtility)]
+     *
+     * */
+    setPreference(preference: PeriodPreference): PeriodUtility {
+        this.preference = preference;
+        return this;
+    }
+
+    /**
+     * Sets the period category
+     * @param periodTypeId
+     * @return [@link(BasePeriodType)]
+     *
+     * */
+    getPeriodType(periodTypeId: string): BasePeriodType | undefined {
+        return this.periodTypes.find(type => type.id === periodTypeId)
+    }
+}
 
 export * from "./periods";
 export * from "./periodTypes";

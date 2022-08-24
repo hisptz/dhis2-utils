@@ -27,8 +27,10 @@ export class RelativePeriod extends BasePeriod {
             id: this.id,
             name: this.name,
             type: this.type.id,
-            startDate: this.start,
-            endDate: this.end,
+            startDate: this.start.toJSDate(),
+            endDate: this.end.toJSDate(),
+            start: this.start,
+            end: this.end,
             iso: this.interval.toISO(),
             interval: this.interval,
         }

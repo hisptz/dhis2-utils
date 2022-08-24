@@ -1,3 +1,7 @@
+
+/**
+ * This contains list of currently supported period types
+ * */
 export enum PeriodTypeEnum {
     DAILY = 'DAILY',
     WEEKLY = 'WEEKLY',
