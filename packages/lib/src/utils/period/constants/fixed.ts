@@ -89,8 +89,8 @@ export const FIXED_PERIOD_TYPES: PeriodTypeInterface[] = [
         regex: /^([0-9]{4})BiW([0-9]{1,2})$/, // YYYY"BiW"[1-27]
         rank: 3,
         factor: 2,
-        idGenerator: (interval) => `${interval.start.toFormat('yyyy')}BiW${Math.floor(interval.start.weekNumber / 2)}`,
-        nameGenerator: (interval) => `${i18n.t("Bi-Week")} ${interval.start.weekNumber} ${interval.start.toFormat(`yyyy-MM-dd`)} - ${interval.end.toFormat(`yyyy-MM-dd`)}`,
+        idGenerator: (interval) => `${interval.start.toFormat('yyyy')}BiW${Math.ceil(interval.start.weekNumber / 2)}`,
+        nameGenerator: (interval) => `${i18n.t("Bi-Week")} ${Math.ceil(interval.start.weekNumber / 2)} ${interval.start.toFormat(`yyyy-MM-dd`)} - ${interval.end.toFormat(`yyyy-MM-dd`)}`,
     },
     {
         id: PeriodTypeEnum.MONTHLY,

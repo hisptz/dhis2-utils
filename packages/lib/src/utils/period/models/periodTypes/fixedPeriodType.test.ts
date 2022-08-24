@@ -116,17 +116,112 @@ const periodIdTest = [
             id: "20220203",
             startDate: DateTime.fromObject({
                 year: 2022,
-                day: 2,
-                month: 3
+                day: 3,
+                month: 2
             }).startOf('day'),
             endDate: DateTime.fromObject({
                 year: 2022,
-                day: 2,
-                month: 3
+                day: 3,
+                month: 2
             }).endOf('day')
         }
     },
-
+    {
+        test: "2022W1",
+        value: {
+            id: "2022W1",
+            startDate: DateTime.fromObject({
+                year: 2022,
+                day: 3,
+                month: 1
+            }).startOf('day'),
+            endDate: DateTime.fromObject({
+                year: 2022,
+                day: 9,
+                month: 1
+            }).endOf('day')
+        }
+    },
+    {
+        test: "2022WedW1",
+        value: {
+            id: "2022WedW1",
+            startDate: DateTime.fromObject({
+                year: 2022,
+                day: 5,
+                month: 1
+            }).startOf('day'),
+            endDate: DateTime.fromObject({
+                year: 2022,
+                day: 11,
+                month: 1
+            }).endOf('day')
+        }
+    },
+    {
+        test: "2022ThuW1",
+        value: {
+            id: "2022ThuW1",
+            startDate: DateTime.fromObject({
+                year: 2022,
+                day: 6,
+                month: 1
+            }).startOf('day'),
+            endDate: DateTime.fromObject({
+                year: 2022,
+                day: 12,
+                month: 1
+            }).endOf('day')
+        }
+    },
+    {
+        test: "2022SatW1",
+        value: {
+            id: "2022SatW1",
+            startDate: DateTime.fromObject({
+                year: 2022,
+                day: 8,
+                month: 1
+            }).startOf('day'),
+            endDate: DateTime.fromObject({
+                year: 2022,
+                day: 14,
+                month: 1
+            }).endOf('day')
+        }
+    },
+    {
+        test: "2022SunW1",
+        value: {
+            id: "2022SunW1",
+            startDate: DateTime.fromObject({
+                year: 2022,
+                day: 9,
+                month: 1
+            }).startOf('day'),
+            endDate: DateTime.fromObject({
+                year: 2022,
+                day: 15,
+                month: 1
+            }).endOf('day')
+        }
+    },
+    {
+        test: "2022BiW1",
+        value: {
+            id: "2022BiW1",
+            startDate: DateTime.fromObject({
+                year: 2022,
+                day: 3,
+                month: 1
+            }).startOf('day'),
+            endDate: DateTime.fromObject({
+                year: 2022,
+                day: 16,
+                month: 1
+            }).endOf('day')
+        }
+    },
 ]
 
 
@@ -156,22 +251,18 @@ describe("Fixed Weekly Periods With Offsets Test", () => {
         const periodType = FixedPeriodType.getFromId(test.id, {year, preference});
         const periods = periodType.periods;
         periods.forEach(period => {
-            // expect(period.startDate.weekday).toBe(test.weekDayStart);
+            expect(period.start.weekday).toBe(test.weekDayStart);
         })
     })
 })
 
 describe("Get period by id tests", () => {
-
     periodIdTest.forEach((test) => {
         it(`should return period with id ${test.value.id}`, () => {
             const period = FixedPeriod.getById(test.test);
-            console.log({
-                start: period.start.toLocaleString(),
-                end: period.end.toLocaleString()
-            });
             expect(period.id).toBe(test.value.id);
             expect(period.start.toMillis()).toBe(test.value.startDate.toMillis())
+            expect(period.end.toMillis()).toBe(test.value.endDate.toMillis())
         })
     })
 })

@@ -82,4 +82,8 @@ export class PeriodUtility {
         this.preference = preference;
         return this;
     }
+
+    getPeriodType(periodTypeId: string): BasePeriodType | undefined {
+        return this.periodTypes.find(type => type.id === periodTypeId)
+    }
 }

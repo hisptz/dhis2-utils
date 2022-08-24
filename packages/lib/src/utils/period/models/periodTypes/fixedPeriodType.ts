@@ -26,7 +26,8 @@ export class FixedPeriodType extends BasePeriodType {
         let startDate = this.start;
         let endDate = this.end;
         if ([2, 3].includes(config.rank ?? -1)) {
-            startDate = startDate.startOf('week');
+            //The code below offsets the start date to start on the start of a week (default: Monday), only applied to weekly periods
+            startDate = startDate.plus({day: (7 - startDate.weekday) + 1});
         }
         if (config.offset) {
             const unit = this.config.offset?.unit ?? this.config.unit;
@@ -40,7 +41,6 @@ export class FixedPeriodType extends BasePeriodType {
             return new FixedPeriod(interval, {type: this.config})
         }));
     }
-
 
 
 }
