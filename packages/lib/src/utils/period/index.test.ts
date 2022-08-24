@@ -31,3 +31,11 @@ describe("Instantiate period utility class for relative periods", () => {
 describe("Get period type by id", () => {
     const periodType = new PeriodUtility().setCategory(PeriodTypeCategory.FIXED).setYear(2022).getPeriodType(PeriodTypeEnum.WEEKLYSAT);
 })
+
+describe("Get period by id", ()=>{
+    const fixedPeriod = PeriodUtility.getPeriodById('20220203');
+    const relativePeriod = PeriodUtility.getPeriodById('LAST_MONTH');
+
+    expect(fixedPeriod.type.type).toBe(PeriodTypeCategory.FIXED)
+    expect(relativePeriod.type.type).toBe(PeriodTypeCategory.RELATIVE)
+})

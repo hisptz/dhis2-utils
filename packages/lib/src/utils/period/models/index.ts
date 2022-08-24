@@ -4,6 +4,10 @@ import {PeriodPreference, PeriodTypeCategory} from "../interfaces";
 import {RELATIVE_PERIOD_TYPES} from "../constants/relative";
 import {FixedPeriodType} from "./periodTypes/fixedPeriodType";
 import {RelativePeriodType} from "./periodTypes/relativePeriodType";
+import {BasePeriod} from "./periods/basePeriod";
+import {FixedPeriod} from "./periods/fixedPeriod";
+import {RelativePeriod} from "./periods/relativePeriod";
+import {isEmpty} from "lodash";
 
 
 abstract class PeriodCategory {
@@ -85,5 +89,26 @@ export class PeriodUtility {
 
     getPeriodType(periodTypeId: string): BasePeriodType | undefined {
         return this.periodTypes.find(type => type.id === periodTypeId)
+    }
+
+    static getPeriodCategoryFromPeriodId(id: string): PeriodTypeCategory {
+        if (!isEmpty(id.match(/(\d{4})/))) {
+            return PeriodTypeCategory.FIXED;
+        } else {
+            return PeriodTypeCategory.RELATIVE;
+        }
+    }
+
+    static getPeriodById(id: string): BasePeriod {
+        const periodCategory = this.getPeriodCategoryFromPeriodId(id);
+        switch (periodCategory) {
+            case PeriodTypeCategory.FIXED:
+                return FixedPeriod.getById(id);
+            case PeriodTypeCategory.RELATIVE:
+                return RelativePeriod.getById(id);
+            default:
+                throw "Invalid/Unsupported period id"
+        }
+
     }
 }
