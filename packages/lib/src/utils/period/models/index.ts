@@ -31,7 +31,6 @@ export class FixedPeriods extends PeriodCategory {
         }))
     }
 }
-
 export class RelativePeriods extends PeriodCategory {
     get periodTypes(): BasePeriodType[] {
         return RELATIVE_PERIOD_TYPES.map(periodTypeConfig => new RelativePeriodType(periodTypeConfig, this.preference ?? {allowFuturePeriods: false}))
@@ -112,3 +111,7 @@ export class PeriodUtility {
 
     }
 }
+
+
+export * from "./periods";
+export * from "./periodTypes";
