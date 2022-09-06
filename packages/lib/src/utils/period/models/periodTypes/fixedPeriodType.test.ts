@@ -82,8 +82,6 @@ const fixedPeriodsTests = [
         periodNameTest: /([A-za-z]+) (\d{4}) - ([A-za-z]+) (\d{4})/,
         noOfPeriods: 10,
     }
-
-
 ]
 
 const fixedPeriodsWithOffsets = [

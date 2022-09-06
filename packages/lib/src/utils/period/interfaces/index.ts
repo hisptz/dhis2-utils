@@ -78,3 +78,20 @@ export interface PeriodPreference {
     allowFuturePeriods: boolean;
 }
 
+
+export interface DateTimeConfiguration{
+    calendar?: CalendarType;
+    locale?: string;
+}
+
+export type CalendarType =
+    "ethioaa"
+    | "ethiopic"
+    | "hebrew"
+    | "indian"
+    | "islamic"
+    | "islamicc"
+    | "iso8601"
+    | "japanese"
+    | "persian"
+    | "roc"

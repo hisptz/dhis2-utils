@@ -12,8 +12,9 @@ export class FixedPeriod extends BasePeriod {
     start: DateTime;
     end: DateTime;
     interval: Interval;
+    nested: boolean;
 
-    constructor(interval: Interval, {type}: { type: PeriodTypeInterface }) {
+    constructor(interval: Interval, {type, nested}: { type: PeriodTypeInterface; nested?: boolean }) {
         super();
         this.start = interval.start.startOf('day');
         this.end = interval.end.endOf('day').minus({days: 1});
@@ -21,6 +22,7 @@ export class FixedPeriod extends BasePeriod {
         this.interval = interval;
         this.id = this._generateId();
         this.name = this._generateName();
+        this.nested = nested ?? false;
     }
 
     get(): PeriodInterface | undefined {
@@ -36,8 +38,8 @@ export class FixedPeriod extends BasePeriod {
             endDate: this.end.toJSDate(),
             interval: this.interval,
             iso: this.interval.toISO(),
-            next: undefined,
-            previous: undefined,
+            next: this._getNextPeriod(),
+            previous: this._getPreviousPeriod(),
             start: this.start,
             startDate: this.start.toJSDate(),
 
@@ -45,11 +47,19 @@ export class FixedPeriod extends BasePeriod {
     }
 
     private _getPreviousPeriod(): PeriodInterface | undefined {
-        return;
+        if (this.nested) {
+            return;
+        }
+        const newInterval = Interval.before(this.interval.start, this.interval.toDuration().minus({day: 4}));
+        return new FixedPeriod(newInterval, {type: this.type, nested: true}).get();
     }
 
     private _getNextPeriod(): PeriodInterface | undefined {
-        return;
+        if (this.nested) {
+            return;
+        }
+        const newInterval = Interval.after(this.interval.end, this.interval.toDuration().minus({day: 4}));
+        return new FixedPeriod(newInterval, {type: this.type, nested: true}).get();
     }
 
     private _generateId(): string {

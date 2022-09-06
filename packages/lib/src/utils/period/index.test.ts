@@ -26,8 +26,8 @@ describe("Instantiate Period utility class for relative periods", () => {
         expect(periodUtility.periodTypes.length).toBe(9)
     })
 })
-describe("Get Period by id", ()=>{
-    const fixedPeriod = PeriodUtility.getPeriodById('20220203');
+describe("Get Period by id", () => {
+    const fixedPeriod = PeriodUtility.getPeriodById('2022Q3');
     const relativePeriod = PeriodUtility.getPeriodById('LAST_MONTH');
 
     expect(fixedPeriod.type.type).toBe(PeriodTypeCategory.FIXED)
