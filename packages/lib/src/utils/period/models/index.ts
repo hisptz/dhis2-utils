@@ -1,10 +1,11 @@
 import {FIXED_PERIOD_TYPES} from "../constants/fixed";
 import {BasePeriodType, FixedPeriodType, RelativePeriodType} from "./periodTypes";
-import {PeriodPreference} from "../interfaces";
+import {DateTimeConfiguration, PeriodPreference} from "../interfaces";
 import {RELATIVE_PERIOD_TYPES} from "../constants/relative";
 import {BasePeriod, FixedPeriod, RelativePeriod} from "./periods";
 import {isEmpty} from "lodash";
 import {PeriodTypeCategory} from "../constants";
+import {Settings} from "luxon";
 
 
 abstract class PeriodCategory {
@@ -35,6 +36,21 @@ export class RelativePeriods extends PeriodCategory {
     }
 }
 
+
+/**
+ * This function pre-sets DateTime configurations for all instances of DateTime
+ * @param configuration - Calendar type for all DateTime instances
+ * */
+export function initializePeriodUtility(configuration: DateTimeConfiguration): void {
+
+    if (configuration.calendar) {
+        Settings.defaultOutputCalendar = configuration.calendar;
+    }
+    if (configuration.locale) {
+        Settings.defaultLocale = configuration.locale;
+    }
+
+}
 
 /**
  * This is the main class in Period utility. To use it, create an object through the constructor, then set the year and preference if any
