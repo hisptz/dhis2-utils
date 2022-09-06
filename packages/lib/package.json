@@ -42,7 +42,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hisptz/dhis2-utis.git"
+    "url": "git+https://github.com/hisptz/dhis2-utils.git"
   },
   "author": "HISP Tanzania",
   "bugs": {

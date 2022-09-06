@@ -10,11 +10,12 @@ export class BasePeriodType {
     year: number;
     start: DateTime;
     end: DateTime;
+    preference?: PeriodPreference;
 
     constructor(config: PeriodTypeInterface, {
         year,
         start,
-        end
+        end, preference
     }: { year?: number, preference?: PeriodPreference, start?: DateTime, end?: DateTime }) {
         this.config = config;
         this.id = config.id;
@@ -26,6 +27,7 @@ export class BasePeriodType {
             year: this.year - ((config.rank ?? -1) >= 8 ? 9 : 0),
         }).startOf('year');
         this.end = end ?? DateTime.fromObject({year: this.year}).endOf('year');
+        this.preference = preference;
 
     }
 
