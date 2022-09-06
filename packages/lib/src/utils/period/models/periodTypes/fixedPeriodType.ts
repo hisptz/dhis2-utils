@@ -35,8 +35,10 @@ export class FixedPeriodType extends BasePeriodType {
             endDate = endDate.plus({[unit]: config.offset.value});
         }
         const intervals = filter(Interval.fromDateTimes(startDate, endDate).splitBy(duration), (interval: Interval) => {
-            return Interval.fromDateTimes(this.start, endDate).engulfs(interval);
+            const isFuture = interval.start.diffNow().shiftTo("days").days >= 0;
+            return Interval.fromDateTimes(this.start, endDate).engulfs(interval) && (this.preference?.allowFuturePeriods || !isFuture);
         });
+
         return compact(intervals.map(interval => {
             return new FixedPeriod(interval, {type: this.config})
         }));

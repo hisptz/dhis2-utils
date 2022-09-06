@@ -4,7 +4,7 @@ import {PeriodTypeEnum} from "../../constants";
 import {FixedPeriodType} from "./fixedPeriodType";
 import {FixedPeriod} from "../periods/fixedPeriod";
 
-const year = 2021;
+const year = 2022;
 
 Settings.defaultLocale = 'en-US';
 const preference: PeriodPreference = {
@@ -240,6 +240,7 @@ describe("Fixed Period Test", () => {
             periodNames.forEach(periodName => {
                 expect((periodName.match(test.periodNameTest)?.length ?? 0) > 1).toBe(true);
             });
+
         });
     });
 })
