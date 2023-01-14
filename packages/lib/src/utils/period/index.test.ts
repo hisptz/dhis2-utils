@@ -1,5 +1,6 @@
 import {PeriodUtility} from "./models";
-import {PeriodTypeCategory} from "./constants";
+import {PeriodTypeCategory, PeriodTypeEnum} from "./constants";
+import {DateTime} from "luxon";
 
 
 describe("Instantiate Period utility class for fixed periods", () => {
@@ -32,4 +33,29 @@ describe("Get Period by id", () => {
 
     expect(fixedPeriod.type.type).toBe(PeriodTypeCategory.FIXED)
     expect(relativePeriod.type.type).toBe(PeriodTypeCategory.RELATIVE)
+})
+
+
+describe("Get periods with allowing future periods", () => {
+    const allMonthlyPeriods = PeriodUtility.fromObject({
+        year: DateTime.now().year,
+        category: PeriodTypeCategory.FIXED,
+        preference: {
+            allowFuturePeriods: true
+        }
+    })?.getPeriodType(PeriodTypeEnum.MONTHLY)?.periods ?? [];
+
+    expect(allMonthlyPeriods.length).toBe(12);
+
+
+    const pastAndPresentMonths = PeriodUtility.fromObject({
+        year: DateTime.now().year,
+        category: PeriodTypeCategory.FIXED,
+        preference: {
+            allowFuturePeriods: false
+        }
+    })?.getPeriodType(PeriodTypeEnum.MONTHLY)?.periods ?? [];
+
+    expect(pastAndPresentMonths.length).toBe(DateTime.now().month);
+
 })

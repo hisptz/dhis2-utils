@@ -1,14 +1,13 @@
-import {BasePeriod} from "../periods/basePeriod";
 import {compact, filter} from "lodash";
-import {Interval} from "luxon";
+import {DateTime, Interval} from "luxon";
 import {PeriodPreference} from "../../interfaces";
 import {FIXED_PERIOD_TYPES} from "../../constants/fixed";
 import {BasePeriodType} from "./basePeriodType";
-import {FixedPeriod} from "../periods/fixedPeriod";
+import {FixedPeriod} from "../periods";
 
 export class FixedPeriodType extends BasePeriodType {
 
-    get periods(): BasePeriod[] {
+    get periods(): FixedPeriod[] {
         return this._generateFixedPeriods();
     }
 
@@ -20,7 +19,7 @@ export class FixedPeriodType extends BasePeriodType {
         return new FixedPeriodType(config, preference);
     }
 
-    private _generateFixedPeriods(): BasePeriod[] {
+    private _generateFixedPeriods(): FixedPeriod[] {
         const duration = this.duration;
         const config = this.config;
         let startDate = this.start;
@@ -34,15 +33,21 @@ export class FixedPeriodType extends BasePeriodType {
             startDate = startDate.plus({[unit]: config.offset.value});
             endDate = endDate.plus({[unit]: config.offset.value});
         }
+
+        //Filter out intervals falling out of the respective year and are in future if allow future periods is set to false
         const intervals = filter(Interval.fromDateTimes(startDate, endDate).splitBy(duration), (interval: Interval) => {
-            const isFuture = interval.start.diffNow().shiftTo("days").days >= 0;
+            const isFuture = interval.end.diffNow('days').days > 0 && !interval.contains(DateTime.now());
             return Interval.fromDateTimes(this.start, endDate).engulfs(interval) && (this.preference?.allowFuturePeriods || !isFuture);
         });
-
         return compact(intervals.map(interval => {
             return new FixedPeriod(interval, {type: this.config})
         }));
+
     }
 
 
+}
+
+function isPeriodInFuture(period: FixedPeriod) {
+    return period.end.diffNow('days').days < 0 || period.interval.contains(DateTime.now())
 }

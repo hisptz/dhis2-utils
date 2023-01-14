@@ -3,7 +3,9 @@ import i18n from '@dhis2/d2-i18n';
 import {padStart} from "lodash";
 import {PeriodTypeCategory, PeriodTypeEnum} from "./index";
 
+export const DEFAULT_PREFERENCE = {
 
+}
 export const FIXED_PERIOD_TYPES: PeriodTypeInterface[] = [
     {
         id: PeriodTypeEnum.DAILY,
@@ -62,7 +64,7 @@ export const FIXED_PERIOD_TYPES: PeriodTypeInterface[] = [
         rank: 2,
         offset: {
             unit: "day",
-            value: 5
+            value: -2
         },
         idGenerator: (interval) => `${interval.start.toFormat('yyyy')}SatW${interval.start.weekNumber}`,
         nameGenerator: (interval) => `${i18n.t("Week")} ${interval.start.weekNumber} ${interval.start.toFormat(`yyyy-MM-dd`)} - ${interval.end.toFormat(`yyyy-MM-dd`)}`,
@@ -76,7 +78,7 @@ export const FIXED_PERIOD_TYPES: PeriodTypeInterface[] = [
         rank: 2,
         offset: {
             unit: "day",
-            value: 6
+            value: -1
         },
         idGenerator: (interval) => `${interval.start.toFormat('yyyy')}SunW${interval.start.weekNumber}`,
         nameGenerator: (interval) => `${i18n.t("Week")} ${interval.start.weekNumber} ${interval.start.toFormat(`yyyy-MM-dd`)} - ${interval.end.toFormat(`yyyy-MM-dd`)}`,

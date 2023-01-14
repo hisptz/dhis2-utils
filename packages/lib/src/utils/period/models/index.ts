@@ -85,10 +85,10 @@ export class PeriodUtility {
                       }: { year: number, preference?: PeriodPreference; category: PeriodTypeCategory }): PeriodUtility {
         const utility = new PeriodUtility();
         utility.setYear(year);
-        utility.setCategory(category);
         if (preference) {
             utility.setPreference(preference);
         }
+        utility.setCategory(category);
         return utility;
     }
 
@@ -138,6 +138,7 @@ export class PeriodUtility {
                 break;
             case PeriodTypeCategory.RELATIVE:
                 this.category = new RelativePeriods(this.year, this.preference);
+                break;
         }
         return this;
     }
