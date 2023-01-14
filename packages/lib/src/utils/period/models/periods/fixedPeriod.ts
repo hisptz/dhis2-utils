@@ -87,7 +87,7 @@ export class FixedPeriod extends BasePeriod {
         }
         const year = parseInt(head(id.match(/(\d{4})/)) ?? '')
         if (year) {
-            const periodType = new FixedPeriodType(periodTypeConfig, {year})
+            const periodType = new FixedPeriodType(periodTypeConfig, {year, preference: {allowFuturePeriods: true}})
             const periods = periodType.periods;
 
             const period = periods.find(period => period.id === id);
