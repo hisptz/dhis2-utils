@@ -9,3 +9,9 @@ export interface RHFFieldProps {
     name: string;
     validations?: Record<string, any>
 }
+
+export type LegendDefinition = {
+    id: string;
+    color: string;
+    name: string;
+};

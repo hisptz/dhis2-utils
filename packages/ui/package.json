@@ -12,7 +12,9 @@
   },
   "devDependencies": {
     "@dhis2/cli-app-scripts": "^10.2.0",
+    "@types/lodash": "^4.14.191",
     "@types/react-color": "^3.0.6",
+    "lodash": "^4.17.21",
     "react-hook-form": "^7.42.1"
   },
   "dependencies": {
@@ -46,6 +48,7 @@
     "url": "https://github.com/hisptz/dhis2-utils/issues"
   },
   "peerDependencies": {
-    "react-hook-form": "^7"
+    "react-hook-form": "^7",
+    "lodash": "^4"
   }
 }
