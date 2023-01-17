@@ -1,7 +1,7 @@
 {
   "name": "@hisptz/dhis2-ui",
   "version": "1.0.0",
-  "description": "",
+  "description": "A collection of reusable complex DHIS2 react ui components.",
   "license": "BSD-3-Clause",
   "private": true,
   "scripts": {
@@ -15,5 +15,30 @@
   },
   "dependencies": {
     "@dhis2/app-runtime": "^3.7.0"
+  },
+  "main": "./build/cjs/index.js",
+  "module": "./build/es/index.js",
+  "types": "./build/types/index.d.ts",
+  "exports": {
+    "import": "./build/es/index.js",
+    "require": "./build/cjs/index.js"
+  },
+  "keywords": [
+    "react",
+    "dhis2",
+    "dhis2-ui",
+    "hisptz"
+  ],
+  "author": "HISP Tanzania",
+  "files": [
+    "build/**",
+    "postinstall.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hisptz/dhis2-utils.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hisptz/dhis2-utils/issues"
   }
 }

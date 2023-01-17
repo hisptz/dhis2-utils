@@ -24,5 +24,8 @@
     "test": "yarn test",
     "publish:lib": "yarn lib publish:lib",
     "deploy:docs": "yarn docs deploy"
+  },
+  "devDependencies": {
+    "lerna": "^6.4.1"
   }
 }
