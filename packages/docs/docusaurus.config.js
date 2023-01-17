@@ -56,7 +56,7 @@ const config = {
                     },
                     {
                         to: "api",
-                        label: "API",
+                        label: "API References",
                         position: "left"
                     },
                     {
@@ -120,11 +120,11 @@ const config = {
         [
             'docusaurus-plugin-typedoc-api',
             {
-                projectRoot: path.join(__dirname, "../lib"),
+                projectRoot: path.join(__dirname, "../.."),
                 banner: "API References",
                 packages: [
                     {
-                        path: 'src',
+                        path: 'packages/lib/src',
                         entry: {
                             index: "index.ts",
                             utils: {
@@ -136,7 +136,19 @@ const config = {
                                 label: "Interfaces & Types"
                             }
                         }
-                    }
+                    },
+                    {
+                        path: 'packages/ui',
+                        entry: {
+                            index: "src/index.ts"
+                        }
+                    },
+                    {
+                        path: 'packages/analytics',
+                        entry: {
+                            index: "src/index.ts"
+                        }
+                    },
                 ]
             }
         ]
