@@ -11,7 +11,8 @@
     "deploy": "d2-app-scripts deploy"
   },
   "devDependencies": {
-    "@dhis2/cli-app-scripts": "^10.2.0"
+    "@dhis2/cli-app-scripts": "^10.2.0",
+    "react-hook-form": "^7.42.1"
   },
   "dependencies": {
     "@dhis2/app-runtime": "^3.7.0"
@@ -40,5 +41,8 @@
   },
   "bugs": {
     "url": "https://github.com/hisptz/dhis2-utils/issues"
+  },
+  "peerDependencies": {
+    "react-hook-form": "^7"
   }
 }
