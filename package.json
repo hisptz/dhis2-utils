@@ -10,11 +10,19 @@
     "packages/*"
   ],
   "scripts": {
-    "build:lib": "yarn workspace @hisptz/dhis2-utils build",
-    "build:docs": "yarn workspace docs build",
-    "start:docs": "yarn workspace docs start",
-    "test": "yarn workspace @hisptz/dhis2-utils test",
-    "publish:lib": "yarn workspace @hisptz/dhis2-utils run publish:lib",
-    "deploy:docs": "yarn workspace docs deploy"
+    "lib": "yarn workspace @hisptz/dhis2-utils",
+    "ui": "yarn workspace @hisptz/dhis2-ui",
+    "analytics": "yarn workspace @hisptz/dhis2-analytics",
+    "sb": "yarn workspace @hisptz/storybook",
+    "docs": "yarn workspace docs",
+    "build:lib": "yarn lib build",
+    "build:ui": "yarn ui build",
+    "build:analytics": "yarn analytics build",
+    "build:docs": "yarn docs build",
+    "start:docs": "yarn docs start",
+    "start:sb": "yarn sb start",
+    "test": "yarn test",
+    "publish:lib": "yarn lib publish:lib",
+    "deploy:docs": "yarn docs deploy"
   }
 }
