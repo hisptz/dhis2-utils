@@ -1,11 +1,13 @@
 import {Field, InputField} from "@dhis2/ui";
 import React, {useMemo} from "react";
-import Legend from "./models";
+import {Legend} from "./models";
 import {FieldProps, LegendDefinition} from "../../interfaces";
 import {uid} from "@hisptz/dhis2-utils";
 
+export * from "./models";
 export type LegendMinMaxProps = FieldProps & {
     legendDefinition?: LegendDefinition;
+    value?: Legend
 };
 
 export const LegendMinMax = React.forwardRef(({
@@ -47,10 +49,7 @@ export const LegendMinMax = React.forwardRef(({
                         max={`${value?.max}`}
                         onChange={({value: newValue}: { value: { [key: string]: any } }) => {
                             const object = value ?? legend;
-                            onChange({
-                                name,
-                                value: Legend.set(object, "startValue", newValue),
-                            });
+                            onChange(Legend.set(object, "startValue", newValue));
                         }}
                         className="pr-8"
                         label="Min"
@@ -61,10 +60,7 @@ export const LegendMinMax = React.forwardRef(({
                         min={`${value?.min ?? 0}`}
                         onChange={({value: newValue}: { value: { [key: string]: any } }) => {
                             const object = value ?? legend;
-                            onChange({
-                                name,
-                                value: Legend.set(object, "endValue", newValue),
-                            });
+                            onChange(Legend.set(object, "endValue", newValue));
                         }}
                         label="Max"
                     />

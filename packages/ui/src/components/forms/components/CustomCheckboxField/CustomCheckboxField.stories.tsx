@@ -1,21 +1,20 @@
 import {Story} from "@storybook/react"
 import React from "react";
-import {AgeField} from "./index";
-import {FieldProps} from "../../interfaces";
+import {CustomCheckboxField, CustomCheckboxFieldProps} from "./index";
 
-const Template: Story<FieldProps> = (args) => <AgeField {...args} />
+const Template: Story<CustomCheckboxFieldProps> = (args) => <CustomCheckboxField {...args} />
 
 
 export const Default = Template.bind({});
 Default.args = {
     name: "Field",
     onChange: (value) => console.log(value),
-    value: "1996-05-27"
+    value: "true"
 }
 
 export default {
-    title: "Form/Age Field",
-    component: AgeField,
+    title: "Form/Custom Checkbox Field",
+    component: CustomCheckboxField,
     argTypes: {
         onChange: {
             action: "changed"

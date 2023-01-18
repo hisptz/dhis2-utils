@@ -1,6 +1,6 @@
 import {Story} from "@storybook/react"
 import React from "react";
-import {LegendMinMax, LegendMinMaxProps,} from "./index";
+import {Legend, LegendMinMax, LegendMinMaxProps} from "./index";
 
 const Template: Story<LegendMinMaxProps> = (args) => <LegendMinMax {...args} />
 
@@ -13,11 +13,14 @@ Default.args = {
         color: "#0f630f"
     },
     onChange: (value) => console.log(value),
-    value: ""
+    value: new Legend({
+        id: "legend",
+        legendDefinitionId: "definition-id"
+    })
 }
 
 export default {
-    title: "Form/LegendMinMaxField",
+    title: "Form/Legend MinMax Field",
     component: LegendMinMax,
     argTypes: {
         onChange: {

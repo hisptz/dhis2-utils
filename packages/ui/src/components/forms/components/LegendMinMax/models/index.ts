@@ -1,7 +1,7 @@
 import {cloneDeep} from "lodash";
 import {uid} from "@hisptz/dhis2-utils";
 
-export default class Legend {
+export class Legend {
     id: string;
     legendDefinitionId: string;
     startValue: number | undefined;

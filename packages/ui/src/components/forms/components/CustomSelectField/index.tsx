@@ -32,8 +32,8 @@ export const CustomSelectField = React.forwardRef(({
     }, [options, value]);
 
     return (
-        <SingleSelectField {...props} ref={ref} selected={selectedValue}
-                           onChange={({selected}: { selected: any }) => onChange(selected)}>
+        <SingleSelectField ref={ref} selected={selectedValue}
+                           onChange={({selected}: { selected: any }) => onChange(selected)} {...props}>
             {options?.map(({label, value}: SelectOption) => (
                 <SingleSelectOption label={label} value={value} key={value}/>
             ))}

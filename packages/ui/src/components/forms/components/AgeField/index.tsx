@@ -14,6 +14,11 @@ export interface AgeFieldProps extends FieldProps {
     value?: string
 }
 
+
+
+/**
+ * This is an input component that allows user to input the date of birth
+ * */
 export const AgeField = React.forwardRef(({
                                               name,
                                               value = "",

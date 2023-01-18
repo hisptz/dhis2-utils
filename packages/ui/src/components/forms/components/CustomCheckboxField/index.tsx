@@ -23,7 +23,6 @@ export const CustomCheckboxField = React.forwardRef(({
             error={!!error}
             validationText={typeof error === "string" ? error : undefined}
             ref={ref}
-            {...props}
             checked={Boolean(value)}
             onChange={({checked}: { checked: boolean }) => {
                 if (trueOnly) {
@@ -32,6 +31,7 @@ export const CustomCheckboxField = React.forwardRef(({
                     onChange(checked);
                 }
             }}
+            {...props}
         />
     )
 })
