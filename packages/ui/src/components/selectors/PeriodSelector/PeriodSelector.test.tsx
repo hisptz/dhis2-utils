@@ -1,5 +1,5 @@
 import {mount} from "@cypress/react";
-import {PeriodInterface} from "@iapps/period-utilities";
+import {PeriodInterface} from "@hisptz/dhis2-utils";
 import React from "react";
 import PeriodSelector from "./index";
 

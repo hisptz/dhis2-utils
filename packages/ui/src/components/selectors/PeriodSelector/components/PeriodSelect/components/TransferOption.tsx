@@ -16,7 +16,7 @@ export default function PeriodTransferOption({ value: id, label, selected, highl
     <div
       {...props}
       key={`${id}-${label}-option`}
-      style={{ margin: 4, zIndex: "auto" }}
+      style={{ margin: "4px 8px", zIndex: "auto" }}
       onClick={(event) => onClick({ value: id, label }, event)}
       onDoubleClick={(event) => onDoubleClick({ value: id, label }, event)}>
       <Tag
@@ -25,7 +25,7 @@ export default function PeriodTransferOption({ value: id, label, selected, highl
         dataTest={`${id}-option`}
         key={`${id}-option`}
         icon={
-          <div className="size-8">
+          <div >
             <IconClock16 />
           </div>
         }>

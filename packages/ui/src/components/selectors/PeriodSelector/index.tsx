@@ -39,7 +39,7 @@ export default function PeriodSelector({
   );
 
   return (
-    <div className="column gap-16">
+    <div style={{display: "flex", flexDirection: "column", gap: 16}}>
       {enableDateRange && (
         <SegmentedControl
           selected={inputType}

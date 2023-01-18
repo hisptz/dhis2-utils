@@ -27,7 +27,7 @@ export default function PeriodSelect({
   );
 
   return (
-    <div style={{ maxHeight: 500, overflow: "auto" }} className="column center align-items-center w-100">
+    <div style={{ maxHeight: 500, overflow: "auto", display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }} >
       <CssReset />
       <Transfer
         maxSelections={singleSelection ? 1 : undefined}
@@ -51,7 +51,7 @@ export default function PeriodSelect({
               ))}
             </TabBar>
             {category === PeriodTypeCategory.RELATIVE ? (
-              <div className="pt-8 pb-8">
+              <div style={{padding: "8px 0"}}>
                 <SingleSelectField
                   dataTest={"relative-period-type-selector"}
                   dense
@@ -64,8 +64,8 @@ export default function PeriodSelect({
                 </SingleSelectField>
               </div>
             ) : (
-              <div className="row space-between align-items-center w-100 pt-8 pb-8 gap-8">
-                <div className="w-60">
+              <div style={{display: "grid", gridTemplateColumns: "3fr 1fr", gap: 8, padding: "8px 0"}}>
+                <div >
                   <SingleSelectField
                     dense
                     dataTest={"fixed-period-type-selector"}
@@ -77,7 +77,7 @@ export default function PeriodSelect({
                     ))}
                   </SingleSelectField>
                 </div>
-                <div className="w-40">
+                <div>
                   <InputField
                     dataTest="year-input"
                     name={"year"}
