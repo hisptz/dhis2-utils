@@ -15,7 +15,7 @@
     "package.json"
   ],
   "scripts": {
-    "build:types": "tsc --project tsconfig.json",
+    "build:types": "tsc",
     "postbuild": "yarn build:types",
     "build": "d2-app-scripts build --no-verify",
     "test": "d2-app-scripts test --passWithNoTests",
@@ -36,6 +36,7 @@
     "@types/jest": "^27.4.1",
     "@types/lodash": "^4.14.184",
     "@types/luxon": "^3.0.0",
+    "@types/node": "^18.11.18",
     "jest": "^28.1.0",
     "ts-jest": "^28.0.3",
     "ts-node": "^10.8.0"
