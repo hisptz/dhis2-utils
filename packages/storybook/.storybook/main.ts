@@ -1,14 +1,19 @@
 module.exports = {
     stories: [
-        "../../ui/src/**/*.stories.mdx",
-        "../../ui/src/**/*.stories.@(js|jsx|ts|tsx)",
-        "../../analytics/src/**/*.stories.mdx",
-        "../../analytics/src/**/*.stories.@(js|jsx|ts|tsx)",
+        {
+            directory: "../../ui/src",
+            titlePrefix: "Core UI components",
+            files: "**/*.stories.*"
+        }
     ],
     addons: [
         "@storybook/addon-links",
         "@storybook/addon-essentials",
-        "@storybook/addon-interactions"
+        "@storybook/addon-interactions",
+        "@storybook/preset-create-react-app"
     ],
-    framework: "@storybook/react"
+    framework: "@storybook/react",
+    core: {
+        builder: "@storybook/builder-vite"
+    }
 }

@@ -2,7 +2,7 @@ import {PeriodPreference} from "../../interfaces";
 import {DateTime, Settings} from "luxon";
 import {PeriodTypeEnum} from "../../constants";
 import {FixedPeriodType} from "./fixedPeriodType";
-import {FixedPeriod} from "../periods/fixedPeriod";
+import {FixedPeriod} from "../periods";
 
 const year = 2022;
 

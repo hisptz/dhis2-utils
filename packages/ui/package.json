@@ -7,14 +7,20 @@
   "scripts": {
     "build": "d2-app-scripts build",
     "start": "d2-app-scripts start",
-    "test": "d2-app-scripts test",
+    "test": "d2-app-scripts test --passWithNoTests",
     "deploy": "d2-app-scripts deploy"
   },
   "devDependencies": {
-    "@dhis2/cli-app-scripts": "^10.2.0"
+    "@dhis2/cli-app-scripts": "^10.2.0",
+    "@types/lodash": "^4.14.191",
+    "@types/react-color": "^3.0.6",
+    "lodash": "^4.17.21",
+    "react-hook-form": "^7.42.1"
   },
   "dependencies": {
-    "@dhis2/app-runtime": "^3.7.0"
+    "@dhis2/app-runtime": "^3.7.0",
+    "@hisptz/dhis2-utils": "*",
+    "react-color": "^2.19.3"
   },
   "main": "./build/cjs/index.js",
   "module": "./build/es/index.js",
@@ -40,5 +46,9 @@
   },
   "bugs": {
     "url": "https://github.com/hisptz/dhis2-utils/issues"
+  },
+  "peerDependencies": {
+    "react-hook-form": "^7",
+    "lodash": "^4"
   }
 }
