@@ -4,7 +4,7 @@ import React, {useState} from "react";
 import type {Color} from "react-color";
 import {SketchPicker} from "react-color";
 import {uid} from "@hisptz/dhis2-utils";
-import "../styles/style.css";
+import classes from "./LegendDefinitionField.module.css";
 import {FieldProps} from "../../interfaces";
 
 type ColorPickerProps = {
@@ -44,49 +44,43 @@ export interface LegendDefinitionFieldProps extends FieldProps {
     label?: string;
 }
 
-export default function LegendDefinitionField({
-                                                  name,
-                                                  label,
-                                                  value,
-                                                  onChange,
-                                                  ...props
-                                              }: LegendDefinitionFieldProps, ref: React.Ref<any>) {
+export const LegendDefinitionField = React.forwardRef(({
+                                                    name,
+                                                    label,
+                                                    value,
+                                                    onChange,
+                                                    ...props
+                                                }: LegendDefinitionFieldProps, ref: React.Ref<any>) => {
     const {color, name: legendName, id} = value ?? {};
     const [reference, setReference] = useState<EventTarget | undefined>(undefined);
 
     const onColorChange = (color: any) => {
         onChange({
-            name,
-            value: {
-                ...value,
-                id: id ?? uid(),
-                color,
-            },
+            ...value,
+            id: id ?? uid(),
+            color,
         });
     };
 
     const onNameChange = (newName: { value: string }) => {
         onChange({
-            name,
-            value: {
-                ...value,
-                id: id ?? uid(),
-                name: newName.value,
-            },
+            ...value,
+            id: id ?? uid(),
+            name: newName.value,
         });
     };
 
     return (
         <Field {...props} name={name} label={label} value={value}>
-            <div ref={ref} id={name} className={"legend-definition-container"}>
+            <div ref={ref} id={name} className={classes["legend-definition-container"]}>
                 <div
                     id={`color-selector-btn-${name}`}
                     onClick={(e) => setReference(e.currentTarget)}
                     style={{background: color, borderColor: "#D5DDE5"}}
-                    className={"legend-color"}>
+                    className={classes["legend-color"]}>
                     {color}
                 </div>
-                <div className={"legend-input"}>
+                <div className={classes["legend-input"]}>
                     <Input dataTest={`legend-definition-text-${name}`} onChange={onNameChange} value={legendName}/>
                 </div>
             </div>
@@ -95,4 +89,4 @@ export default function LegendDefinitionField({
                                    onChange={onColorChange}/>}
         </Field>
     );
-}
+})

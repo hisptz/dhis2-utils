@@ -9,15 +9,30 @@
     "@storybook/addon-essentials": "^6.5.15",
     "@storybook/addon-interactions": "^6.5.15",
     "@storybook/addon-links": "^6.5.15",
+    "@storybook/builder-vite": "^0.3.0",
     "@storybook/builder-webpack4": "^6.5.15",
     "@storybook/manager-webpack4": "^6.5.15",
+    "@storybook/preset-create-react-app": "^4.1.2",
     "@storybook/react": "^6.5.15",
     "@storybook/testing-library": "^0.0.13",
-    "babel-loader": "^8.3.0"
+    "@types/node": "^18.11.18",
+    "babel-loader": "^8.3.0",
+    "concurrently": "^7.6.0",
+    "cross-var": "^1.1.0",
+    "dotenv": "^16.0.3",
+    "dotenv-cli": "^6.0.0",
+    "http-proxy": "^1.18.1",
+    "react-scripts": "^5.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4",
+    "vite": "^4.0.4",
+    "wait-on": "^7.0.1"
   },
   "dependencies": {},
   "scripts": {
-    "start": "start-storybook -p 6006",
+    "proxy:start": "ts-node proxy.ts",
+    "start:sb": "start-storybook -p 6006",
+    "start": "dotenv -- cross-var concurrently 'yarn proxy:start' 'wait-on http://localhost:%DHIS2_PROXY_PORT% && yarn start:sb' ",
     "build": "build-storybook"
   }
 }

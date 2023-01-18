@@ -4,17 +4,17 @@ import Legend from "./models";
 import {FieldProps, LegendDefinition} from "../../interfaces";
 import {uid} from "@hisptz/dhis2-utils";
 
-type LegendMinMaxProps = FieldProps & {
+export type LegendMinMaxProps = FieldProps & {
     legendDefinition?: LegendDefinition;
 };
 
-export default function LegendMinMax({
-                                         name,
-                                         value,
-                                         onChange,
-                                         legendDefinition,
-                                         ...props
-                                     }: LegendMinMaxProps, ref: React.Ref<any>) {
+export const LegendMinMax = React.forwardRef(({
+                                                  name,
+                                                  value,
+                                                  onChange,
+                                                  legendDefinition,
+                                                  ...props
+                                              }: LegendMinMaxProps, ref: React.Ref<any>) => {
     const {id, color, name: legendName} = legendDefinition ?? {};
 
     const legend = useMemo(() => new Legend({legendDefinitionId: id ?? uid()}), [id]);
@@ -72,4 +72,4 @@ export default function LegendMinMax({
             </div>
         </Field>
     );
-}
+})

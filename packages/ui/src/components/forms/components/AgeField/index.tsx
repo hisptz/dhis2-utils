@@ -9,21 +9,30 @@ import {FieldProps} from "../../interfaces";
 
 
 export interface AgeFieldProps extends FieldProps {
-    max?: string
+    max?: string;
+    onChange: (value: string) => void;
+    value?: string
 }
 
-export default function AgeField({name, value, onChange, error, max, ...props}: AgeFieldProps, ref: React.Ref<any>) {
+export const AgeField = React.forwardRef(({
+                                              name,
+                                              value = "",
+                                              onChange,
+                                              error,
+                                              max,
+                                              ...props
+                                          }: AgeFieldProps, ref: React.Ref<any>) => {
     const {years, months, days} = useMemo(() => getValues(value), [value]);
 
     const onDateChange = useCallback(
-        ({value, name}: { value: any; name: string }) => {
-            onChange({name, value: new Date(value).toISOString()});
+        (value: string ) => {
+            onChange(new Date(value).toISOString());
         },
         [onChange]
     );
 
     const onClear = useCallback(() => {
-        onChange({name, value: ""});
+        onChange("");
     }, [onChange]);
 
     return (
@@ -54,4 +63,4 @@ export default function AgeField({name, value, onChange, error, max, ...props}: 
             </div>
         </Field>
     );
-}
+})

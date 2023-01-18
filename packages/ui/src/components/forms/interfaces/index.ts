@@ -1,6 +1,6 @@
 export interface FieldProps {
     name: string;
-    value: any;
+    value?: any;
     onChange: (value: any) => void;
     error?: string | boolean
 }
