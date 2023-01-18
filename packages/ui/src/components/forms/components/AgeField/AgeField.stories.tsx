@@ -1,9 +1,8 @@
 import {Story} from "@storybook/react"
 import React from "react";
-import {AgeField} from "./index";
-import {FieldProps} from "../../interfaces";
+import {AgeField, AgeFieldProps} from "./index";
 
-const Template: Story<FieldProps> = (args) => <AgeField {...args} />
+const Template: Story<AgeFieldProps> = (args) => <AgeField {...args} />
 
 
 export const Default = Template.bind({});
@@ -16,9 +15,4 @@ Default.args = {
 export default {
     title: "Form/Age Field",
     component: AgeField,
-    argTypes: {
-        onChange: {
-            action: "changed"
-        }
-    }
 }

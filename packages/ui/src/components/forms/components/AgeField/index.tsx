@@ -9,28 +9,38 @@ import {FieldProps} from "../../interfaces";
 
 
 export interface AgeFieldProps extends FieldProps {
+    /**
+     * The maximum date the input should be limited to. It should be in the format 'yyyy-MM-dd'
+     * */
     max?: string;
+    /**
+     * The callback function called whenever the user changes the date.
+     * @param value - date string with the format 'yyyy-MM-dd'
+     * */
     onChange: (value: string) => void;
+    /**
+     * The field value in the format 'yyyy-MM-dd'
+     * */
     value?: string
 }
 
 
-
 /**
- * This is an input component that allows user to input the date of birth
+ * This is an input component that allows user to input the date of birth and then calculates the age.
+ *
  * */
-export const AgeField = React.forwardRef(({
-                                              name,
-                                              value = "",
-                                              onChange,
-                                              error,
-                                              max,
-                                              ...props
-                                          }: AgeFieldProps, ref: React.Ref<any>) => {
+export const AgeField: React.FC<AgeFieldProps> = React.forwardRef(({
+                                                                       name,
+                                                                       value = "",
+                                                                       onChange,
+                                                                       error,
+                                                                       max,
+                                                                       ...props
+                                                                   }: AgeFieldProps, ref: React.Ref<any>) => {
     const {years, months, days} = useMemo(() => getValues(value), [value]);
 
     const onDateChange = useCallback(
-        (value: string ) => {
+        (value: string) => {
             onChange(new Date(value).toISOString());
         },
         [onChange]
