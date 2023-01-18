@@ -9,7 +9,8 @@ export const Default = Template.bind({});
 Default.args = {
     name: "Field",
     onChange: (value) => console.log(value),
-    value: "true"
+    value: "true",
+    label: "A custom checkbox"
 }
 
 export default {

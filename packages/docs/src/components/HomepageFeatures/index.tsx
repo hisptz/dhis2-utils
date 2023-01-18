@@ -27,15 +27,23 @@ const FeatureList: FeatureItem[] = [
             </>
         ),
     },
-    // {
-    //     title: 'Constants',
-    //     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
-    //     description: (
-    //         <>
-    //             DHIS2 related constants
-    //         </>
-    //     ),
-    // },
+    {
+        title: 'UI Components',
+        Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+        description: (
+            <>
+                Reusable complex DHIS2 UI components for react applications
+            </>
+        ),
+    }, {
+        title: 'Analytics Tools',
+        Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+        description: (
+            <>
+                Reusable analytics tools and UI components for visualizing DHIS2 analytics
+            </>
+        ),
+    },
 ];
 
 function Feature({title, Svg, description}: FeatureItem) {
@@ -56,7 +64,7 @@ export default function HomepageFeatures(): JSX.Element {
     return (
         <section className={styles.features}>
             <div className="container">
-                <div style={{ justifyContent: "center"}} className="row">
+                <div style={{justifyContent: "center"}} className="row">
                     {FeatureList.map((props, idx) => (
                         <Feature key={idx} {...props} />
                     ))}
