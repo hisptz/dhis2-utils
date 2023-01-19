@@ -134,3 +134,4 @@ dist
 !.yarn/versions
 /packages/ui/cypress.env.json
 /packages/ui/cypress/screenshots/
+/packages/storybook/storybook-static/

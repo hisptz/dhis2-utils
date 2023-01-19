@@ -5,7 +5,7 @@
   "license": "BSD-3-Clause",
   "private": true,
   "scripts": {
-    "build": "d2-app-scripts build",
+    "build": "d2-app-scripts build --no-verify",
     "start": "d2-app-scripts start",
     "test": "cypress run --component",
     "test:open": "cypress open --component",
@@ -25,6 +25,7 @@
     "@types/styled-components": "^5.1.26",
     "cypress": "^12.3.0",
     "lodash": "^4.17.21",
+    "react": "16.14.0",
     "react-hook-form": "^7.42.1",
     "vite": "3"
   },

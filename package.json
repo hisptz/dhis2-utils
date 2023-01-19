@@ -22,6 +22,7 @@
     "start:docs": "yarn docs start",
     "start:sb": "yarn sb start",
     "test": "npx lerna run test",
+    "build": "npx lerna run build",
     "publish:lib": "yarn lib publish:lib",
     "deploy:docs": "yarn docs deploy"
   },
