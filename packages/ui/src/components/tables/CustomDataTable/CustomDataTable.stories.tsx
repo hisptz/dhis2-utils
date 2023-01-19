@@ -72,7 +72,44 @@ Loading.args = {
         ...row,
         active: <Tag positive={row.active} negative={!row.active}><b>{row.active ? "Active" : "Inactive"}</b></Tag>
     })),
+    tableProps: {
+        scrollHeight: "800px",
+        layout: "fixed"
+    },
     loading: true
+}
+
+export const Pagination = Template.bind({});
+Pagination.args = {
+    columns,
+    rows: rows.map(row => ({
+        ...row,
+        active: <Tag positive={row.active} negative={!row.active}><b>{row.active ? "Active" : "Inactive"}</b></Tag>
+    })),
+    tableProps: {
+        scrollHeight: "800px",
+        height: "800px",
+        layout: "fixed"
+    },
+    pagination: {
+        page: 2,
+        pageCount: 2,
+        pageSize: 10,
+        total: 20
+    }
+}
+
+export const Sortable = Template.bind({});
+Sortable.args = {
+    columns: columns.map(col => ({...col, sortable: true})),
+    rows: rows.map(row => ({
+        ...row,
+        active: <Tag positive={row.active} negative={!row.active}><b>{row.active ? "Active" : "Inactive"}</b></Tag>
+    })),
+    tableProps: {
+        scrollHeight: "800px"
+    },
+    onSort: (config) => console.log(config),
 }
 
 export default {

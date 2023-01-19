@@ -1,3 +1,4 @@
+// @ts-nocheck
 //Only uncomment if you want live data
 import {Provider, useDataQuery} from "@dhis2/app-runtime";
 import React, {useEffect} from "react";
@@ -19,12 +20,19 @@ export const parameters = {
     },
 };
 
+// @ts-ignore
 const username = process.env.STORYBOOK_DHIS2_USERNAME ?? "admin";
+// @ts-ignore
+
 const password = process.env.STORYBOOK_DHIS2_PASSWORD ?? "district";
+// @ts-ignore
+
 const baseUrl = process.env.STORYBOOK_DHIS2_BASE_URL ?? "http://localhost:8080";
 
 const appConfig = {
     baseUrl,
+    // @ts-ignore
+
     apiVersion: parseInt(process.env.STORYBOOK_DHIS2_API_VERSION ?? "38") ?? 38,
 };
 

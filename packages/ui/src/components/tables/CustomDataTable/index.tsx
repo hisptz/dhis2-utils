@@ -11,8 +11,8 @@ import {
     DataTableColumnHeader,
     DataTableHead,
     DataTableRow,
-    Pagination,
-    TableFoot
+    DataTableToolbar,
+    Pagination
 } from "@dhis2/ui"
 import i18n from '@dhis2/d2-i18n';
 import {difference, isEmpty} from "lodash";
@@ -46,6 +46,7 @@ export interface CustomDataTableProps {
     onRowDeselect?: (selectedValueIds: string[]) => void;
     tableProps?: {
         scrollHeight?: string;
+        [key: string]: any
     };
     tableBodyProps?: Record<string, any>
     onSort?: (sortConfig: { name: string; direction: string; }) => void;
@@ -197,18 +198,16 @@ export const CustomDataTable: React.FC<CustomDataTableProps> = React.forwardRef(
                             ))
                         }
                     </DataTableBody>
-                    {
-                        pagination && (<TableFoot position="bottom">
-                            <DataTableRow>
-                                <DataTableCell colSpan={columns.length.toString()}>
-                                    <Pagination
-                                        {...pagination}
-                                    />
-                                </DataTableCell>
-                            </DataTableRow>
-                        </TableFoot>)
-                    }
                 </DataTable>
+                {
+                    pagination && (<DataTableToolbar position="bottom">
+                        <div style={{width: "100%"}}>
+                            <Pagination
+                                {...pagination}
+                            />
+                        </div>
+                    </DataTableToolbar>)
+                }
             </>
         )
 
