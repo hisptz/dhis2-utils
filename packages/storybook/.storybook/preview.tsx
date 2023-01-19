@@ -3,6 +3,7 @@ import {Provider, useDataQuery} from "@dhis2/app-runtime";
 import React, {useEffect} from "react";
 import {post} from "./api";
 import hispTheme from "./theme";
+import {CssReset} from '@dhis2/ui'
 
 export const parameters = {
     actions: {argTypesRegex: "^on[A-Z].*"},
@@ -38,6 +39,7 @@ const USER_QUERY = {
 const StoryPreview = ({children}: { children: any }) => {
     const {error} = useDataQuery(USER_QUERY);
 
+
     async function login() {
         window.localStorage.DHIS2_BASE_URL = baseUrl;
         try {
@@ -60,7 +62,7 @@ const StoryPreview = ({children}: { children: any }) => {
         check();
     }, [error]);
 
-    return <>{children}</>;
+    return <><CssReset/>{children}</>;
 };
 
 export const decorators = [

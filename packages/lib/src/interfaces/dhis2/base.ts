@@ -60,3 +60,11 @@ export interface Icon extends DHIS2Resource {
     href?: string;
     keywords?: string[];
 }
+
+
+export interface Pagination {
+    page?: number;
+    pageSize?: number;
+    total?: number;
+    pageCount?: number
+}
