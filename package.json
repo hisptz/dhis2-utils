@@ -23,7 +23,7 @@
     "start:sb": "yarn sb start",
     "test": "npx lerna run test",
     "build": "npx lerna run build",
-    "publish:lib": "yarn lib publish:lib",
+    "publish": "npx lerna publish --no-private",
     "deploy:docs": "yarn docs deploy"
   },
   "devDependencies": {
