@@ -15,7 +15,7 @@
     "allowJs": true,
     "skipLibCheck": true,
     "downlevelIteration": true,
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -36,6 +36,6 @@
   ],
   "exclude": [
     "src/locales",
-    "src/**/*.test.tsx"
+    "**/*.test.tsx"
   ]
 }

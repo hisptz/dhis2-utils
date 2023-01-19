@@ -6,6 +6,7 @@ import {LevelAndGroupSelector} from "./LevelAndGroupSelector";
 import {OrgUnitSearch} from "./OrgUnitSearch";
 import {OrgUnitTree} from "./OrgUnitTree";
 import {OrgUnitUserOptions} from "./OrgUnitUserOptions";
+import styled from "styled-components";
 
 export default function OrgUnitSelector({
   value,
@@ -21,6 +22,17 @@ export default function OrgUnitSelector({
   const { roots, error, loading } = useOrgUnitsRoot(defaultRoots);
   const { userOrgUnit, userSubUnit, userSubX2Unit } = value ?? {};
   const disableSelections = useMemo(() => userOrgUnit || userSubX2Unit || userSubUnit, [userOrgUnit, userSubUnit, userSubX2Unit]);
+
+  const BorderedContainer = styled.div`{
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid #A0ADBA;
+    display: flex;
+    flex-direction: column;
+    min-height: 400px;  
+    max-height: 500px;
+    overflow: hidden;
+}`
 
   if (error) {
     return (
@@ -39,14 +51,14 @@ export default function OrgUnitSelector({
         </div>
       ) : (
         <Fragment>
-          <div style={{ minHeight: 400, maxHeight: 500, overflow: "hidden" }} className="container-bordered">
+          <BorderedContainer >
             {showUserOptions && <OrgUnitUserOptions value={value} onUpdate={onUpdate} />}
             {error && (
               <CenteredContent>
                 <p>{error?.message || error.toString()}</p>
               </CenteredContent>
             )}
-            <div className="p-16">
+            <div style={{padding: 8, gap: 8, display: "flex", flexDirection: "column"}}>
               <OrgUnitSearch searchable={searchable} />
               {roots && (
                 <OrgUnitTree
@@ -64,7 +76,7 @@ export default function OrgUnitSelector({
                 </CenteredContent>
               )}
             </div>
-          </div>
+          </BorderedContainer>
           {(showLevels || showGroups) && (
             <LevelAndGroupSelector showLevels={showLevels} disableSelections={disableSelections} onUpdate={onUpdate} value={value} showGroups={showGroups} />
           )}

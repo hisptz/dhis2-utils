@@ -8,6 +8,7 @@ import DataSourceModel from "./models/dataSource";
 import NativeDataSource from "./models/nativeDataSource";
 import {DataSourceSelectorProps} from "./types";
 import {getDataSourcesList} from "./utils";
+import styled from "styled-components";
 
 export default function DataSourceSelector({ onSelect, disabled, dataSources, maxSelections, selected }: DataSourceSelectorProps) {
   const dataSourcesList = useMemo(() => getDataSourcesList(dataSources), [dataSources]);
@@ -26,10 +27,19 @@ export default function DataSourceSelector({ onSelect, disabled, dataSources, ma
     setSelectedDataSourceType(sourceType);
   };
 
+  const BorderedContainer = styled.div`{
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid #A0ADBA;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+}`
+
   return (
     <div className="start">
       <CssReset />
-      <div className="container-bordered column">
+      <BorderedContainer >
         <div className="row p-8 wrap">
           {dataSourcesList.length > 1 &&
             dataSourcesList?.map((source) => (
@@ -38,9 +48,9 @@ export default function DataSourceSelector({ onSelect, disabled, dataSources, ma
               </Chip>
             ))}
         </div>
-        <div className="column p-16">
+        <div style={{display: "flex", flexDirection: "column"}}>
           <GroupSelector selectedGroup={selectedGroup} onSelect={onGroupChange} selectedDataType={selectedDataSourceType} />
-          <div className="pt-16">
+          <div style={{paddingTop: 16}}>
             <DataSource
               maxSelections={maxSelections}
               disabled={disabled}
@@ -51,7 +61,7 @@ export default function DataSourceSelector({ onSelect, disabled, dataSources, ma
             />
           </div>
         </div>
-      </div>
+      </BorderedContainer>
     </div>
   );
 }
