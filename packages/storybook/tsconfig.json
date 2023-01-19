@@ -28,7 +28,8 @@
     "types": [
       "jest",
       "node"
-    ]
+    ],
+    "jsx": "react"
   },
   "exclude": [
     "node_modules",

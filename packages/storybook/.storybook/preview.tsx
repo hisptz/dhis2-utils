@@ -1,8 +1,10 @@
+// @ts-nocheck
 //Only uncomment if you want live data
 import {Provider, useDataQuery} from "@dhis2/app-runtime";
 import React, {useEffect} from "react";
 import {post} from "./api";
 import hispTheme from "./theme";
+import {CssReset} from '@dhis2/ui'
 
 export const parameters = {
     actions: {argTypesRegex: "^on[A-Z].*"},
@@ -18,12 +20,19 @@ export const parameters = {
     },
 };
 
+// @ts-ignore
 const username = process.env.STORYBOOK_DHIS2_USERNAME ?? "admin";
+// @ts-ignore
+
 const password = process.env.STORYBOOK_DHIS2_PASSWORD ?? "district";
+// @ts-ignore
+
 const baseUrl = process.env.STORYBOOK_DHIS2_BASE_URL ?? "http://localhost:8080";
 
 const appConfig = {
     baseUrl,
+    // @ts-ignore
+
     apiVersion: parseInt(process.env.STORYBOOK_DHIS2_API_VERSION ?? "38") ?? 38,
 };
 
@@ -37,6 +46,7 @@ const USER_QUERY = {
 
 const StoryPreview = ({children}: { children: any }) => {
     const {error} = useDataQuery(USER_QUERY);
+
 
     async function login() {
         window.localStorage.DHIS2_BASE_URL = baseUrl;
@@ -60,7 +70,7 @@ const StoryPreview = ({children}: { children: any }) => {
         check();
     }, [error]);
 
-    return <>{children}</>;
+    return <><CssReset/>{children}</>;
 };
 
 export const decorators = [
