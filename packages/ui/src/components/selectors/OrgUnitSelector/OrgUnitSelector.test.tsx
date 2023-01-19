@@ -1,9 +1,9 @@
 import {mount} from "@cypress/react";
 import type {OrgUnitSelection} from "@hisptz/dhis2-utils";
 import React from "react";
-import OrgUnitDataProvider from "../../dataProviders/orgUnit";
 import {OrgUnitSelectorValue} from "./types";
 import OrgUnitSelector from "./index";
+import OrgUnitDataProvider from "../../../dataProviders/orgUnit";
 
 describe("Org Unit Selector", () => {
   const DHIS2Provider = ({ children }: { children: any }) => <OrgUnitDataProvider>{children}</OrgUnitDataProvider>;

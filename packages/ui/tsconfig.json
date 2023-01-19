@@ -10,7 +10,6 @@
     "types": [
       "cypress",
       "node",
-      "jest"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -36,6 +35,6 @@
   ],
   "exclude": [
     "src/locales",
-    "**/*.test.tsx"
+//    "**/*.test.tsx"
   ]
 }
