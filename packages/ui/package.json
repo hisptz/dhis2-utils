@@ -5,20 +5,29 @@
   "license": "BSD-3-Clause",
   "private": true,
   "scripts": {
-    "build": "d2-app-scripts build",
+    "build": "d2-app-scripts build --no-verify",
     "start": "d2-app-scripts start",
-    "test": "d2-app-scripts test --passWithNoTests",
+    "test": "cypress run --component",
+    "test:open": "cypress open --component",
     "deploy": "d2-app-scripts deploy"
   },
   "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^15.1.1",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.1.5",
     "@cypress/react": "^7.0.2",
+    "@cypress/vite-dev-server": "^5.0.2",
     "@dhis2/cli-app-scripts": "^10.2.0",
+    "@dhis2/cypress-commands": "^9.0.2",
+    "@dhis2/cypress-plugins": "^9.0.2",
     "@types/jest": "^29.2.5",
     "@types/lodash": "^4.14.191",
     "@types/react-color": "^3.0.6",
     "@types/styled-components": "^5.1.26",
+    "cypress": "^12.3.0",
     "lodash": "^4.17.21",
-    "react-hook-form": "^7.42.1"
+    "react": "16.14.0",
+    "react-hook-form": "^7.42.1",
+    "vite": "3"
   },
   "dependencies": {
     "@dhis2/app-runtime": "^3.7.0",

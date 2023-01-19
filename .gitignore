@@ -132,3 +132,6 @@ dist
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+/packages/ui/cypress.env.json
+/packages/ui/cypress/screenshots/
+/packages/storybook/storybook-static/
