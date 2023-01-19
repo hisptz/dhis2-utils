@@ -30,7 +30,7 @@ const columns = [
         key: "accountNo"
     },
     {
-        label: "Active",
+        label: "Status",
         key: "active"
     },
 ]
