@@ -1,15 +1,18 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": ".",
     "target": "es5",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "./build/types",
     "types": [
       "cypress",
-      "node",
+      "node"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -23,18 +26,20 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": false,
-    "jsx": "react-jsx",
+    "jsx": "react",
     "typeRoots": [
       "node_modules/@types",
-      "src/types"
     ]
   },
   "include": [
-    "src",
+    "src/**/*",
     "../../types"
   ],
   "exclude": [
-    "src/locales",
-//    "**/*.test.tsx"
+    "node_modules",
+    "../../node_modules",
+    "src/locales/*/**.js",
+    "**/*.test.ts",
+    "**/*.config.ts"
   ]
 }
