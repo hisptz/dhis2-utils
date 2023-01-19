@@ -1,6 +1,5 @@
 import React from "react";
 import {
-    Center,
     Checkbox,
     CircularLoader,
     colors,
@@ -19,6 +18,9 @@ import {difference, isEmpty} from "lodash";
 import EmptyList from "./components/EmptyList";
 import {Pagination as PaginationType} from "@hisptz/dhis2-utils"
 import classes from "./CustomDataTable.module.css"
+import {useElementSize} from "usehooks-ts";
+import cx from "classnames";
+
 
 export interface CustomDataTableColumn {
     label: string;
@@ -69,7 +71,7 @@ export const CustomDataTable: React.FC<CustomDataTableProps> = React.forwardRef(
                                                                                      pagination,
                                                                                      tableBodyProps,
                                                                                  }: CustomDataTableProps, ref: React.ForwardedRef<CustomDataTableProps>) => {
-
+        const [bodyRef, {height: bodyHeight}] = useElementSize();
         const rowIds = rows?.map(({id}) => id) ?? [];
 
         const handleRowClick = (selectedValueId: string) => () => {
@@ -113,7 +115,9 @@ export const CustomDataTable: React.FC<CustomDataTableProps> = React.forwardRef(
 
         return (
             <>
-                <DataTable ref={ref}  {...tableProps}>
+                <DataTable  className={cx(classes.table, {
+                    [classes.loading]: loading && isEmpty(rows),
+                })} ref={ref}  {...tableProps}>
                     <colgroup>
                         {selectable && (<col width="48px"/>)}
                         {columns?.map((col) => (
@@ -141,7 +145,9 @@ export const CustomDataTable: React.FC<CustomDataTableProps> = React.forwardRef(
                             }
                         </DataTableRow>
                     </DataTableHead>
-                    <DataTableBody {...tableBodyProps}>
+                    <DataTableBody className={cx(classes.table, {
+                        [classes.loading]: loading && isEmpty(rows),
+                    })} ref={bodyRef} {...tableBodyProps}>
                         {isEmpty(rows) || loading ? (
                             <tr>
                                 <td colSpan={columns.length + (selectable ? 1 : 0)}>
@@ -151,15 +157,19 @@ export const CustomDataTable: React.FC<CustomDataTableProps> = React.forwardRef(
                                             flexDirection: "column",
                                             alignItems: "center",
                                             justifyContent: "center",
+                                            position: "absolute",
+                                            top: 0,
+                                            left: 0,
                                             width: "100%",
-                                            height: "100%",
+                                            height: `100%`,
+                                            overflow: "hidden"
                                         }}
                                     >
                                         {loading && (
                                             <Cover className={classes["loading-cover"]} translucent>
-                                                <Center>
-                                                    <CircularLoader small/>
-                                                </Center>
+                                                    <div style={{position: "fixed" , top: "42%", left: "50%", transform: "translate(50%, -50%)"}} >
+                                                        <CircularLoader small/>
+                                                    </div>
                                             </Cover>
                                         )}
 
