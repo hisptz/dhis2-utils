@@ -1,0 +1,117 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"POT-Creation-Date: 2023-01-20T05:00:20.422Z\n"
+"PO-Revision-Date: 2023-01-20T05:00:20.422Z\n"
+
+msgid "Confirm Action"
+msgstr "Confirm Action"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Confirming..."
+msgstr "Confirming..."
+
+msgid "Confirm"
+msgstr "Confirm"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Years"
+msgstr "Years"
+
+msgid "Months"
+msgstr "Months"
+
+msgid "Days"
+msgstr "Days"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Add Item"
+msgstr "Add Item"
+
+msgid "Select all"
+msgstr "Select all"
+
+msgid "Select none"
+msgstr "Select none"
+
+msgid "Select Organisation Unit"
+msgstr "Select Organisation Unit"
+
+msgid "Select Organisation Unit(s)"
+msgstr "Select Organisation Unit(s)"
+
+msgid "Update"
+msgstr "Update"
+
+msgid "Select Period"
+msgstr "Select Period"
+
+msgid "Select Period(s)"
+msgstr "Select Period(s)"
+
+msgid "Clear"
+msgstr "Clear"
+
+msgid "Select Level(s)"
+msgstr "Select Level(s)"
+
+msgid "Select Group(s)"
+msgstr "Select Group(s)"
+
+msgid "Search name, id"
+msgstr "Search name, id"
+
+msgid "Could not find organisation units matching keyword "
+msgstr "Could not find organisation units matching keyword "
+
+msgid "User organisation unit"
+msgstr "User organisation unit"
+
+msgid "User sub-units"
+msgstr "User sub-units"
+
+msgid "User sub-x2-units"
+msgstr "User sub-x2-units"
+
+msgid "Start Date"
+msgstr "Start Date"
+
+msgid "End Date"
+msgstr "End Date"
+
+msgid "Relative Periods"
+msgstr "Relative Periods"
+
+msgid "Fixed Periods"
+msgstr "Fixed Periods"
+
+msgid "Period Type"
+msgstr "Period Type"
+
+msgid "Year"
+msgstr "Year"
+
+msgid "Period"
+msgstr "Period"
+
+msgid "Date Range"
+msgstr "Date Range"
+
+msgid "There are no items"
+msgstr "There are no items"
+
+msgid "Sort by {{column}}"
+msgstr "Sort by {{column}}"
+
+msgid "There are no data for the specified filters"
+msgstr "There are no data for the specified filters"

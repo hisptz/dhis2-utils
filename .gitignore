@@ -135,3 +135,5 @@ dist
 /packages/ui/cypress.env.json
 /packages/ui/cypress/screenshots/
 /packages/storybook/storybook-static/
+/packages/lib/src/locales/index.js
+/packages/lib/src/locales/en/translations.json
