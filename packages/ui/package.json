@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "description": "A collection of reusable complex DHIS2 react ui components.",
   "license": "BSD-3-Clause",
-  "private": true,
   "scripts": {
     "build": "d2-app-scripts build --no-verify",
     "build:types": "tsc --project tsconfig.build.json",
     "postbuild": "yarn build:types",
     "start": "d2-app-scripts start",
     "test": "cypress run --component",
-    "test:open": "cypress open --component"
+    "test:open": "cypress open --component",
+    "publish:ui": "yarn publish --access public"
   },
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^15.1.1",
