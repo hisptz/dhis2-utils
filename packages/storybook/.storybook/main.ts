@@ -1,10 +1,19 @@
+
+// @ts-ignore
+
 module.exports = {
     stories: [
         {
             directory: "../../ui/src",
             titlePrefix: "Core UI components",
             files: "**/*.stories.*"
-        }
+        },
+        {
+            directory: "../../analytics/src",
+            titlePrefix: "Analytics components",
+            files: "**/*.stories.*"
+        },
+
     ],
     addons: [
         "@storybook/addon-links",

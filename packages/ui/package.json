@@ -6,10 +6,11 @@
   "private": true,
   "scripts": {
     "build": "d2-app-scripts build --no-verify",
+    "build:types": "tsc --project tsconfig.build.json",
+    "postbuild": "yarn build:types",
     "start": "d2-app-scripts start",
     "test": "cypress run --component",
-    "test:open": "cypress open --component",
-    "deploy": "d2-app-scripts deploy"
+    "test:open": "cypress open --component"
   },
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^15.1.1",
@@ -27,6 +28,7 @@
     "lodash": "^4.17.21",
     "react": "16.14.0",
     "react-hook-form": "^7.42.1",
+    "typescript": "^4.9.4",
     "vite": "3"
   },
   "dependencies": {

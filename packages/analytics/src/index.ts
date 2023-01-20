@@ -1,7 +1,4 @@
-
-
-export function HelloAnalytics(){
-
-
-    return "Hello analytics!"
-}
+export * from "./components/Map";
+export * from "./components/CircularProgressDashboard";
+export * from "./components/ChartAnalytics";
+export * from "./components/SingleValueContainer";

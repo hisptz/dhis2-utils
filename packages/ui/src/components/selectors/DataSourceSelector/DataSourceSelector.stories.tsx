@@ -1,7 +1,7 @@
 import type {Story} from "@storybook/react";
 import React from "react";
 import {DataSourceSelectorProps} from "./types";
-import DataSourceSelector from "./index";
+import {DataSourceSelector} from "./index";
 import DataSourceProvider from "../../../dataProviders/dataSourceProvider";
 
 const Template: Story<DataSourceSelectorProps> = (args) => <DataSourceSelector {...args} />;
