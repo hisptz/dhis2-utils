@@ -25,7 +25,7 @@ export interface ConfirmDialogProps {
     loadingText?: string;
 }
 
-export default function ConfirmDialog({
+export function ConfirmDialog({
                                           message,
                                           loading,
                                           size,

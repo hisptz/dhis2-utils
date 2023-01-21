@@ -4,7 +4,7 @@ import {Button, ButtonStrip, Checkbox, Field} from '@dhis2/ui'
 import i18n from '@dhis2/d2-i18n'
 import {find, intersection, isEmpty, map} from "lodash";
 
-export default function MultipleOptionsField({
+export function MultipleOptionsField({
                                                  name,
                                                  label,
                                                  options,

@@ -2,7 +2,7 @@ import type {Story} from "@storybook/react";
 import React from "react";
 import {CalendarTypes} from "./components/PeriodSelect/constants/calendar";
 import {PeriodSelectorProps} from "./types/props";
-import PeriodSelector from "./index";
+import {PeriodSelector} from "./index";
 
 const Template: Story<PeriodSelectorProps> = (args, context) => <PeriodSelector {...args} {...context} />;
 

@@ -2,7 +2,7 @@ import React from 'react'
 import {Controller} from "react-hook-form";
 import {InputField} from '@dhis2/ui'
 
-export default function RHFTextInputField({
+export function RHFTextInputField({
                                                  name,
                                                  validations,
                                                  ...props
