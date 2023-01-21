@@ -3,7 +3,7 @@ import {Button, ButtonStrip, Modal, ModalActions, ModalContent, ModalTitle} from
 import type {OrgUnitSelection} from "@hisptz/dhis2-utils";
 import {flatten, last} from "lodash";
 import React, {useCallback, useState} from "react";
-import OrgUnitSelector from "../../OrgUnitSelector";
+import {OrgUnitSelector} from "../../OrgUnitSelector";
 import {OrgUnitSelectorProps} from "../../OrgUnitSelector/types";
 import {ModalProps} from "../types";
 

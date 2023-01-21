@@ -1,7 +1,7 @@
 import type {Story} from "@storybook/react";
 import React from "react";
 import {SingleValueContainerProps} from "./types/props";
-import SingleValueContainer from ".";
+import {SingleValueContainer} from ".";
 
 const Template: Story<SingleValueContainerProps> = (args) => <SingleValueContainer {...args} />;
 

@@ -1,7 +1,7 @@
 import i18n from "@dhis2/d2-i18n";
 import {Button, ButtonStrip, Modal, ModalActions, ModalContent, ModalTitle} from "@dhis2/ui";
 import React, {useCallback, useState} from "react";
-import PeriodSelector from "../../PeriodSelector/index";
+import {PeriodSelector} from "../../PeriodSelector";
 import {PeriodSelectorProps} from "../../PeriodSelector/types/props";
 import {ModalProps} from "../types";
 

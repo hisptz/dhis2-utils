@@ -1,6 +1,6 @@
 import {mount} from "@cypress/react";
 import React from "react";
-import SingleValueContainer from ".";
+import {SingleValueContainer} from ".";
 
 describe("Single Value Container Tests", () => {
   it("should render", function () {

@@ -1,7 +1,7 @@
 import type {Story} from "@storybook/react";
 import React from "react";
 import {MapProps} from "./interfaces";
-import Map from "./index";
+import {Map} from "./index";
 
 const Template: Story<MapProps> = (args) => <Map {...args} />;
 

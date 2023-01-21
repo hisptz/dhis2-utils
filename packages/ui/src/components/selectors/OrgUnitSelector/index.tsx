@@ -4,7 +4,7 @@ import Selector from "./components/Selector";
 import {FilterStateProvider} from "./states/filter";
 import {OrgUnitSelectorProps} from "./types";
 
-export default function OrgUnitSelector(props: OrgUnitSelectorProps) {
+export function OrgUnitSelector(props: OrgUnitSelectorProps) {
   return (
     <div style={{ margin: 4 }}>
       <CssReset />

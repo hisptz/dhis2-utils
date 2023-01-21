@@ -2,7 +2,7 @@ import {mount} from "@cypress/react";
 import type {OrgUnitSelection} from "@hisptz/dhis2-utils";
 import React from "react";
 import {OrgUnitSelectorValue} from "./types";
-import OrgUnitSelector from "./index";
+import {OrgUnitSelector} from "./index";
 import OrgUnitDataProvider from "../../../dataProviders/orgUnit";
 
 describe("Org Unit Selector", () => {

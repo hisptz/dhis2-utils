@@ -1,6 +1,6 @@
 import React, {ReactNode, useCallback, useState} from "react";
 import {ConfirmDialogContext} from "../states/dialog";
-import ConfirmDialog, {CustomAction} from "./ConfirmDialog";
+import {ConfirmDialog, CustomAction} from "./ConfirmDialog";
 import {useBoolean} from "usehooks-ts";
 
 export interface ConfirmDialogConfig {
@@ -17,7 +17,7 @@ export interface ConfirmDialogConfig {
     customActions?: CustomAction[];
 }
 
-export default function ConfirmDialogProvider({children}: { children: ReactNode }) {
+export function ConfirmDialogProvider({children}: { children: ReactNode }) {
     const [open, setOpen] = useState(false);
     const {value: confirming, setTrue, setFalse} = useBoolean(false)
     const [config, setConfig] = useState<ConfirmDialogConfig | null>();
