@@ -10,7 +10,7 @@
     "start": "d2-app-scripts start",
     "test": "cypress run --component",
     "test:open": "cypress open --component",
-    "publish:ui": "yarn publish --access public"
+    "publish:ui": "yarn build && yarn publish --access public"
   },
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^15.1.1",

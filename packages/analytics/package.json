@@ -8,7 +8,7 @@
     "start": "d2-app-scripts start",
     "test": "d2-app-scripts test --passWithNoTests",
     "deploy": "d2-app-scripts deploy",
-    "publish:analytics": "yarn publish --access public"
+    "publish:analytics": "yarn build && yarn publish --access public"
   },
   "devDependencies": {
     "@cypress/react": "^7.0.2",
