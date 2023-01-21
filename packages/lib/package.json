@@ -17,10 +17,10 @@
   "scripts": {
     "build:types": "tsc --project tsconfig.json",
     "postbuild": "yarn build:types",
-    "build:lib": "d2-app-scripts build --no-verify",
+    "build": "d2-app-scripts build --no-verify",
     "test": "jest",
     "prepublishOnly": "yarn build",
-    "publish:lib": "yarn build && yarn publish --access public"
+    "publish:lib": "yarn publish --access public"
   },
   "keywords": [],
   "license": "ISC",

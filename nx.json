@@ -4,53 +4,22 @@
       "runner": "nx/tasks-runners/default",
       "options": {
         "cacheableOperations": [
-          "build:analytics",
-          "build:docs",
-          "build:lib",
-          "build:sb",
-          "build:ui"
+          "build",
+          "test"
         ]
       }
     }
   },
   "targetDefaults": {
-    "build:analytics": {
+    "build": {
       "dependsOn": [
-        "^build:analytics"
+        "^build"
       ],
       "outputs": [
-        "{projectRoot}/packages/analytics/build"
-      ]
-    },
-    "build:docs": {
-      "dependsOn": [
-        "^build:docs"
-      ],
-      "outputs": [
-        "{projectRoot}/packages/docs/build"
-      ]
-    },
-    "build:lib": {
-      "dependsOn": [
-        "^build:lib"
-      ],
-      "outputs": [
-        "{projectRoot}/packages/lib/build"
-      ]
-    },
-    "build:sb": {
-      "dependsOn": [
-        "^build:sb"
-      ],
-      "outputs": [
-        "{projectRoot}/packages/storybook/storybook-static"
-      ]
-    },
-    "build:ui": {
-      "dependsOn": [
-        "^build:ui"
-      ],
-      "outputs": [
+        "{projectRoot}/packages/analytics/build",
+        "{projectRoot}/packages/docs/build",
+        "{projectRoot}/packages/lib/build",
+        "{projectRoot}/packages/storybook/storybook-static",
         "{projectRoot}/packages/ui/build"
       ]
     }
