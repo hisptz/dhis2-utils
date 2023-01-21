@@ -17,7 +17,7 @@
   "scripts": {
     "build:types": "tsc --project tsconfig.json",
     "postbuild": "yarn build:types",
-    "build": "d2-app-scripts build --no-verify",
+    "build:lib": "d2-app-scripts build --no-verify",
     "test": "jest",
     "prepublishOnly": "yarn build",
     "publish:lib": "yarn publish --access public"

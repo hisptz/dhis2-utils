@@ -1,0 +1,58 @@
+{
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx/tasks-runners/default",
+      "options": {
+        "cacheableOperations": [
+          "build:analytics",
+          "build:docs",
+          "build:lib",
+          "build:sb",
+          "build:ui"
+        ]
+      }
+    }
+  },
+  "targetDefaults": {
+    "build:analytics": {
+      "dependsOn": [
+        "^build:analytics"
+      ],
+      "outputs": [
+        "{projectRoot}/packages/analytics/build"
+      ]
+    },
+    "build:docs": {
+      "dependsOn": [
+        "^build:docs"
+      ],
+      "outputs": [
+        "{projectRoot}/packages/docs/build"
+      ]
+    },
+    "build:lib": {
+      "dependsOn": [
+        "^build:lib"
+      ],
+      "outputs": [
+        "{projectRoot}/packages/lib/build"
+      ]
+    },
+    "build:sb": {
+      "dependsOn": [
+        "^build:sb"
+      ],
+      "outputs": [
+        "{projectRoot}/packages/storybook/storybook-static"
+      ]
+    },
+    "build:ui": {
+      "dependsOn": [
+        "^build:ui"
+      ],
+      "outputs": [
+        "{projectRoot}/packages/ui/build"
+      ]
+    }
+  }
+}
