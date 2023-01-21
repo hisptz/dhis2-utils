@@ -110,6 +110,10 @@ Sortable.args = {
         scrollHeight: "800px"
     },
     onSort: (config) => console.log(config),
+    sortState: {
+        name: "name",
+        direction: "asc"
+    },
 }
 
 export default {

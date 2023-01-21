@@ -52,11 +52,13 @@ export interface CustomDataTableProps {
     };
     tableBodyProps?: Record<string, any>
     onSort?: (sortConfig: { name: string; direction: string; }) => void;
+    sortState?: { name: string; direction: "asc" | "desc" | "default" }
     pagination?: PaginationType;
     height?: number;
 }
 
 export const CustomDataTable: React.FC<CustomDataTableProps> = React.forwardRef(({
+                                                                                     sortState,
                                                                                      rows,
                                                                                      tableProps,
                                                                                      emptyLabel,
@@ -115,7 +117,7 @@ export const CustomDataTable: React.FC<CustomDataTableProps> = React.forwardRef(
 
         return (
             <>
-                <DataTable  className={cx(classes.table, {
+                <DataTable className={cx(classes.table, {
                     [classes.loading]: loading && isEmpty(rows),
                 })} ref={ref}  {...tableProps}>
                     <colgroup>
@@ -133,11 +135,12 @@ export const CustomDataTable: React.FC<CustomDataTableProps> = React.forwardRef(
                             {
                                 columns.map(({label, key, sortable}) => (
                                     <DataTableColumnHeader
+                                        name={key}
                                         fixed top={"0"}
                                         sortIconTitle={sortable ? i18n.t("Sort by {{column}}", {
                                             column: label
                                         }) : undefined}
-                                        sortDirection={sortable ? "default" : undefined}
+                                        sortDirection={!sortable ? "default" : sortState?.name === key ? sortState.direction : "default"}
                                         onSortIconClick={sortable ? onSort : undefined}
                                         key={`${key}-column-header`}
                                     >{label}
@@ -167,9 +170,14 @@ export const CustomDataTable: React.FC<CustomDataTableProps> = React.forwardRef(
                                     >
                                         {loading && (
                                             <Cover className={classes["loading-cover"]} translucent>
-                                                    <div style={{position: "fixed" , top: "42%", left: "50%", transform: "translate(50%, -50%)"}} >
-                                                        <CircularLoader small/>
-                                                    </div>
+                                                <div style={{
+                                                    position: "fixed",
+                                                    top: "42%",
+                                                    left: "50%",
+                                                    transform: "translate(50%, -50%)"
+                                                }}>
+                                                    <CircularLoader small/>
+                                                </div>
                                             </Cover>
                                         )}
 
@@ -187,7 +195,7 @@ export const CustomDataTable: React.FC<CustomDataTableProps> = React.forwardRef(
                             rows?.map((data, index) => (
                                 <DataTableRow
                                     selected={selectedRows?.includes(data.id)}
-                                    key={`${data.reportName}-${index}-row`}>
+                                    key={`${data.id}-${index}-row`}>
                                     {selectable && (<DataTableCell width="48px">
                                         <Checkbox checked={selectedRows?.includes(data.id)}
                                                   onChange={handleRowSelect(data.id)}
