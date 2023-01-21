@@ -2,7 +2,7 @@ import React from 'react'
 import {Controller} from "react-hook-form";
 import {Radio} from '@dhis2/ui'
 
-export default function RHFRadioField({
+export function RHFRadioField({
                                              name,
                                              radioValue,
                                              validations,

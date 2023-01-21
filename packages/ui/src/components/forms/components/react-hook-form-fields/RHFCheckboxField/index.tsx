@@ -2,7 +2,7 @@ import React from 'react'
 import {Controller} from "react-hook-form";
 import {CheckboxField} from '@dhis2/ui'
 
-export default function RHFCheckboxField({
+export function RHFCheckboxField({
                                                 name,
                                                 validations,
                                                 ...props

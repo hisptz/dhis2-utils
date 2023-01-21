@@ -2,7 +2,7 @@ import React from 'react'
 import {Controller} from "react-hook-form";
 import {SingleSelectField, SingleSelectOption} from '@dhis2/ui'
 
-export default function RHFSingleSelectField({
+export function RHFSingleSelectField({
                                                     options,
                                                     name,
                                                     validations,

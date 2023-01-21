@@ -14,7 +14,7 @@ export interface MultipleFieldsFieldProps extends RHFFieldProps {
     component: React.JSXElementConstructor<RHFFieldProps>
 }
 
-export default function RHFMultipleFieldsField({
+export function RHFMultipleFieldsField({
                                                    name,
                                                    multipleField,
                                                    component,
