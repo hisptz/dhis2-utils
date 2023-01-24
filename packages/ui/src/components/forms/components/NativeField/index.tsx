@@ -11,6 +11,7 @@ export const NativeField = React.forwardRef(({onChange, value, type, name, error
 
     return (
         <InputField
+            value={value}
             type={type}
             name={name}
             onChange={({value}: { value: any }) => onChange(value)}
