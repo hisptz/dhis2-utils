@@ -10,6 +10,7 @@ import {CustomCheckboxField} from "../CustomCheckboxField";
 import {LegendDefinitionField} from "../LegendDefinitionField";
 import {LegendMinMax} from "../LegendMinMax";
 import {AgeField} from "../AgeField";
+import {OrgUnitSelectField} from "../OrgUnitSelectField";
 
 
 export interface DHIS2FormFieldProps extends FieldProps {
@@ -40,6 +41,8 @@ function getField(valueType: VALUE_TYPE, optionSet?: OptionSet) {
             return LegendDefinitionField;
         case VALUE_TYPES.LEGEND_MIN_MAX.name:
             return LegendMinMax;
+        case VALUE_TYPES.ORG_UNIT_FIELD.name:
+            return OrgUnitSelectField;
         case VALUE_TYPES.FILE.name:
             return NativeField
         default:

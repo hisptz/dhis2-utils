@@ -5,7 +5,10 @@ import React, {useEffect} from "react";
 import {post} from "./api";
 import hispTheme from "./theme";
 import {CssReset} from '@dhis2/ui'
+// import {config} from "dotenv";
 
+
+// config()
 export const parameters = {
     actions: {argTypesRegex: "^on[A-Z].*"},
     controls: {
