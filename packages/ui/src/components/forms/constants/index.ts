@@ -1,4 +1,3 @@
-
 export type VALUE_TYPE =
     | "AGE"
     | "EMAIL"
@@ -18,7 +17,8 @@ export type VALUE_TYPE =
     | "LEVEL_LEGEND_MIN_MAX"
     | "MULTIPLE_FIELDS"
     | "PHONE_NUMBER"
-    | "BOOLEAN";
+    | "BOOLEAN"
+    | "ORG_UNIT_FIELD";
 
 export const VALUE_TYPES: { [key: string]: { name: VALUE_TYPE; formName: string } } = {
     INTEGER: {
@@ -92,5 +92,9 @@ export const VALUE_TYPES: { [key: string]: { name: VALUE_TYPE; formName: string 
     MULTIPLE_FIELDS: {
         name: "MULTIPLE_FIELDS",
         formName: "multipleFields",
+    },
+    ORG_UNIT_FIELD: {
+        name: "ORG_UNIT_FIELD",
+        formName: "orgUnit",
     },
 };
