@@ -1,15 +1,15 @@
 import {MapOrgUnit} from "../../../../../interfaces";
 // @ts-ignore
-import EE from "./api";
-// import EE from "@google/earthengine";
+// import EE from "./api";
+import EE from "@google/earthengine";
 import {EarthEngineOptions, EarthEngineToken, RefreshToken} from "../interfaces";
 import {
-  combineReducers,
-  getFeatureCollectionProperties,
-  getHistogramStatistics,
-  getInfo,
-  getScale,
-  hasClasses
+    combineReducers,
+    getFeatureCollectionProperties,
+    getHistogramStatistics,
+    getInfo,
+    getScale,
+    hasClasses
 } from "../utils";
 import {find, head, isEmpty} from "lodash";
 
