@@ -9,6 +9,11 @@ Default.args = {
     name: "Field",
 
 }
+export const WithValue = Template.bind({});
+WithValue.args = {
+    name: "Field",
+    value: "OI0BQUurVFS"
+}
 
 export default {
     title: "Form/Organisation unit field",
