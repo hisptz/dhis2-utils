@@ -22,7 +22,7 @@ export function ConfirmDialogProvider({children}: { children: ReactNode }) {
     const {value: confirming, setTrue, setFalse} = useBoolean(false)
     const [config, setConfig] = useState<ConfirmDialogConfig | null>();
 
-    const confirm = useCallback((config: ConfirmDialogConfig) => {
+    const confirm = useCallback( (config: ConfirmDialogConfig) => {
         setConfig(config);
         setOpen(true);
     }, []);
@@ -36,13 +36,13 @@ export function ConfirmDialogProvider({children}: { children: ReactNode }) {
     }, [config]);
 
     const onConfirm = useCallback(async () => {
-        setOpen(false);
-        setConfig(null);
         if (config) {
             setTrue();
             await config.onConfirm();
             setFalse();
         }
+        setOpen(false);
+        setConfig(null);
     }, [config, setFalse, setTrue]);
 
     const customActions = config?.customActions?.map((actions) => ({
