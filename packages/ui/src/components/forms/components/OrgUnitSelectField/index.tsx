@@ -3,9 +3,10 @@ import React, {useEffect} from "react";
 import {InputField} from '@dhis2/ui'
 import {useDataQuery} from "@dhis2/app-runtime";
 import {OrgUnitSelectorModal} from "../../../selectors";
-import {OrgUnitSelection} from "@hisptz/dhis2-utils";
+import {OrganisationUnit, OrgUnitSelection} from "@hisptz/dhis2-utils";
 import {head} from "lodash";
 import {useBoolean} from "usehooks-ts";
+import classes from "./OrgUnitSelectField.module.css"
 
 export interface OrgUnitSelectFieldProps extends FieldProps {
 
@@ -68,6 +69,7 @@ export const OrgUnitSelectField: React.FC<OrgUnitSelectFieldProps> = React.forwa
         <>
             <div onClick={openModal} style={{cursor: "pointer !important"}}>
                 <InputField
+                    className={classes['input']}
                     ref={ref}
                     loading={loading}
                     disabled
@@ -77,11 +79,16 @@ export const OrgUnitSelectField: React.FC<OrgUnitSelectFieldProps> = React.forwa
                     {...props}
                 />
             </div>
-            <OrgUnitSelectorModal
-                value={value ? {orgUnits: [{id: value, children: []}]} : undefined} singleSelection searchable
-                onClose={closeModal}
-                hide={hide}
-                onUpdate={onUpdate}/>
+            {
+                !hide && (<OrgUnitSelectorModal
+                    value={data?.ou ? {orgUnits: [(data?.ou as OrganisationUnit)]} : undefined}
+                    singleSelection
+                    searchable
+                    onClose={closeModal}
+                    hide={hide}
+                    onUpdate={onUpdate}
+                />)
+            }
         </>
     )
 })
