@@ -21,6 +21,7 @@ export const RHFDHIS2FormField: React.FC<RHFDHIS2FormFieldProps> = React.forward
 
     return (
         <Controller
+            rules={validations}
             render={({field, fieldState}) => {
                 return <DHIS2FormField
                     ref={ref}

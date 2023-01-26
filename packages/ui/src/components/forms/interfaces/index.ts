@@ -8,22 +8,26 @@ export interface FieldProps {
      * */
     label?: string;
     /**
-    * Field value
-    * */
+     * Field value
+     * */
     value?: any;
     /**
      * A function that is called whenever the value of the field changes
      * */
     onChange: (value: any) => void;
     /**
-    * An error message to display when the field has an error. Also accepts boolean for only showing the field's error state without any message
-    * */
+     * An error message to display when the field has an error. Also accepts boolean for only showing the field's error state without any message
+     * */
     error?: string | boolean
 }
 
 export interface RHFFieldProps {
     name: string;
-    validations?: Record<string, any>
+    validations?: Record<string, any>;
+    label?: string;
+
+    [key: string]: any
+
 }
 
 export type LegendDefinition = {
