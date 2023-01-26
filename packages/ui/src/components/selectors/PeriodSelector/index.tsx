@@ -6,6 +6,9 @@ import DateRange from "./components/DateRange";
 import PeriodSelect from "./components/PeriodSelect";
 import {DateRangeValue, PeriodSelectorProps} from "./types/props";
 
+export * from "./components/PeriodSelect"
+export * from "./components/FixedPeriodSelector"
+
 export function PeriodSelector({
   excludedPeriodTypes,
   selectedPeriods,
