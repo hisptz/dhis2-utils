@@ -23,20 +23,17 @@ export const parameters = {
     },
 };
 
-// @ts-ignore
-const username = process.env.STORYBOOK_DHIS2_USERNAME ?? "admin";
-// @ts-ignore
+const username = import.meta.env.STORYBOOK_DHIS2_USERNAME ?? "admin";
 
-const password = process.env.STORYBOOK_DHIS2_PASSWORD ?? "district";
-// @ts-ignore
+const password = import.meta.env.STORYBOOK_DHIS2_PASSWORD ?? "district";
 
-const baseUrl = process.env.STORYBOOK_DHIS2_BASE_URL ?? "http://localhost:8080";
+const baseUrl = import.meta.env.STORYBOOK_DHIS2_BASE_URL ?? "http://localhost:8080";
 
 const appConfig = {
     baseUrl,
     // @ts-ignore
 
-    apiVersion: parseInt(process.env.STORYBOOK_DHIS2_API_VERSION ?? "38") ?? 38,
+    apiVersion: parseInt(import.meta.env.STORYBOOK_DHIS2_API_VERSION ?? "38") ?? 38,
 };
 
 const DHIS2Provider = ({children}: { children: any }) => <Provider config={appConfig}>{children}</Provider>;

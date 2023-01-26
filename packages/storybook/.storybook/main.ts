@@ -1,4 +1,4 @@
-
+import {mergeConfig} from "vite";
 // @ts-ignore
 
 module.exports = {
@@ -24,5 +24,9 @@ module.exports = {
     framework: "@storybook/react",
     core: {
         builder: "@storybook/builder-vite"
+    },
+    async viteFinal(config: any) {
+        const newConfig = (await import('../vite.config')).default;
+        return mergeConfig(config, newConfig)
     }
 }
