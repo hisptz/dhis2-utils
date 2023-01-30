@@ -1,7 +1,7 @@
 {
   "name": "@hisptz/dhis2-analytics",
   "version": "1.0.5",
-  "description": "",
+  "description": "A collection of reusable react components for visualizing analytics data from DHIS2",
   "license": "BSD-3-Clause",
   "scripts": {
     "build": "d2-app-scripts build --no-verify",
@@ -48,6 +48,23 @@
   "exports": {
     "import": "./build/es/index.js",
     "require": "./build/cjs/index.js"
+  },
+  "keywords": [
+    "react",
+    "dhis2",
+    "dhis2-analytics",
+    "hisptz"
+  ],
+  "author": "HISP Tanzania",
+  "files": [
+    "build/**"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hisptz/dhis2-utils.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hisptz/dhis2-utils/issues"
   },
   "peerDependencies": {
     "lodash": "^4",
