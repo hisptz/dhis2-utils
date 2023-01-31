@@ -1,8 +1,12 @@
+// @ts-nocheck
+
+
 /*
 
  Copyright The Closure Library Authors.
  SPDX-License-Identifier: Apache-2.0
 */
+// @ts-ignore
 var isChrome87,
   $jscomp = $jscomp || {};
 $jscomp.scope = {};
@@ -6702,6 +6706,9 @@ goog.structs.Set.prototype.setSizeInternal_ = function (newSize) {
   this.size = newSize;
 };
 var ee = {
+    /**
+     * @type Function
+     * */
   AbstractOverlay: function (url, mapId, token, opt_init, opt_profiler) {
     goog.events.EventTarget.call(this);
     this.mapId = mapId;

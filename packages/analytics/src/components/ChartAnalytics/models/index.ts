@@ -15,7 +15,7 @@ export abstract class DHIS2Chart {
 
   abstract getHighchartsType(): string;
 
-  getChartConfig(): HighCharts.ChartOptions {
+  getChartConfig(): HighCharts.ChartOptions & any {
     return {
       renderTo: this.id,
       zoomType: "xy",

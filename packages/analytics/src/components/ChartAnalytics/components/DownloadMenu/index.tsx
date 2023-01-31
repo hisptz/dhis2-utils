@@ -14,8 +14,8 @@ function ChartDownloadMenu({
   exclude?: ChartExportMenuItem[];
   icon?: React.ReactNode;
 }) {
-  const menuButtonRef = useRef<HTMLButtonElement | null>(null);
-  const [menuRef, setMenuRef] = useState<HTMLButtonElement | null>(null);
+  const menuButtonRef = useRef<HTMLDivElement | null>(null);
+  const [menuRef, setMenuRef] = useState<HTMLDivElement | null>(null);
   const toggleMenu = () => {
     if (menuRef === null) {
       setMenuRef(menuButtonRef.current);

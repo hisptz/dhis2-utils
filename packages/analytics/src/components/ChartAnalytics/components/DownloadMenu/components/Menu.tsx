@@ -10,7 +10,7 @@ export function ChartMenu({
   onClose,
   exclude = [],
 }: {
-  menuRef: HTMLButtonElement;
+  menuRef: HTMLDivElement;
   onClick: (action: string) => void;
   onClose: () => void;
   exclude?: ChartExportMenuItem[];

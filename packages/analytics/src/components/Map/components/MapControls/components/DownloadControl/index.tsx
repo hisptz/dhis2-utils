@@ -1,6 +1,7 @@
 import {createControlComponent} from "@react-leaflet/core";
 import L, {ControlPosition} from "leaflet";
 import "leaflet-easyprint";
+import React from "react";
 
 const DownloadControlComponent = createControlComponent((props) => {
   return (L as any).easyPrint(props);

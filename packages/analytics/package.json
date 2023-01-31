@@ -5,6 +5,8 @@
   "license": "BSD-3-Clause",
   "scripts": {
     "build": "d2-app-scripts build --no-verify",
+    "build:types": "tsc --project tsconfig.build.json",
+    "postbuild": "yarn build:types",
     "start": "d2-app-scripts start",
     "test": "d2-app-scripts test --passWithNoTests",
     "deploy": "d2-app-scripts deploy",
@@ -16,13 +18,15 @@
     "@dhis2/cypress-commands": "^9.0.2",
     "@dhis2/cypress-plugins": "^9.0.2",
     "@google/earthengine": "^0.1.336",
+    "@types/d3-color": "^3.1.0",
     "@types/d3-scale": "^4.0.3",
     "@types/leaflet": "^1.9.0",
     "@types/lodash": "^4.14.191",
     "@types/react-helmet": "^6.1.6",
     "cypress": "^12.3.0",
     "lodash": "^4.17.21",
-    "react-hook-form": "^7.42.1"
+    "react-hook-form": "^7.42.1",
+    "typescript": "^4.9.5"
   },
   "dependencies": {
     "@dhis2/app-runtime": "^3.7.0",
