@@ -8,16 +8,24 @@ import {ChartAnalyticsProps} from "./types/props";
 import "./styles/custom-highchart.css";
 
 export * from "./services/export";
-export { ChartDownloadMenu };
+export {
+    ChartDownloadMenu,
+    ChartAnalyticsProps,
+};
 
-function ChartAnalytics({ analytics, config, containerProps }: ChartAnalyticsProps, ref: React.ForwardedRef<HighchartsReact.RefObject>) {
-  const id = useRef(`${uid()}-chart-item`);
-  const { chart } = useChart({ id: id.current, analytics, config });
+function ChartAnalyticsComponent({
+                                     analytics,
+                                     config,
+                                     containerProps
+                                 }: ChartAnalyticsProps, ref: React.ForwardedRef<HighchartsReact.RefObject>) {
+    const id = useRef(`${uid()}-chart-item`);
+    const {chart} = useChart({id: id.current, analytics, config});
 
-  if (!chart) {
-    return null;
-  }
-  return <HighchartsReact immutable ref={ref} containerProps={{ id: id.current, ...(containerProps ?? {}) }} highcharts={HighCharts} options={{ ...chart }} />;
+    if (!chart) {
+        return null;
+    }
+    return <HighchartsReact immutable ref={ref} containerProps={{id: id.current, ...(containerProps ?? {})}}
+                            highcharts={HighCharts} options={{...chart}}/>;
 }
 
-export default forwardRef(ChartAnalytics);
+export const ChartAnalytics: React.FC<ChartAnalyticsProps> = forwardRef(ChartAnalyticsComponent);
