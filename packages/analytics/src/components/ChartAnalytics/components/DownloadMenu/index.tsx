@@ -5,7 +5,7 @@ import {onCSVDownload, onFullScreenView, onImageDownload, onPDFDownload, onViewA
 import {ChartMenu} from "./components/Menu";
 import {ChartExportMenuItem} from "./interfaces/menu";
 
-function ChartDownloadMenu({
+export function ChartDownloadMenu({
   chartRef,
   exclude,
   icon,
@@ -63,5 +63,3 @@ function ChartDownloadMenu({
     </>
   );
 }
-
-export default ChartDownloadMenu;

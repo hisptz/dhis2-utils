@@ -3,7 +3,7 @@ import type {Story} from "@storybook/react";
 import HighCharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import React, {useState} from "react";
-import ChartDownloadMenu from "./components/DownloadMenu";
+import {ChartDownloadMenu} from "./components/DownloadMenu";
 import columnData from "./data/column-data.json";
 import complexMultiSeriesData from "./data/complex-multi-series-data.json";
 import multiSeriesData from "./data/multi-series-data.json";
@@ -11,7 +11,7 @@ import pieData from "./data/pie-data.json";
 import stackedChartData from "./data/stacked-chart-data.json";
 import {setupHighchartsModules} from "./services/export";
 import {ChartAnalyticsProps} from "./types/props";
-import ChartAnalytics from ".";
+import {ChartAnalytics} from ".";
 
 const Template: Story<ChartAnalyticsProps> = (args) => <ChartAnalytics {...args} />;
 setupHighchartsModules(HighCharts);
