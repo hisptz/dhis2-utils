@@ -233,7 +233,7 @@ ComplexMultiSeries.args = {
 };
 
 export default {
-  title: "Components/Chart Analytics",
+  title: "Analytics/Chart Analytics",
   component: ChartAnalytics,
   decorators: [
     (ChartStory: any) => {

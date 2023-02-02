@@ -20,7 +20,7 @@ export const Basic = Template.bind({});
 Basic.args = {};
 
 export default {
-  title: "Components/Map/Earth Engine Configuration",
+  title: "Analytics/Map/Earth Engine Configuration",
   component: EarthEngineLayerConfiguration,
   decorators: [
     (MapStory: any) => {

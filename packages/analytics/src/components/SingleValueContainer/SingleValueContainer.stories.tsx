@@ -136,7 +136,7 @@ SingleValuesWithDecimalPlaces.args = {
 };
 
 export default {
-  title: "Components/Single Value Container",
+  title: "Analytics/Single Value Container",
   component: SingleValueContainer,
   decorators: [
     (SingleValueStory: any) => {

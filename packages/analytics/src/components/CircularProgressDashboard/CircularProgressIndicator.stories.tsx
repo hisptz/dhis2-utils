@@ -36,6 +36,6 @@ WithTextStyling.args = {
 };
 
 export default {
-  title: "Components/Circular Progress Indicator",
+  title: "Analytics/Circular Progress Indicator",
   component: CircularProgressDashboard,
 };

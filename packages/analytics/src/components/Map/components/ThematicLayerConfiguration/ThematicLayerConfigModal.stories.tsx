@@ -14,7 +14,7 @@ Basic.args = {
 };
 
 export default {
-  title: "Components/Map/Thematic Layer Config Modal",
+  title: "Analytics/Map/Thematic Layer Config Modal",
   component: ThematicLayerConfigModal,
   decorators: [
     (MapStory: any) => {

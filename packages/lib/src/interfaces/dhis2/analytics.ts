@@ -22,6 +22,7 @@ export interface AnalyticsDimension {
 }
 
 export interface AnalyticsMetadata {
+    ouNameHierarchy?: string;
     items: AnalyticsItem[];
     dimensions: AnalyticsDimension;
 }

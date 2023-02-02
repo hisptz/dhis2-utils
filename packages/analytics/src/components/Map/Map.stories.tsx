@@ -323,7 +323,7 @@ GoogleEarthEngineLayers.args = {
 };
 
 export default {
-  title: "Components/Map",
+  title: "Analytics/Map",
   component: Map,
   decorators: [
     (MapStory: any) => {
