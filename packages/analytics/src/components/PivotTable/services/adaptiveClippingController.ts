@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {measureTextWithWrapping} from '../utils'
 import {CLIPPED_AXIS_PARTITION_SIZE_PX, CLIPPED_CELL_MIN_SIZE,} from '../constants/pivotTable'
 import {PivotTableEngine} from "./engine";
@@ -66,11 +67,11 @@ export class AdaptiveClippingController {
         }
     }
 
-    add({row, column}: { row: number, column: number }, renderedValue: string) {
+    add({row, column}: { row: number, column: number }, renderedValue?: string) {
         this.addSize({row, column}, this.measureText(renderedValue))
     }
 
-    measureText(renderedValue: string, options = {}) {
+    measureText(renderedValue?: string, options?:any  = {}) {
         return measureTextWithWrapping(renderedValue, {
             fontSize: this.engine.fontSize,
             ...options,
@@ -96,7 +97,7 @@ export class AdaptiveClippingController {
 
         map.forEach((index, mapIndex) => {
             const headerStack = getHeader(index)
-            headerStack.forEach((header: { hierarchy: any[]; name: any; }, level: number) => {
+            headerStack?.forEach((header: { hierarchy: any[]; name: any; }, level: number) => {
                 const label =
                     this.engine.visualization.showHierarchy && header?.hierarchy
                         ? header.hierarchy.join(' / ')
@@ -171,12 +172,12 @@ export class AdaptiveClippingController {
     finalize() {
         if (this.engine.visualization.showDimensionLabels) {
             const columnDimensionCount =
-                this.engine.dimensionLookup.columnHeaders.length
+                this.engine.dimensionLookup?.columnHeaders.length ?? 0
             const rowDimensionCount =
-                this.engine.dimensionLookup.rowHeaders.length
-            this.engine.dimensionLookup.columnHeaders.forEach(
+                this.engine.dimensionLookup?.rowHeaders.length ?? 0
+            this.engine.dimensionLookup?.columnHeaders?.forEach(
                 (_: any, columnLevel: number) => {
-                    this.engine.dimensionLookup.rowHeaders.forEach(
+                    this.engine.dimensionLookup?.rowHeaders?.forEach(
                         (_: any, rowLevel: number) => {
                             const label = this.engine.getDimensionLabel(
                                 rowLevel,

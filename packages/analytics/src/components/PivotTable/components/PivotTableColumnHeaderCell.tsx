@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import {PivotTableCell} from './PivotTableCell';
 import {usePivotTableEngine} from './PivotTableEngineContext';

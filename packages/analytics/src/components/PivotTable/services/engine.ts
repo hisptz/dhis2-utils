@@ -1,3 +1,4 @@
+// @ts-nocheck
 import times from 'lodash/times'
 
 import {

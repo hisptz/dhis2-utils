@@ -15,7 +15,10 @@ const isHex = (color: string | string[] | number[] | null) => {
 }
 
 const hexToRgb = (hex: string | string[] | number[] | null) => {
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+    let result;
+    if (typeof hex === "string") {
+        result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+    }
 
     return result
         ? [

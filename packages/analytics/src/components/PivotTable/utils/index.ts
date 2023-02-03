@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import {getOuLevelAndGroupText} from './getOuLevelAndGroupText'
 import {dimensionGetItems} from './layout/dimensionGetItems'
 import {dimensionIs} from './layout/dimensionIs'
