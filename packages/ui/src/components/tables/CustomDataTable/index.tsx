@@ -1,9 +1,7 @@
 import React from "react";
 import {
     Checkbox,
-    CircularLoader,
     colors,
-    Cover,
     DataTable,
     DataTableBody,
     DataTableCell,
@@ -140,7 +138,7 @@ export const CustomDataTable: React.FC<CustomDataTableProps> = React.forwardRef(
                                         sortIconTitle={sortable ? i18n.t("Sort by {{column}}", {
                                             column: label
                                         }) : undefined}
-                                        sortDirection={!sortable ? "default" : sortState?.name === key ? sortState.direction : "default"}
+                                        sortDirection={!sortable ? undefined : sortState?.name === key ? sortState.direction : "default"}
                                         onSortIconClick={sortable ? onSort : undefined}
                                         key={`${key}-column-header`}
                                     >{label}
@@ -148,7 +146,7 @@ export const CustomDataTable: React.FC<CustomDataTableProps> = React.forwardRef(
                             }
                         </DataTableRow>
                     </DataTableHead>
-                    <DataTableBody className={cx(classes.table, {
+                    <DataTableBody loading={loading} className={cx(classes.table, {
                         [classes.loading]: loading && isEmpty(rows),
                     })} ref={bodyRef} {...tableBodyProps}>
                         {isEmpty(rows) || loading ? (
@@ -168,19 +166,6 @@ export const CustomDataTable: React.FC<CustomDataTableProps> = React.forwardRef(
                                             overflow: "hidden"
                                         }}
                                     >
-                                        {loading && (
-                                            <Cover className={classes["loading-cover"]} translucent>
-                                                <div style={{
-                                                    position: "fixed",
-                                                    top: "42%",
-                                                    left: "50%",
-                                                    transform: "translate(50%, -50%)"
-                                                }}>
-                                                    <CircularLoader small/>
-                                                </div>
-                                            </Cover>
-                                        )}
-
                                         {!loading && isEmpty(rows) && (
                                             <h3 style={{color: colors.grey700}}>
                                                 {emptyLabel ??

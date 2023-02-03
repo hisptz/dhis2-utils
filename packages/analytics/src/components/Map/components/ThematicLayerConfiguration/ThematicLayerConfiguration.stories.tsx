@@ -20,7 +20,7 @@ export const Basic = Template.bind({});
 Basic.args = {};
 
 export default {
-  title: "Components/Map/Thematic Layer Configuration",
+  title: "Analytics/Map/Thematic Layer Configuration",
   component: ThematicLayerConfiguration,
   decorators: [
     (MapStory: any) => {

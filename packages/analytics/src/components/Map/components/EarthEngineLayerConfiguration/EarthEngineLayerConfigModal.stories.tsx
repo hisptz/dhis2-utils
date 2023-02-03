@@ -14,7 +14,7 @@ Basic.args = {
 };
 
 export default {
-  title: "Components/Map/Earth Engine Config Modal",
+  title: "Analytics/Map/Earth Engine Config Modal",
   component: EarthEngineLayerConfiguration,
   decorators: [
     (MapStory: any) => {
