@@ -6,12 +6,14 @@ export interface PivotTableContainerProps {
     children: React.ReactNode,
     height: number;
     width: number;
+    tableProps?: Record<string, any>;
 }
 
 export const PivotTableContainer = React.forwardRef(({
                                                          width,
                                                          height,
-                                                         children
+                                                         children,
+                                                         tableProps,
                                                      }: PivotTableContainerProps, ref: React.ForwardedRef<HTMLDivElement>) => {
     const engine = usePivotTableEngine();
 
@@ -21,7 +23,7 @@ export const PivotTableContainer = React.forwardRef(({
 
     return (
         <div className="pivot-table-container" style={{width, height}} ref={ref} data-test="visualization-container">
-            {width === 0 || height === 0 ? null : (<DataTable >
+            {width === 0 || height === 0 ? null : (<DataTable {...(tableProps ?? {})}>
                 {children}
             </DataTable>)}
         </div>);

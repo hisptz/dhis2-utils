@@ -12,7 +12,7 @@ import {DataTableRow} from '@dhis2/ui'
 export interface PivotTableRowProps {
     clippingResult: ClippingResult,
     rowIndex: number,
-    onToggleContextualMenu: ToggleContextualMenuFunction
+    onToggleContextualMenu?: ToggleContextualMenuFunction
 }
 
 export const PivotTableRow = ({clippingResult, rowIndex, onToggleContextualMenu,}: PivotTableRowProps) => {

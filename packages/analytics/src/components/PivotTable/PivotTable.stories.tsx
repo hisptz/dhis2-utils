@@ -1,12 +1,13 @@
 import React from "react";
-import PivotTable, {PivotTableProps} from "./components/PivotTable";
 import {Story} from "@storybook/react";
+import {CustomPivotTable, CustomPivotTableProps} from ".";
+import {Analytics} from "@hisptz/dhis2-utils";
 
-const Template: Story<PivotTableProps> = (args) => <PivotTable {...args} />;
+const Template: Story<CustomPivotTableProps> = (args) => <CustomPivotTable {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-    data: {
+    analytics: {
         "headers": [
             {
                 "name": "dx",
@@ -379,27 +380,20 @@ Default.args = {
                 ""
             ]
         ], "height": 0, "width": 0, "headerWidth": 0
-    },
-    visualization: {
-        rows: [
-            {
-                    dimension: "pe"
-            },
-            {
-                dimension: "ou"
-            },
-        ],
-        columns: [
+    } as unknown as Analytics,
+    config: {
+        layout: {
+            columns: ["dx"],
+            rows: ["ou", "pe"],
+            filter: []
+        },
+        options: {
 
-            {
-                dimension: "dx"
-            }
-        ],
-        filter: []
+        }
     },
 };
 
 export default {
     title: "Analytics/Pivot table",
-    component: PivotTable,
+    component: CustomPivotTable,
 };

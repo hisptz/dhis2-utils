@@ -285,7 +285,7 @@ export class PivotTableEngine {
 
     rawDataHeight: number = 0;
 
-    constructor(visualization: PivotTableVisualization, data: Analytics, legendSets: LegendSet[]) {
+    constructor(visualization: PivotTableVisualization, data: Analytics, legendSets?: LegendSet[] = []) {
         this.visualization = Object.assign(
             {},
             defaultVisualizationProps,

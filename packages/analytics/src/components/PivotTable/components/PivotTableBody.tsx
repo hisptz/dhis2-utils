@@ -6,7 +6,7 @@ import {ClippingResult, ToggleContextualMenuFunction} from "../interfaces";
 
 export interface PivotTableBodyProps {
     clippingResult: ClippingResult;
-    onToggleContextualMenu: ToggleContextualMenuFunction
+    onToggleContextualMenu?: ToggleContextualMenuFunction
 }
 
 export const PivotTableBody = ({

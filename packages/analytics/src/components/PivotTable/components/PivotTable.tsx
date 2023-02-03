@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, {useMemo, useRef} from 'react';
 import {PivotTableEngine} from '../services/engine';
 import {PivotTableBody} from './PivotTableBody';
@@ -15,14 +14,22 @@ import {PivotTableVisualization, ToggleContextualMenuFunction} from "../interfac
 export interface PivotTableProps {
     data: Record<string, any>;
     visualization: PivotTableVisualization,
-    legendSets: Array<LegendSet>;
-    renderCounter: number;
-    onToggleContextualMenu: ToggleContextualMenuFunction
+    legendSets?: Array<LegendSet>;
+    tableProps?: Record<string, any>;
+    renderCounter?: number;
+    onToggleContextualMenu?: ToggleContextualMenuFunction
 }
 
-const PivotTable = ({visualization, data, legendSets, renderCounter, onToggleContextualMenu,}: PivotTableProps) => {
+export const PivotTable: React.FC<PivotTableProps> = ({
+                                                          visualization,
+                                                          data,
+                                                          legendSets,
+                                                          renderCounter,
+                                                          tableProps,
+                                                          onToggleContextualMenu,
+                                                      }: PivotTableProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
-    const {width, height} = useParentSize(containerRef, renderCounter);
+    const {width, height} = useParentSize(containerRef, (renderCounter ?? 1));
 
     const engine = useMemo(() => new PivotTableEngine(visualization, data, legendSets), [visualization, data, legendSets]);
 
@@ -36,7 +43,7 @@ const PivotTable = ({visualization, data, legendSets, renderCounter, onToggleCon
     });
 
     return (<Provider engine={engine}>
-        <PivotTableContainer ref={containerRef} width={width} height={height}>
+        <PivotTableContainer tableProps={tableProps} ref={containerRef} width={width} height={height}>
             <PivotTableHead
                 clippingResult={clippingResult}
                 width={width}
@@ -48,13 +55,5 @@ const PivotTable = ({visualization, data, legendSets, renderCounter, onToggleCon
     </Provider>);
 };
 
-PivotTable.propTypes = {
-    data: PropTypes.object.isRequired,
-    visualization: PropTypes.object.isRequired,
-    legendSets: PropTypes.arrayOf(PropTypes.object),
-    renderCounter: PropTypes.number,
-    onToggleContextualMenu: PropTypes.func
-};
 
-export default PivotTable;
 
