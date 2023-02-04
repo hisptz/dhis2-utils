@@ -33,8 +33,6 @@ export class CustomPivotTableEngine {
         this.valueIndex = findIndex(this.analyticsData.headers, ['name', 'value'])
         this.getHeaders();
         this.getColumnMap();
-
-        console.log(this.columnMap)
     }
 
     getDimensionItems(dimension: DHIS2Dimension) {

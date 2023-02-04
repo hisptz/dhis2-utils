@@ -4,13 +4,14 @@ import {useCustomPivotTableEngine} from "../../state/engine";
 import {DataTableCell, DataTableRow, TableBody} from '@dhis2/ui'
 import React, {Fragment} from "react";
 import {AnalyticsItem} from "@hisptz/dhis2-utils";
-import {DHIS2Dimension} from "../../../PivotTable";
 import classes from "./TableBody.module.css"
+import {useElementSize} from "usehooks-ts";
+import {DHIS2Dimension} from "../../interfaces";
 
 function DataRowRenderer({
                              mapper,
                              item,
-                             dimension
+                             dimension,
                          }: { mapper: { [key: string]: any }; item: AnalyticsItem, dimension: DHIS2Dimension }) {
     const engine = useCustomPivotTableEngine();
 
@@ -30,14 +31,17 @@ function DataRowRenderer({
 function renderRows(row: Header, index: number, {
     rows,
     columns,
-    mapper = {}
-}: { rows: Header[], columns?: Header[]; mapper: { [key: string]: string | undefined } }): React.ReactNode | null {
+    mapper = {},
+    prevWidth = 0
+}: { rows: Header[], columns?: Header[]; mapper: { [key: string]: string | undefined }, prevWidth?: number; }): React.ReactNode | null {
 
     const rowSpan = slice(rows, index + 1).reduce((acc, column) => {
         return acc * (column.items?.length ?? 1);
     }, 1)
     const hasSubRows = !isEmpty(rows[index + 1]);
     const nextRow = rows[index + 1];
+
+    const [cellRef, {width}] = useElementSize();
 
     return (
         <>
@@ -47,7 +51,9 @@ function renderRows(row: Header, index: number, {
                     return (
                         <Fragment key={`${item.name}-${row.dimension}-fragment`}>
                             <DataTableRow key={`${item.name}-${row.dimension}-row`}>
-                                <DataTableCell className={classes['header-cell']} tag="th" bordered
+                                <DataTableCell ref={cellRef} fixed left={`${prevWidth}px`}
+                                               className={classes['header-cell']} tag="th"
+                                               bordered
                                                rowSpan={(rowSpan + (hasSubRows ? 1 : 0)).toString()}>
                                     {item.name}
                                 </DataTableCell>
@@ -60,6 +66,7 @@ function renderRows(row: Header, index: number, {
                                 hasSubRows ? (renderRows(nextRow, index + 1, {
                                     rows,
                                     columns,
+                                    prevWidth: width,
                                     mapper: {...mapper, [row.dimension]: item.uid as unknown as string}
                                 })) : null
                             }
@@ -69,7 +76,6 @@ function renderRows(row: Header, index: number, {
             }
         </>
     )
-
 
 }
 

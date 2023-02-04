@@ -3,12 +3,14 @@ import {useCustomPivotTableEngine} from "../../state/engine";
 import {DataTableColumnHeader, DataTableRow, TableHead} from '@dhis2/ui'
 import {isEmpty, slice, times} from "lodash";
 import {Header} from "../../services/engine";
-
+import classes from "./TableHeaders.module.css"
+import {useElementSize} from "usehooks-ts";
 
 function renderColumnHeaders(column: Header, index: number, {
     columns,
-    rowHeaders
-}: { columns: Header[], rowHeaders?: Header[] }): React.ReactNode | null {
+    rowHeaders,
+    prevHeight = 0
+}: { columns: Header[], rowHeaders?: Header[], prevHeight?: number }): React.ReactNode | null {
     if (!column) {
         return null;
     }
@@ -23,6 +25,8 @@ function renderColumnHeaders(column: Header, index: number, {
         return acc * (column.items?.length ?? 1);
     }, 1);
 
+    const [columnHeaderRef, {height}] = useElementSize();
+
     return (
         <>
             <DataTableRow>
@@ -30,6 +34,9 @@ function renderColumnHeaders(column: Header, index: number, {
                     ((index === 0) && rowHeaders?.map((header) => {
                         return (
                             <DataTableColumnHeader
+                                fixed
+                                top={"0"}
+                                className={classes['table-header']}
                                 rowSpan={columns.length.toString()}
                                 key={`${header.dimension}-header-column`}>
                                 {header.label ?? ""}
@@ -40,8 +47,13 @@ function renderColumnHeaders(column: Header, index: number, {
                 {
                     (times(multiplicationFactor, (colNo) => {
                         return (column.items?.map((item) => (
-                            <DataTableColumnHeader align="center" colSpan={colSpan.toString()}
-                                                   key={`${colNo}-${item.name}-column-header`}>
+                            <DataTableColumnHeader
+                                fixed
+                                top={`${prevHeight.toString()}px`}
+                                ref={index === 0 ? columnHeaderRef : undefined}
+                                className={classes['table-header']} align="center"
+                                colSpan={colSpan.toString()}
+                                key={`${colNo}-${item.name}-column-header`}>
                                 {item.name}
                             </DataTableColumnHeader>
                         )))
@@ -49,7 +61,11 @@ function renderColumnHeaders(column: Header, index: number, {
                 }
             </DataTableRow>
             {
-                hasSubColumns ? (renderColumnHeaders(nextColumn, index + 1, {columns, rowHeaders})) : null
+                hasSubColumns ? (renderColumnHeaders(nextColumn, index + 1, {
+                    columns,
+                    rowHeaders,
+                    prevHeight: height
+                })) : null
             }
         </>
     )

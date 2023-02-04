@@ -8,5 +8,5 @@
 }
 
 .header-cell {
-    align-items: center;
+    border-right: 1px solid rgb(232, 237, 242) !important;
 }
