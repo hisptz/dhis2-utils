@@ -12,7 +12,7 @@ function DataRowRenderer({
                              mapper,
                              item,
                              dimension,
-                         }: { mapper: { [key: string]: any }; item: AnalyticsItem, dimension: DHIS2Dimension }) {
+                         }: { mapper?: { [key: string]: any }; item: AnalyticsItem, dimension: DHIS2Dimension }) {
     const engine = useCustomPivotTableEngine();
 
     const columnMappers = engine?.columnMap;
@@ -28,20 +28,18 @@ function DataRowRenderer({
     </>;
 }
 
-function renderRows(row: Header, index: number, {
-    rows,
-    columns,
-    mapper = {},
-    prevWidth = 0
-}: { rows: Header[], columns?: Header[]; mapper: { [key: string]: string | undefined }, prevWidth?: number; }): React.ReactNode | null {
+function RowRenderer({
+                         row,
+                         index,
+                         config: {rows, columns, mapper, prevWidth, fixRowHeaders}
+                     }: { row: Header, index: number, config: { rows: Header[], columns?: Header[]; mapper?: { [key: string]: string | undefined }, prevWidth?: number; fixRowHeaders?: boolean } }): React.ReactElement | null {
+    const [cellRef, {width}] = useElementSize();
 
     const rowSpan = slice(rows, index + 1).reduce((acc, column) => {
         return acc * (column.items?.length ?? 1);
     }, 1)
     const hasSubRows = !isEmpty(rows[index + 1]);
     const nextRow = rows[index + 1];
-
-    const [cellRef, {width}] = useElementSize();
 
     return (
         <>
@@ -51,7 +49,7 @@ function renderRows(row: Header, index: number, {
                     return (
                         <Fragment key={`${item.name}-${row.dimension}-fragment`}>
                             <DataTableRow key={`${item.name}-${row.dimension}-row`}>
-                                <DataTableCell ref={cellRef} fixed left={`${prevWidth}px`}
+                                <DataTableCell ref={cellRef} fixed={fixRowHeaders} left={`${prevWidth}px`}
                                                className={classes['header-cell']} tag="th"
                                                bordered
                                                rowSpan={(rowSpan + (hasSubRows ? 1 : 0)).toString()}>
@@ -63,12 +61,12 @@ function renderRows(row: Header, index: number, {
                                 }
                             </DataTableRow>
                             {
-                                hasSubRows ? (renderRows(nextRow, index + 1, {
+                                hasSubRows ? (<RowRenderer row={nextRow} index={index + 1} config={{
                                     rows,
                                     columns,
                                     prevWidth: width,
                                     mapper: {...mapper, [row.dimension]: item.uid as unknown as string}
-                                })) : null
+                                }}/>) : null
                             }
                         </Fragment>
                     )
@@ -84,6 +82,7 @@ export function CustomPivotTableBody() {
     const engine = useCustomPivotTableEngine();
     const rows = engine?.rowHeaders;
     const columns = engine?.columnHeaders;
+    const fixRowHeaders = engine?.fixRowHeaders;
 
     if (!rows || isEmpty(rows)) {
         return null;
@@ -91,9 +90,7 @@ export function CustomPivotTableBody() {
 
     return (
         <TableBody>
-            {
-                renderRows(rows[0], 0, {rows, columns, mapper: {}})
-            }
+            <RowRenderer row={rows[0]} index={0} config={{rows, columns, fixRowHeaders}}/>
         </TableBody>
     )
 }

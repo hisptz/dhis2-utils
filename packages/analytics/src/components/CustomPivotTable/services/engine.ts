@@ -1,4 +1,4 @@
-import {Analytics, AnalyticsItem} from "@hisptz/dhis2-utils";
+import {Analytics, AnalyticsItem, LegendSet} from "@hisptz/dhis2-utils";
 import {compact, findIndex, intersection, times, zip} from "lodash";
 import {DHIS2Dimension} from "../interfaces";
 
@@ -9,7 +9,18 @@ export interface EngineConfig {
         rows: { dimension: DHIS2Dimension, label?: string }[]
         filter?: { dimension: DHIS2Dimension, label?: string }[]
     }
-    options?: { [key: string]: any }
+    options?: {
+        legendSets?: LegendSet[],
+        hideEmptyColumns?: boolean,
+        hideEmptyRows?: boolean,
+        showRowTotals?: boolean,
+        showColumnTotals?: boolean,
+        showRowSubtotals?: boolean,
+        showColumnSubtotals?: boolean,
+        fixColumnHeaders?: boolean,
+        fixRowHeaders?: boolean,
+        [key: string]: any
+    }
 }
 
 export interface Header {
@@ -33,6 +44,14 @@ export class CustomPivotTableEngine {
         this.valueIndex = findIndex(this.analyticsData.headers, ['name', 'value'])
         this.getHeaders();
         this.getColumnMap();
+    }
+
+    get fixColumnHeaders() {
+        return this.config.options?.fixColumnHeaders ?? true;
+    }
+
+    get fixRowHeaders() {
+        return this.config.options?.fixRowHeaders ?? true;
     }
 
     getDimensionItems(dimension: DHIS2Dimension) {

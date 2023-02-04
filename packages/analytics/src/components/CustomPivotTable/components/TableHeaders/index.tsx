@@ -6,11 +6,14 @@ import {Header} from "../../services/engine";
 import classes from "./TableHeaders.module.css"
 import {useElementSize} from "usehooks-ts";
 
-function renderColumnHeaders(column: Header, index: number, {
-    columns,
-    rowHeaders,
-    prevHeight = 0
-}: { columns: Header[], rowHeaders?: Header[], prevHeight?: number }): React.ReactNode | null {
+function ColumnRenderer({
+                            column,
+                            index,
+                            config: {fixColumnHeaders, rowHeaders, prevHeight = 0, columns}
+                        }: { column: Header, index: number, config: { columns: Header[], rowHeaders?: Header[], prevHeight?: number; fixColumnHeaders?: boolean } }): React.ReactElement | null {
+
+    const [columnHeaderRef, {height}] = useElementSize();
+
     if (!column) {
         return null;
     }
@@ -25,8 +28,6 @@ function renderColumnHeaders(column: Header, index: number, {
         return acc * (column.items?.length ?? 1);
     }, 1);
 
-    const [columnHeaderRef, {height}] = useElementSize();
-
     return (
         <>
             <DataTableRow>
@@ -34,7 +35,7 @@ function renderColumnHeaders(column: Header, index: number, {
                     ((index === 0) && rowHeaders?.map((header) => {
                         return (
                             <DataTableColumnHeader
-                                fixed
+                                fixed={fixColumnHeaders}
                                 top={"0"}
                                 className={classes['table-header']}
                                 rowSpan={columns.length.toString()}
@@ -48,7 +49,7 @@ function renderColumnHeaders(column: Header, index: number, {
                     (times(multiplicationFactor, (colNo) => {
                         return (column.items?.map((item) => (
                             <DataTableColumnHeader
-                                fixed
+                                fixed={fixColumnHeaders}
                                 top={`${prevHeight.toString()}px`}
                                 ref={index === 0 ? columnHeaderRef : undefined}
                                 className={classes['table-header']} align="center"
@@ -61,11 +62,12 @@ function renderColumnHeaders(column: Header, index: number, {
                 }
             </DataTableRow>
             {
-                hasSubColumns ? (renderColumnHeaders(nextColumn, index + 1, {
+                hasSubColumns ? (<ColumnRenderer column={nextColumn} index={index + 1} config={{
                     columns,
                     rowHeaders,
-                    prevHeight: height
-                })) : null
+                    prevHeight: height,
+                    fixColumnHeaders
+                }}/>) : null
             }
         </>
     )
@@ -77,6 +79,7 @@ export function TableHeaders() {
     const engine = useCustomPivotTableEngine();
     const columns = engine?.columnHeaders;
     const rowHeaders = engine?.rowHeaders;
+    const fixColumnHeaders = engine?.fixColumnHeaders;
 
     if (!columns || isEmpty(columns)) {
         return null;
@@ -84,9 +87,7 @@ export function TableHeaders() {
 
     return (
         <TableHead>
-            {
-                renderColumnHeaders(columns[0], 0, {columns, rowHeaders})
-            }
+            <ColumnRenderer column={columns[0]} index={0} config={{rowHeaders, columns, fixColumnHeaders}}/>
         </TableHead>
     )
 

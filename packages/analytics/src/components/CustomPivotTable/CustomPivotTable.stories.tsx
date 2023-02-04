@@ -686,7 +686,9 @@ WithManyData.args = {
             rows: [{dimension: "pe", label: "Period"}, {dimension: "ou", label: "Organisation unit"}],
             filter: []
         },
-        options: {}
+        options: {
+            fixColumnHeaders: false
+        }
     },
     tableProps: {
         scrollHeight: "800px",
