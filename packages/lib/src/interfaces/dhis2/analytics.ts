@@ -19,11 +19,13 @@ export interface AnalyticsDimension {
     pe?: string[];
     ou?: string[];
     co?: string[];
+
+    [key: string]: string[] | undefined
 }
 
 export interface AnalyticsMetadata {
     ouNameHierarchy?: string;
-    items: AnalyticsItem[];
+    items: Record<string, AnalyticsItem>;
     dimensions: AnalyticsDimension;
 }
 
