@@ -1,11 +1,11 @@
 import {Analytics, LegendSet} from "@hisptz/dhis2-utils";
-import {DHIS2Dimension} from "../PivotTable";
 import {CustomPivotTableEngine} from "./services/engine";
 import React, {useMemo} from "react";
 import {CustomPivotTableEngineProvider} from "./state/engine";
 import {PivotTable} from "./components/Table";
 import {TableHeaders} from "./components/TableHeaders";
 import {CustomPivotTableBody} from "./components/TableBody";
+import {DHIS2Dimension} from "./interfaces";
 
 
 export interface CustomPivotTableProps {

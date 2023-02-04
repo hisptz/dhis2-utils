@@ -1,6 +1,6 @@
 import {Analytics, AnalyticsItem} from "@hisptz/dhis2-utils";
-import {DHIS2Dimension} from "../../PivotTable";
 import {compact, findIndex, intersection, times, zip} from "lodash";
+import {DHIS2Dimension} from "../interfaces";
 
 
 export interface EngineConfig {
@@ -58,13 +58,13 @@ export class CustomPivotTableEngine {
         this.rowHeaders = this.config.layout.rows.map((rowConfig) => {
             return {
                 ...rowConfig,
-                items: compact(this.getDimensionItems(rowConfig.dimension).map((itemId) => this.getItem(itemId)))
+                items: compact(this.getDimensionItems(rowConfig.dimension).map((itemId: string) => this.getItem(itemId)))
             }
         });
         this.columnHeaders = this.config.layout.columns.map((columnConfig) => {
             return {
                 ...columnConfig,
-                items: compact(this.getDimensionItems(columnConfig.dimension).map((itemId) => this.getItem(itemId)))
+                items: compact(this.getDimensionItems(columnConfig.dimension).map((itemId: string) => this.getItem(itemId)))
             }
         });
     }
