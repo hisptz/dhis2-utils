@@ -9,7 +9,6 @@ export interface UseTableClippingParams {
     containerRef: ReturnType<typeof useRef<HTMLElement | null>>;
     width: number;
     height: number;
-
     engine: PivotTableEngine
 
 }

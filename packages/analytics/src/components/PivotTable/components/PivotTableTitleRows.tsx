@@ -1,5 +1,4 @@
 // @ts-nocheck
-import PropTypes from 'prop-types';
 import React from 'react';
 import {getFilterText} from '../utils';
 import {usePivotTableEngine} from './PivotTableEngineContext';
@@ -30,10 +29,5 @@ export const PivotTableTitleRows = ({
                                 totalWidth={engine.adaptiveClippingController.columns.totalSize +
                                     engine.adaptiveClippingController.columns.headerSize}/>) : null}
     </>);
-};
-
-PivotTableTitleRows.propTypes = {
-    clippingResult: PropTypes.object.isRequired,
-    width: PropTypes.number.isRequired
 };
 

@@ -7,6 +7,8 @@ export * from "./interfaces"
 
 export interface CustomPivotTableProps {
     analytics: Analytics;
+    tableProps?: Record<string, any>;
+    renderCounter?: number;
     config: {
         layout: {
             columns: Array<DHIS2Dimension>;
@@ -27,9 +29,10 @@ export interface CustomPivotTableProps {
     }
 }
 
-export function CustomPivotTable({analytics, config}: CustomPivotTableProps) {
+export function CustomPivotTable({analytics, config, tableProps}: CustomPivotTableProps) {
     return (
         <PivotTable
+            tableProps={tableProps}
             data={analytics}
             legendSets={config.options?.legendSets}
             visualization={{
@@ -38,7 +41,6 @@ export function CustomPivotTable({analytics, config}: CustomPivotTableProps) {
                 filter: config.layout.filter?.map((column: DHIS2Dimension) => ({dimension: column})) ?? [],
                 ...(config.options ?? {})
             }}
-
         />
     )
 }

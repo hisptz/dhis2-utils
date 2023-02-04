@@ -20,6 +20,9 @@ export const useParentSize = (
         }
 
         const onResize = () => {
+            if (size.height !== 0) {
+                return;
+            }
             setSize({
                 width: el.clientWidth,
                 height: el.clientHeight,
@@ -36,7 +39,7 @@ export const useParentSize = (
         observer.observe(el)
 
         return () => observer.disconnect()
-    }, [elementRef, renderCounter])
+    }, [elementRef])
 
     return size
 }

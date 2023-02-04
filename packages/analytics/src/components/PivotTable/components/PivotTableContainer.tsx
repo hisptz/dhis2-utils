@@ -22,8 +22,8 @@ export const PivotTableContainer = React.forwardRef(({
     }
 
     return (
-        <div className="pivot-table-container" style={{width, height}} ref={ref} data-test="visualization-container">
-            {width === 0 || height === 0 ? null : (<DataTable {...(tableProps ?? {})}>
+        <div style={{width: "100%", height: "100%"}} className="pivot-table-container" ref={ref} data-test="visualization-container">
+            {width === 0 || height === 0 ? null : (<DataTable height={height} {...(tableProps ?? {})}>
                 {children}
             </DataTable>)}
         </div>);

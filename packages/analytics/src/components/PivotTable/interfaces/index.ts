@@ -2,11 +2,19 @@ import {AnalyticsItem} from "@hisptz/dhis2-utils";
 
 export type ToggleContextualMenuFunction = (ref: HTMLTableCellElement | null, params: { ouId?: string }) => void;
 
-export type DHIS2Dimension = "ou" | "pe" | "dx";
+export type DHIS2Dimension = "ou" | "pe" | "dx" | "co" | string;
 
 export interface ClippingResult {
-    columns: Record<string, any>;
-    rows: Record<string, any>
+    columns: {
+        indices: number[];
+        pre?: number;
+        post?: number;
+    };
+    rows: {
+        indices: number[];
+        pre?: number;
+        post?: number;
+    }
 }
 
 export interface AxisClippingResult {
@@ -59,7 +67,7 @@ export interface DimensionLookup {
 }
 
 
-export interface PivotTableOptions{
+export interface PivotTableOptions {
     hideEmptyColumns: boolean,
     hideEmptyRows: boolean,
     showRowTotals: boolean,

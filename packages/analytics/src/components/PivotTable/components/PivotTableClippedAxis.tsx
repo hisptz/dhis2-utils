@@ -1,7 +1,11 @@
 import React from 'react';
 
 export interface PivotTableClippedAxisProps {
-    axisClippingResult: Record<string, any>;
+    axisClippingResult: {
+        pre?: number;
+        indices: number[];
+        post?: number;
+    };
     EmptyComponent: React.JSXElementConstructor<any>,
     ItemComponent: React.JSXElementConstructor<any>
 }

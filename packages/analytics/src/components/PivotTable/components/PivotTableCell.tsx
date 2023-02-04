@@ -48,12 +48,12 @@ export const PivotTableCell = React.forwardRef(({
                 style.height || (engine.fontSize) + engine.cellPadding * 2 + 2;
 
 
-    return isHeader ? (<DataTableColumnHeader
+    return isHeader ? (<DataTableColumnHeader bordered
         onSortIconClick={isSortable ? onSortClick : undefined}
         sortDirection={isSortable ? sortBy?.column === index ? (sortBy?.order === SORT_ORDER_DESCENDING ? "desc" : sortBy.order === SORT_ORDER_ASCENDING ? "asc" : "default") : undefined : undefined}
         {...props}>
         {children}
-    </DataTableColumnHeader>) : (<DataTableCell ref={ref}>
+    </DataTableColumnHeader>) : (<DataTableCell bordered ref={ref}>
         {children}
     </DataTableCell>);
 });

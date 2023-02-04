@@ -35,12 +35,15 @@ export const PivotTable: React.FC<PivotTableProps> = ({
 
     const {sortBy, onSortByColumn} = useSortableColumns(engine);
 
+
     const clippingResult = useTableClipping({
         containerRef,
         width,
         height,
         engine
     });
+
+    console.log(clippingResult)
 
     return (<Provider engine={engine}>
         <PivotTableContainer tableProps={tableProps} ref={containerRef} width={width} height={height}>
