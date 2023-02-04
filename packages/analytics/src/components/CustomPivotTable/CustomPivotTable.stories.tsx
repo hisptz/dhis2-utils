@@ -1,8 +1,8 @@
 import React from "react";
 import {Story} from "@storybook/react";
 import {CustomPivotTable, CustomPivotTableProps} from ".";
-import pivotTableData from "./data/large-table-data.json"
-import simpleData from "./data/simple-data.json"
+import pivotTableData from "../../../data/large-table-data.json"
+import simpleData from "../../../data/simple-data.json"
 
 const Template: Story<CustomPivotTableProps> = (args) => <CustomPivotTable {...args} />;
 
