@@ -1,6 +1,6 @@
 {
   "name": "@hisptz/dhis2-ui",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "A collection of reusable complex DHIS2 react ui components.",
   "license": "BSD-3-Clause",
   "scripts": {
@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@dhis2/app-runtime": "^3.7.0",
-    "@hisptz/dhis2-utils": "^1.0.11",
+    "@hisptz/dhis2-utils": "^1.0.12",
     "@react-buddy/ide-toolbox": "^2.3.1",
     "classnames": "^2.3.2",
     "react-color": "^2.19.3",
