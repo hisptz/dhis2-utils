@@ -37,7 +37,10 @@
     "@hisptz/dhis2-utils": "^1.0.12",
     "@react-buddy/ide-toolbox": "^2.3.1",
     "classnames": "^2.3.2",
+    "react-circular-progressbar": "^2.1.0",
+    "react-collapsible": "^2.10.0",
     "react-color": "^2.19.3",
+    "react-hook-form": "^7.43.1",
     "styled-components": "^5.3.6",
     "usehooks-ts": "^2.9.1"
   },
