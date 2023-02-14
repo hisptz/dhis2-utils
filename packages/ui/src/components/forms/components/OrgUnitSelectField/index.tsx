@@ -31,7 +31,7 @@ const orgUnitQuery = {
     }
 }
 
-export const OrgUnitSelectField: React.FC<OrgUnitSelectFieldProps> = React.forwardRef(({
+export const OrgUnitSelectField = React.forwardRef(({
                                                                                            value,
                                                                                            onChange,
                                                                                            error,

@@ -10,14 +10,14 @@ export interface NativeFieldProps extends FieldProps {
 
 
 export const NativeField = React.forwardRef(({
-                                                 onChange,
-                                                 value,
-                                                 type,
-                                                 valueType,
-                                                 name,
-                                                 error,
-                                                 ...props
-                                             }: NativeFieldProps, ref) => {
+                                                                             onChange,
+                                                                             value,
+                                                                             type,
+                                                                             valueType,
+                                                                             name,
+                                                                             error,
+                                                                             ...props
+                                                                         }: NativeFieldProps, ref) => {
 
     return (
         <InputField

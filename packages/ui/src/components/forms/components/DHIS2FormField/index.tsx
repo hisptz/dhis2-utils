@@ -11,6 +11,7 @@ import {LegendDefinitionField} from "../LegendDefinitionField";
 import {LegendMinMax} from "../LegendMinMax";
 import {AgeField} from "../AgeField";
 import {OrgUnitSelectField} from "../OrgUnitSelectField";
+import {FileUploadField} from "../FileUploadField";
 
 
 export interface DHIS2FormFieldProps extends FieldProps {
@@ -43,8 +44,8 @@ function getField(valueType: VALUE_TYPE, optionSet?: OptionSet) {
             return LegendMinMax;
         case VALUE_TYPES.ORG_UNIT_FIELD.name:
             return OrgUnitSelectField;
-        case VALUE_TYPES.FILE.name:
-            return NativeField
+        case VALUE_TYPES.FILE_RESOURCE.name:
+            return FileUploadField
         default:
             return NativeField;
 

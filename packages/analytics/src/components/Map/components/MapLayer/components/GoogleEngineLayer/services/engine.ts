@@ -18,7 +18,7 @@ import {find, head, isEmpty} from "lodash";
 //     return await import("./api")
 // }
 // const EE = await importEEModule();
-// import EE from "./api"
+import EE from "./api"
 // @ts-ignore
 const ee = EE as any;
 // @ts-ignore

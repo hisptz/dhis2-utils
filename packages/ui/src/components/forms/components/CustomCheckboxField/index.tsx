@@ -9,13 +9,13 @@ export interface CustomCheckboxFieldProps extends FieldProps {
 
 
 export const CustomCheckboxField = React.forwardRef(({
-                                                         value,
-                                                         onChange,
-                                                         name,
-                                                         error,
-                                                         trueOnly,
-                                                         ...props
-                                                     }: CustomCheckboxFieldProps, ref: React.ForwardedRef<any>) => {
+                                                                                                                    value,
+                                                                                                                    onChange,
+                                                                                                                    name,
+                                                                                                                    error,
+                                                                                                                    trueOnly,
+                                                                                                                    ...props
+                                                                                                                }: CustomCheckboxFieldProps, ref: React.ForwardedRef<any>) => {
 
     return (
         <CheckboxField
