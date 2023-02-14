@@ -13,6 +13,20 @@ Default.args = {
     valueType: "TEXT",
 }
 
+export const WithOptionSets = Template.bind({});
+WithOptionSets.args = {
+    name: "text",
+    valueType: "TEXT",
+    optionSet: {
+        id: "string",
+        options: [{
+            id: "one",
+            code: "one",
+            name: "One"
+        }]
+    }
+}
+
 export const DateField = Template.bind({});
 DateField.args = {
     name: "date",
@@ -29,7 +43,7 @@ export const WithValidations = Template.bind({});
 WithValidations.args = {
     name: "text",
     valueType: "TEXT",
-    validations:{
+    validations: {
         required: "Field is required"
     }
 }
@@ -47,7 +61,8 @@ export default {
 
             return (
                 <FormProvider {...form}>
-                    <form style={{display: "flex", gap: 16, alignItems: "center"}} onSubmit={form.handleSubmit(onSubmit)}>
+                    <form style={{display: "flex", gap: 16, alignItems: "center"}}
+                          onSubmit={form.handleSubmit(onSubmit)}>
                         <Story/>
                         <Button type="submit">Submit</Button>
                     </form>

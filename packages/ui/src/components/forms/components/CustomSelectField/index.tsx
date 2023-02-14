@@ -1,6 +1,7 @@
 import {SingleSelectField, SingleSelectOption} from "@dhis2/ui";
 import React, {useMemo} from "react";
 import {FieldProps} from "../../interfaces";
+import {OptionSet} from "@hisptz/dhis2-utils";
 
 
 export interface SelectOption {
@@ -10,19 +11,24 @@ export interface SelectOption {
 
 export interface CustomSelectFieldProps extends FieldProps {
     filterable?: boolean;
-    options: Array<SelectOption>;
+    optionSet: OptionSet;
 
     [key: string]: any
 }
 
 
 export const CustomSelectField = React.forwardRef(({
-                                                       options,
                                                        filterable,
                                                        onChange,
+                                                       optionSet,
                                                        value,
                                                        ...props
                                                    }: CustomSelectFieldProps, ref: React.ForwardedRef<any>) => {
+
+    const options = useMemo(() => optionSet?.options?.map(({code, name}) => ({
+        label: name ?? '',
+        value: code
+    })) ?? [], [optionSet]);
 
     const selectedValue = useMemo(() => {
         if (value) {
