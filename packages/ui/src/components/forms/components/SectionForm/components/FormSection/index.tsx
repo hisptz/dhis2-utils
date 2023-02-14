@@ -2,7 +2,7 @@ import React, {useMemo} from "react";
 import Collapsible from "react-collapsible";
 import {CircularProgressbarWithChildren} from "react-circular-progressbar";
 import {FormSectionInterface} from "../../interfaces";
-import {colors, IconErrorFilled24} from "@dhis2/ui";
+import {colors, IconChevronDown24, IconChevronUp24, IconErrorFilled24} from "@dhis2/ui";
 import {useFormState, useWatch} from "react-hook-form";
 import {useHiddenFields} from "../../../ProramRules/components/ProgramRuleProvider/hooks";
 import {difference, isEmpty} from "lodash";
@@ -53,9 +53,9 @@ export function FormSectionHeader({showProgress, section}: FormSectionHeaderProp
             alignItems: 'center',
             width: '100%'
         }}>
-            <h2>
+            <h3 style={{margin: 0}}>
                 {section.displayFormName}
-            </h2>
+            </h3>
             <div style={{display: "flex", gap: 16, alignItems: "center"}}>
                 {sectionHasErrors && <IconErrorFilled24 color={colors.red500}/>}
                 {
@@ -78,6 +78,9 @@ export function FormSectionHeader({showProgress, section}: FormSectionHeaderProp
                         </div>
                     </CircularProgressbarWithChildren>)
                 }
+                <div>
+
+                </div>
             </div>
         </div>
     )
@@ -85,7 +88,7 @@ export function FormSectionHeader({showProgress, section}: FormSectionHeaderProp
 
 export function FormSection({showProgress, section, collapsible}: FormSectionProps) {
 
-    if (collapsible) {
+    if (!collapsible) {
         return (
             <div style={{display: "flex", gap: 16, flexDirection: "column", alignItems: "center"}}>
                 <FormSectionHeader section={section} showProgress={showProgress}/>
@@ -114,10 +117,22 @@ export function FormSection({showProgress, section, collapsible}: FormSectionPro
         )
     }
 
+
     return (
         <Collapsible
+            triggerWhenOpen={
+                <div
+                    style={{width: "100%", border: `1px solid ${colors.grey400}`, padding: 8, display: "flex", gap: 8}}>
+                    <FormSectionHeader section={section} showProgress={showProgress}/>
+                    <IconChevronUp24/>
+                </div>
+            }
             trigger={
-                <FormSectionHeader section={section} showProgress={showProgress}/>
+                <div
+                    style={{width: "100%", border: `1px solid ${colors.grey400}`, padding: 8, display: "flex", gap: 8}}>
+                    <FormSectionHeader section={section} showProgress={showProgress}/>
+                    <IconChevronDown24/>
+                </div>
             }>
             {
                 section.dataItems?.map((dataItem) => {

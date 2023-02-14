@@ -1,9 +1,9 @@
 import React, {memo, useEffect, useMemo} from 'react';
-import {ProgramRuleExecutionVariables, Rule} from '../../../interfaces';
 import {useFormContext, useWatch} from 'react-hook-form';
-import {evaluateRules, runActions, sanitizeActions} from '../utils';
 import {useActionCallbacks, useTriggers} from '../hooks';
 import {mapValues} from 'lodash';
+import {ProgramRuleExecutionVariables, Rule} from "@hisptz/dhis2-utils";
+import {evaluateRules, runActions, sanitizeActions} from "@hisptz/dhis2-utils/build/types/utils/programRules/utils";
 
 const ActionComponent = memo(
     ({

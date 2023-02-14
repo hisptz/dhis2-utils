@@ -1,5 +1,4 @@
 import {useCallback, useMemo} from 'react';
-import {ActionCallbacks, getNewestProgramEvent, getNewestProgramStageEvent, getPreviousEvent,} from '../utils';
 import {useRecoilCallback, useRecoilTransaction_UNSTABLE} from 'recoil';
 import {
     FieldDisabledState,
@@ -12,7 +11,15 @@ import {
 import {compact, flatten, forEach, some, uniq} from 'lodash';
 import {useFetch} from '../services/fetch';
 import {useFormContext} from 'react-hook-form';
-import {MetaValues, ProgramRuleExecutionVariables, Rule} from "@hisptz/dhis2-utils";
+import {
+    ActionCallbacks,
+    getNewestProgramEvent,
+    getNewestProgramStageEvent,
+    getPreviousEvent,
+    MetaValues,
+    ProgramRuleExecutionVariables,
+    Rule
+} from "@hisptz/dhis2-utils";
 
 const optionGroupsQuery = {
     groups: {
@@ -152,7 +159,7 @@ export function useActionCallbacks(): ActionCallbacks {
         toggleFieldViews,
         setValue,
         unregister,
-        setError,
+        setError: setError as any,
         setMinMax,
         toggleFieldDisabled,
     };

@@ -8,5 +8,6 @@ declare module "react-leaflet-easyprint";
 declare module "async-es" {
     export * from "async";
 }
+declare module "react-progress-indicator"
 
 declare module "@google/earthengine";

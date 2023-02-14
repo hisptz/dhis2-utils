@@ -6,7 +6,6 @@ export interface FormElement {
     displayFormName: string;
     formName?: string;
     valueType: VALUE_TYPE;
-    value: unknown;
     optionSet?: OptionSet;
     mandatory?: boolean;
     compulsory?: boolean;
@@ -19,4 +18,66 @@ export interface FormSectionInterface {
     displayFormName: string;
     dataItems: Array<FormElement>
 
+}
+
+
+interface StepperColorModeStyle {
+    step?: {
+        pending?: {
+            background?: string;
+            color?: string;
+        },
+        progress?: {
+            background?: string;
+            color?: string;
+        },
+        completed?: {
+            background?: string;
+            color?: string;
+        }
+    },
+    content?: {
+        pending?: {
+            stepNumber?: { color?: string };
+            title?: { color?: string; };
+            status?: { background?: string; color?: string }
+            description?: {
+                color?: string;
+            }
+        },
+        progress?: {
+            stepNumber?: { color?: string };
+            title?: { color?: string; };
+            status?: { background?: string; color?: string }
+            description?: {
+                color?: string;
+            }
+        },
+        completed?: {
+            stepNumber?: { color?: string };
+            title?: { color?: string; };
+            status?: { background?: string; color?: string }
+            description?: {
+                color?: string;
+            }
+        }
+    },
+    progressBar?: {
+        pending?: {
+            background?: string;
+        },
+        progress?: {
+            background?: string;
+            fill?: string;
+        },
+        completed?: {
+            background?: string;
+            fill?: string;
+        }
+    }
+}
+
+export interface StepperStyles {
+    light?: StepperColorModeStyle,
+    dark?: StepperColorModeStyle
 }
