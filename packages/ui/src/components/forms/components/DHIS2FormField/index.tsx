@@ -54,5 +54,5 @@ function getField(valueType: VALUE_TYPE, optionSet?: OptionSet) {
 
 export const DHIS2FormField = React.forwardRef(({valueType, optionSet, ...props}: DHIS2FormFieldProps, ref) => {
     const Field = getField(valueType, optionSet);
-    return <Field ref={ref} {...props} />
+    return <Field ref={ref} valueType={valueType} optionSet={optionSet}  {...props} />
 })
