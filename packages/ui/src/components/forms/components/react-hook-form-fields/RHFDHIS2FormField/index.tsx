@@ -11,20 +11,19 @@ export interface RHFDHIS2FormFieldProps extends RHFFieldProps {
     valueType: VALUE_TYPE
 }
 
-export const RHFDHIS2FormField: React.FC<RHFDHIS2FormFieldProps> = React.forwardRef(({
-                                                                                         valueType,
-                                                                                         optionSet,
-                                                                                         name,
-                                                                                         validations,
-                                                                                         ...props
-                                                                                     }: RHFDHIS2FormFieldProps, ref) => {
+export const RHFDHIS2FormField = ({
+                                      valueType,
+                                      optionSet,
+                                      name,
+                                      validations,
+                                      ...props
+                                  }: RHFDHIS2FormFieldProps) => {
 
     return (
         <Controller
             rules={validations}
-            render={({field, fieldState}) => {
+            render={({field, fieldState,}) => {
                 return <DHIS2FormField
-                    ref={ref}
                     value={field.value}
                     optionSet={optionSet}
                     error={fieldState.error?.message}
@@ -37,4 +36,4 @@ export const RHFDHIS2FormField: React.FC<RHFDHIS2FormFieldProps> = React.forward
             name={name}
         />
     )
-})
+}

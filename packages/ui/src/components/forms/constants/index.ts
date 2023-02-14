@@ -2,7 +2,7 @@ export type VALUE_TYPE =
     | "AGE"
     | "EMAIL"
     | "URL"
-    | "FILE"
+    | "FILE_RESOURCE"
     | "IMAGE"
     | "INTEGER"
     | "TRUE_ONLY"
@@ -41,8 +41,8 @@ export const VALUE_TYPES: { [key: string]: { name: VALUE_TYPE; formName: string 
         name: "URL",
         formName: "url",
     },
-    FILE: {
-        name: "FILE",
+    FILE_RESOURCE: {
+        name: "FILE_RESOURCE",
         formName: "file",
     },
     TRUE_ONLY: {

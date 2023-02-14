@@ -29,7 +29,7 @@ export interface AgeFieldProps extends FieldProps {
  * This is an input component that allows user to input the date of birth and then calculates the age.
  *
  * */
-export const AgeField: React.FC<AgeFieldProps> = React.forwardRef(({
+export const AgeField = React.forwardRef(({
                                                                        name,
                                                                        value = "",
                                                                        onChange,
