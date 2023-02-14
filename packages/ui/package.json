@@ -27,16 +27,22 @@
     "cypress": "^12.3.0",
     "lodash": "^4.17.21",
     "react": "16.14.0",
-    "react-hook-form": "^7.42.1",
+    "recoil": "^0.7.6",
     "typescript": "^4.9.4",
     "vite": "3"
   },
   "dependencies": {
     "@dhis2/app-runtime": "^3.7.0",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@hisptz/dhis2-utils": "^1.0.12",
+    "@mui/material": "^5.11.8",
     "@react-buddy/ide-toolbox": "^2.3.1",
     "classnames": "^2.3.2",
+    "react-circular-progressbar": "^2.1.0",
+    "react-collapsible": "^2.10.0",
     "react-color": "^2.19.3",
+    "react-hook-form": "^7.43.1",
     "styled-components": "^5.3.6",
     "usehooks-ts": "^2.9.1"
   },
