@@ -2,10 +2,9 @@ import React, {memo, useEffect, useMemo} from 'react';
 import {useFormContext, useWatch} from 'react-hook-form';
 import {useActionCallbacks, useTriggers} from '../hooks';
 import {mapValues} from 'lodash';
-import {ProgramRuleExecutionVariables, Rule} from "@hisptz/dhis2-utils";
-import {evaluateRules, runActions, sanitizeActions} from "@hisptz/dhis2-utils/build/types/utils/programRules/utils";
+import {evaluateRules, ProgramRuleExecutionVariables, Rule, runActions, sanitizeActions} from "@hisptz/dhis2-utils";
 
-const ActionComponent = memo(
+export const ActionComponent = memo(
     ({
         field,
         rules,
@@ -73,7 +72,7 @@ const ActionComponent = memo(
     }
 );
 
-export default function RuleComponent({
+export  function RuleComponent({
     rules,
     formOptions,
     dataItems,

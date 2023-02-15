@@ -1,8 +1,9 @@
 import React, {useMemo} from 'react';
 import type {Event, Program, ProgramRule, Rule, TrackedEntityInstance} from '@hisptz/dhis2-utils';
 import {translateProgramRule} from "@hisptz/dhis2-utils";
-import RuleComponent from './components/RuleComponent';
+import {RuleComponent} from './components/RuleComponent';
 import {useVariableValues} from './hooks';
+
 
 export function ProgramRuleProvider({
     program,
