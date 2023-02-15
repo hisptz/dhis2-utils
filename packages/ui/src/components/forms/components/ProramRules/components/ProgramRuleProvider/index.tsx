@@ -4,6 +4,8 @@ import {translateProgramRule} from "@hisptz/dhis2-utils";
 import {RuleComponent} from './components/RuleComponent';
 import {useVariableValues} from './hooks';
 
+export * from "./components/RuleComponent"
+export * from "./components/FieldProgramRule"
 
 export function ProgramRuleProvider({
     program,
