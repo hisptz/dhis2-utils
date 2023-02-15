@@ -4,7 +4,7 @@ import {translateProgramRule} from "@hisptz/dhis2-utils";
 import RuleComponent from './components/RuleComponent';
 import {useVariableValues} from './hooks';
 
-export default function ProgramRuleProvider({
+export function ProgramRuleProvider({
     program,
     trackedEntity,
     event,
