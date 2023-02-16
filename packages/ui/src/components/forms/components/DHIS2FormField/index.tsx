@@ -27,6 +27,8 @@ function getField(valueType: VALUE_TYPE, optionSet?: OptionSet) {
         case VALUE_TYPES.AGE.name:
             return AgeField;
         case VALUE_TYPES.DATE.name:
+        case VALUE_TYPES.URL.name:
+        case VALUE_TYPES.EMAIL.name:
         case VALUE_TYPES.TEXT.name:
         case VALUE_TYPES.NUMBER.name:
         case VALUE_TYPES.INTEGER.name:
