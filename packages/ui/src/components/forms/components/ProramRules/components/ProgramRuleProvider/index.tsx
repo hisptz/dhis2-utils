@@ -7,19 +7,8 @@ import {useVariableValues} from './hooks';
 export * from "./components/RuleComponent"
 export * from "./components/FieldProgramRule"
 
-export function ProgramRuleProvider({
-    program,
-    trackedEntity,
-    event,
-    idPrefix,
-    programRules,
-    programStage,
-    customRules,
-    isEnrollmentForm,
-    isEventForm,
-    dataElements,
-    attributes,
-}: {
+
+export interface ProgramRuleProviderProps {
     program: Program;
     trackedEntity?: TrackedEntityInstance;
     idPrefix?: string;
@@ -31,11 +20,25 @@ export function ProgramRuleProvider({
     customRules?: Rule[];
     attributes?: string[];
     dataElements?: string[];
-}) {
+}
+
+export function ProgramRuleProvider({
+                                        program,
+                                        trackedEntity,
+                                        event,
+                                        idPrefix,
+                                        programRules,
+                                        programStage,
+                                        customRules,
+                                        isEnrollmentForm,
+                                        isEventForm,
+                                        dataElements,
+                                        attributes,
+                                    }: ProgramRuleProviderProps) {
     const rules = useMemo(() => {
         const rules = [
             ...(programRules
-                ?.filter(({ programStage: ruleStage }) => programStage === ruleStage?.id)
+                ?.filter(({programStage: ruleStage}) => programStage === ruleStage?.id)
                 ?.map((programRule) =>
                     translateProgramRule(programRule, program.programRuleVariables, idPrefix)
                 ) ?? []),

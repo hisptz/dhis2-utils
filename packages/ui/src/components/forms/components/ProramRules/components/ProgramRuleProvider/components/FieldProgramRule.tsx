@@ -16,14 +16,14 @@ export interface FieldProgramRuleChildrenProps {
     loading: boolean;
 }
 
-export default function FieldProgramRule({
-    name,
-    children,
-    optionSet,
-}: {
+export function FieldProgramRule({
+                                     name,
+                                     children,
+                                     optionSet,
+                                 }: {
     name: string;
     children: any;
-    optionSet: OptionSet;
+    optionSet?: OptionSet;
 }) {
     const hiddenOptionSets: string[] = useRecoilValue(FieldHiddenOptionsState(name));
     const visible = useRecoilValue(FieldVisibilityState(name));
@@ -35,7 +35,7 @@ export default function FieldProgramRule({
     const warning: string = useRecoilValue(FieldWarningState(name));
 
     return children({
-        optionSet: { ...optionSet, options: filteredOptions },
+        optionSet: optionSet ? {...optionSet, options: filteredOptions} : undefined,
         visible,
         warning,
         loading,
