@@ -215,9 +215,7 @@ function getTriggerValue(
                     )?.value ?? ''
                 );
             }
-            if (isEnrollmentForm) {
-                return get(triggerValues, trigger.id);
-            }
+            return get(triggerValues, trigger.id);
             break;
         default:
             return get(triggerValues, trigger.id);
