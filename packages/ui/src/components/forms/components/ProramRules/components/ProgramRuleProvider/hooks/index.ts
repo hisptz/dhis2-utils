@@ -1,5 +1,5 @@
 import {useCallback, useMemo} from 'react';
-import {useRecoilCallback, useRecoilTransaction_UNSTABLE} from 'recoil';
+import {useRecoilCallback, useRecoilState, useRecoilTransaction_UNSTABLE} from 'recoil';
 import {
     FieldDisabledState,
     FieldHiddenOptionsState,
@@ -200,4 +200,22 @@ export function useTriggers(
         initialRunRules,
         runTriggers: uniq(runTriggers?.map((trigger) => trigger.id)),
     };
+}
+
+export function useFieldControl(name: string) {
+    const optionSetControl = useRecoilState(FieldHiddenOptionsState(name));
+    const visibilityControl = useRecoilState(FieldVisibilityState(name));
+    const loadingControl = useRecoilState(FieldLoadingState(name));
+    const disableControl = useRecoilState(FieldDisabledState(name));
+    const minMaxControl = useRecoilState(FieldMinMaxState(name));
+    const warningControl = useRecoilState(FieldWarningState(name));
+
+    return {
+        optionSetControl,
+        visibilityControl,
+        loadingControl,
+        disableControl,
+        minMaxControl,
+        warningControl
+    }
 }

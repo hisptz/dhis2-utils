@@ -6,7 +6,7 @@ import {useVariableValues} from './hooks';
 
 export * from "./components/RuleComponent"
 export * from "./components/FieldProgramRule"
-
+export * from "./hooks"
 
 export interface ProgramRuleProviderProps {
     program: Program;
