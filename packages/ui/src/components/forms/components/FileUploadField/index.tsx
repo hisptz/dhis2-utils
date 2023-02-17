@@ -6,17 +6,20 @@ import {FieldProps} from "../../interfaces";
 
 export interface FileInputFieldProps extends FieldProps {
     name: string,
+    accept?: string;
+
     [key: string]: any
 }
 
 export const FileUploadField = React.forwardRef(({
-                                                                                    name,
-                                                                                    value,
-                                                                                    error,
-                                                                                    onChange,
-                                                                                    validations,
-                                                                                    ...props
-                                                                                }: FileInputFieldProps, ref): React.ReactElement => {
+                                                     name,
+                                                     value,
+                                                     error,
+                                                     onChange,
+                                                     validations,
+                                                     accept,
+                                                     ...props
+                                                 }: FileInputFieldProps, ref): React.ReactElement => {
 
     return (
         <FileField
@@ -24,6 +27,7 @@ export const FileUploadField = React.forwardRef(({
             files={[value]}
             validationText={error}
             error={!!error}
+            accept={accept ?? "image/*,.jpg,.png,.pdf,.doc,.docx"}
             name={name}
             onChange={({files}: { files: FileList }) => {
                 onChange(files.item(0));
