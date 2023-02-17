@@ -3,15 +3,15 @@ import {FieldProps} from "../../interfaces";
 import {OptionSet} from "@hisptz/dhis2-utils";
 import {VALUE_TYPE, VALUE_TYPES} from "../../constants";
 import {CustomSelectField} from "../CustomSelectField";
-import {TextAreaField} from "@dhis2/ui";
 import {NativeField} from "../NativeField";
 import {TrueOnlyField} from "../TrueOnlyField";
-import {CustomCheckboxField} from "../CustomCheckboxField";
 import {LegendDefinitionField} from "../LegendDefinitionField";
 import {LegendMinMax} from "../LegendMinMax";
 import {AgeField} from "../AgeField";
 import {OrgUnitSelectField} from "../OrgUnitSelectField";
 import {FileUploadField} from "../FileUploadField";
+import {CustomTextAreaField} from "../CustomTextAreaField";
+import {YesNoField} from "../YesNoField";
 
 
 export interface DHIS2FormFieldProps extends FieldProps {
@@ -35,11 +35,11 @@ function getField(valueType: VALUE_TYPE, optionSet?: OptionSet) {
         case VALUE_TYPES.PHONE_NUMBER.name:
             return NativeField;
         case VALUE_TYPES.LONG_TEXT.name:
-            return TextAreaField;
+            return CustomTextAreaField;
         case VALUE_TYPES.TRUE_ONLY.name:
             return TrueOnlyField;
         case VALUE_TYPES.BOOLEAN.name:
-            return CustomCheckboxField;
+            return YesNoField;
         case VALUE_TYPES.LEGEND_DEFINITION.name:
             return LegendDefinitionField;
         case VALUE_TYPES.LEGEND_MIN_MAX.name:
