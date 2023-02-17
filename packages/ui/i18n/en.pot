@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-02-14T16:13:59.708Z\n"
-"PO-Revision-Date: 2023-02-14T16:13:59.708Z\n"
+"POT-Creation-Date: 2023-02-17T13:29:41.667Z\n"
+"PO-Revision-Date: 2023-02-17T13:29:41.667Z\n"
 
 msgid "Confirm Action"
 msgstr "Confirm Action"
@@ -40,6 +40,12 @@ msgstr "Previous"
 
 msgid "Next"
 msgstr "Next"
+
+msgid "Yes"
+msgstr "Yes"
+
+msgid "No"
+msgstr "No"
 
 msgid "Delete"
 msgstr "Delete"
