@@ -5,7 +5,9 @@ import {VALUE_TYPE} from "../../constants";
 
 export interface NativeFieldProps extends FieldProps {
     type?: "date" | "text" | "number" | "email" | "color" | "url" | "search" | "password" | "file" | "tel" | "time" | "range",
-    valueType?: VALUE_TYPE
+    valueType?: VALUE_TYPE;
+    min?: string | number;
+    max?: string | number;
 }
 
 
@@ -16,6 +18,7 @@ export const NativeField = React.forwardRef(({
                                                  valueType,
                                                  name,
                                                  error,
+                                                 min, max,
                                                  ...props
                                              }: NativeFieldProps, ref) => {
 
@@ -39,6 +42,8 @@ export const NativeField = React.forwardRef(({
             value={value}
             type={fieldType}
             name={name}
+            min={min?.toString() ?? '0'}
+            max={max?.toString()}
             onChange={({value}: { value: any }) => onChange(value)}
             ref={ref}
             error={!!error}
