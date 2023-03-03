@@ -8,6 +8,7 @@ import {FieldStateProvider} from "./state";
 export * from "./components/RuleComponent"
 export * from "./components/FieldProgramRule"
 export * from "./hooks"
+export * from "./state"
 
 export interface ProgramRuleProviderProps {
     program: Program;
