@@ -71,17 +71,17 @@ export const ActionComponent = memo(
     }
 );
 
-export function RuleComponent({
-                                  rules,
-                                  formOptions,
-                                  dataItems,
-                                  variables,
-                              }: {
+export const RuleComponent = memo(({
+                                       rules,
+                                       formOptions,
+                                       dataItems,
+                                       variables,
+                                   }: {
     rules: Rule[];
     formOptions: { isEventForm?: boolean; isEnrollmentForm: boolean };
     variables: ProgramRuleExecutionVariables;
     dataItems: string[];
-}) {
+}) => {
     const callbacks = useActionCallbacks();
     const {runTriggers, initialRunRules} = useTriggers(rules, dataItems, formOptions);
     useEffect(() => {
@@ -94,8 +94,6 @@ export function RuleComponent({
         );
         setTimeout(() => runActions(actions, {...callbacks}), 1);
     }, []);
-
-    console.log(callbacks)
 
     const variableValues = useMemo(() => variables, [variables]);
 
@@ -112,4 +110,4 @@ export function RuleComponent({
             ))}
         </>
     );
-}
+})

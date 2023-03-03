@@ -1,7 +1,8 @@
 import {atomFamily} from 'recoil';
-import React, {Dispatch, Reducer, useCallback, useMemo, useReducer} from "react";
-import {get} from "lodash";
-import {createContext, useContextSelector, useContextUpdate} from "use-context-selector";
+import React, {Dispatch, useCallback, useMemo} from "react";
+import {isEqual, set} from "lodash";
+import {useMap} from "usehooks-ts";
+import {createContext, useContext, useContextSelector} from "use-context-selector";
 
 export interface FieldStateInterface {
     hidden: boolean;
@@ -16,9 +17,7 @@ export interface FieldStateInterface {
 
 }
 
-export interface FieldsStateContextInterface {
-    [key: string]: FieldStateInterface
-}
+export type FieldStateContextInterface = Omit<Map<string, FieldStateInterface>, 'set' | 'clear' | 'delete'>
 
 export type FieldControl = keyof FieldStateInterface
 
@@ -33,34 +32,31 @@ export interface FieldStateDispatchInterface {
     value: FieldControlValue | FieldStateInterface
 }
 
-export const FieldsStateContext = createContext<FieldsStateContextInterface | undefined>(undefined)
+export const FieldsStateContext = createContext<FieldStateContextInterface | undefined>(undefined)
 export const FieldStateDispatchContext = createContext<Dispatch<FieldStateDispatchInterface> | undefined>(undefined)
 
-function fieldStateReducer(state: FieldsStateContextInterface | undefined, action: FieldStateDispatchInterface): FieldsStateContextInterface {
-
-    if (action.property) {
-        return {
-            ...(state ?? {}),
-            [action.field]: {
-                ...get(state ?? {}, action.field),
-                [action.property]: action.value
-            }
-        }
-    } else {
-        return {
-            ...(state ?? {}),
-            [action.field]: action.value as FieldStateInterface
-        }
-    }
-}
-
-export function FieldStateProvider({children}: { children: React.ReactNode }) {
-    const [reducerState, dispatch] = useReducer<Reducer<FieldsStateContextInterface | undefined, FieldStateDispatchInterface>>(fieldStateReducer, undefined);
-    const state = useMemo(() => reducerState, [reducerState]);
+export const FieldStateProvider = React.memo(function FieldStateProvider({children}: { children: React.ReactNode }) {
+    const [map, actions] = useMap<string, FieldStateInterface>();
+    const state = useMemo(() => map, [map]);
     const setter = useCallback(
-        dispatch,
-        [],
+        ({field, value, property}: FieldStateDispatchInterface) => {
+            if (property) {
+                const updatedValue = {...(map.get(field) ?? {})} as FieldStateInterface;
+                if (updatedValue[property] === value) {
+                    return;
+                }
+                set(updatedValue, property, value);
+                actions.set(field, updatedValue);
+            } else {
+                if (isEqual(state.get(field), value)) {
+                    return;
+                }
+                actions.set(field, value as FieldStateInterface)
+            }
+        },
+        [actions.set],
     );
+
     return (
         <FieldsStateContext.Provider value={state}>
             <FieldStateDispatchContext.Provider value={setter}>
@@ -68,20 +64,18 @@ export function FieldStateProvider({children}: { children: React.ReactNode }) {
             </FieldStateDispatchContext.Provider>
         </FieldsStateContext.Provider>
     )
-}
+})
 
 export function useFieldState(id: string): [FieldStateInterface, (value: FieldStateInterface) => void] {
-    const contextState = useContextSelector(FieldsStateContext, (state) => get(state, id));
-    const dispatch = useContextUpdate(FieldsStateContext);
-    const setState = useCallback((value: FieldStateInterface) => {
-        if (dispatch) {
-            dispatch({field: id, value})
-        }
-    }, [dispatch, id]);
+    const state = useContextSelector(FieldsStateContext, (context) => context?.get(id) as FieldStateInterface);
+    const setter = useContextSelector(FieldStateDispatchContext, (context) => context);
 
-    const state = useMemo(() => {
-        return get(contextState, [id]) as FieldStateInterface
-    }, [contextState, id]);
+    const setState = useCallback((value: FieldStateInterface) => {
+        if (setter) {
+            setter({field: id, value})
+        }
+    }, [setter, id]);
+
 
     return [
         state,
@@ -101,10 +95,10 @@ export function useFieldCallback<T>(callback: (callback: { set: (field: string, 
             dispatch({
                 field,
                 property,
-                value: typeof value === 'function' ? value(get(state, field) as FieldControlValue) : value
+                value: typeof value === 'function' ? value(state?.get(field) as FieldControlValue) : value
             })
         },
-        [state, dispatch],
+        [dispatch],
     );
 
     return useCallback(

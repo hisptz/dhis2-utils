@@ -25,7 +25,21 @@ const fields = [
         "trackedEntityAttribute": {
             "valueType": "TEXT",
             "id": "zDhUuAYrxNC",
-            "attributeValues": []
+            "attributeValues": [],
+            "optionSet": {
+                "options": [
+                    {
+                        "name": "Yes",
+                        "code": "yes",
+                        "id": "yes"
+                    },
+                    {
+                        "name": "No",
+                        "code": "no",
+                        "id": "id"
+                    },
+                ]
+            }
         }
     },
     {
@@ -63,7 +77,8 @@ const fields = [
 ].map((field) => ({
     valueType: field.trackedEntityAttribute.valueType,
     name: field.trackedEntityAttribute.id,
-    label: field.trackedEntityAttribute.id
+    label: field.trackedEntityAttribute.id,
+    optionSet: field.trackedEntityAttribute.optionSet
 })) as unknown as RHFDHIS2FormFieldProps[]
 
 export const Default = Template.bind({});
@@ -718,7 +733,6 @@ Default.args = {
     ] as unknown as ProgramRule[],
     attributes: fields.map(({name}) => name),
     children: (<form style={{display: "flex", gap: 16, alignItems: "center", flexDirection: "column"}}>
-
         {
             fields.map((field: JSX.IntrinsicAttributes & RHFDHIS2FormFieldProps) => (
                 <FieldProgramRule name={field.name} optionSet={field.optionSet}>
@@ -1357,14 +1371,28 @@ CustomRules.args = {
                         id: "w75KJ2mc4zz",
                         type: "ATTRIBUTE"
                     }
-                }
+                },
+                {
+                    id: "show_warning",
+                    type: "SHOWWARNING",
+                    content: "This is a warning triggered by a program rule",
+                    target: {
+                        id: "cejWyOfXge6",
+                        type: "ATTRIBUTE"
+                    }
+                },
             ],
-            condition: () => true,
+            condition: ({triggerValues}) => {
+                return triggerValues["zDhUuAYrxNC"] === 'yes'
+            },
             targets: [
                 {
                     id: "w75KJ2mc4zz",
                     type: "ATTRIBUTE"
-                }
+                }, {
+                    id: "cejWyOfXge6",
+                    type: "ATTRIBUTE"
+                },
             ]
         }
     ],

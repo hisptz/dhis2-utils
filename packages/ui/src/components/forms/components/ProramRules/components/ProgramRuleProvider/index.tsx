@@ -63,8 +63,8 @@ export function ProgramRuleProvider({
         trackedEntityInstance: trackedEntity,
     });
 
+
     return (
-        <>
             <FieldStateProvider>
                 <RuleComponent
                     variables={executionVariables}
@@ -77,6 +77,5 @@ export function ProgramRuleProvider({
                 />
                 {children}
             </FieldStateProvider>
-        </>
     );
 }
