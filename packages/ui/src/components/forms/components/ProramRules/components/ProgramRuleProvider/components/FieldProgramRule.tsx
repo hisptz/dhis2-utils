@@ -1,46 +1,35 @@
-import {useRecoilValue} from 'recoil';
-import {
-    FieldDisabledState,
-    FieldHiddenOptionsState,
-    FieldLoadingState,
-    FieldMinMaxState,
-    FieldVisibilityState,
-    FieldWarningState,
-} from '../state';
+import {useFieldStateValue,} from '../state';
 import type {OptionSet} from '@hisptz/dhis2-utils';
+import React from "react"
 
 export interface FieldProgramRuleChildrenProps {
-    visible: boolean;
+    hidden: boolean;
     warning: string;
     optionSet: OptionSet;
     loading: boolean;
 }
 
-export function FieldProgramRule({
-                                     name,
-                                     children,
-                                     optionSet,
-                                 }: {
+export const FieldProgramRule =  React.memo(function FieldProgramRule({
+                                                name,
+                                                children,
+                                                optionSet,
+                                            }: {
     name: string;
     children: any;
     optionSet?: OptionSet;
 }) {
-    const hiddenOptionSets: string[] = useRecoilValue(FieldHiddenOptionsState(name));
-    const visible = useRecoilValue(FieldVisibilityState(name));
-    const loading = useRecoilValue(FieldLoadingState(name));
-    const disabled = useRecoilValue(FieldDisabledState(name));
-    const minMax = useRecoilValue(FieldMinMaxState(name));
+    const {loading, minMax, warning, disabled, hiddenOptions, hidden} = useFieldStateValue(name) ?? {};
     const filteredOptions =
-        optionSet?.options?.filter((option) => !hiddenOptionSets.includes(option.code)) ?? [];
-    const warning: string = useRecoilValue(FieldWarningState(name));
+        optionSet?.options?.filter((option: { code: string; }) => !hiddenOptions?.includes(option.code)) ?? [];
+
 
     return children({
         optionSet: optionSet ? {...optionSet, options: filteredOptions} : undefined,
-        visible,
+        hidden,
         warning,
         loading,
         disabled,
         min: minMax?.min,
         max: minMax?.max,
     } as FieldProgramRuleChildrenProps);
-}
+})

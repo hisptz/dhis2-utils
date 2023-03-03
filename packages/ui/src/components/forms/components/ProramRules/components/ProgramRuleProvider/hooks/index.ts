@@ -1,13 +1,6 @@
 import {useCallback, useMemo} from 'react';
-import {useRecoilCallback, useRecoilState, useRecoilTransaction_UNSTABLE} from 'recoil';
-import {
-    FieldDisabledState,
-    FieldHiddenOptionsState,
-    FieldLoadingState,
-    FieldMinMaxState,
-    FieldVisibilityState,
-    FieldWarningState,
-} from '../state';
+import {useRecoilCallback} from 'recoil';
+import {FieldControlValue, FieldVisibilityState, useFieldCallback,} from '../state';
 import {compact, flatten, forEach, some, uniq} from 'lodash';
 import {useFetch} from '../services/fetch';
 import {useFormContext} from 'react-hook-form';
@@ -83,69 +76,66 @@ export function useActionCallbacks(): ActionCallbacks {
         [formSetter]
     );
 
-    const toggleFieldViews = useRecoilTransaction_UNSTABLE(
+    const toggleFieldVisibility = useFieldCallback<{ field: string; hide: boolean }[]>(
+        ({set}) => (fields: { field: string; hide: boolean }[]) => {
+            forEach(fields, ({field, hide}) =>
+                set(field, 'hidden', hide)
+            );
+        },
+    );
+
+    const toggleLoading = useFieldCallback<{ field: string; loading: boolean }[]>(
         ({set}) =>
-            (fields: { field: string; hide: boolean }[]) => {
-                forEach(fields, ({field, hide}) =>
-                    set(FieldVisibilityState(`${field}`), () => {
-                        return !hide;
+            (fields: { field: string; loading: boolean }[]) => {
+                forEach(fields, ({field, loading}) =>
+                    set(field, 'loading', loading)
+                );
+            },
+        []
+    );
+
+    const toggleFieldWarning = useFieldCallback<{ field: string; warning: string }[]>(
+        ({set}) =>
+            (fields: { field: string; warning: string }[]) => {
+                forEach(fields, ({field, warning}) =>
+                    set(field, 'warning', warning)
+                );
+            },
+        []
+    );
+
+    const toggleFieldDisabled = useFieldCallback<{ field: string; disabled?: boolean }[]>(
+        ({set}) =>
+            (fields: { field: string; disabled?: boolean }[]) => {
+                forEach(fields, ({field, disabled}) =>
+                    set(field, 'disabled', disabled ?? false)
+                );
+            },
+        []
+    );
+
+    const setMinMax = useFieldCallback<{ field: string; min?: number | string; max?: number | string }[]>(
+        ({set}) =>
+            (fields: { field: string; min?: number | string; max?: number | string }[]) => {
+                forEach(fields, ({field, min, max}) =>
+                    set(field, 'minMax', {
+                        min,
+                        max
                     })
                 );
             },
         []
     );
 
-    const toggleLoading = useRecoilTransaction_UNSTABLE(
-        ({set}) =>
-            (fields: { field: string; loading: boolean }[]) => {
-                forEach(fields, ({field, loading}) =>
-                    set(FieldLoadingState(`${field}`), loading)
-                );
-            },
-        []
-    );
-
-    const toggleFieldWarning = useRecoilTransaction_UNSTABLE(
-        ({set}) =>
-            (fields: { field: string; warning: string }[]) => {
-                forEach(fields, ({field, warning}) =>
-                    set(FieldWarningState(`${field}`), warning)
-                );
-            },
-        []
-    );
-
-    const toggleFieldDisabled = useRecoilTransaction_UNSTABLE(
-        ({set}) =>
-            (fields: { field: string; disabled?: boolean }[]) => {
-                forEach(fields, ({field, disabled}) =>
-                    set(FieldDisabledState(`${field}`), disabled ?? false)
-                );
-            },
-        []
-    );
-
-    const setMinMax = useRecoilTransaction_UNSTABLE(
-        ({set}) =>
-            (fields: { field: string; min?: number | string; max?: number | string }[]) => {
-                forEach(fields, ({field, min, max}) =>
-                    set(FieldMinMaxState(`${field}`), {max, min})
-                );
-            },
-        []
-    );
-
-    const toggleOptionViews = useRecoilTransaction_UNSTABLE(
+    const toggleOptionViews = useFieldCallback<{ field: string; options: string[]; hide: boolean }[]>(
         ({set}) =>
             (fields: { field: string; options: string[]; hide: boolean }[]) => {
                 forEach(fields, ({field, options, hide}) => {
                     if (hide) {
-                        set(FieldHiddenOptionsState(`${field}`), () => {
-                            return uniq([...options]);
-                        });
+                        set(field, 'hiddenOptions', uniq([...options]));
                     } else {
-                        set(FieldHiddenOptionsState(`${field}`), (prevHiddenOptions) => {
-                            return prevHiddenOptions.filter((id) => !options.includes(id));
+                        set(field, 'hiddenOptions', (prevHiddenOptions: FieldControlValue) => {
+                            return (prevHiddenOptions as string []).filter((id: string) => !options.includes(id));
                         });
                     }
                 });
@@ -158,7 +148,7 @@ export function useActionCallbacks(): ActionCallbacks {
         getOptionGroups,
         toggleLoading,
         toggleOptionViews,
-        toggleFieldViews,
+        toggleFieldVisibility,
         setValue,
         unregister,
         setError: setError as any,
@@ -176,11 +166,7 @@ export function useTriggers(
     runTriggers: string[];
 } {
     const {isEnrollmentForm, isEventForm} = formOptions;
-    const triggers = useMemo(() => flatten(rules.map((rule) => rule.triggers)), [rules]);
-
-    const runTriggers = isEnrollmentForm ? triggers?.filter((trigger) => trigger.type === 'TEI_ATTRIBUTE') : isEventForm
-        ? triggers?.filter((trigger) => trigger.type === 'DATAELEMENT_CURRENT_EVENT')
-        : triggers;
+    const runTriggers = useMemo(() => flatten(rules.map((rule) => rule.triggers)), [rules]);
 
     const initialRunRules = useMemo(
         () =>
@@ -202,20 +188,4 @@ export function useTriggers(
     };
 }
 
-export function useFieldControl(name: string) {
-    const optionSetControl = useRecoilState(FieldHiddenOptionsState(name));
-    const visibilityControl = useRecoilState(FieldVisibilityState(name));
-    const loadingControl = useRecoilState(FieldLoadingState(name));
-    const disableControl = useRecoilState(FieldDisabledState(name));
-    const minMaxControl = useRecoilState(FieldMinMaxState(name));
-    const warningControl = useRecoilState(FieldWarningState(name));
 
-    return {
-        optionSetControl,
-        visibilityControl,
-        loadingControl,
-        disableControl,
-        minMaxControl,
-        warningControl
-    }
-}
