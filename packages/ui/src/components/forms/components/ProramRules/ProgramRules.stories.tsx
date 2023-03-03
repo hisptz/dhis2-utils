@@ -5,7 +5,6 @@ import {Button} from '@dhis2/ui'
 import {FieldProgramRule, FieldProgramRuleChildrenProps, ProgramRuleProvider, ProgramRuleProviderProps} from "."
 import {Program, ProgramRule, uid} from "@hisptz/dhis2-utils";
 import {RHFDHIS2FormField, RHFDHIS2FormFieldProps} from "../react-hook-form-fields";
-import {RecoilRoot} from "recoil";
 
 const Template: Story<ProgramRuleProviderProps> = (args) => <ProgramRuleProvider {...args} />
 
@@ -1421,18 +1420,14 @@ export default {
     decorators: [
         (Story: any) => {
             const form = useForm();
-
-
             const onSubmit = (data: any) => {
                 console.log(data);
             }
 
             return (
-                <RecoilRoot>
-                    <FormProvider {...form}>
-                        <Story/>
-                    </FormProvider>
-                </RecoilRoot>
+                <FormProvider {...form}>
+                    <Story/>
+                </FormProvider>
             )
 
         }
