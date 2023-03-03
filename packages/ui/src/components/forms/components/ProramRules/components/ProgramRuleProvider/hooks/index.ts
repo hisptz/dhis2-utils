@@ -1,7 +1,6 @@
 import {useCallback, useMemo} from 'react';
-import {useRecoilCallback} from 'recoil';
-import {FieldControlValue, FieldVisibilityState, useFieldCallback,} from '../state';
-import {compact, flatten, forEach, some, uniq} from 'lodash';
+import {FieldControlValue, useFieldCallback,} from '../state';
+import {flatten, forEach, some, uniq} from 'lodash';
 import {useFetch} from '../services/fetch';
 import {useFormContext} from 'react-hook-form';
 import {
@@ -39,20 +38,10 @@ export function useVariableValues(metaValues: MetaValues): ProgramRuleExecutionV
 }
 
 export function useHiddenFields(suspectedHiddenFields: string[]): string[] {
-    const getHiddenFields = useRecoilCallback(
-        ({snapshot}) =>
-            (fields: string[]) => {
-                return compact(
-                    fields.map((field) => {
-                        const visible = snapshot.getLoadable(
-                            FieldVisibilityState(field)
-                        ).contents;
-                        return !visible ? field : undefined;
-                    })
-                );
-            },
-        []
-    );
+    const getHiddenFields = (fields: string[]) => {
+        //TODO: Change implementation to use context
+        return []
+    };
 
     return getHiddenFields(suspectedHiddenFields);
 }

@@ -1,4 +1,3 @@
-import {atomFamily} from 'recoil';
 import React, {Dispatch, useCallback, useMemo} from "react";
 import {isEqual, set} from "lodash";
 import {useMap} from "usehooks-ts";
@@ -117,9 +116,4 @@ export function useSetFieldState(id: string) {
     const [, setState] = useFieldState(id);
     return setState;
 }
-
-export const FieldVisibilityState = atomFamily({
-    key: 'field-visibility-state',
-    default: true,
-});
 
