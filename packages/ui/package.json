@@ -17,7 +17,7 @@
     "@bahmutov/cypress-esbuild-preprocessor": "^2.1.5",
     "@cypress/react": "^7.0.2",
     "@cypress/vite-dev-server": "^5.0.2",
-    "@dhis2/cli-app-scripts": "^10.2.0",
+    "@dhis2/cli-app-scripts": "^10.3.0",
     "@dhis2/cypress-commands": "^9.0.2",
     "@dhis2/cypress-plugins": "^9.0.2",
     "@types/jest": "^29.2.5",
@@ -35,7 +35,7 @@
     "@dhis2/app-runtime": "^3.7.0",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@hisptz/dhis2-utils": "^1.0.25",
+    "@hisptz/dhis2-utils": "*",
     "@mui/material": "^5.11.8",
     "@react-buddy/ide-toolbox": "^2.3.1",
     "classnames": "^2.3.2",
@@ -58,9 +58,10 @@
     "react",
     "dhis2",
     "dhis2-ui",
-    "hisptz"
+    "hisptz",
+    "ui"
   ],
-  "author": "HISP Tanzania",
+  "author": "HISP Tanzania <info@hisptanzania.org>",
   "files": [
     "build/**",
     "postinstall.js"
@@ -73,6 +74,7 @@
     "url": "https://github.com/hisptz/dhis2-utils/issues"
   },
   "peerDependencies": {
-    "lodash": "^4"
+    "lodash": "^4",
+    "react-hook-form": "^7.43"
   }
 }

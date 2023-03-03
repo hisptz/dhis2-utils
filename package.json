@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*/**"
   ],
   "scripts": {
     "lib": "yarn workspace @hisptz/dhis2-utils",
@@ -24,7 +24,8 @@
     "build": "npx lerna run build",
     "prepublish": "npx lerna run build",
     "publish": "npx lerna publish --no-private",
-    "deploy:docs": "yarn docs deploy"
+    "deploy:docs": "yarn docs deploy",
+    "start:dhis2": "yarn workspace dhis2App start"
   },
   "devDependencies": {
     "lerna": "^6.4.1"
