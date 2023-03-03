@@ -3,6 +3,7 @@ import type {Event, Program, ProgramRule, Rule, TrackedEntityInstance} from '@hi
 import {translateProgramRule} from "@hisptz/dhis2-utils";
 import {RuleComponent} from './components/RuleComponent';
 import {useVariableValues} from './hooks';
+import {FieldStateProvider} from "./state";
 
 export * from "./components/RuleComponent"
 export * from "./components/FieldProgramRule"
@@ -20,6 +21,7 @@ export interface ProgramRuleProviderProps {
     customRules?: Rule[];
     attributes?: string[];
     dataElements?: string[];
+    children: React.ReactNode
 }
 
 export function ProgramRuleProvider({
@@ -34,9 +36,10 @@ export function ProgramRuleProvider({
                                         isEventForm,
                                         dataElements,
                                         attributes,
+                                        children
                                     }: ProgramRuleProviderProps) {
     const rules = useMemo(() => {
-        const rules = [
+        return [
             ...(programRules
                 ?.filter(({programStage: ruleStage}) => programStage === ruleStage?.id)
                 ?.map((programRule) =>
@@ -44,14 +47,6 @@ export function ProgramRuleProvider({
                 ) ?? []),
             ...(customRules ?? []),
         ];
-        if (isEnrollmentForm) {
-            return rules.filter((rule) =>
-                rule.triggers.some(
-                    (trigger: { type: string }) => trigger.type === 'TEI_ATTRIBUTE'
-                )
-            );
-        }
-        return rules;
     }, [
         programRules,
         customRules,
@@ -67,17 +62,20 @@ export function ProgramRuleProvider({
         event,
         trackedEntityInstance: trackedEntity,
     });
+
+
     return (
-        <>
-            <RuleComponent
-                variables={executionVariables}
-                dataItems={[...(dataElements ?? []), ...(attributes ?? [])]}
-                formOptions={{
-                    isEnrollmentForm: isEnrollmentForm ?? false,
-                    isEventForm: isEventForm ?? false,
-                }}
-                rules={rules}
-            />
-        </>
+            <FieldStateProvider>
+                <RuleComponent
+                    variables={executionVariables}
+                    dataItems={[...(dataElements ?? []), ...(attributes ?? [])]}
+                    formOptions={{
+                        isEnrollmentForm: isEnrollmentForm ?? false,
+                        isEventForm: isEventForm ?? false,
+                    }}
+                    rules={rules}
+                />
+                {children}
+            </FieldStateProvider>
     );
 }

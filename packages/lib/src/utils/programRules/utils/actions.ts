@@ -395,9 +395,9 @@ function setMinMax(actions: RunnableAction[], {setMinMax}: ActionCallbacks) {
 
 export function hideFields(
     fields: RunnableAction[],
-    {toggleFieldViews, setValue}: ActionCallbacks
+    {toggleFieldVisibility, setValue}: ActionCallbacks
 ): void {
-    toggleFieldViews(fields as any);
+    toggleFieldVisibility(fields as any);
     const fieldsToHide = compact(
         fields.map((field) => (field.hide ? field.field : undefined))
     );

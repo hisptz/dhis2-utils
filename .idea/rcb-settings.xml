@@ -8,4 +8,8 @@
       </DevServerState>
     </option>
   </component>
+  <component name="StorybookProjectConfigState">
+    <option name="defaultDirectory" value="$PROJECT_DIR$/packages/storybook" />
+    <option name="useDefaultDirectory" value="true" />
+  </component>
 </project>

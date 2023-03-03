@@ -15,7 +15,7 @@ export interface ActionCallbacks {
     toggleOptionViews: (
         options: { field: string; options: string[]; hide: boolean }[]
     ) => void;
-    toggleFieldViews: (field: { field: string; hide: boolean }[]) => void;
+    toggleFieldVisibility: (field: { field: string; hide: boolean }[]) => void;
     toggleFieldWarning: (field: { field: string; warning: string }[]) => void;
     toggleLoading: (field: { field: string; loading: boolean }[]) => void;
     getOptionGroups: (ids: string[]) => any;

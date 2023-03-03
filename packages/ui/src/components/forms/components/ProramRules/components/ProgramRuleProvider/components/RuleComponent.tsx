@@ -6,35 +6,28 @@ import {evaluateRules, ProgramRuleExecutionVariables, Rule, runActions, sanitize
 
 export const ActionComponent = memo(
     ({
-        field,
-        rules,
-        variableValues,
-        formOptions,
-    }: {
+         field,
+         rules,
+         variableValues,
+         formOptions,
+     }: {
         field: string;
         rules: Rule[];
         variableValues: any;
         formOptions: any;
     }) => {
-        const value = useWatch({ name: field });
-        const { getValues } = useFormContext();
+        const value = useWatch({name: field});
+        const {getValues} = useFormContext();
         const values = getValues();
 
         const callbacks = useActionCallbacks();
 
         const rulesToRun = useMemo(() => {
-            const activeRules = rules.filter(({ triggers }) => {
-                if (formOptions.isEventForm) {
-                    return triggers.some(({ type }) => type === 'DATAELEMENT_CURRENT_EVENT');
-                } else {
-                    return triggers.some(({ type }) => type === 'TEI_ATTRIBUTE');
-                }
-            });
-
-            return activeRules.filter(({ triggers }) =>
-                triggers.some(({ id }) => id === field)
+            return rules.filter(({triggers}) =>
+                triggers.some(({id}) => id === field)
             );
-        }, [rules, formOptions, field]);
+        }, [rules, field]);
+
 
         const sanitizedValues = useMemo(
             () =>
@@ -59,41 +52,47 @@ export const ActionComponent = memo(
             [values]
         );
         useEffect(() => {
-            const rawActions = evaluateRules(rulesToRun, sanitizedValues, {
-                variableValues,
-                options: {
-                    ...formOptions,
-                },
-            });
-            const actions = sanitizeActions(rawActions);
-            runActions(actions, callbacks);
+            try {
+                const rawActions = evaluateRules(rulesToRun, sanitizedValues, {
+                    variableValues,
+                    options: {
+                        ...formOptions,
+                    },
+                });
+
+                const actions = sanitizeActions(rawActions);
+                console.log(actions)
+                runActions(actions, callbacks);
+            } catch (e) {
+                console.error(e)
+            }
         }, [value]); // Only re-run if value changes
         return null;
     }
 );
 
-export  function RuleComponent({
-    rules,
-    formOptions,
-    dataItems,
-    variables,
-}: {
+export const RuleComponent = memo(({
+                                       rules,
+                                       formOptions,
+                                       dataItems,
+                                       variables,
+                                   }: {
     rules: Rule[];
     formOptions: { isEventForm?: boolean; isEnrollmentForm: boolean };
     variables: ProgramRuleExecutionVariables;
     dataItems: string[];
-}) {
+}) => {
     const callbacks = useActionCallbacks();
-    const { runTriggers, initialRunRules } = useTriggers(rules, dataItems, formOptions);
+    const {runTriggers, initialRunRules} = useTriggers(rules, dataItems, formOptions);
     useEffect(() => {
         const actions = sanitizeActions(
             evaluateRules(
                 initialRunRules,
                 {},
-                { variableValues: variables, options: formOptions }
+                {variableValues: variables, options: formOptions}
             )
         );
-        setTimeout(() => runActions(actions, { ...callbacks }), 1);
+        setTimeout(() => runActions(actions, {...callbacks}), 1);
     }, []);
 
     const variableValues = useMemo(() => variables, [variables]);
@@ -111,4 +110,4 @@ export  function RuleComponent({
             ))}
         </>
     );
-}
+})

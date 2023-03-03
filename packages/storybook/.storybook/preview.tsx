@@ -75,20 +75,22 @@ const StoryPreview = ({children}: { children: any }) => {
 
 export const decorators = [
     (Story: any) => (
-        <DHIS2Provider>
-            <StoryPreview>
-                <div
-                    style={{
-                        flexDirection: "column",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "100%",
-                        height: "80vh",
-                    }}>
-                    <Story/>
-                </div>
-            </StoryPreview>
-        </DHIS2Provider>
+        <React.StrictMode>
+            <DHIS2Provider>
+                <StoryPreview>
+                    <div
+                        style={{
+                            flexDirection: "column",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            width: "100%",
+                            height: "80vh",
+                        }}>
+                        <Story/>
+                    </div>
+                </StoryPreview>
+            </DHIS2Provider>
+        </React.StrictMode>
     ),
 ];

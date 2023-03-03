@@ -3,7 +3,6 @@ import React from "react";
 import {SectionForm, SectionFormProps, StepperSectionForm, StepperSectionFormProps} from ".";
 import {FormSectionInterface} from "./interfaces";
 import {FormProvider, useForm} from "react-hook-form";
-import {RecoilRoot} from "recoil";
 
 const exampleForm: { sections: FormSectionInterface[] } = {
     sections: [
@@ -150,11 +149,9 @@ export default {
             const form = useForm();
             return (
                 <div style={{width: "100%", minWidth: 400, minHeight: 800, maxHeight: "1000px", overflow: "auto"}}>
-                    <RecoilRoot>
                         <FormProvider {...form}>
                             <Story/>
                         </FormProvider>
-                    </RecoilRoot>
                 </div>
             )
         }
