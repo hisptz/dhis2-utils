@@ -27,6 +27,7 @@
     "cypress": "^12.3.0",
     "lodash": "^4.17.21",
     "react": "16.14.0",
+    "react-hook-form": "^7.43.3",
     "typescript": "^4.9.4",
     "vite": "3"
   },
@@ -41,7 +42,6 @@
     "react-circular-progressbar": "^2.1.0",
     "react-collapsible": "^2.10.0",
     "react-color": "^2.19.3",
-    "react-hook-form": "^7.43.1",
     "scheduler": "^0.23.0",
     "styled-components": "^5.3.6",
     "use-context-selector": "^1.4.1",
@@ -73,7 +73,6 @@
     "url": "https://github.com/hisptz/dhis2-utils/issues"
   },
   "peerDependencies": {
-    "lodash": "^4",
-    "react-hook-form": "^7"
+    "lodash": "^4"
   }
 }
