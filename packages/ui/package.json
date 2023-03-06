@@ -39,6 +39,7 @@
     "@mui/material": "^5.11.8",
     "@react-buddy/ide-toolbox": "^2.3.1",
     "classnames": "^2.3.2",
+    "dexie": "^3.2.3",
     "react-circular-progressbar": "^2.1.0",
     "react-collapsible": "^2.10.0",
     "react-color": "^2.19.3",
