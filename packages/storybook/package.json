@@ -34,7 +34,7 @@
   "scripts": {
     "proxy:start": "ts-node proxy.ts",
     "start": "start-storybook -p 6006",
-    "start:sb": "dotenv -- cross-var concurrently -n \"proxy|storybook\" --name-separator \"|\" 'yarn proxy:start' 'wait-on http://localhost:%DHIS2_PROXY_PORT% && yarn start:sb' ",
+    "start:proxy": "dotenv -- cross-var concurrently -n \"proxy|storybook\" --name-separator \"|\" 'yarn proxy:start' 'wait-on http://localhost:%DHIS2_PROXY_PORT% && yarn start' ",
     "build": "build-storybook"
   }
 }

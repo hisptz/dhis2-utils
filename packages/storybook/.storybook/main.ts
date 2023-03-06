@@ -1,7 +1,7 @@
 import {mergeConfig} from "vite";
 // @ts-ignore
 
-module.exports = {
+export default {
     stories: [
         {
             directory: "../../ui/src",
