@@ -75,7 +75,6 @@
     "url": "https://github.com/hisptz/dhis2-utils/issues"
   },
   "peerDependencies": {
-    "lodash": "^4",
-    "react-hook-form": "^7"
+    "lodash": "^4"
   }
 }

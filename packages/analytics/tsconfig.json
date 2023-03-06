@@ -45,6 +45,7 @@
     "src/locales/*/**.js",
     "src/*/**.js",
     "**/*.test.ts",
-    "**/*.config.ts"
+    "**/*.config.ts",
+    "dataProviders/"
   ]
 }
