@@ -58,7 +58,6 @@ export default {
             const onSubmit = (data: any) => {
                 console.log(data);
             }
-
             return (
                 <FormProvider {...form}>
                     <form style={{display: "flex", gap: 16, alignItems: "center"}}

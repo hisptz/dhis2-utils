@@ -5,11 +5,11 @@ import React, {useEffect, useRef, useState} from "react";
 import {MapLegendConfig} from "../../../MapArea/interfaces";
 import {CustomControl} from "../../../MapControls/components/CustomControl";
 import {
-    CustomBubbleLayer,
-    CustomGoogleEngineLayer,
-    CustomPointLayer,
-    CustomThematicLayer,
-    SUPPORTED_EARTH_ENGINE_LAYERS
+  CustomBubbleLayer,
+  CustomGoogleEngineLayer,
+  CustomPointLayer,
+  CustomThematicLayer,
+  SUPPORTED_EARTH_ENGINE_LAYERS
 } from "../../interfaces";
 import PointLegend from "../PointLayer/components/PointLegend";
 import BubbleLegend from "../ThematicLayer/components/Bubble/components/BubbleLegend";
@@ -130,7 +130,6 @@ function Legend({ children, collapsible }: { children: React.ReactElement; colla
   const name = head(React.Children.toArray(children) as React.ReactElement[])?.props.name;
 
   const shouldCollapse = collapsed && !inPrintMode;
-  console.log(inPrintMode);
 
   return (
     <div className="w-100">

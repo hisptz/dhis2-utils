@@ -1,12 +1,13 @@
 import {FieldProps} from "../../interfaces";
-import React, {useEffect} from "react";
-import {InputField} from '@dhis2/ui'
+import React, {useCallback, useEffect} from "react";
+import {Button, colors, Field, IconDimensionOrgUnit16} from '@dhis2/ui'
 import {useDataQuery} from "@dhis2/app-runtime";
-import {OrgUnitSelectorModal} from "../../../selectors";
+import {CustomOrgUnitProvider, OrgUnitSelectorModal} from "../../../selectors";
 import {OrganisationUnit, OrgUnitSelection} from "@hisptz/dhis2-utils";
-import {head} from "lodash";
+import {compact, head} from "lodash";
 import {useBoolean} from "usehooks-ts";
-import classes from "./OrgUnitSelectField.module.css"
+import i18n from "@dhis2/d2-i18n";
+import {OrgUnitSelectorProps} from "../../../selectors/OrgUnitSelector/types";
 
 export interface OrgUnitSelectFieldProps extends FieldProps {
 
@@ -14,6 +15,16 @@ export interface OrgUnitSelectFieldProps extends FieldProps {
      * Selected organisation unit id
      * */
     value?: string;
+    /**
+     *  Label for the select button
+     * */
+    buttonLabel?: string;
+
+    /**
+     * Used to override `OrgUnitSelector` component props
+     * */
+    orgUnitProps?: OrgUnitSelectorProps;
+    customIcon?: React.ReactElement
 
 }
 
@@ -32,19 +43,25 @@ const orgUnitQuery = {
 }
 
 export const OrgUnitSelectField = React.forwardRef(({
-                                                                                           value,
-                                                                                           onChange,
-                                                                                           error,
-                                                                                           ...props
-                                                                                       }: OrgUnitSelectFieldProps, ref) => {
+                                                        value,
+                                                        onChange,
+                                                        label,
+                                                        buttonLabel,
+                                                        error,
+                                                        warning,
+                                                        required,
+                                                        orgUnitProps,
+                                                        ...props
+                                                    }: OrgUnitSelectFieldProps, ref) => {
 
-    const {value: hide, setTrue: closeModal, setFalse: openModal} = useBoolean(true);
+    const {value: hidden, setTrue: closeModal, setFalse: openModal} = useBoolean(true);
     const {data, loading, error: fetchError, refetch} = useDataQuery(orgUnitQuery, {
         lazy: true,
         variables: {
             id: value
         }
     });
+
 
     useEffect(() => {
         if (value) {
@@ -53,6 +70,7 @@ export const OrgUnitSelectField = React.forwardRef(({
             })
         }
     }, [])
+
 
     const onUpdate = (orgUnit: OrgUnitSelection) => {
         closeModal();
@@ -63,32 +81,78 @@ export const OrgUnitSelectField = React.forwardRef(({
         })
     }
 
+    const onClear = useCallback(
+        () => {
+            onChange(undefined);
+        },
+        [onChange],
+    );
+
+
     const displayName = (data?.ou as any)?.displayName;
 
     return (
-        <>
-            <div onClick={openModal} style={{cursor: "pointer !important"}}>
-                <InputField
-                    className={classes['input']}
-                    ref={ref}
-                    loading={loading}
-                    disabled
-                    value={displayName}
-                    error={Boolean(error) || Boolean(fetchError)}
-                    validationText={error || fetchError?.message}
-                    {...props}
-                />
+        <Field
+            ref={ref}
+            required={required}
+            error={fetchError ?? Boolean(error)}
+            warning={Boolean(warning)}
+            validationText={fetchError?.message ?? typeof error === "string" ? error : '' ?? typeof warning === "string" ? warning : ''}
+            label={label}>
+            <div style={{display: "flex", gap: 8, alignItems: 'flex-start', flexDirection: "column"}}
+                 className="row gap-16 align-center">
+                <Button loading={loading} onClick={openModal} icon={<IconDimensionOrgUnit16/>}>
+                    {
+                        buttonLabel ?? (value ? i18n.t("Change organisation unit") : i18n.t("Select organisation unit"))
+                    }
+                </Button>
+                {
+                    Boolean(value) && (
+                        <div style={{
+                            display: "flex",
+                            gap: 16,
+                            justifyContent: "space-between",
+                            alignItems: 'center',
+                            color: colors.grey800,
+                            fontSize: 12
+                        }}>
+                            <div style={{
+                                display: "flex",
+                                gap: 4,
+                            }}>
+                                {i18n.t("Selected")}:
+                                <span>
+                    {displayName}
+                </span>
+                            </div>
+                            <a role='button' onClick={onClear} style={{textDecoration: 'underline', cursor: 'pointer'}}>
+                                {i18n.t("Clear")}
+                            </a>
+                        </div>)
+                }
             </div>
-            {
-                !hide && (<OrgUnitSelectorModal
-                    value={data?.ou ? {orgUnits: [(data?.ou as OrganisationUnit)]} : undefined}
-                    singleSelection
-                    searchable
-                    onClose={closeModal}
-                    hide={hide}
-                    onUpdate={onUpdate}
-                />)
-            }
-        </>
+            <CustomOrgUnitProvider>
+                {
+                    !hidden && (<OrgUnitSelectorModal
+                        position="middle"
+                        singleSelection
+                        searchable
+                        {...orgUnitProps}
+                        onUpdate={(data: OrgUnitSelection) => {
+                            onUpdate(data);
+                            closeModal();
+                        }}
+                        value={{
+                            orgUnits: value ? compact([
+                                data?.ou as OrganisationUnit
+                            ]) : []
+                        }
+                        }
+                        onClose={closeModal}
+                        hide={hidden}
+                    />)
+                }
+            </CustomOrgUnitProvider>
+        </Field>
     )
 })

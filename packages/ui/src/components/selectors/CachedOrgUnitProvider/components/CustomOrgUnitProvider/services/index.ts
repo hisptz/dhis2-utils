@@ -107,11 +107,9 @@ function filterByStringFilter(ou: OfflineOrganisationUnit, filter: string): bool
 async function getOrgUnits(instance: Table<OfflineOrganisationUnit>, query: any, {engine}: { engine: any }) {
     try {
         if (!db.isCachingComplete()) {
-            console.log('cache check')
             return await getFromEngine(engine, query);
         }
         if (query.id) {
-            console.log('id check')
             return getOrgUnitById(instance, query, engine);
         }
         if (query.params.userDataViewFallback) {
