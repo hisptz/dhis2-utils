@@ -18,7 +18,7 @@ export type VALUE_TYPE =
     | "MULTIPLE_FIELDS"
     | "PHONE_NUMBER"
     | "BOOLEAN"
-    | "ORG_UNIT_FIELD";
+    | "ORGANISATION_UNIT";
 
 export const VALUE_TYPES: { [key: string]: { name: VALUE_TYPE; formName: string } } = {
     INTEGER: {
@@ -94,7 +94,7 @@ export const VALUE_TYPES: { [key: string]: { name: VALUE_TYPE; formName: string 
         formName: "multipleFields",
     },
     ORG_UNIT_FIELD: {
-        name: "ORG_UNIT_FIELD",
+        name: "ORGANISATION_UNIT",
         formName: "orgUnit",
     },
 };

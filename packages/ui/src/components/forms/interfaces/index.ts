@@ -18,7 +18,13 @@ export interface FieldProps {
     /**
      * An error message to display when the field has an error. Also accepts boolean for only showing the field's error state without any message
      * */
-    error?: string | boolean
+    error?: string | boolean;
+
+    required?: boolean;
+
+    warning?: string | boolean;
+
+    [key: string]: any
 }
 
 export interface RHFFieldProps {

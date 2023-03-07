@@ -61,7 +61,6 @@ export const ActionComponent = memo(
                 });
 
                 const actions = sanitizeActions(rawActions);
-                console.log(actions)
                 runActions(actions, callbacks);
             } catch (e) {
                 console.error(e)
