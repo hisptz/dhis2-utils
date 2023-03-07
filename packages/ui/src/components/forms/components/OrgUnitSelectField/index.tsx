@@ -51,6 +51,7 @@ export const OrgUnitSelectField = React.forwardRef(({
                                                         warning,
                                                         required,
                                                         orgUnitProps,
+                                                        customIcon,
                                                         ...props
                                                     }: OrgUnitSelectFieldProps, ref) => {
 
@@ -91,6 +92,8 @@ export const OrgUnitSelectField = React.forwardRef(({
 
     const displayName = (data?.ou as any)?.displayName;
 
+    const Icon = customIcon ?? IconDimensionOrgUnit16;
+
     return (
         <Field
             ref={ref}
@@ -101,7 +104,7 @@ export const OrgUnitSelectField = React.forwardRef(({
             label={label}>
             <div style={{display: "flex", gap: 8, alignItems: 'flex-start', flexDirection: "column"}}
                  className="row gap-16 align-center">
-                <Button loading={loading} onClick={openModal} icon={<IconDimensionOrgUnit16/>}>
+                <Button loading={loading} onClick={openModal} icon={<Icon/>}>
                     {
                         buttonLabel ?? (value ? i18n.t("Change organisation unit") : i18n.t("Select organisation unit"))
                     }
