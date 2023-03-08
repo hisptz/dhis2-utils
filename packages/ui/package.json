@@ -4,7 +4,7 @@
   "description": "A collection of reusable complex DHIS2 react ui components.",
   "license": "BSD-3-Clause",
   "scripts": {
-    "build": "d2-app-scripts build --no-verify",
+    "build": "d2-app-scripts build --no-verify --mode production",
     "build:types": "tsc --project tsconfig.build.json",
     "postbuild": "yarn build:types",
     "start": "d2-app-scripts start",

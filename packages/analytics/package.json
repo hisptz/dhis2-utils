@@ -4,7 +4,7 @@
   "description": "A collection of reusable react components for visualizing analytics data from DHIS2",
   "license": "BSD-3-Clause",
   "scripts": {
-    "build": "d2-app-scripts build --no-verify",
+    "build": "d2-app-scripts build --no-verify --mode production",
     "build:types": "tsc --project tsconfig.build.json",
     "postbuild": "yarn build:types",
     "start": "d2-app-scripts start",
