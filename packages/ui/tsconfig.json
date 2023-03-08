@@ -8,7 +8,7 @@
       "esnext"
     ],
     "declaration": true,
-    "emitDeclarationOnly": true,
+    "emitDeclarationOnly": false,
     "outDir": "./build/types",
     "types": [
       "cypress",
@@ -27,8 +27,10 @@
     "resolveJsonModule": true,
     "isolatedModules": false,
     "jsx": "react",
+    "noEmit": false,
+    "noEmitOnError": false,
     "typeRoots": [
-      "node_modules/@types",
+      "node_modules/@types"
     ]
   },
   "include": [

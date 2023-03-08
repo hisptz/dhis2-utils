@@ -2,10 +2,10 @@ import {mount} from "@cypress/react";
 import HighCharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import React, {useState} from "react";
-import ChartDownloadMenu from "./components/DownloadMenu";
+import {ChartDownloadMenu} from "./components/DownloadMenu";
 import columnData from "./data/column-data.json";
 import {setupHighchartsModules} from "./services/export";
-import ChartAnalytics from ".";
+import {ChartAnalytics} from ".";
 
 const props: any = {
   analytics: columnData as any,
