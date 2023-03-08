@@ -604,6 +604,7 @@ const getTriggersTest = [
         value: [
             {
                 id: 'uRiIFjO4lqV',
+                name: "Birthdate",
                 type: 'TEI_ATTRIBUTE',
             },
         ],
@@ -613,6 +614,7 @@ const getTriggersTest = [
         value: [
             {
                 id: 'bCtWZGjSWM8',
+                name: "Underlying_conditions",
                 type: 'DATAELEMENT_CURRENT_EVENT',
             },
         ],
@@ -622,6 +624,7 @@ const getTriggersTest = [
         value: [
             {
                 id: 'DJGs16i2DoA',
+                "name": "Reason for delay",
                 type: 'DATAELEMENT_CURRENT_EVENT',
             },
         ],
@@ -631,6 +634,7 @@ const getTriggersTest = [
         value: [
             {
                 id: 'Mhj0xPZr1v3',
+                "name": "Aina ya kitambulisho",
                 type: 'TEI_ATTRIBUTE',
             },
         ],
@@ -769,6 +773,9 @@ const getActionsTest: { test: any; value: RuleAction[] }[] = [
                 id: 'pv54O6ZNntC',
                 type: 'ASSIGN',
                 data: '',
+                content: "",
+                option: undefined,
+                optionGroup: undefined,
             },
             {
                 id: 'Brj48CSupHb',
@@ -778,6 +785,9 @@ const getActionsTest: { test: any; value: RuleAction[] }[] = [
                     type: 'DATA_ELEMENT',
                 },
                 data: '',
+                content: "",
+                option: undefined,
+                optionGroup: undefined,
             },
             {
                 id: 'pU6GhZ9pMT8',
@@ -787,6 +797,9 @@ const getActionsTest: { test: any; value: RuleAction[] }[] = [
                     type: 'DATA_ELEMENT',
                 },
                 data: '',
+                content: "",
+                option: undefined,
+                optionGroup: undefined,
             },
             {
                 id: 'h0try32OwW1',
@@ -796,6 +809,9 @@ const getActionsTest: { test: any; value: RuleAction[] }[] = [
                     type: 'ATTRIBUTE',
                 },
                 data: '',
+                content: "",
+                option: undefined,
+                optionGroup: undefined,
             },
         ],
     },

@@ -28,7 +28,7 @@ export function getRuleActions(
             optionGroup: programRuleAction?.optionGroup,
             content: programRuleAction.content ?? '',
             target: {
-                id: `${idPrefix}${
+                id: `${idPrefix ?? ''}${
                     programRuleAction.dataElement?.id ??
                     programRuleAction.trackedEntityAttribute?.id ??
                     ''
@@ -47,7 +47,7 @@ export function getRuleTargets(
         compact(
             programRuleActions?.map((action: ProgramRuleAction) => {
                 return {
-                    id: `${idPrefix}${
+                    id: `${idPrefix ?? ''}${
                         action.dataElement?.id ?? action.trackedEntityAttribute?.id ?? ''
                     }`,
                     type: action.dataElement
@@ -86,7 +86,7 @@ function getTriggerFromVariable(
         case 'DATAELEMENT_CURRENT_EVENT':
         case 'DATAELEMENT_NEWEST_EVENT_PROGRAM':
             return {
-                id: `${idPrefix}${variable?.dataElement?.id}` ?? '',
+                id: `${idPrefix ?? ''}${variable?.dataElement?.id}` ?? '',
                 type: variable.programRuleVariableSourceType,
                 name: variable.name,
             };
@@ -98,7 +98,7 @@ function getTriggerFromVariable(
             };
         case 'TEI_ATTRIBUTE':
             return {
-                id: `${idPrefix}${variable?.trackedEntityAttribute?.id}` ?? '',
+                id: `${idPrefix ?? ''}${variable?.trackedEntityAttribute?.id}` ?? '',
                 type: variable.programRuleVariableSourceType,
                 name: variable.name,
             };

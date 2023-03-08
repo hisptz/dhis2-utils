@@ -4,32 +4,26 @@
   "description": "A collection of reusable complex DHIS2 react ui components.",
   "license": "BSD-3-Clause",
   "scripts": {
-    "build": "d2-app-scripts build --no-verify",
+    "build": "d2-app-scripts build --no-verify --mode production",
     "build:types": "tsc --project tsconfig.build.json",
     "postbuild": "yarn build:types",
     "start": "d2-app-scripts start",
     "test": "cypress run --component",
-    "test:open": "cypress open --component",
+    "test:open": "npx cypress open --component",
     "publish:ui": "yarn publish --access public"
   },
   "devDependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "^15.1.1",
-    "@bahmutov/cypress-esbuild-preprocessor": "^2.1.5",
-    "@cypress/react": "^7.0.2",
-    "@cypress/vite-dev-server": "^5.0.2",
     "@dhis2/cli-app-scripts": "^10.3.0",
-    "@dhis2/cypress-commands": "^9.0.2",
-    "@dhis2/cypress-plugins": "^9.0.2",
     "@types/jest": "^29.2.5",
     "@types/lodash": "^4.14.191",
+    "@types/node": "^18.14.6",
     "@types/react-color": "^3.0.6",
     "@types/styled-components": "^5.1.26",
-    "cypress": "^12.3.0",
+    "cypress": "^12.7.0",
     "lodash": "^4.17.21",
-    "react": "16.14.0",
     "react-hook-form": "^7.43.3",
-    "typescript": "^4.9.4",
-    "vite": "3"
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.4"
   },
   "dependencies": {
     "@dhis2/app-runtime": "^3.7.0",

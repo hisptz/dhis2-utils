@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-02-17T13:29:41.667Z\n"
-"PO-Revision-Date: 2023-02-17T13:29:41.667Z\n"
+"POT-Creation-Date: 2023-03-07T13:03:03.820Z\n"
+"PO-Revision-Date: 2023-03-07T13:03:03.820Z\n"
 
 msgid "Confirm Action"
 msgstr "Confirm Action"
@@ -34,6 +34,18 @@ msgstr "Days"
 
 msgid "Remove"
 msgstr "Remove"
+
+msgid "Change organisation unit"
+msgstr "Change organisation unit"
+
+msgid "Select organisation unit"
+msgstr "Select organisation unit"
+
+msgid "Selected"
+msgstr "Selected"
+
+msgid "Clear"
+msgstr "Clear"
 
 msgid "Previous"
 msgstr "Previous"
@@ -73,9 +85,6 @@ msgstr "Select Period"
 
 msgid "Select Period(s)"
 msgstr "Select Period(s)"
-
-msgid "Clear"
-msgstr "Clear"
 
 msgid "Select Level(s)"
 msgstr "Select Level(s)"
