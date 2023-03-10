@@ -6,4 +6,5 @@ export type ModalProps = {
   hide: boolean;
   onUpdate: (value: any) => void;
   updateButtonLabel?: string;
+  title?: string;
 };

@@ -3,13 +3,16 @@ import {CssReset, InputField} from "@dhis2/ui";
 import {head} from "lodash";
 import React, {useCallback, useMemo} from "react";
 import {DateRangeValue} from "../../types/props";
+import {DateTime} from "luxon";
 
 export default function DateRange({
                                       value,
                                       onChange,
+                                      allowFuturePeriods
                                   }: {
     value?: DateRangeValue[];
     onChange: ({items}: { items: DateRangeValue[] }) => void;
+    allowFuturePeriods?: boolean
 }) {
     const data = useMemo(() => head(value as DateRangeValue[]) ?? {startDate: "", endDate: "", type: "RANGE"}, [value]);
     const {startDate, endDate} = data;
@@ -24,12 +27,15 @@ export default function DateRange({
         [data]
     );
 
+    const today = DateTime.now().toFormat('yyyy-MM-dd');
+
     return (
         <div className="column gap-16">
             <CssReset/>
-            <InputField value={startDate} onChange={onDateChange("startDate")} max={endDate} type="date"
+            <InputField value={startDate} onChange={onDateChange("startDate")} max={endDate ?? today} type="date"
                         label={i18n.t("Start Date")}/>
-            <InputField value={endDate} onChange={onDateChange("endDate")} min={startDate} type="date"
+            <InputField value={endDate} onChange={onDateChange("endDate")} min={startDate}
+                        max={!allowFuturePeriods ? today : undefined} type="date"
                         label={i18n.t("End Date")}/>
         </div>
     );

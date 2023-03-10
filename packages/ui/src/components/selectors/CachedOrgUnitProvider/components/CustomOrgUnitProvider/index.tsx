@@ -3,7 +3,7 @@ import React from "react";
 import {db} from "../../services/db";
 import {getData, getOrgUnits} from "./services";
 
-export default function OfflineOrganisationUnitProvider({children}: { children: React.ReactNode }) {
+export function CustomOrgUnitProvider({children}: { children: React.ReactNode }) {
     const engine = useDataEngine();
 
     if (!db) {
