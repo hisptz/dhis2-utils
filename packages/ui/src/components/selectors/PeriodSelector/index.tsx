@@ -41,7 +41,7 @@ export function PeriodSelector({
 
             return defaultInputType ?? enableDateRange ? "dateRange" : "period";
         }
-    }, []);
+    }, [enablePeriodSelector, enableDateRange]);
     const [inputType, setInputType] = useState<string>(initialInputType);
 
     const onInputTypeChange = useCallback(
@@ -72,6 +72,7 @@ export function PeriodSelector({
             )}
             {inputType === "period" && (
                 <PeriodSelect
+                    allowFuturePeriods={allowFuturePeriods}
                     singleSelection={singleSelection}
                     excludedPeriodTypes={excludedPeriodTypes ?? []}
                     onSelect={onSelect as unknown as (selected: { items: string[] }) => void}
@@ -81,7 +82,7 @@ export function PeriodSelector({
                 />
             )}
             {inputType === "dateRange" && (
-                <DateRange value={selectedPeriods as DateRangeValue[]}
+                <DateRange allowFuturePeriods={allowFuturePeriods} value={selectedPeriods as DateRangeValue[]}
                            onChange={onSelect as unknown as (selected: { items: DateRangeValue[] }) => void}/>
             )}
         </div>
