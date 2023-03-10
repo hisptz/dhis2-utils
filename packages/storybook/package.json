@@ -30,7 +30,11 @@
     "vite": "^4.0.4",
     "wait-on": "^7.0.1"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@hisptz/dhis2-ui": "*",
+    "@hisptz/dhis2-analytics": "*",
+    "@hisptz/dhis2-utils": "*"
+  },
   "scripts": {
     "proxy:start": "ts-node proxy.ts",
     "start": "start-storybook -p 6006",
