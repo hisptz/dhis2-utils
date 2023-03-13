@@ -28,7 +28,7 @@
     "@dhis2/app-runtime": "^3.7.0",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@hisptz/dhis2-utils": "^1.0.32",
+    "@hisptz/dhis2-utils": "*",
     "@mui/material": "^5.11.8",
     "@react-buddy/ide-toolbox": "^2.3.1",
     "classnames": "^2.3.2",
