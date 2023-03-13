@@ -92,7 +92,7 @@ export const RuleComponent = memo(({
             )
         );
         setTimeout(() => runActions(actions, {...callbacks}), 1);
-    }, [callbacks]);
+    }, []);
 
     const variableValues = useMemo(() => variables, [variables]);
 

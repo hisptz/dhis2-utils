@@ -23,6 +23,7 @@ export const CustomSelectField = React.forwardRef(({
                                                        optionSet,
                                                        value,
                                                        error,
+                                                       warning,
                                                        ...props
                                                    }: CustomSelectFieldProps, ref: React.ForwardedRef<any>) => {
 
@@ -44,8 +45,9 @@ export const CustomSelectField = React.forwardRef(({
             selected={selectedValue}
             onChange={({selected}: { selected: any }) => onChange(selected)}
             error={!!error}
-            validationText={error}
+            validationText={error ?? warning}
             filterable={options.length > 5}
+            warning={Boolean(warning)}
             {...props}
         >
             {options?.map(({label, value}: SelectOption) => (
