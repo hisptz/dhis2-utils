@@ -97,7 +97,7 @@ export function useFieldCallback<T>(callback: (callback: { set: (field: string, 
                 value: typeof value === 'function' ? value(state?.get(field) as FieldControlValue) : value
             })
         },
-        [dispatch],
+        [dispatch, state],
     );
 
     return useCallback(
