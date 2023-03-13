@@ -25,7 +25,7 @@
     "start:sb-proxy": "yarn sb start:proxy",
     "test": "yarn test:lib && yarn test:component",
     "build": "export NODE_ENV=production && npx lerna run build",
-    "prepublish": "npx lerna run build",
+    "prepublish": "npx lerna run build --no-private",
     "publish": "npx lerna publish --no-private",
     "deploy:docs": "yarn docs deploy"
   },
