@@ -1,5 +1,4 @@
 import {mergeConfig} from "vite";
-// @ts-ignore
 
 export default {
     stories: [
