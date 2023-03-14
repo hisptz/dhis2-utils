@@ -16,7 +16,7 @@ export function YesNoField({renderAsCheckbox, renderAsInputField, ...input}: Yes
 
         return <CustomCheckboxField {...input} />
     }
-    const {value, error, onChange, ...props} = input;
+    const {value, error, onChange, warning, ...props} = input;
 
     if (renderAsInputField) {
         const options = [{value: "true", label: i18n.t("Yes")}, {value: "false", label: i18n.t("No")}];
@@ -52,12 +52,12 @@ export function YesNoField({renderAsCheckbox, renderAsInputField, ...input}: Yes
         [],
     );
 
-
     return (
         <Field
             {...props}
             error={!!error}
-            validationText={error}
+            validationText={error ?? warning}
+            warning={Boolean(warning)}
         >
             <div style={{display: 'flex', gap: 16, flexWrap: 'wrap'}}>
                 <Radio

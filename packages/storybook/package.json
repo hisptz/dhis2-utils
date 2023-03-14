@@ -30,9 +30,10 @@
     "wait-on": "^7.0.1"
   },
   "dependencies": {
-    "@hisptz/dhis2-ui": "*",
     "@hisptz/dhis2-analytics": "*",
-    "@hisptz/dhis2-utils": "*"
+    "@hisptz/dhis2-ui": "*",
+    "@hisptz/dhis2-utils": "*",
+    "recoil": "^0.7.7"
   },
   "scripts": {
     "proxy:start": "ts-node proxy.ts",
