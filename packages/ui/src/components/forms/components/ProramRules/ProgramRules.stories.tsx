@@ -118,17 +118,19 @@ const OptionGroupProvider = ({children}: { children: React.ReactNode }) => (
         {
             optionGroups: (type, query, options) => {
                 console.log(query)
-                return [{
-                    id: "male",
-                    name: "Male group",
-                    options: [
-                        {
-                            id: "male",
-                            code: "male",
-                            name: "Male"
-                        }
-                    ]
-                }] as any
+                return {
+                    optionGroups: [{
+                        id: "male",
+                        name: "Male group",
+                        options: [
+                            {
+                                id: "male",
+                                code: "male",
+                                name: "Male"
+                            }
+                        ]
+                    }]
+                } as any
             }
         }
     }>

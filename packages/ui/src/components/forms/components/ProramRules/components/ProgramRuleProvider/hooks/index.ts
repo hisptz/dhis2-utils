@@ -1,5 +1,12 @@
 import {useCallback, useMemo} from 'react';
-import {FieldControlValue, useFieldCallback,} from '../state';
+import {
+    FieldDisabledState,
+    FieldHiddenOptionsState,
+    FieldLoadingState,
+    FieldMinMaxState,
+    FieldVisibilityState,
+    FieldWarningState,
+} from '../state';
 import {flatten, forEach, some, uniq} from 'lodash';
 import {useFetch} from '../services/fetch';
 import {useFormContext} from 'react-hook-form';
@@ -12,6 +19,7 @@ import {
     ProgramRuleExecutionVariables,
     Rule
 } from "@hisptz/dhis2-utils";
+import {useRecoilTransaction_UNSTABLE} from "recoil";
 
 const optionGroupsQuery = {
     groups: {
@@ -47,7 +55,7 @@ export function useHiddenFields(suspectedHiddenFields: string[]): string[] {
 }
 
 export function useActionCallbacks(): ActionCallbacks {
-    const {setValue: formSetter, setError, unregister} = useFormContext();
+    const {setValue: formSetter, setError: errorSetter, unregister} = useFormContext();
     const {fetch} = useFetch(optionGroupsQuery);
 
     const getOptionGroups = useCallback(
@@ -58,6 +66,10 @@ export function useActionCallbacks(): ActionCallbacks {
         [fetch]
     );
 
+    const setError = useCallback((field: string, error: string | Error) => {
+        errorSetter(field, {message: typeof error === 'string' ? error : error.message})
+    }, [])
+
     const setValue = useCallback(
         (values: { field: string; value: any }[]) => {
             values.forEach(({value, field}) => formSetter(`${field}`, value));
@@ -65,66 +77,69 @@ export function useActionCallbacks(): ActionCallbacks {
         [formSetter]
     );
 
-    const toggleFieldVisibility = useFieldCallback<{ field: string; hide: boolean }[]>(
-        ({set}) => (fields: { field: string; hide: boolean }[]) => {
-            forEach(fields, ({field, hide}) =>
-                set(field, 'hidden', hide)
-            );
-        },
-    );
-
-    const toggleLoading = useFieldCallback<{ field: string; loading: boolean }[]>(
+    const toggleFieldVisibility = useRecoilTransaction_UNSTABLE(
         ({set}) =>
-            (fields: { field: string; loading: boolean }[]) => {
-                forEach(fields, ({field, loading}) =>
-                    set(field, 'loading', loading)
-                );
-            },
-        []
-    );
-
-    const toggleFieldWarning = useFieldCallback<{ field: string; warning: string }[]>(
-        ({set}) =>
-            (fields: { field: string; warning: string }[]) => {
-                forEach(fields, ({field, warning}) =>
-                    set(field, 'warning', warning)
-                );
-            },
-        []
-    );
-
-    const toggleFieldDisabled = useFieldCallback<{ field: string; disabled?: boolean }[]>(
-        ({set}) =>
-            (fields: { field: string; disabled?: boolean }[]) => {
-                forEach(fields, ({field, disabled}) =>
-                    set(field, 'disabled', disabled ?? false)
-                );
-            },
-        []
-    );
-
-    const setMinMax = useFieldCallback<{ field: string; min?: number | string; max?: number | string }[]>(
-        ({set}) =>
-            (fields: { field: string; min?: number | string; max?: number | string }[]) => {
-                forEach(fields, ({field, min, max}) =>
-                    set(field, 'minMax', {
-                        min,
-                        max
+            (fields: { field: string; hide: boolean }[]) => {
+                forEach(fields, ({field, hide}) =>
+                    set(FieldVisibilityState(`${field}`), () => {
+                        return hide;
                     })
                 );
             },
         []
     );
 
-    const toggleOptionViews = useFieldCallback<{ field: string; options: string[]; hide: boolean }[]>(
+    const toggleLoading = useRecoilTransaction_UNSTABLE(
+        ({set}) =>
+            (fields: { field: string; loading: boolean }[]) => {
+                forEach(fields, ({field, loading}) =>
+                    set(FieldLoadingState(`${field}`), loading)
+                );
+            },
+        []
+    );
+
+    const toggleFieldWarning = useRecoilTransaction_UNSTABLE(
+        ({set}) =>
+            (fields: { field: string; warning: string }[]) => {
+                forEach(fields, ({field, warning}) =>
+                    set(FieldWarningState(`${field}`), warning)
+                );
+            },
+        []
+    );
+
+    const toggleFieldDisabled = useRecoilTransaction_UNSTABLE(
+        ({set}) =>
+            (fields: { field: string; disabled?: boolean }[]) => {
+                forEach(fields, ({field, disabled}) =>
+                    set(FieldDisabledState(`${field}`), disabled ?? false)
+                );
+            },
+        []
+    );
+
+    const setMinMax = useRecoilTransaction_UNSTABLE(
+        ({set}) =>
+            (fields: { field: string; min?: number | string; max?: number | string }[]) => {
+                forEach(fields, ({field, min, max}) =>
+                    set(FieldMinMaxState(`${field}`), {max, min})
+                );
+            },
+        []
+    );
+
+    const toggleOptionViews = useRecoilTransaction_UNSTABLE(
         ({set}) =>
             (fields: { field: string; options: string[]; hide: boolean }[]) => {
                 forEach(fields, ({field, options, hide}) => {
                     if (hide) {
-                        set(field, 'hiddenOptions', uniq([...options]));
+                        set(FieldHiddenOptionsState(`${field}`), () => {
+                            return uniq([...options]);
+                        });
                     } else {
-                        set(field, 'hiddenOptions', (prevHiddenOptions: FieldControlValue) => {
-                            return (prevHiddenOptions as string []).filter((id: string) => !options.includes(id));
+                        set(FieldHiddenOptionsState(`${field}`), (prevHiddenOptions) => {
+                            return prevHiddenOptions.filter((id) => !options.includes(id));
                         });
                     }
                 });
@@ -140,7 +155,7 @@ export function useActionCallbacks(): ActionCallbacks {
         toggleFieldVisibility,
         setValue,
         unregister,
-        setError: setError as any,
+        setError,
         setMinMax,
         toggleFieldDisabled,
     };

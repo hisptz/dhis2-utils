@@ -70,6 +70,7 @@
   "peerDependencies": {
     "lodash": "^4",
     "react": "^16.14",
-    "react-dom": "^16.14"
+    "react-dom": "^16.14",
+    "recoil": "^0.7.7"
   }
 }
