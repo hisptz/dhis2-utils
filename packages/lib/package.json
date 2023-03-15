@@ -12,7 +12,9 @@
   },
   "files": [
     "build/**",
-    "package.json"
+    "package.json",
+    "!**/*.test.js",
+    "!**/*.stories.js"
   ],
   "scripts": {
     "build:types": "tsc --project tsconfig.json",

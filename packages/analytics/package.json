@@ -65,7 +65,10 @@
   ],
   "author": "HISP Tanzania",
   "files": [
-    "build/**"
+    "build/**",
+    "package.json",
+    "!**/*.test.js",
+    "!**/*.stories.js"
   ],
   "repository": {
     "type": "git",

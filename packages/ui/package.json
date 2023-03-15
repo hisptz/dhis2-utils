@@ -58,7 +58,9 @@
   "author": "HISP Tanzania <info@hisptanzania.org>",
   "files": [
     "build/**",
-    "postinstall.js"
+    "postinstall.js",
+    "!**/*.test.js",
+    "!**/*.stories.js"
   ],
   "repository": {
     "type": "git",
