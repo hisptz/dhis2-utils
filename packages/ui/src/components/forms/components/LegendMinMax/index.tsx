@@ -40,11 +40,11 @@ export const LegendMinMax = React.forwardRef(({
     const onValueChange = useCallback((type: "startValue" | "endValue") => ({value: newValue}: { value: string }) => {
         const object = value ?? legend;
         set(object, type, parseFloat(newValue));
-        if (type === "startValue" && newValue > object.endValue) {
-            set(object, "endValue", undefined);
-        } else if (type === "endValue" && newValue < object.startValue) {
-            set(object, "startValue", undefined);
-        }
+        // if (type === "startValue" && newValue > object.endValue) {
+        //     set(object, "endValue", undefined);
+        // } else if (type === "endValue" && newValue < object.startValue) {
+        //     set(object, "startValue", undefined);
+        // }
         onChange(object);
 
     }, [legend, value, onChange]);

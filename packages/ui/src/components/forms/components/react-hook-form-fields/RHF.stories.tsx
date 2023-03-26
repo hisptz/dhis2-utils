@@ -37,6 +37,7 @@ LegendMinMaxGroup.args = {
     valueType: "LEGEND_MIN_MAX_GROUP",
     min: 0,
     max: 100,
+    highIsGood: false,
     legendDefinitions: [
         {
             name: "Hooray!",
