@@ -60,7 +60,10 @@
     "build/**",
     "postinstall.js",
     "!**/*.test.js",
-    "!**/*.stories.js"
+    "!**/*.json",
+    "!**/*.stories.js",
+    "!build/dataProviders/*",
+    "!build/data/*"
   ],
   "repository": {
     "type": "git",

@@ -5,7 +5,7 @@ import type {Color} from "react-color";
 import {SketchPicker} from "react-color";
 import {uid} from "@hisptz/dhis2-utils";
 import classes from "./LegendDefinitionField.module.css";
-import {FieldProps} from "../../interfaces";
+import {FieldProps, LegendDefinition} from "../../interfaces";
 
 type ColorPickerProps = {
     reference: EventTarget;
@@ -42,6 +42,7 @@ ColorPickerPopper.propTypes = {
 
 export interface LegendDefinitionFieldProps extends FieldProps {
     label?: string;
+    value?: LegendDefinition;
 }
 
 export const LegendDefinitionField = React.forwardRef(({
@@ -76,7 +77,7 @@ export const LegendDefinitionField = React.forwardRef(({
                 <div
                     id={`color-selector-btn-${name}`}
                     onClick={(e) => setReference(e.currentTarget)}
-                    style={{background: color, borderColor: "#D5DDE5"}}
+                    style={{background: color, borderColor: "#D5DDE5", minWidth: 100}}
                     className={classes["legend-color"]}>
                     {color}
                 </div>

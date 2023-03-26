@@ -10,15 +10,16 @@ import {
 } from "../utils";
 import {find, head, isEmpty} from "lodash";
 
-// async function importEEModule(): Promise<any> {
-//     // @ts-ignore
-//     if (import.meta.env.STORYBOOK_BUILD === "true") {
-//         return await import("@google/earthengine")
-//     }
-//     return await import("./api")
-// }
-// const EE = await importEEModule();
-import EE from "./api"
+async function importEEModule(): Promise<any> {
+    // @ts-ignore
+    if (import.meta.env.STORYBOOK_BUILD === "true") {
+        return await import("@google/earthengine");
+    }
+    return await import("./api");
+}
+
+const EE = await importEEModule();
+// import EE from "./api"
 // @ts-ignore
 const ee = EE as any;
 // @ts-ignore

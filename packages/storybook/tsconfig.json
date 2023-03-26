@@ -25,6 +25,7 @@
     /* Enable all strict type-checking options. */
     /* Completeness */
     "skipLibCheck": true,
+    "allowJs": true,
     /* Skip type checking all .d.ts files. */
     "types": [
       "jest",

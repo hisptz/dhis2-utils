@@ -11,6 +11,7 @@ export type VALUE_TYPE =
     | "DATE"
     | "LONG_TEXT"
     | "LEGEND_DEFINITION"
+    | "LEGEND_DEFINITIONS"
     | "RICH_TEXT"
     | "LEGEND_MIN_MAX"
     | "NORMAL_LEGEND_MIN_MAX"
@@ -72,6 +73,10 @@ export const VALUE_TYPES: { [key: string]: { name: VALUE_TYPE; formName: string 
     LEGEND_DEFINITION: {
         name: "LEGEND_DEFINITION",
         formName: "legendDefinition",
+    },
+    LEGEND_DEFINITIONS: {
+        name: "LEGEND_DEFINITIONS",
+        formName: "legendDefinitions",
     },
     RICH_TEXT: {
         name: "RICH_TEXT",
