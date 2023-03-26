@@ -1,18 +1,22 @@
-import {Story} from "@storybook/react"
+import {Story} from "@storybook/react";
 import React from "react";
 import {RHFDHIS2FormField, RHFDHIS2FormFieldProps} from "./RHFDHIS2FormField";
 import {FormProvider, useForm} from "react-hook-form";
-import {Button} from '@dhis2/ui'
+import {Button} from "@dhis2/ui";
 
-const Template: Story<RHFDHIS2FormFieldProps> = (args) => <RHFDHIS2FormField {...args} />
+const Template: Story<RHFDHIS2FormFieldProps> = (args) => <RHFDHIS2FormField {...args} />;
 
 
-export const Default = Template.bind({});
-Default.args = {
+export const TextField = Template.bind({});
+TextField.args = {
     name: "text",
     valueType: "TEXT",
-}
-
+};
+export const DateField = Template.bind({});
+DateField.args = {
+    name: "date",
+    valueType: "DATE",
+};
 export const WithOptionSets = Template.bind({});
 WithOptionSets.args = {
     name: "text",
@@ -25,20 +29,39 @@ WithOptionSets.args = {
             name: "One"
         }]
     }
-}
+};
 
-export const DateField = Template.bind({});
-DateField.args = {
-    name: "date",
-    valueType: "DATE",
-}
+export const LegendMinMaxGroup = Template.bind({});
+LegendMinMaxGroup.args = {
+    name: "legends",
+    valueType: "LEGEND_MIN_MAX_GROUP",
+    min: 0,
+    max: 100,
+    highIsGood: false,
+    legendDefinitions: [
+        {
+            name: "Hooray!",
+            id: "perfect",
+            color: "#0f630f"
+        },
+        {
+            name: "Not bad",
+            id: "not-bad",
+            color: "#dcc211"
+        },
+        {
+            name: "Um, yeah it's bad",
+            id: "bad",
+            color: "#ea0823"
+        },
+    ],
+};
 
 export const FileUploadField = Template.bind({});
 FileUploadField.args = {
     name: "file",
     valueType: "FILE_RESOURCE",
-}
-
+};
 export const WithValidations = Template.bind({});
 WithValidations.args = {
     name: "text",
@@ -46,7 +69,7 @@ WithValidations.args = {
     validations: {
         required: "Field is required"
     }
-}
+};
 
 export default {
     title: "Form/RHF Form fields",
@@ -57,7 +80,7 @@ export default {
 
             const onSubmit = (data: any) => {
                 console.log(data);
-            }
+            };
             return (
                 <FormProvider {...form}>
                     <form style={{display: "flex", gap: 16, alignItems: "center"}}
@@ -66,8 +89,8 @@ export default {
                         <Button type="submit">Submit</Button>
                     </form>
                 </FormProvider>
-            )
+            );
 
         }
     ]
-}
+};

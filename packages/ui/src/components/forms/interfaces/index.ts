@@ -24,7 +24,7 @@ export interface FieldProps {
 
     warning?: string | boolean;
 
-    [key: string]: any
+    [key: string]: any;
 }
 
 export interface RHFFieldProps {
@@ -34,7 +34,7 @@ export interface RHFFieldProps {
 
     warning?: string;
 
-    [key: string]: any
+    [key: string]: any;
 
 }
 
@@ -42,4 +42,5 @@ export type LegendDefinition = {
     id: string;
     color: string;
     name: string;
+    isDefault?: boolean
 };

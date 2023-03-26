@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 import {FieldProps} from "../../interfaces";
 import {OptionSet} from "@hisptz/dhis2-utils";
 import {VALUE_TYPE, VALUE_TYPES} from "../../constants";
@@ -12,6 +12,8 @@ import {OrgUnitSelectField} from "../OrgUnitSelectField";
 import {FileUploadField} from "../FileUploadField";
 import {CustomTextAreaField} from "../CustomTextAreaField";
 import {YesNoField} from "../YesNoField";
+import {LegendDefinitionsFormField} from "../LegendDefinitions";
+import {LegendMinMaxGroup} from "../LegendMinMaxGroup";
 
 
 export interface DHIS2FormFieldProps extends FieldProps {
@@ -42,12 +44,16 @@ function getField(valueType: VALUE_TYPE, optionSet?: OptionSet) {
             return YesNoField;
         case VALUE_TYPES.LEGEND_DEFINITION.name:
             return LegendDefinitionField;
+        case VALUE_TYPES.LEGEND_DEFINITIONS.name:
+            return LegendDefinitionsFormField;
         case VALUE_TYPES.LEGEND_MIN_MAX.name:
             return LegendMinMax;
+        case VALUE_TYPES.LEGEND_MIN_MAX_GROUP.name:
+            return LegendMinMaxGroup;
         case VALUE_TYPES.ORG_UNIT_FIELD.name:
             return OrgUnitSelectField;
         case VALUE_TYPES.FILE_RESOURCE.name:
-            return FileUploadField
+            return FileUploadField;
         default:
             return NativeField;
 
@@ -57,5 +63,5 @@ function getField(valueType: VALUE_TYPE, optionSet?: OptionSet) {
 
 export const DHIS2FormField = React.forwardRef(({valueType, optionSet, ...props}: DHIS2FormFieldProps, ref) => {
     const Field = getField(valueType, optionSet);
-    return <Field ref={ref} valueType={valueType} optionSet={optionSet}  {...props} />
-})
+    return <Field ref={ref} valueType={valueType} optionSet={optionSet}  {...props} />;
+});
