@@ -1,5 +1,5 @@
 import {Field, InputField} from "@dhis2/ui";
-import React, {useCallback, useMemo} from "react";
+import React, {useCallback, useMemo, useState} from "react";
 import {FieldProps, LegendDefinition} from "../../interfaces";
 import {uid} from "@hisptz/dhis2-utils";
 import {set} from "lodash";
@@ -27,6 +27,7 @@ export const LegendMinMax = React.forwardRef(({
                                                   onChange,
                                                   legendDefinition,
                                                   min, max,
+                                                  error,
                                                   ...props
                                               }: LegendMinMaxProps, ref: React.Ref<any>) => {
     const {id, color, name: legendName} = useMemo(() => legendDefinition ?? {
@@ -35,16 +36,25 @@ export const LegendMinMax = React.forwardRef(({
         name: ""
     }, [legendDefinition]);
 
+    const [rangeError, setRangeError] = useState<string | undefined>();
     const legend = useMemo(() => ({legendDefinitionId: id ?? uid()}), [id]);
 
     const onValueChange = useCallback((type: "startValue" | "endValue") => ({value: newValue}: { value: string }) => {
         const object = value ?? legend;
-        set(object, type, parseFloat(newValue));
-        // if (type === "startValue" && newValue > object.endValue) {
-        //     set(object, "endValue", undefined);
-        // } else if (type === "endValue" && newValue < object.startValue) {
-        //     set(object, "startValue", undefined);
-        // }
+        const newNumberValue = parseFloat(newValue);
+
+        if (isNaN(newNumberValue)) {
+            set(object, type, undefined);
+        } else {
+            set(object, type, newNumberValue);
+        }
+        if (type === "startValue" && newNumberValue > object.endValue) {
+            setRangeError(`The min value should not exceed the max value (${object.endValue})`);
+        } else if (type === "endValue" && newNumberValue < object.startValue) {
+            setRangeError(`The max value should not be less than the min value (${object.endValue})`);
+        } else {
+            setRangeError(undefined);
+        }
         onChange(object);
 
     }, [legend, value, onChange]);
@@ -54,7 +64,8 @@ export const LegendMinMax = React.forwardRef(({
     }
 
     return (
-        <Field {...props} name={name} value={value} label={undefined}>
+        <Field validationText={error || rangeError} error={Boolean(error) || Boolean(rangeError)} {...props} name={name}
+               value={value} label={undefined}>
             <div ref={ref} style={{display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 32}}
             >
                 <div style={{display: "flex", gap: 16}}>
