@@ -13,6 +13,7 @@ import {FileUploadField} from "../FileUploadField";
 import {CustomTextAreaField} from "../CustomTextAreaField";
 import {YesNoField} from "../YesNoField";
 import {LegendDefinitionsFormField} from "../LegendDefinitions";
+import {LegendMinMaxGroup} from "../LegendMinMaxGroup";
 
 
 export interface DHIS2FormFieldProps extends FieldProps {
@@ -47,6 +48,8 @@ function getField(valueType: VALUE_TYPE, optionSet?: OptionSet) {
             return LegendDefinitionsFormField;
         case VALUE_TYPES.LEGEND_MIN_MAX.name:
             return LegendMinMax;
+        case VALUE_TYPES.LEGEND_MIN_MAX_GROUP.name:
+            return LegendMinMaxGroup;
         case VALUE_TYPES.ORG_UNIT_FIELD.name:
             return OrgUnitSelectField;
         case VALUE_TYPES.FILE_RESOURCE.name:

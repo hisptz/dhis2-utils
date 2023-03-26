@@ -14,6 +14,7 @@ export type VALUE_TYPE =
     | "LEGEND_DEFINITIONS"
     | "RICH_TEXT"
     | "LEGEND_MIN_MAX"
+    | "LEGEND_MIN_MAX_GROUP"
     | "NORMAL_LEGEND_MIN_MAX"
     | "LEVEL_LEGEND_MIN_MAX"
     | "MULTIPLE_FIELDS"
@@ -85,6 +86,10 @@ export const VALUE_TYPES: { [key: string]: { name: VALUE_TYPE; formName: string 
     LEGEND_MIN_MAX: {
         name: "LEGEND_MIN_MAX",
         formName: "legendMinMax",
+    },
+    LEGEND_MIN_MAX_GROUP: {
+        name: "LEGEND_MIN_MAX_GROUP",
+        formName: "legendMinMaxGroup",
     },
     NORMAL_LEGEND_MIN_MAX: {
         name: "NORMAL_LEGEND_MIN_MAX",

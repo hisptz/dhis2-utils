@@ -7,7 +7,7 @@ export class Legend {
     startValue: number | undefined;
     endValue: number | undefined;
 
-    constructor({ id, legendDefinitionId }: { id?: string; legendDefinitionId: string }) {
+    constructor({id, legendDefinitionId}: { id?: string; legendDefinitionId: string }) {
         this.id = id ?? uid();
         this.legendDefinitionId = legendDefinitionId;
     }
@@ -19,5 +19,15 @@ export class Legend {
             return updatedObject;
         }
         return this;
+    }
+
+
+    toJSON() {
+        return {
+            id: this.id,
+            legendDefinitionId: this.legendDefinitionId,
+            startValue: this.startValue,
+            endValue: this.endValue
+        };
     }
 }
