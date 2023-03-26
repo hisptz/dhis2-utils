@@ -75,14 +75,14 @@ export const LegendDefinitionField = React.forwardRef(({
         <Field {...props} name={name} label={label} value={value}>
             <div ref={ref} id={name} className={classes["legend-definition-container"]}>
                 <div
-                    id={`color-selector-btn-${name}`}
+                    id={`color-selector-btn-${id}`}
                     onClick={(e) => setReference(e.currentTarget)}
                     style={{background: color, borderColor: "#D5DDE5", minWidth: 100}}
                     className={classes["legend-color"]}>
                     {color}
                 </div>
                 <div className={classes["legend-input"]}>
-                    <Input dataTest={`legend-definition-text-${name}`} onChange={onNameChange} value={legendName}/>
+                    <Input dataTest={`legend-definition-text-${id}`} onChange={onNameChange} value={legendName}/>
                 </div>
             </div>
             {reference &&

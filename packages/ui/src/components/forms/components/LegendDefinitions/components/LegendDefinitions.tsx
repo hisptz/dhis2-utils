@@ -44,6 +44,7 @@ export function LegendDefinitionsFormField({
                         {
                             defaultLegendDefinitions?.map((legendDefinition) => (
                                 <LegendDefinitionField
+                                    dataTest={`${legendDefinition.id}-default-definition-area`}
                                     key={`${legendDefinition.id}`}
                                     value={legendDefinition}
                                     onChange={onEdit}
@@ -57,6 +58,7 @@ export function LegendDefinitionsFormField({
                             nonDefaultLegendDefinitions?.map((legendDefinition) => (
                                 <div style={{display: "flex", gap: 16, alignItems: "center"}}>
                                     <LegendDefinitionField
+                                        dataTest={`${legendDefinition.id}-definition-area`}
                                         key={`${legendDefinition.id}`}
                                         value={legendDefinition}
                                         onChange={onEdit}
