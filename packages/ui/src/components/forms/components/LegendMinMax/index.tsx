@@ -66,7 +66,7 @@ export const LegendMinMax = React.forwardRef(({
     return (
         <Field validationText={error || rangeError} error={Boolean(error) || Boolean(rangeError)} {...props} name={name}
                value={value} label={undefined}>
-            <div ref={ref} style={{display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 32}}
+            <div ref={ref} style={{display: "grid", alignItems: "end", gridTemplateColumns: "1fr 1fr", gap: 32}}
             >
                 <div style={{display: "flex", gap: 16}}>
                     <div
