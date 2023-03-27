@@ -14,6 +14,7 @@ import {CustomTextAreaField} from "../CustomTextAreaField";
 import {YesNoField} from "../YesNoField";
 import {LegendDefinitionsFormField} from "../LegendDefinitions";
 import {LegendMinMaxGroup} from "../LegendMinMaxGroup";
+import {RichTextEditor} from "../RichTextEditor";
 
 
 export interface DHIS2FormFieldProps extends FieldProps {
@@ -54,6 +55,8 @@ function getField(valueType: VALUE_TYPE, optionSet?: OptionSet) {
             return OrgUnitSelectField;
         case VALUE_TYPES.FILE_RESOURCE.name:
             return FileUploadField;
+        case VALUE_TYPES.RICH_TEXT.name:
+            return RichTextEditor;
         default:
             return NativeField;
 
