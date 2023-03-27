@@ -18,8 +18,10 @@ export function LegendDefinitionsFormField({
                                                onResetLegends,
                                                shouldVerify,
                                                error,
+                                               warning,
                                                label,
-                                               name
+                                               name,
+                                               ...props
                                            }: LegendDefinitionsFormFieldProps) {
 
     const {
@@ -37,7 +39,8 @@ export function LegendDefinitionsFormField({
     return (
         <div className="p-8"
              style={error ? {border: `1px solid ${colors.red600}`, borderRadius: 4, padding: 8} : {padding: 8}}>
-            <Field error={Boolean(error)} validationText={error} label={label}
+            <Field {...props} error={Boolean(error)} warning={Boolean(warning)} validationText={error ?? warning}
+                   label={label}
                    name={name}>
                 <div style={{display: "flex", flexDirection: "column", gap: 32}}>
                     <div style={{display: "flex", flexDirection: "column", gap: 16}}>
@@ -52,7 +55,6 @@ export function LegendDefinitionsFormField({
                             ))
                         }
                     </div>
-                    <div style={{padding: 16, height: 10}}/>
                     <div style={{display: "flex", flexDirection: "column", gap: 16}}>
                         {
                             nonDefaultLegendDefinitions?.map((legendDefinition) => (

@@ -19,6 +19,7 @@ export function LegendMinMaxGroup({
                                       value,
                                       name,
                                       min, max,
+                                      error, warning,
                                       onChange: onFieldChange,
                                       ...props
                                   }: LegendMinMaxGroupProps) {
@@ -31,7 +32,7 @@ export function LegendMinMaxGroup({
     });
 
     return (
-        <Field {...props} >
+        <Field {...props} error={Boolean(error)} warning={Boolean(warning)} validationText={error ?? warning}>
             <div style={{display: "flex", flexDirection: "column", gap: 16}}>
                 {
                     legendDefinitions?.map((legendDefinition, index) => (
