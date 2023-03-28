@@ -3,7 +3,7 @@ import {DateTime, Interval} from "luxon";
 import {BasePeriod} from "./basePeriod";
 import {FIXED_PERIOD_TYPES} from "../../constants/fixed";
 import {head} from "lodash";
-import {FixedPeriodType} from "../periodTypes/fixedPeriodType";
+import {FixedPeriodType} from "../periodTypes";
 
 export class FixedPeriod extends BasePeriod {
     id: string;
