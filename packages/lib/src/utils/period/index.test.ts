@@ -1,6 +1,6 @@
-import {PeriodUtility} from "./models";
 import {PeriodTypeCategory, PeriodTypeEnum} from "./constants";
 import {DateTime} from "luxon";
+import {PeriodUtility} from "./models";
 
 
 describe("Instantiate Period utility class for fixed periods", () => {
@@ -34,8 +34,6 @@ describe("Get Period by id", () => {
     expect(fixedPeriod.type.type).toBe(PeriodTypeCategory.FIXED)
     expect(relativePeriod.type.type).toBe(PeriodTypeCategory.RELATIVE)
 })
-
-
 describe("Get periods with allowing future periods", () => {
     const allMonthlyPeriods = PeriodUtility.fromObject({
         year: DateTime.now().year,

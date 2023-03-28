@@ -32,3 +32,4 @@ export enum PeriodTypeCategory {
     FIXED = 'FIXED',
     RELATIVE = 'RELATIVE',
 }
+

@@ -1,7 +1,13 @@
-import {DateTime, DurationLikeObject, Interval} from "luxon";
+import {DateTime, DateTimeUnit, DurationLikeObject, Interval} from "luxon";
 import {BasePeriod} from "../models";
 import {PeriodTypeCategory, PeriodTypeEnum} from "../constants";
 
+export interface RelativePeriodConfig {
+    id: string;
+    name: string;
+    offset?: number;
+    span?: number;
+}
 
 export interface PeriodTypeInterface {
     /** Period type, one of @link(PeriodTypeEnum) */
@@ -9,7 +15,7 @@ export interface PeriodTypeInterface {
     /** Period type name*/
     name: string;
     /** Period type unit (luxon) eg `days`, `months`, `years` e.t.c */
-    unit: string;
+    unit: DateTimeUnit;
     /** A regular expression that can be used to test the id of a Period that falls under this type */
     regex?: RegExp;
     /** Either `FIXED`, `RELATIVE`*/
@@ -79,7 +85,7 @@ export interface PeriodPreference {
 }
 
 
-export interface DateTimeConfiguration{
+export interface DateTimeConfiguration {
     calendar?: CalendarType;
     locale?: string;
 }
