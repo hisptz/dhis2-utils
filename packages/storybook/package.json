@@ -10,15 +10,15 @@
     "@storybook/addon-essentials": "^6.5.15",
     "@storybook/addon-interactions": "^6.5.15",
     "@storybook/addon-links": "^6.5.15",
-    "@storybook/builder-vite": "^0.3.0",
-    "@storybook/builder-webpack4": "^6.5.15",
-    "@storybook/manager-webpack4": "^6.5.15",
+    "@storybook/builder-vite": "^7.0.1",
     "@storybook/preset-create-react-app": "^4.1.2",
     "@storybook/react": "^6.5.15",
     "@storybook/testing-library": "^0.0.13",
     "@types/node": "^18.11.18",
     "babel-loader": "^8.3.0",
+    "chromatic": "^6.17.2",
     "concurrently": "^7.6.0",
+    "core-js": "^3.30.0",
     "cross-var": "^1.1.0",
     "dotenv": "^16.0.3",
     "dotenv-cli": "^6.0.0",
@@ -39,6 +39,7 @@
     "proxy:start": "ts-node proxy.ts",
     "start": "start-storybook -p 6006",
     "start:proxy": "dotenv -- cross-var concurrently -n \"proxy|storybook\" --name-separator \"|\" 'yarn proxy:start' 'wait-on http://localhost:%DHIS2_PROXY_PORT% && yarn start' ",
-    "build": "build-storybook"
+    "build": "build-storybook",
+    "deploy": "npx chromatic --project-token=013c758cf62d"
   }
 }

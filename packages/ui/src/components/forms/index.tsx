@@ -13,3 +13,4 @@ export * from "./components/ProramRules";
 export * from "./components/LegendMinMaxGroup";
 export * from "./components/RichTextEditor";
 export * from "./components/LegendDefinitions";
+export * from "./components/PeriodField";

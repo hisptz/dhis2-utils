@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-03-26T12:37:27.529Z\n"
-"PO-Revision-Date: 2023-03-26T12:37:27.529Z\n"
+"POT-Creation-Date: 2023-04-05T08:43:13.833Z\n"
+"PO-Revision-Date: 2023-04-05T08:43:13.833Z\n"
 
 msgid "Confirm Action"
 msgstr "Confirm Action"
@@ -94,6 +94,18 @@ msgstr "Selected"
 msgid "Clear"
 msgstr "Clear"
 
+msgid "Year"
+msgstr "Year"
+
+msgid "Period"
+msgstr "Period"
+
+msgid "Fixed Periods"
+msgstr "Fixed Periods"
+
+msgid "Relative Periods"
+msgstr "Relative Periods"
+
 msgid "Previous"
 msgstr "Previous"
 
@@ -160,20 +172,8 @@ msgstr "End Date"
 msgid "Period Type"
 msgstr "Period Type"
 
-msgid "Year"
-msgstr "Year"
-
 msgid "Select period type first"
 msgstr "Select period type first"
-
-msgid "Period"
-msgstr "Period"
-
-msgid "Relative Periods"
-msgstr "Relative Periods"
-
-msgid "Fixed Periods"
-msgstr "Fixed Periods"
 
 msgid "Date Range"
 msgstr "Date Range"

@@ -20,7 +20,9 @@ export type VALUE_TYPE =
     | "MULTIPLE_FIELDS"
     | "PHONE_NUMBER"
     | "BOOLEAN"
-    | "ORGANISATION_UNIT";
+    | "ORGANISATION_UNIT"
+    | "PERIOD_TYPE"
+    | "PERIOD"
 
 export const VALUE_TYPES: { [key: string]: { name: VALUE_TYPE; formName: string } } = {
     INTEGER: {
@@ -107,4 +109,12 @@ export const VALUE_TYPES: { [key: string]: { name: VALUE_TYPE; formName: string 
         name: "ORGANISATION_UNIT",
         formName: "orgUnit",
     },
+    PERIOD_TYPE_FIELD: {
+        name: "PERIOD_TYPE",
+        formName: "periodType"
+    },
+    PERIOD_FIELD: {
+        name: "PERIOD",
+        formName: "period"
+    }
 };

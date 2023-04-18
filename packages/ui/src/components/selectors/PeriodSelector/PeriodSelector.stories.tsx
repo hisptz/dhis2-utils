@@ -3,6 +3,7 @@ import React from "react";
 import {CalendarTypes} from "./components/PeriodSelect/constants/calendar";
 import {PeriodSelectorProps} from "./types/props";
 import {PeriodSelector} from "./index";
+import {PeriodTypeEnum} from "@hisptz/dhis2-utils";
 
 const Template: Story<PeriodSelectorProps> = (args, context) => <PeriodSelector {...args} {...context} />;
 
@@ -13,6 +14,7 @@ Default.args = {
     },
     selectedPeriods: [],
     excludedPeriodTypes: [],
+    enablePeriodSelector: true
 };
 
 export const WithAllowedFuturePeriods = Template.bind({});
@@ -22,6 +24,7 @@ WithAllowedFuturePeriods.args = {
     },
     selectedPeriods: [],
     excludedPeriodTypes: [],
+    enablePeriodSelector: true
 };
 
 export const ExcludedFixedPeriodTypes = Template.bind({});
@@ -32,6 +35,7 @@ ExcludedFixedPeriodTypes.args = {
     selectedPeriods: [],
     excludedPeriodTypes: [],
     excludeFixedPeriods: true,
+    enablePeriodSelector: true
 };
 
 export const ExcludedRelativePeriodTypes = Template.bind({});
@@ -50,7 +54,7 @@ ExcludedPeriodTypes.args = {
         console.log(items);
     },
     selectedPeriods: [],
-    excludedPeriodTypes: ["RelativeWeek", "RelativeMonth", "Monthly", "Weekly"],
+    excludedPeriodTypes: [PeriodTypeEnum.DAILY, PeriodTypeEnum.MONTHLY,],
 };
 
 export const SingleSelection = Template.bind({});
@@ -59,7 +63,6 @@ SingleSelection.args = {
         console.log(items);
     },
     selectedPeriods: [],
-    excludedPeriodTypes: ["RelativeWeek", "RelativeMonth", "Monthly", "Weekly"],
 };
 
 export const SelectedDateRangePeriod = Template.bind({});
@@ -83,6 +86,7 @@ SelectedPeriods.args = {
         console.log(items);
     },
     enableDateRange: true,
+    enablePeriodSelector: true,
     selectedPeriods: ["2022"],
     excludedPeriodTypes: [],
 };

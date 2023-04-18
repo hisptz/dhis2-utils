@@ -5,6 +5,7 @@
     /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     /* Modules */
     "module": "esnext",
+    "moduleResolution": "node",
     /* Specify what module code is generated. */
     /* Emit */
     "declaration": true,

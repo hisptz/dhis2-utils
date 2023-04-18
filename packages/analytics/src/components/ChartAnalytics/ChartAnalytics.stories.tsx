@@ -35,14 +35,14 @@ export const MultipleColumns = Template.bind({});
 MultipleColumns.args = {
   analytics: multiSeriesData as any,
   config: {
-    layout: {
-      series: ["ou"],
-      category: ["pe"],
-      filter: ["dx"],
-    },
-    type: "column",
-    height: 1000,
-    colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
+      layout: {
+          series: ["ou"],
+          category: ["pe"],
+          filter: ["dx"],
+      },
+      type: "column",
+      height: 500,
+      colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
   },
 };
 
@@ -50,14 +50,14 @@ export const StackedColumn = Template.bind({});
 StackedColumn.args = {
   analytics: stackedChartData as any,
   config: {
-    layout: {
-      series: ["ou"],
-      category: ["pe"],
-      filter: ["dx"],
-    },
-    type: "stacked-column",
-    height: 1000,
-    colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
+      layout: {
+          series: ["ou"],
+          category: ["pe"],
+          filter: ["dx"],
+      },
+      type: "stacked-column",
+      height: 500,
+      colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
   },
 };
 
@@ -65,14 +65,14 @@ export const Line = Template.bind({});
 Line.args = {
   analytics: columnData as any,
   config: {
-    layout: {
-      series: ["dx"],
-      category: ["ou"],
-      filter: ["pe"],
-    },
-    type: "line",
-    height: 1000,
-    colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
+      layout: {
+          series: ["dx"],
+          category: ["ou"],
+          filter: ["pe"],
+      },
+      type: "line",
+      height: 500,
+      colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
   },
 };
 

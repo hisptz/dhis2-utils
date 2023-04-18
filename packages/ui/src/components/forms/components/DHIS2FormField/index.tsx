@@ -15,6 +15,7 @@ import {YesNoField} from "../YesNoField";
 import {LegendDefinitionsFormField} from "../LegendDefinitions";
 import {LegendMinMaxGroup} from "../LegendMinMaxGroup";
 import {RichTextEditor} from "../RichTextEditor";
+import {PeriodSelectorField, PeriodTypeSelector} from "../PeriodField";
 
 
 export interface DHIS2FormFieldProps extends FieldProps {
@@ -57,6 +58,10 @@ function getField(valueType: VALUE_TYPE, optionSet?: OptionSet) {
             return FileUploadField;
         case VALUE_TYPES.RICH_TEXT.name:
             return RichTextEditor;
+        case VALUE_TYPES.PERIOD_TYPE.name:
+            return PeriodTypeSelector;
+        case VALUE_TYPES.PERIOD.name:
+            return PeriodSelectorField;
         default:
             return NativeField;
 

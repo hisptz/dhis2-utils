@@ -17,6 +17,17 @@ DateField.args = {
     name: "date",
     valueType: "DATE",
 };
+
+export const OrganisationUnitField = Template.bind({});
+OrganisationUnitField.args = {
+    name: "orgUnit",
+    valueType: "ORGANISATION_UNIT",
+};
+export const RichTextField = Template.bind({});
+RichTextField.args = {
+    name: "orgUnit",
+    valueType: "RICH_TEXT",
+};
 export const WithOptionSets = Template.bind({});
 WithOptionSets.args = {
     name: "text",
