@@ -17,16 +17,22 @@ export interface VisualizationProps {
  *
  * */
 
-
-
-
 export function Visualization({dimensions, layout, defaultVisualizationType}: VisualizationProps) {
     return (
         <VisualizationProvider type={defaultVisualizationType} layout={layout} dimensions={dimensions}>
-            <div style={{display: "flex", flexDirection: "column", width: "100%", height: "100%"}}>
+            <div style={{display: "flex", flexDirection: "column", width: "100%", height: "100%", padding: 16}}>
                 <div style={{display: "flex", flexDirection: "row", gap: 16, justifyContent: "space-between"}}>
                     <VisualizationTypeSelector/>
                     <VisualizationDimensionSelector/>
+                </div>
+                <div style={{
+                    height: 500,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center"
+                }}>
+                    <h4>Visualization here</h4>
                 </div>
             </div>
         </VisualizationProvider>
