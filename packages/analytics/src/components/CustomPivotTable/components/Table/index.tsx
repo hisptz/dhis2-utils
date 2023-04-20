@@ -1,14 +1,17 @@
 import React from "react";
 import {DataTable} from '@dhis2/ui'
 
+
+export interface PivotTableLayoutProps {
+    scrollHeight?: string;
+    scrollWidth?: string;
+    layout?: string;
+    width?: string
+}
+
 export interface PivotTableProps {
     children: React.ReactNode;
-    tableProps?: {
-        scrollHeight?: string;
-        scrollWidth?: string;
-        layout?: string;
-        width?: string
-    };
+    tableProps?: PivotTableLayoutProps;
 }
 
 export function PivotTable({tableProps, children}: PivotTableProps) {

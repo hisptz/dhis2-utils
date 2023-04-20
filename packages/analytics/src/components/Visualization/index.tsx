@@ -8,10 +8,12 @@ import {VisualizationDimensionSelector} from "./components/VisualizationDimensio
 import {VisualizationSelector} from "./components/VisualizationSelector";
 import {CustomPivotTableOptions} from "../CustomPivotTable";
 import {ChartConfig} from "../ChartAnalytics";
+import {MapProps} from "../Map";
 
 export interface VisualizationConfig {
     pivotTable?: CustomPivotTableOptions;
-    chart: ChartConfig
+    chart?: ChartConfig;
+    map?: Omit<MapProps, "orgUnitSelection" | "periodSelection">
 }
 
 export interface VisualizationProps {
@@ -19,6 +21,7 @@ export interface VisualizationProps {
     defaultVisualizationType: VisualizationType;
     dimensions: AnalyticsDimension;
     config: VisualizationConfig;
+    height?: number | string
 }
 
 /**
@@ -26,7 +29,7 @@ export interface VisualizationProps {
  *
  * */
 
-export function Visualization({dimensions, layout, defaultVisualizationType, config}: VisualizationProps) {
+export function Visualization({dimensions, layout, defaultVisualizationType, config, height}: VisualizationProps) {
     return (
         <VisualizationProvider type={defaultVisualizationType} layout={layout} dimensions={dimensions}>
             <div
@@ -39,7 +42,8 @@ export function Visualization({dimensions, layout, defaultVisualizationType, con
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    justifyContent: "center"
+                    justifyContent: "center",
+                    height: height ?? 500
                 }}>
                     <VisualizationSelector config={config}/>
                 </div>

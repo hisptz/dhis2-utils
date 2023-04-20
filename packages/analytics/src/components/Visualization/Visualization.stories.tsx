@@ -14,7 +14,7 @@ Default.args = {
         dx: ["Uvn6LCg7dVU", "OdiHJayrsKo", "sB79w2hiLp8", "AUqdhY4mpvp"],
         pe: ["LAST_6_MONTHS"],
         ou: [
-            "USER_ORGUNIT"
+            "USER_ORGUNIT_CHILDREN"
         ]
     },
     layout: {
@@ -32,6 +32,91 @@ Default.args = {
             },
             type: "column"
         },
+        map: {
+            thematicLayers: [
+                {
+                    type: "choropleth",
+                    id: "Uvn6LCg7dVU",
+                    enabled: true,
+                    control: {
+                        enabled: true,
+                        position: "topright",
+                    },
+                    dataItem: {
+                        displayName: "Uvn6LCg7dVU",
+                        id: "Uvn6LCg7dVU",
+                        type: "indicator",
+                        legendConfig: {
+                            colorClass: "BrBG",
+                            scale: 7
+                        }
+                    }
+                },
+                {
+                    type: "choropleth",
+                    id: "OdiHJayrsKo",
+                    enabled: true,
+                    control: {
+                        enabled: true,
+                        position: "topright",
+                    },
+                    dataItem: {
+                        displayName: "OdiHJayrsKo",
+                        id: "OdiHJayrsKo",
+                        type: "indicator",
+                        legendConfig: {
+                            colorClass: "BrBG",
+                            scale: 7
+                        }
+                    }
+                },
+                {
+                    type: "choropleth",
+                    id: "sB79w2hiLp8",
+                    enabled: true,
+                    control: {
+                        enabled: true,
+                        position: "topright",
+                    },
+                    dataItem: {
+                        displayName: "sB79w2hiLp8",
+                        id: "sB79w2hiLp8",
+                        type: "indicator",
+                        legendConfig: {
+                            colorClass: "BrBG",
+                            scale: 7
+                        }
+                    }
+                },
+                {
+                    type: "choropleth",
+                    id: "AUqdhY4mpvp",
+                    enabled: true,
+                    control: {
+                        enabled: true,
+                        position: "topright",
+                    },
+                    dataItem: {
+                        displayName: "AUqdhY4mpvp",
+                        id: "AUqdhY4mpvp",
+                        type: "indicator",
+                        legendConfig: {
+                            colorClass: "BrBG",
+                            scale: 7
+                        }
+                    }
+                },
+            ],
+            legends: {
+                enabled: true,
+                position: "topright",
+                collapsible: true
+            }
+        },
+        pivotTable: {
+            fixColumnHeaders: true,
+            fixRowHeaders: true
+        }
     }
 };
 
