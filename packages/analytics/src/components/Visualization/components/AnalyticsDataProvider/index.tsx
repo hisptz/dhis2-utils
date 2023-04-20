@@ -30,6 +30,8 @@ export function useAnalyticsData() {
 
 export function AnalyticsDataProvider({children}: DataProviderProps) {
     const [analyticsDimensions] = useDimensions();
+
+    console.log(analyticsDimensions);
     const [layout] = useLayout();
     const {dimensions, filters} = useMemo(() => {
         const dimensions = {};
@@ -46,21 +48,20 @@ export function AnalyticsDataProvider({children}: DataProviderProps) {
             dimensions,
             filters
         }
-    }, [layout, analyticsDimensions]);
+    }, [layout, analyticsDimensions.pe, analyticsDimensions.ou]);
     const {data: analytics, loading, refetch, called} = useDataQuery(analyticsQuery, {
         variables: {
             dimensions,
             filters
-        }
+        },
+        lazy: true
     });
 
     useEffect(() => {
-        if (called) {
-            refetch({
-                dimensions,
-                filters
-            })
-        }
+        refetch({
+            dimensions,
+            filters
+        })
     }, [dimensions, filters])
 
     return (

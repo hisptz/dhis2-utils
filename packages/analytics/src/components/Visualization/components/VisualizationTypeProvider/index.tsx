@@ -1,6 +1,6 @@
 import React, {createContext, useContext, useState} from "react";
 
-export type VisualizationType = "pivot-table" | "charts" | "map";
+export type VisualizationType = "pivot-table" | "chart" | "map";
 
 
 export const VisualizationTypeContext = createContext<VisualizationType>('pivot-table')

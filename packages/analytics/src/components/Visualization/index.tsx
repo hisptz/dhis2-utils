@@ -11,7 +11,7 @@ import {ChartConfig} from "../ChartAnalytics";
 
 export interface VisualizationConfig {
     pivotTable?: CustomPivotTableOptions;
-    chart: Omit<ChartConfig, "layout">
+    chart: ChartConfig
 }
 
 export interface VisualizationProps {

@@ -22,7 +22,17 @@ Default.args = {
         filters: [],
         rows: ["ou", "pe"]
     },
-    defaultVisualizationType: "pivot-table"
+    defaultVisualizationType: "pivot-table",
+    config: {
+        chart: {
+            layout: {
+                series: ["dx"],
+                category: ["pe"],
+                filter: ["ou"]
+            },
+            type: "column"
+        },
+    }
 };
 
 export default {

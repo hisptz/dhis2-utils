@@ -1,6 +1,6 @@
 import React, {createContext, useContext, useReducer} from "react";
 import {AnalyticsDimension} from "@hisptz/dhis2-utils";
-import {cloneDeep, set} from "lodash";
+import {set} from "lodash";
 
 export type Dimension = "ou" | "pe" | "dx" | "co";
 
@@ -14,8 +14,8 @@ export const DimensionUpdateState = createContext<DimensionUpdater | undefined>(
 
 
 function reducer(state: AnalyticsDimension, {dimension, value}: { dimension: Dimension, value: string[] }) {
-    const updatedState = cloneDeep({...(state ?? {})});
-    set(state, [dimension], value);
+    const updatedState = {...(state ?? {})};
+    set(updatedState, [dimension], value);
     return updatedState
 }
 
