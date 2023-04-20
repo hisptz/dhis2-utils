@@ -1,4 +1,4 @@
-import React, {createContext, useCallback, useContext, useReducer} from "react";
+import React, {createContext, useContext, useReducer} from "react";
 import {AnalyticsDimension} from "@hisptz/dhis2-utils";
 import {cloneDeep, set} from "lodash";
 
@@ -28,17 +28,14 @@ export function useDimensions() {
     return [
         useContext(DimensionState),
         useContext(DimensionUpdateState)
-    ]
+    ] as [AnalyticsDimension, DimensionUpdater]
 }
 
 export function DimensionsProvider({children, dimensions}: DimensionProviderProps) {
     const [state, dispatch] = useReducer(reducer, dimensions);
-    const updateDimension = useCallback((updatedDimension: { dimension: Dimension; value: string[] }) => {
-        dispatch(updatedDimension);
-    }, [dispatch])
 
     return <DimensionState.Provider value={state}>
-        <DimensionUpdateState.Provider value={updateDimension}>
+        <DimensionUpdateState.Provider value={dispatch}>
             {children}
         </DimensionUpdateState.Provider>
     </DimensionState.Provider>

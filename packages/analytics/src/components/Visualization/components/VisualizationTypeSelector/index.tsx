@@ -26,7 +26,7 @@ export function VisualizationTypeSelector() {
     const types = useMemo(() => supportedVisualizationTypes.filter((supportedType) => supportedType.id !== type), [type]);
 
     return (
-        <div style={{display: "flex", gap: 16}}>
+        <div style={{display: "flex", gap: 8}}>
             {
                 types.map(({icon, label, id}) => {
                     return (
