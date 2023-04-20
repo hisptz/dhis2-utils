@@ -4,18 +4,19 @@ import i18n from '@dhis2/d2-i18n';
 import {useDimensions} from "../DimensionsProvider";
 import {OrgUnitSelectorModal, PeriodSelectorModal} from "@hisptz/dhis2-ui";
 import {OrgUnitSelection} from "@hisptz/dhis2-utils";
+import {getOrgUnitSelectionFromIds} from "../VisualizationSelector";
+import {getOrgUnitsSelection} from "../../../Map/utils/map";
 
 export function VisualizationDimensionSelector() {
     const [dimensions, setDimensions] = useDimensions();
     const periods = useMemo(() => dimensions.pe, [dimensions.pe]);
-    const orgUnits = useMemo(() => dimensions.ou?.map(id => ({id, path: "", children: []})), [dimensions.ou]);
+    const orgUnitSelection = useMemo(() => getOrgUnitSelectionFromIds(dimensions.ou ?? []), [dimensions.ou]);
     const [openFilter, setOpenFilter] = useState<"pe" | "ou" | undefined>();
 
     const onFilterUpdate = useCallback((type: "ou" | "pe") => (data: OrgUnitSelection | any) => {
         setOpenFilter(undefined);
         if (type === "ou") {
-            const orgUnits = data.orgUnits.map(({id}: { id: string }) => id);
-            setDimensions({dimension: "ou", value: orgUnits});
+            setDimensions({dimension: "ou", value: getOrgUnitsSelection(data)});
             return;
         }
         if (type === "pe") {
@@ -37,9 +38,10 @@ export function VisualizationDimensionSelector() {
                 onUpdate={onFilterUpdate("pe")}
             />
             <OrgUnitSelectorModal
+                showUserOptions
                 searchable
                 title={i18n.t("Select location(s)")}
-                value={{orgUnits}}
+                value={orgUnitSelection}
                 onClose={() => setOpenFilter(undefined)}
                 hide={openFilter !== "ou"}
                 onUpdate={onFilterUpdate("ou")}
