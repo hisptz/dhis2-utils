@@ -1,4 +1,4 @@
-import React, {createContext, useMemo} from "react";
+import React, {createContext, useContext, useEffect, useMemo} from "react";
 import {Analytics, AnalyticsDimension} from "@hisptz/dhis2-utils";
 import {useDimensions} from "../DimensionsProvider";
 import {useDataQuery} from "@dhis2/app-runtime";
@@ -14,6 +14,7 @@ const analyticsQuery = {
             return {
                 dimension: Object.keys(dimensions).map((dimension) => `${dimension}:${dimensions[dimension]?.join(';')}`),
                 filters: Object.keys(filters).map((dimension) => `${dimension}:${dimensions[dimension]?.join(';')}`),
+                includeMetadataDetails: true
             }
         }
     }
@@ -21,6 +22,10 @@ const analyticsQuery = {
 
 export interface DataProviderProps {
     children: React.ReactNode
+}
+
+export function useAnalyticsData() {
+    return useContext(AnalyticsContext) ?? {analytics: {}, loading: false}
 }
 
 export function AnalyticsDataProvider({children}: DataProviderProps) {
@@ -42,15 +47,24 @@ export function AnalyticsDataProvider({children}: DataProviderProps) {
             filters
         }
     }, [layout, analyticsDimensions]);
-    const {data: analytics, loading,} = useDataQuery(analyticsQuery, {
+    const {data: analytics, loading, refetch, called} = useDataQuery(analyticsQuery, {
         variables: {
             dimensions,
             filters
         }
     });
 
+    useEffect(() => {
+        if (called) {
+            refetch({
+                dimensions,
+                filters
+            })
+        }
+    }, [dimensions, filters])
+
     return (
-        <AnalyticsContext.Provider value={{analytics: analytics as Analytics, loading}}>
+        <AnalyticsContext.Provider value={{analytics: analytics?.analytics as Analytics, loading}}>
             {children}
         </AnalyticsContext.Provider>
     )

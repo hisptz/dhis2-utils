@@ -19,8 +19,8 @@ Default.args = {
     },
     layout: {
         columns: ["dx"],
-        filters: ["ou"],
-        rows: ["pe"]
+        filters: [],
+        rows: ["ou", "pe"]
     },
     defaultVisualizationType: "pivot-table"
 };

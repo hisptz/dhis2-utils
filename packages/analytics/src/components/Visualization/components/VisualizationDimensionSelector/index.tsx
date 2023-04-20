@@ -12,21 +12,23 @@ export function VisualizationDimensionSelector() {
     const [openFilter, setOpenFilter] = useState<"pe" | "ou" | undefined>();
 
     const onFilterUpdate = useCallback((type: "ou" | "pe") => (data: OrgUnitSelection | any) => {
+        setOpenFilter(undefined);
         if (type === "ou") {
             const orgUnits = data.orgUnits.map(({id}: { id: string }) => id);
             setDimensions({dimension: "ou", value: orgUnits});
             return;
         }
         if (type === "pe") {
-            console.log(data);
             setDimensions({dimension: "pe", value: data})
             return;
         }
+
     }, [setDimensions]);
 
     return (
         <>
             <PeriodSelectorModal
+
                 position="middle"
                 enablePeriodSelector
                 selectedPeriods={periods}

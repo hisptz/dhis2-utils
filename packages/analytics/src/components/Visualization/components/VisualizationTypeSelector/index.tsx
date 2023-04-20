@@ -30,7 +30,7 @@ export function VisualizationTypeSelector() {
             {
                 types.map(({icon, label, id}) => {
                     return (
-                        <Tooltip content={i18n.t("View as {{type}}", {
+                        <Tooltip key={`${label}-tooltip`} content={i18n.t("View as {{type}}", {
                             type: label.toLowerCase()
                         })}>
                             <Button onClick={() => setType(id as VisualizationType)} icon={icon}/>

@@ -19,7 +19,7 @@ export const LayoutState = createContext<Layout | undefined>(undefined);
 export function useLayout() {
 
     return [
-        useContext(LayoutState)
+        useContext(LayoutState) ?? {rows: [], filters: [], columns: []}
     ]
 }
 

@@ -8,6 +8,18 @@ import {CustomPivotTableBody} from "./components/TableBody";
 import {DHIS2Dimension} from "./interfaces";
 
 
+export interface CustomPivotTableOptions {
+    legendSets?: LegendSet[],
+    hideEmptyColumns?: boolean,
+    hideEmptyRows?: boolean,
+    showRowTotals?: boolean,
+    showColumnTotals?: boolean,
+    showRowSubtotals?: boolean,
+    showColumnSubtotals?: boolean,
+    fixColumnHeaders?: boolean,
+    fixRowHeaders?: boolean,
+}
+
 export interface CustomPivotTableProps {
     analytics: Analytics;
     tableProps?: {
@@ -31,17 +43,7 @@ export interface CustomPivotTableProps {
                 label?: string;
             }[]
         },
-        options?: {
-            legendSets?: LegendSet[],
-            hideEmptyColumns?: boolean,
-            hideEmptyRows?: boolean,
-            showRowTotals?: boolean,
-            showColumnTotals?: boolean,
-            showRowSubtotals?: boolean,
-            showColumnSubtotals?: boolean,
-            fixColumnHeaders?: boolean,
-            fixRowHeaders?: boolean,
-        }
+        options?: CustomPivotTableOptions
     }
 }
 
