@@ -21,7 +21,7 @@ export interface VisualizationProps {
     defaultVisualizationType: VisualizationType;
     dimensions: AnalyticsDimension;
     config: VisualizationConfig;
-    height?: number | string
+    height?: number
 }
 
 /**
@@ -45,7 +45,7 @@ export function Visualization({dimensions, layout, defaultVisualizationType, con
                     justifyContent: "center",
                     height: height ?? 500
                 }}>
-                    <VisualizationSelector config={config}/>
+                    <VisualizationSelector height={height ?? 500} config={config}/>
                 </div>
             </div>
         </VisualizationProvider>

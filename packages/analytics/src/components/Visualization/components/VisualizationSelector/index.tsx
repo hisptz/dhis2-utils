@@ -16,6 +16,7 @@ import {PivotTableLayoutProps} from "../../../CustomPivotTable/components/Table"
 
 export interface VisualizationSelectorProps {
     config: VisualizationConfig;
+    height: number
 }
 
 
@@ -59,7 +60,6 @@ export function PivotTableRenderer({options}: { options: CustomPivotTableOptions
     const [layout] = useLayout();
     const {analytics} = useAnalyticsData();
 
-
     const sanitizedLayout = useMemo(() => {
         return mapValues(layout, (dimension) => dimension.map(dimension => ({
             dimension,
@@ -79,12 +79,12 @@ export function PivotTableRenderer({options}: { options: CustomPivotTableOptions
                              config={{layout: sanitizedLayout, options}}/>;
 }
 
-export function ChartRenderer({options}: { options: ChartConfig }) {
+export function ChartRenderer({options, height}: { options: ChartConfig, height: number }) {
     const {analytics} = useAnalyticsData();
     if (!analytics) {
         return null;
     }
-    return <ChartAnalytics analytics={analytics} config={options}/>
+    return <ChartAnalytics analytics={analytics} config={{...options, height}}/>
 }
 
 export function MapRenderer({options}: {
@@ -95,11 +95,6 @@ export function MapRenderer({options}: {
     const orgUnitSelection: OrgUnitSelection = useMemo(() => {
         return getOrgUnitSelectionFromIds(dimensions.ou ?? []);
     }, [dimensions.ou]);
-    const periodSelection = useMemo(() => {
-        return {
-            periods: dimensions.pe
-        }
-    }, [dimensions.pe]);
 
     const thematicLayers: ThematicLayerConfig[] = useMemo(() => {
         const valueIndex = findIndex(analytics.headers, ['name', 'value']) ?? -1
@@ -121,10 +116,6 @@ export function MapRenderer({options}: {
         }) ?? []
     }, [analytics]);
 
-    console.log({
-        thematicLayers,
-    })
-
     return (
         <Map
             orgUnitSelection={orgUnitSelection}
@@ -133,13 +124,19 @@ export function MapRenderer({options}: {
     )
 }
 
-export function VisualizationSelector({config}: VisualizationSelectorProps) {
+export function VisualizationSelector({config, height}: VisualizationSelectorProps) {
     const [type] = useVisualizationType();
     const {analytics, loading} = useAnalyticsData();
 
     if (loading) {
         return (
-            <div style={{width: "100%", height: "100%"}}>
+            <div style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center"
+            }}>
                 <CircularLoader small/>
             </div>
         )
@@ -151,7 +148,7 @@ export function VisualizationSelector({config}: VisualizationSelectorProps) {
     return (
         <div style={{width: "100%", height: "100%"}}>
             {type === "pivot-table" && (<PivotTableRenderer options={config?.pivotTable as CustomPivotTableOptions}/>)}
-            {type === "chart" && (<ChartRenderer options={config?.chart as ChartConfig}/>)}
+            {type === "chart" && (<ChartRenderer height={height} options={config?.chart as ChartConfig}/>)}
             {type === "map" && (
                 <MapRenderer options={config?.map as Omit<MapProps, "orgUnitSelection" | "periodSelection">}/>)}
         </div>
