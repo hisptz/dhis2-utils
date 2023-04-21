@@ -1,10 +1,10 @@
 import type {Story} from "@storybook/react";
 import React from "react";
-import {ModalProps, PeriodSelector, PeriodSelectorModal, PeriodSelectorProps} from "@hisptz/dhis2-ui";
+import {ModalProps, PeriodSelector, PeriodSelectorModal} from "@hisptz/dhis2-ui";
 
-const Template: Story<PeriodSelectorProps> = (args, context) => <PeriodSelector {...args} {...context} />;
+const Template: Story<any> = (args, context) => <PeriodSelector {...args} {...context} />;
 
-const ModalTemplate: Story<ModalProps & PeriodSelectorProps> = (args) => <PeriodSelectorModal {...args} />;
+const ModalTemplate: Story<ModalProps & any> = (args) => <PeriodSelectorModal {...args} />;
 
 
 export const Default = Template.bind({});

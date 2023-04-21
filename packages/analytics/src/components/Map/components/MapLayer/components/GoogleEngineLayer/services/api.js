@@ -1,6 +1,5 @@
 // @ts-nocheck
 
-
 /*
 
  Copyright The Closure Library Authors.

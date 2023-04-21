@@ -3,26 +3,23 @@ import type {Story} from "@storybook/react";
 import HighCharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import React, {useState} from "react";
-import {ChartDownloadMenu} from "./components/DownloadMenu";
-import columnData from "./data/column-data.json";
-import complexMultiSeriesData from "./data/complex-multi-series-data.json";
-import multiSeriesData from "./data/multi-series-data.json";
-import pieData from "./data/pie-data.json";
-import stackedChartData from "./data/stacked-chart-data.json";
-import {setupHighchartsModules} from "./services/export";
-import {ChartAnalyticsProps} from "./types/props";
-import {ChartAnalytics} from ".";
+import {ChartAnalytics, ChartAnalyticsProps, ChartDownloadMenu, setupHighchartsModules} from "@hisptz/dhis2-analytics";
+import columnData from "../../../../../resources/analytics/column-data.json";
+import multiSeriesData from "../../../../../resources/analytics/multi-series-data.json";
+import pieData from "../../../../../resources/analytics/pie-data.json";
+import stackedChartData from "../../../../../resources/analytics/stacked-chart-data.json";
+import complexMultiSeriesData from "../../../../../resources/analytics/complex-multi-series-data.json";
 
 const Template: Story<ChartAnalyticsProps> = (args) => <ChartAnalytics {...args} />;
 setupHighchartsModules(HighCharts);
 
 export const Column = Template.bind({});
 Column.args = {
-  analytics: columnData as any,
-  config: {
-    layout: {
-      series: ["dx"],
-      category: ["ou"],
+    analytics: columnData as any,
+    config: {
+        layout: {
+            series: ["dx"],
+            category: ["ou"],
       filter: ["pe"],
     },
     type: "column",
