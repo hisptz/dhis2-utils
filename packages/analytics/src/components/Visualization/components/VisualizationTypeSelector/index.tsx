@@ -5,7 +5,7 @@ import i18n from '@dhis2/d2-i18n';
 
 const supportedVisualizationTypes = [
     {
-        id: "pivot-table",
+        id: "pivotTable",
         icon: <IconTable24/>,
         label: i18n.t("Pivot table")
     },
@@ -26,7 +26,7 @@ export function VisualizationTypeSelector() {
 
     const types = useMemo(() => supportedVisualizationTypes.filter((supportedType) => {
         return Object.keys(config ?? {}).includes(supportedType.id) && supportedType.id !== type
-    }), [type]);
+    }), [type, config]);
 
     return (
         <div style={{display: "flex", gap: 8}}>
