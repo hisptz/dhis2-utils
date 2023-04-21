@@ -173,6 +173,8 @@ export function useThematicLayers(): any {
             const dx = layersWithoutData.map((layer) => layer.dataItem.id);
             let sanitizedLayersWithData: any = [];
 
+            console.log({layersWithoutData})
+
             if (!isEmpty(dx)) {
                 const data = await engine.query(analyticsQuery, {
                     variables: {
