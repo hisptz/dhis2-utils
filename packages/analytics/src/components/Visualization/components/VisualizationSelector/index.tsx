@@ -147,7 +147,7 @@ export function VisualizationSelector({config, height}: VisualizationSelectorPro
 
     return (
         <div style={{width: "100%", height: "100%"}}>
-            {type === "pivot-table" && (<PivotTableRenderer options={config?.pivotTable as CustomPivotTableOptions}/>)}
+            {type === "pivotTable" && (<PivotTableRenderer options={config?.pivotTable as CustomPivotTableOptions}/>)}
             {type === "chart" && (<ChartRenderer height={height} options={config?.chart as ChartConfig}/>)}
             {type === "map" && (
                 <MapRenderer options={config?.map as Omit<MapProps, "orgUnitSelection" | "periodSelection">}/>)}

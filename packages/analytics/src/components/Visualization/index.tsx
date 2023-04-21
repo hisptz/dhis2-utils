@@ -67,7 +67,8 @@ export function Visualization({dimensions, layout, defaultVisualizationType, con
             }}
             resetKeys={[dimensions, layout, defaultVisualizationType, config]}
             fallbackRender={(props => (<ErrorFallback height={height} {...props}/>) as any)}>
-            <VisualizationProvider type={defaultVisualizationType} layout={layout} dimensions={dimensions}>
+            <VisualizationProvider config={config} type={defaultVisualizationType} layout={layout}
+                                   dimensions={dimensions}>
                 <div
                     style={{
                         display: "flex",

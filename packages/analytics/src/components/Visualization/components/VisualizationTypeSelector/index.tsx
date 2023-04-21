@@ -1,5 +1,5 @@
 import React, {useMemo} from "react";
-import {useVisualizationType, VisualizationType} from "../VisualizationTypeProvider";
+import {useVisualizationConfig, useVisualizationType, VisualizationType} from "../VisualizationTypeProvider";
 import {Button, IconTable24, IconVisualizationColumn24, IconWorld24, Tooltip} from "@dhis2/ui"
 import i18n from '@dhis2/d2-i18n';
 
@@ -22,8 +22,11 @@ const supportedVisualizationTypes = [
 
 export function VisualizationTypeSelector() {
     const [type, setType] = useVisualizationType();
+    const config = useVisualizationConfig();
 
-    const types = useMemo(() => supportedVisualizationTypes.filter((supportedType) => supportedType.id !== type), [type]);
+    const types = useMemo(() => supportedVisualizationTypes.filter((supportedType) => {
+        return Object.keys(config ?? {}).includes(supportedType.id) && supportedType.id !== type
+    }), [type]);
 
     return (
         <div style={{display: "flex", gap: 8}}>
