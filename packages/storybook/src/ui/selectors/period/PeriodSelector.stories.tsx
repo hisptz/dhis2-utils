@@ -1,10 +1,11 @@
 import type {Story} from "@storybook/react";
 import React from "react";
-import {CalendarTypes} from "./components/PeriodSelect/constants/calendar";
-import {PeriodSelectorProps} from "./types/props";
-import {PeriodSelector} from "./index";
+import {ModalProps, PeriodSelector, PeriodSelectorModal, PeriodSelectorProps} from "@hisptz/dhis2-ui";
 
 const Template: Story<PeriodSelectorProps> = (args, context) => <PeriodSelector {...args} {...context} />;
+
+const ModalTemplate: Story<ModalProps & PeriodSelectorProps> = (args) => <PeriodSelectorModal {...args} />;
+
 
 export const Default = Template.bind({});
 Default.args = {
@@ -109,16 +110,30 @@ DateRangeWithFutureAllowed.args = {
     allowFuturePeriods: true
 };
 
+export const Modal = ModalTemplate.bind({});
+Modal.args = {
+    hide: true,
+    onClose: () => {
+        console.log("onClose");
+    },
+    onUpdate: (value) => console.log(value),
+    singleSelection: true,
+    enableDateRange: true,
+    enablePeriodSelector: true,
+
+};
+
+
 export default {
     title: "Selectors/Period Selector",
-    component: PeriodSelector,
+    component: [PeriodSelector, PeriodSelectorModal],
     argTypes: {
         selectedPeriods: {
             control: "array",
         },
         calendar: {
             control: "radio",
-            options: [CalendarTypes.GREGORIAN, CalendarTypes.ETHIOPIAN],
+            options: [],
         },
     },
     decorators: [

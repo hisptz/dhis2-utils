@@ -10,6 +10,7 @@ import {DataSourceSelectorProps} from "./types";
 import {getDataSourcesList} from "./utils";
 import styled from "styled-components";
 
+export * from "./types"
 export function DataSourceSelector({ onSelect, disabled, dataSources, maxSelections, selected }: DataSourceSelectorProps) {
   const dataSourcesList = useMemo(() => getDataSourcesList(dataSources), [dataSources]);
   const [selectedDataSourceType, setSelectedDataSourceType] = useState<DataSourceModel>(head(dataSourcesList) ?? new NativeDataSource(DATA_SOURCES[0]));

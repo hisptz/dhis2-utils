@@ -5,19 +5,22 @@ import {PeriodSelector} from "../../PeriodSelector";
 import {PeriodSelectorProps} from "../../PeriodSelector/types/props";
 import {ModalProps} from "../types";
 
-export default function PeriodSelectorModal({
-                                                small,
-                                                large,
-                                                position,
-                                                onClose,
-                                                hide,
-                                                onUpdate,
-                                                selectedPeriods,
-                                                updateButtonLabel,
-                                                singleSelection,
-                                                title,
-                                                ...props
-                                            }: ModalProps & Omit<PeriodSelectorProps, "onSelect">) {
+
+export {PeriodSelectorProps}
+
+export function PeriodSelectorModal({
+                                        small,
+                                        large,
+                                        position,
+                                        onClose,
+                                        hide,
+                                        onUpdate,
+                                        selectedPeriods,
+                                        updateButtonLabel,
+                                        singleSelection,
+                                        title,
+                                        ...props
+                                    }: ModalProps & Omit<PeriodSelectorProps, "onSelect">) {
     const [periodState, setPeriodState] = useState<Array<any> | undefined>(selectedPeriods);
 
     const onSelect = useCallback(({items: periods}: any) => {

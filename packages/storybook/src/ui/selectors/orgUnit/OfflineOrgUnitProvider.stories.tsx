@@ -1,9 +1,13 @@
 import {Button} from "@dhis2/ui";
 import type {Story} from "@storybook/react";
 import React from "react";
-import type {OfflineOrgUnitProviderProps} from "./index";
-import {CustomOrgUnitProvider, OfflineOrgUnitProvider, useClearOrganisationData} from "./index";
-import {OrgUnitSelector} from "../OrgUnitSelector";
+import {
+  CustomOrgUnitProvider,
+  OfflineOrgUnitProvider,
+  OfflineOrgUnitProviderProps,
+  OrgUnitSelector,
+  useClearOrganisationData
+} from "@hisptz/dhis2-ui";
 
 const Template: Story<OfflineOrgUnitProviderProps> = (args) => <OfflineOrgUnitProvider {...args}>{args.children}</OfflineOrgUnitProvider>;
 

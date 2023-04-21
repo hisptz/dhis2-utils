@@ -7,17 +7,17 @@ import {OrgUnitSelector} from "../../OrgUnitSelector";
 import {OrgUnitSelectorProps} from "../../OrgUnitSelector/types";
 import {ModalProps} from "../types";
 
-export default function OrgUnitSelectorModal({
-  small,
-  large,
-  position,
-  onClose,
-  hide,
-  onUpdate,
-  updateButtonLabel,
-  singleSelection,
-  value,
-  ...props
+export function OrgUnitSelectorModal({
+                                         small,
+                                         large,
+                                         position,
+                                         onClose,
+                                         hide,
+                                         onUpdate,
+                                         updateButtonLabel,
+                                         singleSelection,
+                                         value,
+                                         ...props
 }: ModalProps & OrgUnitSelectorProps) {
   const [selectedOrgUnits, setSelectedOrgUnits] = useState<OrgUnitSelection | undefined>(value);
 

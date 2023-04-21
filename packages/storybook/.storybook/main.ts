@@ -2,11 +2,11 @@ import type {StorybookConfig} from '@storybook/react-vite';
 
 export const config: StorybookConfig = {
     stories: [{
-        directory: "../../ui/src",
+        directory: "../src/ui",
         titlePrefix: "Core UI components",
         files: "**/*.stories.*"
     }, {
-        directory: "../../analytics/src",
+        directory: "../src/analytics",
         titlePrefix: "Analytics components",
         files: "**/*.stories.*"
     }],

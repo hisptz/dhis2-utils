@@ -3,6 +3,7 @@
     /* Language and Environment */
     "target": "es2017",
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     /* Modules */
     "module": "commonjs",
@@ -33,6 +34,10 @@
     ],
     "jsx": "react"
   },
+  "include": [
+    "src/**/*",
+    "../../types"
+  ],
   "exclude": [
     "node_modules",
     "**/node_modules",
