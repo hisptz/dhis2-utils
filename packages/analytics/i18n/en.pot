@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-02-04T13:56:57.824Z\n"
-"PO-Revision-Date: 2023-02-04T13:56:57.824Z\n"
+"POT-Creation-Date: 2023-05-05T07:58:47.325Z\n"
+"PO-Revision-Date: 2023-05-05T07:58:47.325Z\n"
 
 msgid "Download PNG"
 msgstr "Download PNG"
@@ -407,3 +407,33 @@ msgstr "Configure Thematic Layer"
 
 msgid "Loading ..."
 msgstr "Loading ..."
+
+msgid "Select location(s)"
+msgstr "Select location(s)"
+
+msgid "Location"
+msgstr "Location"
+
+msgid "Organisation unit"
+msgstr "Organisation unit"
+
+msgid "Data"
+msgstr "Data"
+
+msgid "Pivot table"
+msgstr "Pivot table"
+
+msgid "Chart"
+msgstr "Chart"
+
+msgid "Map"
+msgstr "Map"
+
+msgid "View as {{type}}"
+msgstr "View as {{type}}"
+
+msgid "Could not load visualization"
+msgstr "Could not load visualization"
+
+msgid "Try again"
+msgstr "Try again"
