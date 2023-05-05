@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     /* Language and Environment */
-    "target": "es2017",
+    "target": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
@@ -26,7 +26,7 @@
     /* Enable all strict type-checking options. */
     /* Completeness */
     "skipLibCheck": true,
-    "allowJs": true,
+    "allowJs": false,
     /* Skip type checking all .d.ts files. */
     "types": [
       "jest",

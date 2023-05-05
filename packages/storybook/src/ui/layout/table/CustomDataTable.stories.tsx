@@ -1,6 +1,6 @@
 import {Story} from "@storybook/react"
 import React from "react";
-import rows from "../../../../../../resources/data/table-data.json"
+import rows from "../../../../../../resources/ui/table-data.json"
 import {Tag} from '@dhis2/ui'
 import {CustomDataTable, CustomDataTableProps} from "@hisptz/dhis2-ui";
 

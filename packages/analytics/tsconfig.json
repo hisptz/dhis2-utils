@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "target": "es2017",
+    "target": "esnext",
     "lib": [
       "dom",
       "dom.iterable",
@@ -14,7 +14,7 @@
       "cypress",
       "node"
     ],
-    "allowJs": true,
+    "allowJs": false,
     "skipLibCheck": true,
     "downlevelIteration": true,
     "esModuleInterop": true,

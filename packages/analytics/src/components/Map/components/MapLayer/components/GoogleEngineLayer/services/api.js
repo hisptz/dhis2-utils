@@ -34226,14 +34226,16 @@ ee.data.Profiler.Format.JSON = new ee.data.Profiler.Format("json");
     ee.String,
     ee.Terrain,
   ].forEach(function (fn, i) {
-    fn &&
+      fn &&
       (exportedFnInfo[fn.toString()] = {
-        name: orderedFnNames[i],
-        paramNames: orderedParamLists[i],
+          name: orderedFnNames[i],
+          paramNames: orderedParamLists[i],
       });
   });
-  goog.global.EXPORTED_FN_INFO = exportedFnInfo;
+    goog.global.EXPORTED_FN_INFO = exportedFnInfo;
 })();
 
 goog.Timer.defaultTimerObject = self;
-module.exports = goog.global.ee = ee;
+// module.exports = goog.global.ee = ee;
+export default ee;
+//# sourceMappingURL=api.js.map

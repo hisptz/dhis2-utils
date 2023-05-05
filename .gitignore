@@ -139,3 +139,4 @@ dist
 /packages/lib/src/locales/en/translations.json
 /cypress/screenshots/
 /cypress/videos/
+/packages/storybook/.env.production
