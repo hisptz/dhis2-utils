@@ -25,6 +25,7 @@ export interface VisualizationProps {
     dimensions: AnalyticsDimension;
     config: VisualizationConfig;
     height?: number;
+    showToolbar?: boolean
 }
 
 /**
@@ -59,7 +60,14 @@ function ErrorFallback({error, resetErrorBoundary, height}: FallbackProps & { he
     </div>
 }
 
-export function Visualization({dimensions, layout, defaultVisualizationType, config, height}: VisualizationProps) {
+export function Visualization({
+                                  dimensions,
+                                  layout,
+                                  defaultVisualizationType,
+                                  config,
+                                  height,
+                                  showToolbar
+                              }: VisualizationProps) {
     return (
         <ErrorBoundary
             onReset={() => {
@@ -78,10 +86,14 @@ export function Visualization({dimensions, layout, defaultVisualizationType, con
                         padding: 16,
                         gap: 16
                     }}>
-                    <div style={{display: "flex", flexDirection: "row", gap: 16, justifyContent: "space-between"}}>
-                        <VisualizationTypeSelector/>
-                        <VisualizationDimensionSelector/>
-                    </div>
+                    {
+                        showToolbar && (
+                            <div style={{display: "flex", flexDirection: "row", gap: 16, justifyContent: "space-between"}}>
+                                <VisualizationTypeSelector/>
+                                <VisualizationDimensionSelector/>
+                            </div>
+                        )
+                    }
                     <div style={{
                         display: "flex",
                         flexDirection: "column",

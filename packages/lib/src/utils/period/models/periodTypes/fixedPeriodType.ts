@@ -36,7 +36,7 @@ export class FixedPeriodType extends BasePeriodType {
 
         //Filter out intervals falling out of the respective year and are in future if allow future periods is set to false
         const intervals = filter(Interval.fromDateTimes(startDate, endDate).splitBy(duration), (interval: Interval) => {
-            const isFuture = (interval?.end?.diffNow('days')?.days ?? 0 > 0) && !interval?.contains(DateTime.now());
+            const isFuture = (interval?.end?.diffNow('days')?.days ?? 0) > 0 && !interval?.contains(DateTime.now());
             return Interval.fromDateTimes(this.start, endDate).engulfs(interval) && (this.preference?.allowFuturePeriods || !isFuture);
         });
         return compact(intervals.map(interval => {
