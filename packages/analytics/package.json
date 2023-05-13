@@ -1,6 +1,6 @@
 {
   "name": "@hisptz/dhis2-analytics",
-  "version": "1.0.43",
+  "version": "1.0.44",
   "description": "A collection of reusable react components for visualizing analytics data from DHIS2",
   "license": "BSD-3-Clause",
   "scripts": {
