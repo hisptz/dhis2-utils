@@ -16,12 +16,13 @@ Default.args = {
             "USER_ORGUNIT_CHILDREN"
         ]
     },
+    showToolbar: true,
     layout: {
         columns: ["dx"],
         filters: [],
         rows: ["ou", "pe"]
     },
-    defaultVisualizationType: "pivot-table",
+    defaultVisualizationType: "pivotTable",
     config: {
         chart: {
             layout: {

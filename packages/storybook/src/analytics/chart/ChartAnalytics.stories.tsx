@@ -15,11 +15,11 @@ setupHighchartsModules(HighCharts);
 
 export const Column = Template.bind({});
 Column.args = {
-    analytics: columnData as any,
-    config: {
-        layout: {
-            series: ["dx"],
-            category: ["ou"],
+  analytics: columnData as any,
+  config: {
+    layout: {
+      series: ["dx"],
+      category: ["ou"],
       filter: ["pe"],
     },
     type: "column",
