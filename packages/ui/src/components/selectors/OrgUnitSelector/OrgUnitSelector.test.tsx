@@ -3,7 +3,7 @@ import type {OrgUnitSelection} from "@hisptz/dhis2-utils";
 import React from "react";
 import {OrgUnitSelectorValue} from "./types";
 import {OrgUnitSelector} from "./index";
-import OrgUnitDataProvider from "../../../dataProviders/orgUnit";
+import OrgUnitDataProvider from "../../../../../../resources/dataProviders/orgUnit";
 
 describe("Org Unit Selector", () => {
   const DHIS2Provider = ({ children }: { children: any }) => <OrgUnitDataProvider>{children}</OrgUnitDataProvider>;

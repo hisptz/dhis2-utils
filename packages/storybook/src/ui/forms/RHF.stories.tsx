@@ -1,8 +1,8 @@
 import {Story} from "@storybook/react";
 import React from "react";
-import {RHFDHIS2FormField, RHFDHIS2FormFieldProps} from "./RHFDHIS2FormField";
 import {FormProvider, useForm} from "react-hook-form";
 import {Button} from "@dhis2/ui";
+import {RHFDHIS2FormField, RHFDHIS2FormFieldProps} from "@hisptz/dhis2-ui";
 
 const Template: Story<RHFDHIS2FormFieldProps> = (args) => <RHFDHIS2FormField {...args} />;
 

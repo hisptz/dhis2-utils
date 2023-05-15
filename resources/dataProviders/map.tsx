@@ -1,6 +1,6 @@
 import {CustomDataProvider} from "@dhis2/app-runtime";
 import React from "react";
-import mapData from "../data/map.json";
+import mapData from "../analytics/map.json";
 
 export default function MapDataProvider({ children }: { children: React.ReactNode }): React.ReactElement {
   return (

@@ -1,7 +1,7 @@
 import type {Story} from "@storybook/react";
 import React from "react";
-import {CircularDashboardProps} from "./types/props";
-import {CircularProgressDashboard} from ".";
+import {CircularDashboardProps, CircularProgressDashboard} from "@hisptz/dhis2-analytics";
+
 
 const Template: Story<CircularDashboardProps> = (args) => <CircularProgressDashboard {...args} />;
 

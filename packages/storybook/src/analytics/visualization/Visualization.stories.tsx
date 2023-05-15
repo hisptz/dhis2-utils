@@ -1,9 +1,8 @@
-import {setupHighchartsModules} from "../ChartAnalytics";
-import {Visualization, VisualizationProps} from "./index";
 import HighCharts from "highcharts";
 import {Story} from "@storybook/react";
 import React from "react";
 import {Box, Card, CssReset} from "@dhis2/ui"
+import {setupHighchartsModules, Visualization, VisualizationProps} from "@hisptz/dhis2-analytics";
 
 const Template: Story<VisualizationProps> = (args) => <Visualization {...args} />;
 setupHighchartsModules(HighCharts);

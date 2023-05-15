@@ -5,9 +5,15 @@
   "author": "HISP Tanzania",
   "license": "MIT",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "nohoist": [
+      "**/@storybook/**",
+      "**/storybook"
+    ],
+    "packages": [
+      "packages/*"
+    ]
+  },
   "scripts": {
     "lib": "yarn workspace @hisptz/dhis2-utils",
     "ui": "yarn workspace @hisptz/dhis2-ui",
@@ -21,9 +27,10 @@
     "build:ui": "yarn ui build",
     "build:analytics": "yarn analytics build",
     "build:docs": "yarn docs build",
+    "build:sb": "npx lerna run build --scope @hisptz/storybook",
     "start:docs": "yarn docs start",
     "start:sb": "yarn sb start",
-    "start:sb-proxy": "yarn sb start:proxy",
+    "start:sb-proxy": "npx lerna run start:proxy --scope @hisptz/storybook",
     "test": "yarn test:lib && yarn test:component",
     "build": "npx lerna run build",
     "prepublish": "npx lerna run build --no-private",

@@ -17,6 +17,7 @@
     "@dhis2/cli-app-scripts": "^10.2.0",
     "@dhis2/cypress-commands": "^9.0.2",
     "@dhis2/cypress-plugins": "^9.0.2",
+    "@dhis2/ui": "^8.13.0",
     "@google/earthengine": "^0.1.336",
     "@types/d3-color": "^3.1.0",
     "@types/d3-scale": "^4.0.3",
@@ -31,8 +32,8 @@
   "dependencies": {
     "@dhis2/analytics": "^24.4.2",
     "@dhis2/app-runtime": "^3.7.0",
-    "@hisptz/dhis2-ui": "^1.0.42",
-    "@hisptz/dhis2-utils": "^1.0.42",
+    "@hisptz/dhis2-ui": "*",
+    "@hisptz/dhis2-utils": "*",
     "@react-leaflet/core": "^2.1.0",
     "async-es": "^3.2.4",
     "d3-color": "^3.1.0",

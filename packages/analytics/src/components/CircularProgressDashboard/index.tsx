@@ -3,6 +3,7 @@ import React, {useMemo} from "react";
 import {CircularProgressbarWithChildren} from "react-circular-progressbar";
 import {CircularDashboardProps} from "./types/props";
 
+export * from "./types/props";
 export function CircularProgressDashboard({ numerator, size, denominator, value, textStyle, strokeStyle }: CircularDashboardProps): React.ReactElement {
   const filledSectionFieldsPercentage = useMemo(() => {
     return value !== undefined ? value : Math.floor(((numerator ?? 0) / (denominator ?? 1)) * 100);

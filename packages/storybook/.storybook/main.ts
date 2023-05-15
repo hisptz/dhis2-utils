@@ -1,31 +1,27 @@
-import {mergeConfig} from "vite";
+import type {StorybookConfig} from '@storybook/react-vite';
 
-export default {
-    stories: [
-        {
-            directory: "../../ui/src",
-            titlePrefix: "Core UI components",
-            files: "**/*.stories.*"
-        },
-        {
-            directory: "../../analytics/src",
-            titlePrefix: "Analytics components",
-            files: "**/*.stories.*"
-        },
-
-    ],
-    addons: [
-        "@storybook/addon-links",
-        "@storybook/addon-essentials",
-        "@storybook/addon-interactions",
-        "@storybook/preset-create-react-app"
-    ],
-    framework: "@storybook/react",
-    core: {
-        builder: "@storybook/builder-vite"
+export const config: StorybookConfig = {
+    stories: [{
+        directory: "../src/ui",
+        titlePrefix: "Core UI",
+        files: "**/*.stories.*"
+    }, {
+        directory: "../src/analytics",
+        titlePrefix: "Analytics",
+        files: "**/*.stories.*"
+    }],
+    addons: ["@storybook/addon-links", "@storybook/addon-essentials", "@storybook/addon-interactions", "@storybook/preset-create-react-app", "@storybook/addon-mdx-gfm"],
+    framework: {
+        name: "@storybook/react-vite",
+        options: {}
     },
-    async viteFinal(config: any) {
-        const newConfig = (await import('../vite.config')).default;
-        return mergeConfig(config, newConfig)
+    core: {},
+    // async viteFinal(config: any) {
+    //     const newConfig = (await import('../vite.config')).default;
+    //     return mergeConfig(config, newConfig);
+    // },
+    docs: {
+        autodocs: true
     }
-}
+};
+export default config;

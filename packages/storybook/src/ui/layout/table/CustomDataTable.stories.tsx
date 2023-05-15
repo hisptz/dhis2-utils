@@ -1,8 +1,8 @@
 import {Story} from "@storybook/react"
 import React from "react";
-import {CustomDataTable, CustomDataTableProps} from "./index";
-import rows from "../../../data/table-data.json"
+import rows from "../../../../../../resources/ui/table-data.json"
 import {Tag} from '@dhis2/ui'
+import {CustomDataTable, CustomDataTableProps} from "@hisptz/dhis2-ui";
 
 const Template: Story<CustomDataTableProps> = (args) => <CustomDataTable {...args} />
 

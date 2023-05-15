@@ -1,7 +1,7 @@
 import {Button} from "@dhis2/ui";
 import type {Story} from "@storybook/react";
 import React, {ReactNode} from "react";
-import {ConfirmDialogConfig, ConfirmDialogProvider, useConfirmDialog} from "./index";
+import {ConfirmDialogConfig, ConfirmDialogProvider, useConfirmDialog} from "@hisptz/dhis2-ui";
 
 const ExampleChild = ({config, isAsync}: { config?: ConfirmDialogConfig, isAsync?: boolean }) => {
     const {confirm} = useConfirmDialog();
