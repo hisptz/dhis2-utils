@@ -16,7 +16,6 @@ import {PivotTableLayoutProps} from "../../../CustomPivotTable/components/Table"
 
 export interface VisualizationSelectorProps {
     config: VisualizationConfig;
-    height: number
 }
 
 
@@ -79,12 +78,12 @@ export function PivotTableRenderer({options}: { options: CustomPivotTableOptions
                              config={{layout: sanitizedLayout, options}}/>;
 }
 
-export function ChartRenderer({options, height}: { options: ChartConfig, height: number }) {
+export function ChartRenderer({options}: { options: ChartConfig }) {
     const {analytics} = useAnalyticsData();
     if (!analytics) {
         return null;
     }
-    return <ChartAnalytics analytics={analytics} config={{...options, height}}/>
+    return <ChartAnalytics analytics={analytics} config={{...options,}}/>
 }
 
 export function MapRenderer({options}: {
@@ -124,7 +123,7 @@ export function MapRenderer({options}: {
     )
 }
 
-export function VisualizationSelector({config, height}: VisualizationSelectorProps) {
+export function VisualizationSelector({config}: VisualizationSelectorProps) {
     const [type] = useVisualizationType();
     const {analytics, loading} = useAnalyticsData();
 
@@ -146,11 +145,11 @@ export function VisualizationSelector({config, height}: VisualizationSelectorPro
     }
 
     return (
-        <div style={{width: "100%", height: "100%"}}>
+        <>
             {type === "pivotTable" && (<PivotTableRenderer options={config?.pivotTable as CustomPivotTableOptions}/>)}
-            {type === "chart" && (<ChartRenderer height={height} options={config?.chart as ChartConfig}/>)}
+            {type === "chart" && (<ChartRenderer options={config?.chart as ChartConfig}/>)}
             {type === "map" && (
                 <MapRenderer options={config?.map as Omit<MapProps, "orgUnitSelection" | "periodSelection">}/>)}
-        </div>
+        </>
     )
 }
