@@ -126,9 +126,16 @@ export default {
     decorators: [
         (ChartStory: any) => {
             return (
-                <Box width={"600"} height={"500"}>
+                <Box width={"1000"} height={"800"}>
                     <Card>
-                        <div style={{width: 1000, height: "100%", display: "flex", gap: 8, flexDirection: "column"}}>
+                        <div style={{
+                            width: 800,
+                            height: 600,
+                            display: "flex",
+                            gap: 8,
+                            flexDirection: "column",
+                            padding: 16
+                        }}>
                             <CssReset/>
                             <ChartStory/>
                         </div>

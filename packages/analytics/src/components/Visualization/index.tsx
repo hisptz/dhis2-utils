@@ -83,7 +83,6 @@ export function Visualization({
                         flexDirection: "column",
                         width: "100%",
                         height: "100%",
-                        padding: 16,
                         gap: 16
                     }}>
                     {
@@ -94,15 +93,9 @@ export function Visualization({
                             </div>
                         )
                     }
-                    <div style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        height: height ?? 500
-                    }}>
-                        <VisualizationSelector height={height ?? 500} config={config}/>
-                    </div>
+                    <>
+                        <VisualizationSelector height={height} config={config}/>
+                    </>
                 </div>
             </VisualizationProvider>
         </ErrorBoundary>

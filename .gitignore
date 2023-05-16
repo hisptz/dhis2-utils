@@ -140,3 +140,4 @@ dist
 /cypress/screenshots/
 /cypress/videos/
 /packages/storybook/.env.production
+/cypress/downloads/
