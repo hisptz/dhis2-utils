@@ -94,7 +94,7 @@ export function Visualization({
                         )
                     }
                     <>
-                        <VisualizationSelector height={height} config={config}/>
+                        <VisualizationSelector config={config}/>
                     </>
                 </div>
             </VisualizationProvider>
