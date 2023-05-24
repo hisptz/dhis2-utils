@@ -1,14 +1,13 @@
-// @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+// const lightCodeTheme = require('prism-react-renderer/themes/github');
+// const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const path = require("path")
 /** @type {import('@docusaurus/types').Config} */
 const config = {
     title: 'DHIS2 Utils Documentation',
     tagline: 'Reusable utilities for DHIS2',
-    url: 'https://hisptz.github.io',
-    baseUrl: '/dhis2-utils/',
+    url: 'https://dev.hisptz.com',
+    baseUrl: '/docs',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
     favicon: 'img/favicon.ico',
@@ -73,8 +72,12 @@ const config = {
                         title: 'Docs',
                         items: [
                             {
-                                label: 'Tutorial',
+                                label: 'DHIS2 Utilities',
                                 to: '/docs/intro',
+                            },
+                            {
+                                label: 'UI Components',
+                                to: '/docs/ui',
                             },
                         ],
                     },
@@ -82,16 +85,12 @@ const config = {
                         title: 'Community',
                         items: [
                             {
-                                label: 'Stack Overflow',
-                                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-                            },
-                            {
-                                label: 'Discord',
-                                href: 'https://discordapp.com/invite/docusaurus',
-                            },
-                            {
                                 label: 'Twitter',
-                                href: 'https://twitter.com/docusaurus',
+                                href: 'https://twitter.com/hisptanzania',
+                            },
+                            {
+                                label: 'LinkedIn',
+                                href: 'https://www.linkedin.com/company/hisptanzania',
                             },
                         ],
                     },
@@ -104,51 +103,41 @@ const config = {
                             },
                             {
                                 label: 'GitHub',
-                                href: 'https://github.com/facebook/docusaurus',
+                                href: 'https://github.com/hisptz',
                             },
                         ],
                     },
                 ],
                 copyright: `Copyright © ${new Date().getFullYear()} HISP Tanzania, Inc. Built with Docusaurus.`,
             },
-            prism: {
-                theme: lightCodeTheme,
-                darkTheme: darkCodeTheme,
-            },
+            // prism: {
+            //     theme: lightCodeTheme,
+            //     darkTheme: darkCodeTheme,
+            // },
         }),
     plugins: [
+        () => ({
+            name: 'resolve-react',
+            configureWebpack() {
+                return {
+                    resolve: {
+                        alias: {
+                            // assuming root node_modules is up from "./packages/<your-docusaurus>
+                            react: path.resolve('../../node_modules/react'),
+                        },
+                    },
+                };
+            },
+        }),
         [
             'docusaurus-plugin-typedoc-api',
             {
                 projectRoot: path.join(__dirname, "../.."),
                 banner: "API References",
                 packages: [
-                    {
-                        path: 'packages/lib/src',
-                        entry: {
-                            index: "index.ts",
-                            utils: {
-                                path: "utils/index.ts",
-                                label: "Utilities"
-                            },
-                            interfaces: {
-                                path: "interfaces/index.ts",
-                                label: "Interfaces & Types"
-                            }
-                        }
-                    },
-                    {
-                        path: 'packages/ui',
-                        entry: {
-                            index: "src/index.ts"
-                        }
-                    },
-                    {
-                        path: 'packages/analytics',
-                        entry: {
-                            index: "src/index.ts"
-                        }
-                    },
+                    "packages/ui",
+                    "packages/lib",
+                    "packages/analytics"
                 ]
             }
         ]
