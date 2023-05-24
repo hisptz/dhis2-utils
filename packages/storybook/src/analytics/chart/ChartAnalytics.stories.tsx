@@ -23,7 +23,6 @@ Column.args = {
       filter: ["pe"],
     },
     type: "column",
-    height: 500,
     colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
   },
 };
@@ -38,7 +37,6 @@ MultipleColumns.args = {
       filter: ["dx"],
     },
     type: "column",
-    height: 1000,
     colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
   },
 };
@@ -53,7 +51,6 @@ StackedColumn.args = {
       filter: ["dx"],
     },
     type: "stacked-column",
-    height: 1000,
     colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
   },
 };
@@ -68,7 +65,6 @@ Line.args = {
       filter: ["pe"],
     },
     type: "line",
-    height: 1000,
     colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
   },
 };
@@ -83,7 +79,6 @@ MultipleLines.args = {
       filter: ["dx"],
     },
     type: "line",
-    height: 500,
     colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
   },
 };
@@ -98,7 +93,6 @@ PieChart.args = {
       filter: ["dx", "pe"],
     },
     type: "pie",
-    height: 500,
     colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c4255", "#a6c96a"],
   },
 };
@@ -113,7 +107,6 @@ MultiSeries.args = {
       filter: ["dx"],
     },
     type: "multi-series",
-    height: 500,
     colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
     multiSeries: {
       series: [
@@ -176,7 +169,6 @@ ComplexMultiSeries.args = {
       filter: ["ou"],
     },
     type: "multi-series",
-    height: 500,
     colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
     multiSeries: {
       series: [
@@ -230,17 +222,18 @@ ComplexMultiSeries.args = {
 };
 
 export default {
-  title: "Analytics/Chart Analytics",
+  title: "Chart Analytics",
   component: ChartAnalytics,
   decorators: [
     (ChartStory: any) => {
       const [chartRef, setChartRef] = useState<HighchartsReact.RefObject | null>(null);
       return (
-        <div style={{ width: 1000, height: "100%", display: "flex", gap: 8, flexDirection: "column" }}>
-          <CssReset />
-          <div style={{ width: "100%", display: "flex", justifyContent: "end" }}>{<ChartDownloadMenu chartRef={chartRef} />}</div>
-          <ChartStory ref={setChartRef} />
-        </div>
+          <div style={{width: 1000, height: "100%", display: "flex", gap: 8, flexDirection: "column"}}>
+            <CssReset/>
+            <div style={{width: "100%", display: "flex", justifyContent: "end"}}>{<ChartDownloadMenu
+                chartRef={chartRef}/>}</div>
+            <ChartStory ref={setChartRef}/>
+          </div>
       );
     },
   ],

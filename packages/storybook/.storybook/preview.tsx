@@ -1,4 +1,5 @@
 import {Provider} from "@dhis2/app-runtime";
+import {CssReset} from "@dhis2/ui"
 import React from "react";
 import hispTheme from "./theme";
 
@@ -30,7 +31,19 @@ export const decorators = [
     (Story: any) => (
         <React.StrictMode>
             <DHIS2Provider>
-                <Story/>
+                <CssReset/>
+                <div style={{
+                    width: "100%",
+                    minHeight: 800,
+                    minWidth: 500,
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center"
+                }}>
+                    <Story/>
+                </div>
             </DHIS2Provider>
         </React.StrictMode>
     ),
