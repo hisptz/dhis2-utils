@@ -1,24 +1,24 @@
 # Introduction
 
-A collection of reusable UI, hooks, and utilities related to visualizing DHIS2 analytics outputs.
+Reusable complex DHIS2 UI components for react applications
 
 ## Getting Started
 
 The package is available in the npm. It can be installed through *yarn*, or *npm*
 
 ```bash
- yarn add @hisptz/dhis2-analytics
+ yarn add @hisptz/dhis2-ui
 ```
 
 or
 
 ```bash
- npm install @hisptz/dhis2-analytics
+ npm install @hisptz/dhis2-ui
 ```
 
 ## Usage
 
-For more usage information visit the [storybook](/ui)
+For more usage information visit the [storybook](/intro)
 
 [//]: # (## Tests)
 
@@ -29,4 +29,3 @@ For more usage information visit the [storybook](/ui)
 [//]: # ()
 
 [//]: # (## Contributing)
-
