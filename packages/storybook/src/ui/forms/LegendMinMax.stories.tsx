@@ -1,6 +1,6 @@
 import {Story} from "@storybook/react"
 import React from "react";
-import {Legend, LegendMinMax, LegendMinMaxProps} from "./index";
+import {Legend, LegendMinMax, LegendMinMaxProps} from "@hisptz/dhis2-ui";
 
 const Template: Story<LegendMinMaxProps> = (args) => <LegendMinMax {...args} />
 
@@ -20,7 +20,7 @@ Default.args = {
 }
 
 export default {
-    title: "Form/Legend MinMax Field",
+    title: "Form/Custom Form Fields/Legend MinMax Field",
     component: LegendMinMax,
     argTypes: {
         onChange: {
