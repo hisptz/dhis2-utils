@@ -39,6 +39,6 @@ Default.args = {
 // };
 
 export default {
-    title: "Analytics/Pivot table",
+    title: "Pivot table",
     component: CustomPivotTable,
 };

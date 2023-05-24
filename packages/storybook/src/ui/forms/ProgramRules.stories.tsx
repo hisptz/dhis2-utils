@@ -2,9 +2,15 @@ import {Story} from "@storybook/react"
 import React from "react";
 import {FormProvider, useForm} from "react-hook-form";
 import {Button} from '@dhis2/ui'
-import {FieldProgramRule, FieldProgramRuleChildrenProps, ProgramRuleProvider, ProgramRuleProviderProps} from "."
+import {
+    FieldProgramRule,
+    FieldProgramRuleChildrenProps,
+    ProgramRuleProvider,
+    ProgramRuleProviderProps,
+    RHFDHIS2FormField,
+    RHFDHIS2FormFieldProps
+} from "@hisptz/dhis2-ui"
 import {ProgramRule} from "@hisptz/dhis2-utils";
-import {RHFDHIS2FormField, RHFDHIS2FormFieldProps} from "../react-hook-form-fields";
 import {CustomDataProvider} from "@dhis2/app-runtime";
 
 const Template: Story<ProgramRuleProviderProps> = (args) => <ProgramRuleProvider {...args} />
@@ -210,7 +216,6 @@ HideField.args = {
     children: <><FormComponent/></>
 
 }
-
 export const ShowWarning = Template.bind({});
 ShowWarning.args = {
     program: program,

@@ -121,7 +121,7 @@ Default.args = {
 };
 
 export default {
-    title: "Analytics/Visualization",
+    title: "Visualization",
     component: Visualization,
     decorators: [
         (ChartStory: any) => {

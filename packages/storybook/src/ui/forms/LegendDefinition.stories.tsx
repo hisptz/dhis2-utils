@@ -1,6 +1,6 @@
 import type {Story} from "@storybook/react";
 import React from "react";
-import {LegendDefinitionsFormField, LegendDefinitionsFormFieldProps} from "./index";
+import {LegendDefinitionsFormField, LegendDefinitionsFormFieldProps} from "@hisptz/dhis2-ui";
 
 const Template: Story<LegendDefinitionsFormFieldProps> = (args) => <LegendDefinitionsFormField {...args} />;
 
@@ -17,6 +17,6 @@ LegendDefinition.args = {
 };
 
 export default {
-    title: "Form/Legend Definitions",
+    title: "Form/Custom Form Fields/Legend Definitions",
     component: LegendDefinition,
 };

@@ -1,6 +1,6 @@
 import {Story} from "@storybook/react"
 import React from "react";
-import {OrgUnitSelectField, OrgUnitSelectFieldProps} from "./index";
+import {CustomOrgUnitProvider, OrgUnitSelectField, OrgUnitSelectFieldProps} from "@hisptz/dhis2-ui";
 
 const Template: Story<OrgUnitSelectFieldProps> = (args) => <OrgUnitSelectField {...args}  />
 
@@ -16,8 +16,17 @@ WithValue.args = {
 }
 
 export default {
-    title: "Form/Organisation unit field",
+    title: "Form/Custom Form Fields/Organisation unit field",
     component: OrgUnitSelectField,
+    decorators: [
+        (Story: any) => {
+            return (
+                <CustomOrgUnitProvider>
+                    <Story/>
+                </CustomOrgUnitProvider>
+            )
+        }
+    ],
     argTypes: {
         onChange: {
             action: "changed"

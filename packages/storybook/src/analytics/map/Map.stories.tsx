@@ -322,16 +322,16 @@ GoogleEarthEngineLayers.args = {
 };
 
 export default {
-  title: "Analytics/Map",
+  title: "Map",
   component: Map,
   decorators: [
     (MapStory: any) => {
       return (
-        <div style={{ width: "100%", height: "100%" }}>
-          {/*<MapDataProvider>*/}
-          <MapStory />
-          {/*</MapDataProvider>*/}
-        </div>
+          <div style={{width: "100%", height: "100%"}}>
+            {/*<MapDataProvider>*/}
+            <MapStory/>
+            {/*</MapDataProvider>*/}
+          </div>
       );
     },
   ],
