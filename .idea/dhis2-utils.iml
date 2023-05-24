@@ -11,6 +11,9 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/lib/build" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ui/build" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ui/src/locales" />
+      <excludeFolder url="file://$MODULE_DIR$/cypress/downloads" />
+      <excludeFolder url="file://$MODULE_DIR$/cypress/screenshots" />
+      <excludeFolder url="file://$MODULE_DIR$/cypress/videos" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

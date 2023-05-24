@@ -30,7 +30,6 @@
     "build:sb": "npx lerna run build --scope @hisptz/storybook",
     "start:docs": "yarn docs start",
     "start:sb": "yarn sb start",
-    "start:sb-proxy": "npx lerna run start:proxy --scope @hisptz/storybook",
     "test": "yarn test:lib && yarn test:ui",
     "build": "npx lerna run build --no-private",
     "prepublish": "npx lerna run build --no-private",

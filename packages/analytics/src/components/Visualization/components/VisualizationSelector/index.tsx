@@ -70,12 +70,14 @@ export function PivotTableRenderer({options}: { options: CustomPivotTableOptions
         return null;
     }
 
-    return <CustomPivotTable tableProps={{
-        scrollHeight: options.scrollHeight ?? "100%",
-        scrollWidth: options.scrollWidth ?? "100%",
-        width: options.width ?? "100%",
-    }} analytics={analytics}
-                             config={{layout: sanitizedLayout, options}}/>;
+    return <CustomPivotTable
+        tableProps={{
+            scrollHeight: options.scrollHeight ?? "100%",
+            scrollWidth: options.scrollWidth ?? "100%",
+            width: options.width ?? "100%",
+        }}
+        analytics={analytics}
+        config={{layout: sanitizedLayout, options}}/>;
 }
 
 export function ChartRenderer({options}: { options: ChartConfig }) {
