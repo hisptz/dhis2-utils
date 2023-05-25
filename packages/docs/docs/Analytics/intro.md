@@ -18,7 +18,7 @@ or
 
 ## Usage
 
-For more usage information visit the [storybook](/ui)
+For more usage information visit the [storybook](pathname:///ui/index.html)
 
 [//]: # (## Tests)
 

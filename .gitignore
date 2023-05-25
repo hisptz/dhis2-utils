@@ -141,3 +141,4 @@ dist
 /cypress/videos/
 /packages/storybook/.env.production
 /cypress/downloads/
+/packages/docs/static/ui/

@@ -4,11 +4,11 @@
 const path = require("path")
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-    title: 'DHIS2 Utils Documentation',
-    tagline: 'Reusable utilities for DHIS2',
-    url: 'https://dev.hisptz.com',
-    baseUrl: '/docs',
-    onBrokenLinks: 'throw',
+    title: 'DHIS2 Utilities Documentation',
+    tagline: 'Reusable utilities for DHIS2 development',
+    url: 'http://localhost:3000',
+    baseUrl: '/docs/',
+    onBrokenLinks: 'warn',
     onBrokenMarkdownLinks: 'warn',
     favicon: 'img/favicon.ico',
     organizationName: 'hisptz', // Usually your GitHub org/user name.
@@ -19,6 +19,7 @@ const config = {
             /** @type {import('@docusaurus/preset-classic').Options} */
             ({
                 docs: {
+                    routeBasePath: '/',
                     sidebarPath: require.resolve('./sidebars.js'),
                     // Please change this to your repo.
                     editUrl: 'https://github.com/hisptz/dhis2-utils/tree/main/packages/docs/docs',
@@ -73,11 +74,11 @@ const config = {
                         items: [
                             {
                                 label: 'DHIS2 Utilities',
-                                to: '/docs/intro',
+                                to: '/intro',
                             },
                             {
                                 label: 'UI Components',
-                                to: '/docs/ui',
+                                to: 'pathname:///ui/index.html',
                             },
                         ],
                     },
@@ -97,10 +98,10 @@ const config = {
                     {
                         title: 'More',
                         items: [
-                            {
-                                label: 'Blog',
-                                to: '/blog',
-                            },
+                            // {
+                            //     label: 'Blog',
+                            //     to: '/blog',
+                            // },
                             {
                                 label: 'GitHub',
                                 href: 'https://github.com/hisptz',

@@ -14,6 +14,9 @@
       <excludeFolder url="file://$MODULE_DIR$/cypress/downloads" />
       <excludeFolder url="file://$MODULE_DIR$/cypress/screenshots" />
       <excludeFolder url="file://$MODULE_DIR$/cypress/videos" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/docs/.docusaurus" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/docs/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/docs/static/ui" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
