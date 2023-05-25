@@ -16,11 +16,18 @@
         "^build"
       ],
       "outputs": [
-        "{projectRoot}/packages/analytics/build",
-        "{projectRoot}/packages/docs/build",
-        "{projectRoot}/packages/lib/build",
-        "{projectRoot}/packages/storybook/storybook-static",
-        "{projectRoot}/packages/ui/build"
+        "{projectRoot}/build"
+      ]
+    },
+    "start": {
+      "dependsOn": [
+        "^start",
+        "^build"
+      ]
+    },
+    "test": {
+      "dependsOn": [
+        "^test"
       ]
     }
   }

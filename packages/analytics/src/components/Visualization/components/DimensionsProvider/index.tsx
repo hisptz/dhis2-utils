@@ -1,6 +1,7 @@
 import React, {createContext, useContext, useReducer} from "react";
 import {AnalyticsDimension} from "@hisptz/dhis2-utils";
 import {set} from "lodash";
+import {useUpdateEffect} from "usehooks-ts";
 
 export type Dimension = "ou" | "pe" | "dx" | "co";
 
@@ -33,6 +34,14 @@ export function useDimensions() {
 
 export function DimensionsProvider({children, dimensions}: DimensionProviderProps) {
     const [state, dispatch] = useReducer(reducer, dimensions);
+
+    useUpdateEffect(() => {
+        Object.keys(dimensions).forEach((dimension: string) => {
+            console.log("updating")
+            dispatch({dimension: dimension as Dimension, value: dimensions[dimension] ?? []})
+        })
+    }, [dimensions]);
+
 
     return <DimensionState.Provider value={state}>
         <DimensionUpdateState.Provider value={dispatch}>

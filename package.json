@@ -28,7 +28,7 @@
     "build:lib": "yarn lib build",
     "build:ui": "yarn ui build",
     "build:analytics": "yarn analytics build",
-    "prebuild:docs": "yarn sb build -o ../packages/docs/static/ui",
+    "prebuild:docs": "yarn sb build -o ../docs/static/ui",
     "build:docs": "yarn docs build",
     "build:sb": "npx lerna run build --scope @hisptz/storybook",
     "start:docs": "yarn docs start",

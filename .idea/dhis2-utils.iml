@@ -17,6 +17,7 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/docs/.docusaurus" />
       <excludeFolder url="file://$MODULE_DIR$/packages/docs/build" />
       <excludeFolder url="file://$MODULE_DIR$/packages/docs/static/ui" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/storybook/storybook-static" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
