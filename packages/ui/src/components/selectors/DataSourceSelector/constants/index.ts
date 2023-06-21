@@ -9,6 +9,14 @@ export const DATA_SOURCES: Array<DataSourceType> = [
     groupKey: "indicatorGroups.id",
     type: "indicator",
     native: true,
+  }, {
+    label: "SQL Views",
+    resource: "sqlViews",
+    groupResource: "",
+    dimensionItemType: "SQL_VIEW",
+    groupKey: "",
+    type: "sqlView",
+    native: true,
   },
   {
     label: "Program Indicators",

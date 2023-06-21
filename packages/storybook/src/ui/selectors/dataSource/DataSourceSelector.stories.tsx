@@ -6,6 +6,7 @@ const Template: Story<DataSourceSelectorProps> = (args) => <DataSourceSelector {
 
 export const IndicatorSelector = Template.bind({});
 IndicatorSelector.args = {
+    selected: [],
     onSelect: (data) => {
         console.log(data);
     },
@@ -14,6 +15,7 @@ IndicatorSelector.args = {
 };
 export const WithMaxSelection = Template.bind({});
 WithMaxSelection.args = {
+    selected: [],
     onSelect: (data) => {
         console.log(data);
     },
@@ -22,11 +24,12 @@ WithMaxSelection.args = {
 
 export const WithAllAvailableDataSources = Template.bind({});
 WithAllAvailableDataSources.args = {
+    selected: [],
     onSelect: (data) => {
         console.log(data);
     },
     maxSelections: 1,
-    dataSources: ["dataSet", "customFunction", "indicator", "programIndicator", "dataElement"],
+    dataSources: ["dataSet", "customFunction", "indicator", "programIndicator", "dataElement", "sqlView"],
 };
 
 export default {

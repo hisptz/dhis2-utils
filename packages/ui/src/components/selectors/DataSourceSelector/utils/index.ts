@@ -6,6 +6,7 @@ import DataSets from "../models/dataSets";
 import DataSourceModel from "../models/dataSource";
 import NativeDataSource from "../models/nativeDataSource";
 import {DataSourceType} from "../types";
+import {SqlViews} from "../models/sqlViews";
 
 export function getDataSourcesList(dataSourcesConfig?: Array<string>): Array<DataSourceModel> {
   if (isArray(dataSourcesConfig) && !isEmpty(dataSourcesConfig)) {
@@ -24,6 +25,9 @@ export function getDataSourcesList(dataSourcesConfig?: Array<string>): Array<Dat
           }
           if (dataSourceConfig.type === "dataSet") {
             return new DataSets(dataSourceConfig);
+          }
+          if (dataSourceConfig.type === "sqlView") {
+            return new SqlViews(dataSourceConfig);
           }
         }
       })
