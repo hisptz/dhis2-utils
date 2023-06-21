@@ -1,6 +1,6 @@
 import {DataSourceType} from "../types";
 import DataSource from "./dataSource";
-/* eslint-disable no-unused-vars */
+
 export default class NativeDataSource extends DataSource {
   resource: string;
   groupResource: string | undefined;

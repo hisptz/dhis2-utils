@@ -1,6 +1,6 @@
 import DataSource from "../models/dataSource";
 
-type dataSource = "indicator" | "programIndicator" | "dataSet" | "dataElement" | "customFunction";
+type dataSource = "indicator" | "programIndicator" | "dataSet" | "dataElement" | "customFunction" | "sqlView";
 export type DataSourceType = {
   label: string;
   resource: string;
