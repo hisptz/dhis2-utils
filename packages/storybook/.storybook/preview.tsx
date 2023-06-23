@@ -3,6 +3,7 @@ import {CssReset} from "@dhis2/ui"
 import React from "react";
 import hispTheme from "./theme";
 import "../common.css"
+import {jsxDecorator} from 'storybook-addon-jsx'
 
 export const parameters = {
     actions: {argTypesRegex: "^on[A-Z].*"},
@@ -21,6 +22,7 @@ export const parameters = {
 // @ts-ignore
 const baseUrl = import.meta.env.STORYBOOK_DHIS2_BASE_URL ?? "http://localhost:8080";
 
+
 const appConfig = {
     baseUrl,
     // @ts-ignore
@@ -29,6 +31,7 @@ const appConfig = {
 const DHIS2Provider = ({children}: { children: any }) => <Provider config={appConfig}>{children}</Provider>;
 
 export const decorators = [
+    jsxDecorator(),
     (Story: any) => (
         <React.StrictMode>
             <DHIS2Provider>

@@ -77,7 +77,6 @@ export default {
     decorators: [
         (Story: any) => {
             const form = useForm();
-
             const onSubmit = (data: any) => {
                 console.log(data);
             };
