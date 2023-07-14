@@ -1,21 +1,23 @@
-import {Story} from "@storybook/react"
+import {Meta, Story, StoryObj} from "@storybook/react"
 import React from "react";
 import {CustomOrgUnitProvider, OrgUnitSelectField, OrgUnitSelectFieldProps} from "@hisptz/dhis2-ui";
 
-const Template: Story<OrgUnitSelectFieldProps> = (args) => <OrgUnitSelectField {...args}  />
 
-export const Default = Template.bind({});
-Default.args = {
-    name: "Field",
+type Story = StoryObj<typeof OrgUnitSelectField>;
 
+
+export const Default: Story = {
+    args: {
+        name: "Field",
+    }
 }
-export const WithValue = Template.bind({});
-WithValue.args = {
-    name: "Field",
-    value: "OI0BQUurVFS"
+export const WithValue: Story = {
+    args: {
+        name: "Field",
+        value: "OI0BQUurVFS"
+    }
 }
-
-export default {
+const meta: Meta<OrgUnitSelectFieldProps> = {
     title: "Form/Custom Form Fields/Organisation unit field",
     component: OrgUnitSelectField,
     decorators: [
@@ -33,3 +35,4 @@ export default {
         }
     }
 }
+export default meta;

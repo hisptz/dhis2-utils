@@ -1,22 +1,25 @@
-import type {Story} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
 import {LegendDefinitionsFormField, LegendDefinitionsFormFieldProps} from "@hisptz/dhis2-ui";
 
-const Template: Story<LegendDefinitionsFormFieldProps> = (args) => <LegendDefinitionsFormField {...args} />;
 
-export const LegendDefinition = Template.bind({});
+type Story = StoryObj<LegendDefinitionsFormFieldProps>;
+export const LegendDefinition: Story = {
+    args: {
+        shouldVerify: false,
+        label: "Legend Definitions",
+        name: "legendDefinitions",
+        onChange: (values: any) => {
+            console.log(values);
+        },
+        value: [],
+    }
+}
 
-LegendDefinition.args = {
-    shouldVerify: false,
-    label: "Legend Definitions",
-    name: "legendDefinitions",
-    onChange: (values: any) => {
-        console.log(values);
-    },
-    value: [],
-};
 
-export default {
+const meta: Meta<LegendDefinitionsFormFieldProps> = {
     title: "Form/Custom Form Fields/Legend Definitions",
-    component: LegendDefinition,
-};
+    component: LegendDefinitionsFormField,
+}
+
+export default meta;

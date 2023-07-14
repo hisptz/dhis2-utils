@@ -52,7 +52,6 @@ const meta: Meta<ConfirmDialogProps> = {
         },
     },
 }
-
 type Story = StoryObj<typeof ConfirmDialog>;
 
 export const ConfirmDialogExample: Story = {

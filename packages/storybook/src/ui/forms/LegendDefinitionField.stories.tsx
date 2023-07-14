@@ -1,17 +1,20 @@
-import {Story} from "@storybook/react"
+import {Meta, StoryObj} from "@storybook/react"
 import React from "react";
-import {LegendDefinitionField} from "@hisptz/dhis2-ui";
+import {LegendDefinitionField, LegendDefinitionFieldProps} from "@hisptz/dhis2-ui";
 
-const Template: Story<any> = (args) => <LegendDefinitionField {...args} />
 
-export const Default = Template.bind({});
-Default.args = {
-    name: "Field",
-    onChange: (value: any) => console.log(value),
-    value: ""
+type Story = StoryObj<typeof LegendDefinitionField>
+
+export const Default: Story = {
+    args: {
+        name: "Field",
+        onChange: (value: any) => console.log(value),
+        value: ""
+    }
 }
 
-export default {
+
+const meta: Meta<LegendDefinitionFieldProps> = {
     title: "Form/Custom Form Fields/LegendDefinitionField",
     component: LegendDefinitionField,
     argTypes: {
@@ -20,3 +23,4 @@ export default {
         }
     }
 }
+export default meta;
