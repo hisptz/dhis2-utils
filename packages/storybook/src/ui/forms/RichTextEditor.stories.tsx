@@ -1,20 +1,20 @@
-import {Story} from "@storybook/react"
+import {Meta, StoryObj} from "@storybook/react"
 import React from "react";
 import {CustomOrgUnitProvider, OrgUnitSelectField, RichTextEditor, RichTextEditorProps} from "@hisptz/dhis2-ui";
 
-const Template: Story<RichTextEditorProps> = (args) => <RichTextEditor {...args}  />
-
-export const Default = Template.bind({});
-Default.args = {
-    name: "Field",
+type Story = StoryObj<typeof RichTextEditor>
+export const Default: Story = {
+    args: {
+        name: "Field",
+    }
 }
-export const WithValue = Template.bind({});
-WithValue.args = {
-    name: "Field",
-    value: "<p>Some rich <b>value</b> text</p>"
+export const WithValue: Story = {
+    args: {
+        name: "Field",
+        value: "<p>Some rich <b>value</b> text</p>"
+    }
 }
-
-export default {
+const meta: Meta<RichTextEditorProps> = {
     title: "Form/Custom Form Fields/Rich Text field",
     component: OrgUnitSelectField,
     decorators: [
@@ -32,3 +32,4 @@ export default {
         }
     }
 }
+export default meta;

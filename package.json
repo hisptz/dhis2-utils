@@ -25,13 +25,14 @@
     "test:ui:open": "npx cypress open --component",
     "sb": "yarn workspace @hisptz/storybook",
     "docs": "yarn workspace docs",
-    "build:lib": "yarn lib build",
-    "build:ui": "yarn ui build",
+    "build:lib": "lerna run build --scope @hisptz/dhis2-utils",
+    "build:ui": "lerna run build --scope @hisptz/dhis2-ui",
     "build:analytics": "yarn analytics build",
     "prebuild:docs": "yarn sb build -o ../docs/static/ui",
-    "build:docs": "yarn docs build",
+    "build:docs": "lerna run build --scope @hisptz/docs",
     "build:sb": "npx lerna run build --scope @hisptz/storybook",
     "start:docs": "yarn docs start",
+    "watch:libs": "lerna run start --since --no-private",
     "start:sb": "yarn sb start",
     "test": "yarn test:lib && yarn test:ui",
     "build": "npx lerna run build --no-private",
@@ -43,5 +44,9 @@
     "cypress": "^12.7.0",
     "lerna": "^6.4.1",
     "vite": "^4.1.4"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.0",
+    "wait-on": "^7.0.1"
   }
 }

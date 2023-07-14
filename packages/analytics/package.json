@@ -5,9 +5,9 @@
   "license": "BSD-3-Clause",
   "scripts": {
     "build": "d2-app-scripts build --no-verify --mode production",
+    "start": "d2-app-scripts build --no-verify --mode development --watch",
     "build:types": "tsc --project tsconfig.build.json",
     "postbuild": "yarn build:types",
-    "start": "d2-app-scripts start",
     "test": "d2-app-scripts test --passWithNoTests",
     "deploy": "d2-app-scripts deploy",
     "publish:analytics": "yarn publish --access public"

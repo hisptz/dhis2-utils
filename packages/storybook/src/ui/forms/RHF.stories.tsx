@@ -1,77 +1,81 @@
-import {Story} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/react";
 import React from "react";
 import {FormProvider, useForm} from "react-hook-form";
 import {Button} from "@dhis2/ui";
 import {RHFDHIS2FormField, RHFDHIS2FormFieldProps} from "@hisptz/dhis2-ui";
 
-const Template: Story<RHFDHIS2FormFieldProps> = (args) => <RHFDHIS2FormField {...args} />;
+type Story = StoryObj<typeof RHFDHIS2FormField>;
 
-
-export const TextField = Template.bind({});
-TextField.args = {
-    name: "text",
-    valueType: "TEXT",
-};
-export const DateField = Template.bind({});
-DateField.args = {
-    name: "date",
-    valueType: "DATE",
-};
-export const WithOptionSets = Template.bind({});
-WithOptionSets.args = {
-    name: "text",
-    valueType: "TEXT",
-    optionSet: {
-        id: "string",
-        options: [{
-            id: "one",
-            code: "one",
-            name: "One"
-        }]
+export const TextField: Story = {
+    args: {
+        name: "text",
+        valueType: "TEXT",
     }
-};
-
-export const LegendMinMaxGroup = Template.bind({});
-LegendMinMaxGroup.args = {
-    name: "legends",
-    valueType: "LEGEND_MIN_MAX_GROUP",
-    min: 0,
-    max: 100,
-    highIsGood: false,
-    legendDefinitions: [
-        {
-            name: "Hooray!",
-            id: "perfect",
-            color: "#0f630f"
-        },
-        {
-            name: "Not bad",
-            id: "not-bad",
-            color: "#dcc211"
-        },
-        {
-            name: "Um, yeah it's bad",
-            id: "bad",
-            color: "#ea0823"
-        },
-    ],
-};
-
-export const FileUploadField = Template.bind({});
-FileUploadField.args = {
-    name: "file",
-    valueType: "FILE_RESOURCE",
-};
-export const WithValidations = Template.bind({});
-WithValidations.args = {
-    name: "text",
-    valueType: "TEXT",
-    validations: {
-        required: "Field is required"
+}
+export const DateField: Story = {
+    args: {
+        name: "date",
+        valueType: "DATE",
     }
-};
+}
+export const WithOptionSets: Story = {
+    args: {
+        name: "text",
+        valueType: "TEXT",
+        optionSet: {
+            id: "string",
+            options: [{
+                id: "one",
+                code: "one",
+                name: "One"
+            }]
+        }
+    }
+}
 
-export default {
+export const LegendMinMaxGroup: Story = {
+    args: {
+        name: "legends",
+        valueType: "LEGEND_MIN_MAX_GROUP",
+        min: 0,
+        max: 100,
+        highIsGood: false,
+        legendDefinitions: [
+            {
+                name: "Hooray!",
+                id: "perfect",
+                color: "#0f630f"
+            },
+            {
+                name: "Not bad",
+                id: "not-bad",
+                color: "#dcc211"
+            },
+            {
+                name: "Um, yeah it's bad",
+                id: "bad",
+                color: "#ea0823"
+            },
+        ],
+    }
+}
+export const FileUploadField: Story = {
+    args: {
+        name: "file",
+        valueType: "FILE_RESOURCE",
+    }
+}
+export const WithValidations: Story = {
+    args: {
+        name: "text",
+        valueType: "TEXT",
+        validations: {
+            required: "Field is required"
+        }
+    }
+}
+
+const meta: Meta<RHFDHIS2FormFieldProps> = {
     title: "Form/RHF Form fields",
     component: RHFDHIS2FormField,
     decorators: [
@@ -93,3 +97,5 @@ export default {
         }
     ]
 };
+
+export default meta;

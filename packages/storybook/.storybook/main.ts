@@ -1,4 +1,5 @@
 import type {StorybookConfig} from '@storybook/react-vite';
+import path from "path";
 
 export const config: StorybookConfig = {
     stories: [{
@@ -10,7 +11,30 @@ export const config: StorybookConfig = {
         titlePrefix: "Analytics",
         files: "**/*.stories.*"
     }],
-    addons: ["@storybook/addon-links", "@storybook/addon-essentials", "@storybook/addon-interactions", "@storybook/preset-create-react-app", "@storybook/addon-mdx-gfm", "@storybook/addons", 'storybook-addon-jsx'],
+    addons: ["@storybook/addon-links", "@storybook/addon-essentials", "@storybook/addon-interactions", "@storybook/preset-create-react-app", "@storybook/addons",
+        {
+            name: '@storybook/addon-docs',
+            options: {
+                sourceLoaderOptions: {
+                    injectStoryParameters: false,
+                },
+            },
+        },
+        {
+            name: '@storybook/addon-storysource',
+            options: {
+                sourceLoaderOptions: {
+                    injectStoryParameters: false,
+                },
+                rule: {
+                    // test: [/\.stories\.jsx?$/], This is default
+                    include: [path.resolve(__dirname, '../src')], // You can specify directories
+                },
+                loaderOptions: {
+                    prettierConfig: {printWidth: 80, singleQuote: false},
+                },
+            },
+        }],
     framework: {
         name: "@storybook/react-vite",
         options: {}
@@ -21,7 +45,7 @@ export const config: StorybookConfig = {
     //     return mergeConfig(config, newConfig);
     // },
     docs: {
-        autodocs: false
+        autodocs: true
     },
     staticDirs: [
         "./public"

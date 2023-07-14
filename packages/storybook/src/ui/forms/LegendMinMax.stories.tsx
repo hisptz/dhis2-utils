@@ -1,25 +1,25 @@
-import {Story} from "@storybook/react"
+import {Meta, StoryObj} from "@storybook/react"
 import React from "react";
 import {Legend, LegendMinMax, LegendMinMaxProps} from "@hisptz/dhis2-ui";
 
-const Template: Story<LegendMinMaxProps> = (args) => <LegendMinMax {...args} />
+type Story = StoryObj<typeof LegendMinMax>
 
-export const Default = Template.bind({});
-Default.args = {
-    name: "Field",
-    legendDefinition: {
-        name: "Hooray!",
-        id: "perfect",
-        color: "#0f630f"
-    },
-    onChange: (value) => console.log(value),
-    value: new Legend({
-        id: "legend",
-        legendDefinitionId: "definition-id"
-    })
+export const Default: Story = {
+    args: {
+        name: "Field",
+        legendDefinition: {
+            name: "Hooray!",
+            id: "perfect",
+            color: "#0f630f"
+        },
+        onChange: (value: any) => console.log(value),
+        value: new Legend({
+            id: "legend",
+            legendDefinitionId: "definition-id"
+        })
+    }
 }
-
-export default {
+const meta: Meta<LegendMinMaxProps> = {
     title: "Form/Custom Form Fields/Legend MinMax Field",
     component: LegendMinMax,
     argTypes: {
@@ -28,3 +28,4 @@ export default {
         }
     }
 }
+export default meta;

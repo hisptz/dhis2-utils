@@ -7,7 +7,7 @@ export interface ConfirmDialogConfig {
     title: string;
     message: string | ReactNode;
     onConfirm: () => Promise<void> | void;
-    onCancel: () => void;
+    onCancel?: () => void;
     size?: "small" | "large";
     position?: "top" | "bottom" | "middle";
     cancelButtonText?: string;
@@ -16,6 +16,8 @@ export interface ConfirmDialogConfig {
     confirmButtonColor?: "primary" | "secondary" | "destructive";
     customActions?: CustomAction[];
 }
+
+
 
 export function ConfirmDialogProvider({children}: { children: ReactNode }) {
     const [open, setOpen] = useState(false);
