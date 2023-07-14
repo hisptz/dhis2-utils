@@ -3,7 +3,6 @@ import {CssReset} from "@dhis2/ui"
 import React from "react";
 import hispTheme from "./theme";
 import "../common.css"
-import {jsxDecorator} from 'storybook-addon-jsx'
 
 export const parameters = {
     actions: {argTypesRegex: "^on[A-Z].*"},
@@ -31,7 +30,6 @@ const appConfig = {
 const DHIS2Provider = ({children}: { children: any }) => <Provider config={appConfig}>{children}</Provider>;
 
 export const decorators = [
-    jsxDecorator(),
     (Story: any) => (
         <React.StrictMode>
             <DHIS2Provider>

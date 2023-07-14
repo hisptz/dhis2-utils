@@ -20,6 +20,7 @@
     "build:types": "tsc --project tsconfig.json",
     "postbuild": "yarn build:types",
     "build": "d2-app-scripts build --no-verify --mode production",
+    "start": "d2-app-scripts build --no-verify --mode development --watch",
     "test": "jest",
     "prepublishOnly": "yarn build",
     "publish:lib": "yarn publish --access public"

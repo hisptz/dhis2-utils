@@ -1,39 +1,44 @@
-import type {Story} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
 import {DataSourceSelector, DataSourceSelectorProps} from "@hisptz/dhis2-ui";
 
-const Template: Story<DataSourceSelectorProps> = (args) => <DataSourceSelector {...args} />;
 
-export const IndicatorSelector = Template.bind({});
-IndicatorSelector.args = {
-    selected: [],
-    onSelect: (data) => {
-        console.log(data);
-    },
-    dataSources: [],
-    maxSelections: "Infinity",
-};
-export const WithMaxSelection = Template.bind({});
-WithMaxSelection.args = {
-    selected: [],
-    onSelect: (data) => {
-        console.log(data);
-    },
-    maxSelections: 1,
-};
+type Story = StoryObj<typeof DataSourceSelector>;
 
-export const WithAllAvailableDataSources = Template.bind({});
-WithAllAvailableDataSources.args = {
-    selected: [],
-    onSelect: (data) => {
-        console.log(data);
-    },
-    maxSelections: 1,
-    dataSources: ["dataSet", "customFunction", "indicator", "programIndicator", "dataElement", "sqlView"],
-};
-
-export default {
+export const IndicatorSelector: Story = {
+    args: {
+        selected: [],
+        onSelect: (data) => {
+            console.log(data);
+        },
+        dataSources: [],
+        maxSelections: "Infinity",
+    }
+}
+export const WithMaxSelection: Story = {
+    args: {
+        selected: [],
+        onSelect: (data) => {
+            console.log(data);
+        },
+        maxSelections: 1,
+    }
+}
+export const WithAllAvailableDataSources: Story = {
+    args: {
+        selected: [],
+        onSelect: (data) => {
+            console.log(data);
+        },
+        maxSelections: 1,
+        dataSources: ["dataSet", "customFunction", "indicator", "programIndicator", "dataElement", "sqlView"],
+    }
+}
+const meta: Meta<DataSourceSelectorProps> = {
     title: "Selectors/Data Source Selector",
+    parameters: {
+        jsx: {}
+    },
     component: DataSourceSelector,
     decorators: [
         (DataSourceSelectorStory: any) => (
@@ -51,3 +56,4 @@ export default {
         },
     },
 };
+export default meta;

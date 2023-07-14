@@ -16,7 +16,10 @@
         "^build"
       ],
       "outputs": [
-        "{projectRoot}/build"
+        "{projectRoot}/packages/ui/build",
+        "{projectRoot}/packages/ui",
+        "{projectRoot}/packages/lib",
+        "{projectRoot}/packages/analytics"
       ]
     },
     "start": {

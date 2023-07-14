@@ -1,51 +1,11 @@
-import type {Story} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
 import {ConfirmDialog, ConfirmDialogProps} from "@hisptz/dhis2-ui";
 
-const Template: Story<ConfirmDialogProps> = (args) => <ConfirmDialog {...args} />;
 
-export const ConfirmDialogExample = Template.bind({});
-ConfirmDialogExample.args = {
-    title: "Confirm Title",
-    message: "Confirm Content",
-    onConfirm: () => {
-        alert("Confirm 🤗");
-    },
-    onCancel: () => {
-        alert("Cancel 😔");
-    },
-};
-
-export const ConfirmDialogExampleWithAllOptions = Template.bind({});
-ConfirmDialogExampleWithAllOptions.args = {
-    title: "Confirm Title",
-    message: "Confirm Content",
-    position: "middle",
-    size: "small",
-    hide: false,
-    cancelButtonText: "Cancel",
-    confirmButtonText: "Confirm",
-    confirmButtonColor: "primary",
-    onConfirm: () => {
-        alert("Confirm 🤗");
-    },
-    onCancel: () => {
-        alert("Cancel 😔");
-    },
-    customActions: [
-        {
-            label: "Custom Action",
-            color: "secondary",
-            onClick: () => {
-                alert("Custom Action 🙃");
-            },
-        },
-    ],
-};
-
-export default {
+const meta: Meta<ConfirmDialogProps> = {
     title: "Dialogs/Confirm Dialog/Confirm Dialog",
-    component: ConfirmDialogExample,
+    component: ConfirmDialog,
     argTypes: {
         title: {
             control: {
@@ -91,4 +51,47 @@ export default {
             },
         },
     },
-};
+}
+
+type Story = StoryObj<typeof ConfirmDialog>;
+
+export const ConfirmDialogExample: Story = {
+    args: {
+        title: "Confirm Title",
+        message: "Confirm Content",
+        onConfirm: () => {
+            alert("Confirm 🤗");
+        },
+        onCancel: () => {
+            alert("Cancel 😔");
+        },
+    }
+}
+export const ConfirmDialogExampleWithAllOptions: Story = {
+    args: {
+        title: "Confirm Title",
+        message: "Confirm Content",
+        position: "middle",
+        size: "small",
+        hide: false,
+        cancelButtonText: "Cancel",
+        confirmButtonText: "Confirm",
+        confirmButtonColor: "primary",
+        onConfirm: () => {
+            alert("Confirm 🤗");
+        },
+        onCancel: () => {
+            alert("Cancel 😔");
+        },
+        customActions: [
+            {
+                label: "Custom Action",
+                color: "secondary",
+                onClick: () => {
+                    alert("Custom Action 🙃");
+                },
+            },
+        ],
+    }
+}
+export default meta;
