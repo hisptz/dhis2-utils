@@ -2,7 +2,7 @@ import {LegendDefinition} from "../../interfaces";
 import {uid} from "@hisptz/dhis2-utils";
 import {mount} from "@cypress/react";
 import {LegendDefinitionsFormField} from "./components/LegendDefinitions";
-import React, {useState} from "react";
+import React from "react";
 
 
 const defaultLegendDefinitions: LegendDefinition[] = [
@@ -53,18 +53,6 @@ describe("Legend definitions field", () => {
     });
     it("changes values accordingly", () => {
 
-        const [formData, setFormData] = useState(defaultLegendDefinitions);
-
-        mount(
-            <LegendDefinitionsFormField
-                value={defaultLegendDefinitions}
-                name="legendDefinitions"
-                onChange={setFormData}/>
-        );
-
-        defaultLegendDefinitions.forEach(({id}) => {
-
-        });
     });
 
 

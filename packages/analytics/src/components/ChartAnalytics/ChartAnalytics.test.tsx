@@ -3,7 +3,7 @@ import HighCharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import React, {useState} from "react";
 import {ChartDownloadMenu} from "./components/DownloadMenu";
-import columnData from "./data/column-data.json";
+import columnData from "../../../../../resources/analytics/column-data.json";
 import {setupHighchartsModules} from "./services/export";
 import {ChartAnalytics} from ".";
 
