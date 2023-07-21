@@ -52,5 +52,6 @@
   "author": "HISP Tanzania",
   "bugs": {
     "url": "https://github.com/hisptz/dhis2-utils/issues"
-  }
+  },
+  "gitHead": "bda846ed3c56fa4a745aa1800e720098c88c53f3"
 }

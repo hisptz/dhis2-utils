@@ -86,5 +86,6 @@
     "react": "*",
     "react-hook-form": "^7.43",
     "recoil": "*"
-  }
+  },
+  "gitHead": "bda846ed3c56fa4a745aa1800e720098c88c53f3"
 }
