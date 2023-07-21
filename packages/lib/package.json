@@ -1,6 +1,6 @@
 {
   "name": "@hisptz/dhis2-utils",
-  "version": "1.0.42",
+  "version": "1.0.50",
   "description": "A package of reusable functions, interfaces, constants, and other implementations for DHIS2 related applications",
   "main": "./build/cjs/index.js",
   "module": "./build/es/index.js",
@@ -52,5 +52,6 @@
   "author": "HISP Tanzania",
   "bugs": {
     "url": "https://github.com/hisptz/dhis2-utils/issues"
-  }
+  },
+  "gitHead": "bda846ed3c56fa4a745aa1800e720098c88c53f3"
 }
