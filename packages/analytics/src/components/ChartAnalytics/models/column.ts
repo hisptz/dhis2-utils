@@ -48,3 +48,5 @@ export class DHIS2StackedColumnChart extends DHIS2ColumnChart {
     };
   }
 }
+
+

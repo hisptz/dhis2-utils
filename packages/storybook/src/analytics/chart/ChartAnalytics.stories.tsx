@@ -26,6 +26,19 @@ Column.args = {
   },
 };
 
+export const Bar = Template.bind({});
+Bar.args = {
+  analytics: columnData as any,
+  config: {
+    layout: {
+      series: ["dx"],
+      category: ["ou"],
+      filter: ["pe"],
+    },
+    type: "bar",
+  },
+};
+
 export const MultipleColumns = Template.bind({});
 MultipleColumns.args = {
   analytics: multiSeriesData as any,
@@ -49,6 +62,18 @@ StackedColumn.args = {
       filter: ["dx"],
     },
     type: "stacked-column",
+  },
+};
+export const StackedBar = Template.bind({});
+StackedBar.args = {
+  analytics: stackedChartData as any,
+  config: {
+    layout: {
+      series: ["ou"],
+      category: ["pe"],
+      filter: ["dx"],
+    },
+    type: "stacked-bar",
   },
 };
 
