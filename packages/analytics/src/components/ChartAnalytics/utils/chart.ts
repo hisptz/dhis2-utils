@@ -6,6 +6,7 @@ import {DHIS2LineChart} from "../models/line";
 import {DHIS2MultiSeriesChart} from "../models/multi-series";
 import {DHIS2PieChart} from "../models/pie";
 import {ChartConfig, ChartType} from "../types/props";
+import {DHIS2BarChart, DHIS2StackedBarChart} from "../models/bar";
 
 export function getDimensionHeaderIndex(headers: AnalyticsHeader[], name: string): number {
   return findIndex(headers, { name });
@@ -109,6 +110,10 @@ export function getChartInstance(id: string, analytics: Analytics, config: Chart
   switch (config.type) {
     case "column":
       return new DHIS2ColumnChart(id, analytics, config);
+      case "bar":
+      return new DHIS2BarChart(id, analytics, config);
+      case "stacked-bar":
+      return new DHIS2StackedBarChart(id, analytics, config);
     case "stacked-column":
       return new DHIS2StackedColumnChart(id, analytics, config);
     case "pie":

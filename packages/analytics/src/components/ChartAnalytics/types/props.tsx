@@ -1,7 +1,7 @@
 import type {Analytics} from "@hisptz/dhis2-utils";
 import HighCharts, {DashStyleValue, YAxisOptions, YAxisPlotLinesLabelOptions} from "highcharts";
 
-export type ChartType = "column" | "pie" | "stacked-column" | "line" | "multi-series";
+export type ChartType = "column" | "pie" | "stacked-column" | "line" | "multi-series" | "bar" | "stacked-bar";
 
 export interface MultiSeriesConfig {
     series?: Array<{
