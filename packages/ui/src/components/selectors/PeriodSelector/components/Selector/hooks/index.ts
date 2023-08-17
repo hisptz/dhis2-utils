@@ -32,7 +32,13 @@ export function usePeriodGenerator(
     });
   }, [year, category]);
   const periodTypes = useMemo(() => periodUtility.periodTypes, [periodUtility]);
-  const [periodTypeId, setPeriodTypeId] = useState<string>(periodTypes[0]?.id);
+  const filteredPeriodTypes = useMemo(() => {
+    if (!isEmpty(excludedPeriodTypes)) {
+      return filter(periodTypes, (type) => !(excludedPeriodTypes ?? []).includes(type.id));
+    }
+    return periodTypes;
+  }, [periodTypes]);
+  const [periodTypeId, setPeriodTypeId] = useState<string>(filteredPeriodTypes[0]?.id);
 
   const onCategoryChange = useCallback((updatedCategory: PeriodTypeCategory) => {
     setCategory(updatedCategory);
@@ -53,12 +59,7 @@ export function usePeriodGenerator(
     return [];
   }, [periodTypeId, periodUtility]);
 
-  const filteredPeriodTypes = useMemo(() => {
-    if (!isEmpty(excludedPeriodTypes)) {
-      return filter(periodTypes, (type) => !(excludedPeriodTypes ?? []).includes(type.id));
-    }
-    return periodTypes;
-  }, [periodTypes]);
+
 
   return {
     categories,

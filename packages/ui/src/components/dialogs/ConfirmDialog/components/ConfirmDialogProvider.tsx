@@ -17,8 +17,6 @@ export interface ConfirmDialogConfig {
     customActions?: CustomAction[];
 }
 
-
-
 export function ConfirmDialogProvider({children}: { children: ReactNode }) {
     const [open, setOpen] = useState(false);
     const {value: confirming, setTrue, setFalse} = useBoolean(false)
