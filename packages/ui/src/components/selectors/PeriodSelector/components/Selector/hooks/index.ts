@@ -43,13 +43,9 @@ export function usePeriodGenerator(
   const onCategoryChange = useCallback((updatedCategory: PeriodTypeCategory) => {
     setCategory(updatedCategory);
     setPeriodTypeId(
-      PeriodUtility.fromObject({
-        year,
-        category: updatedCategory,
-        preference,
-      }).periodTypes[0]?.id
+        filteredPeriodTypes[0]?.id
     );
-  }, []);
+  }, [filteredPeriodTypes]);
 
   const periods: BasePeriod[] = useMemo(() => {
     if (periodTypeId) {
