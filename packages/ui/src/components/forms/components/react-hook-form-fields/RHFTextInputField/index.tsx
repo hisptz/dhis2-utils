@@ -15,6 +15,7 @@ export function RHFTextInputField({
             rules={validations}
             render={({field: {value, onChange, ref, onBlur}, fieldState: {error}}) => (
                 <InputField
+										name={name}
                     validationText={error?.message}
                     error={!!error}
                     {...props}
