@@ -1,6 +1,6 @@
 {
   "name": "@hisptz/dhis2-utils",
-  "version": "1.0.52",
+  "version": "1.0.56",
   "description": "A package of reusable functions, interfaces, constants, and other implementations for DHIS2 related applications",
   "main": "./build/cjs/index.js",
   "module": "./build/es/index.js",
