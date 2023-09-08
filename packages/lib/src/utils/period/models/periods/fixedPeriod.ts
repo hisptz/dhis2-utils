@@ -17,7 +17,7 @@ export class FixedPeriod extends BasePeriod {
     constructor(interval: Interval, {type, nested}: { type: PeriodTypeInterface; nested?: boolean }) {
         super();
         this.start = interval.start?.startOf('day') ?? DateTime.now();
-        this.end = interval.end?.endOf('day').minus({days: 1}) ?? DateTime.now();
+        this.end = interval.end?.endOf('day') ?? DateTime.now();
         this.type = type;
         this.interval = interval;
         this.id = this._generateId();
