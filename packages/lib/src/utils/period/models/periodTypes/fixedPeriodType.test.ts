@@ -3,12 +3,13 @@ import {DateTime, Settings} from "luxon";
 import {PeriodTypeEnum} from "../../constants";
 import {FixedPeriodType} from "./fixedPeriodType";
 import {FixedPeriod} from "../periods";
+import {last} from "lodash";
 
 const year = 2022;
 
 Settings.defaultLocale = 'en-US';
 const preference: PeriodPreference = {
-    allowFuturePeriods: true
+    allowFuturePeriods: false
 }
 
 const fixedPeriodsTests = [
@@ -39,6 +40,7 @@ const fixedPeriodsTests = [
         periodNameTest: /^([A-Za-z])+ ([0-9]{4})$/,
         noOfPeriods: 12,
         description: "Monthly Period type test",
+        lastPeriod: `${year}12`,
     },
     {
         id: PeriodTypeEnum.BIMONTHLY,
@@ -81,7 +83,7 @@ const fixedPeriodsTests = [
         periodIdTest: /^([0-9]{4})April$/,
         periodNameTest: /([A-za-z]+) (\d{4}) - ([A-za-z]+) (\d{4})/,
         noOfPeriods: 10,
-    }
+    },
 ]
 
 const fixedPeriodsWithOffsets = [
@@ -240,6 +242,11 @@ describe("Fixed Period Test", () => {
             periodNames.forEach(periodName => {
                 expect((periodName.match(test.periodNameTest)?.length ?? 0) > 1).toBe(true);
             });
+
+            if (test.lastPeriod) {
+                const lastPeriod = last(periods);
+                expect(lastPeriod?.id).toBe(test.lastPeriod);
+            }
 
         });
     });

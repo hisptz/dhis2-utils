@@ -1,7 +1,12 @@
 import {Story} from "@storybook/react"
 import React from "react";
-import {SectionForm, SectionFormProps, StepperSectionForm, StepperSectionFormProps} from ".";
-import {FormSectionInterface} from "./interfaces";
+import {
+    FormSectionInterface,
+    SectionForm,
+    SectionFormProps,
+    StepperSectionForm,
+    StepperSectionFormProps
+} from "@hisptz/dhis2-ui";
 import {FormProvider, useForm} from "react-hook-form";
 
 const exampleForm: { sections: FormSectionInterface[] } = {
