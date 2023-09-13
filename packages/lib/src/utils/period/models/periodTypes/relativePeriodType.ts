@@ -1,9 +1,8 @@
-import {BasePeriod} from "../periods/basePeriod";
+import {BasePeriod, RelativePeriod} from "../periods";
 import {compact} from "lodash";
 import {PeriodPreference, PeriodTypeInterface} from "../../interfaces";
 import {RELATIVE_PERIOD_TYPES} from "../../constants/relative";
 import {BasePeriodType} from "./basePeriodType";
-import {RelativePeriod} from "../periods/relativePeriod";
 
 export class RelativePeriodType extends BasePeriodType {
 
