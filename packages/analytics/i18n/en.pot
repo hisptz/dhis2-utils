@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-05-05T07:58:47.325Z\n"
-"PO-Revision-Date: 2023-05-05T07:58:47.325Z\n"
+"POT-Creation-Date: 2023-09-13T13:02:51.722Z\n"
+"PO-Revision-Date: 2023-09-13T13:02:51.722Z\n"
 
 msgid "Download PNG"
 msgstr "Download PNG"
@@ -408,11 +408,11 @@ msgstr "Configure Thematic Layer"
 msgid "Loading ..."
 msgstr "Loading ..."
 
-msgid "Select location(s)"
-msgstr "Select location(s)"
-
 msgid "Location"
 msgstr "Location"
+
+msgid "Select location(s)"
+msgstr "Select location(s)"
 
 msgid "Organisation unit"
 msgstr "Organisation unit"

@@ -13,10 +13,13 @@ Default.args = {
         dx: ["Uvn6LCg7dVU", "OdiHJayrsKo", "sB79w2hiLp8", "AUqdhY4mpvp"],
         pe: ["LAST_6_MONTHS"],
         ou: [
-            "USER_ORGUNIT_CHILDREN"
+            "fdc6uOvgoji",
+            "O6uvpzGd5pu"
         ]
     },
     showToolbar: true,
+    showPeriodSelector: true,
+    showOrgUnitSelector: true,
     layout: {
         columns: ["dx"],
         filters: [],

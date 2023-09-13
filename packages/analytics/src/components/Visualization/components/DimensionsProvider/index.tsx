@@ -37,7 +37,6 @@ export function DimensionsProvider({children, dimensions}: DimensionProviderProp
 
     useUpdateEffect(() => {
         Object.keys(dimensions).forEach((dimension: string) => {
-            console.log("updating")
             dispatch({dimension: dimension as Dimension, value: dimensions[dimension] ?? []})
         })
     }, [dimensions]);
