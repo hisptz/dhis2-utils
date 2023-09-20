@@ -37,7 +37,6 @@ export const FieldMinMaxState = atomFamily<
 export const FieldState = selectorFamily({
 		key: 'field-state',
 		get: (field: string) => ({get, getCallback}) => {
-
 				const setFieldState = getCallback(({set}) => (type: 'hidden' | 'hiddenOptions' | 'warning' | 'disabled' | 'minMax' | 'loading', value: any) => {
 						switch (type) {
 								case 'hidden':
@@ -75,10 +74,20 @@ export const FieldState = selectorFamily({
 		}
 })
 
-export const FieldStateProvider = React.memo(function FieldStateProvider({children}: { children: React.ReactNode }) {
+export const FieldStateProvider = React.memo(function FieldStateProvider({children, includeRoot}: {
+		children: React.ReactNode,
+		includeRoot?: boolean
+}) {
+
+		if (includeRoot) {
+				return (
+						<RecoilRoot>
+								{children}
+						</RecoilRoot>
+				)
+		}
+
 		return (
-				<RecoilRoot>
-						{children}
-				</RecoilRoot>
+				<>{children}</>
 		)
 })
