@@ -1,6 +1,6 @@
 {
   "name": "@hisptz/dhis2-analytics",
-  "version": "1.0.59",
+  "version": "1.0.60",
   "description": "A collection of reusable react components for visualizing analytics data from DHIS2",
   "license": "BSD-3-Clause",
   "scripts": {
@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@dhis2/app-runtime": "^3.7.0",
-    "@hisptz/dhis2-ui": "^1.0.59",
+    "@hisptz/dhis2-ui": "^1.0.60",
     "@hisptz/dhis2-utils": "^1.0.58",
     "@react-leaflet/core": "^2.1.0",
     "async-es": "^3.2.4",
