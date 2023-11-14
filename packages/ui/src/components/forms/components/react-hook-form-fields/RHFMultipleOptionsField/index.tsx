@@ -17,7 +17,7 @@ export function MultipleOptionsField({
         <Controller
             name={name}
             rules={validations}
-            render={({field: {value, onChange, ref}, fieldState: {error}}) => (
+            render={({field: {value, onChange, ref, ...rest}, fieldState: {error}}) => (
                 <Field error={!!error} validationText={error?.message}  {...props} label={label}>
                     <div className="col gap-16">
                         <ButtonStrip>
@@ -37,6 +37,7 @@ export function MultipleOptionsField({
                             {
                                 map(options, ({label, value: optionValue}) => (
                                     <Checkbox
+                                        {...rest}
                                         checked={!!find(value, {value: optionValue})}
                                         onChange={({checked}: { checked: boolean }) => {
                                             const valueType = dataSelected?.valueType;

@@ -14,8 +14,9 @@ export function RHFRadioField({
         <Controller
             name={name}
             rules={validations}
-            render={({field: {value, onBlur, onChange, name, ref}, fieldState: {error}}) => (
+            render={({field: {value, onBlur, onChange, name, ref, ...rest}, fieldState: {error}}) => (
                 <Radio
+                    {...rest}
                     validationText={error?.message}
                     error={!!error}
                     {...props}

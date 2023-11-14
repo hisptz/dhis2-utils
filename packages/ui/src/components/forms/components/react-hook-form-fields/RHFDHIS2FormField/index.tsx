@@ -7,33 +7,34 @@ import {VALUE_TYPE} from "../../../constants";
 
 
 export interface RHFDHIS2FormFieldProps extends RHFFieldProps {
-    optionSet?: OptionSet,
-    valueType: VALUE_TYPE
+		optionSet?: OptionSet,
+		valueType: VALUE_TYPE
 }
 
 export const RHFDHIS2FormField = ({
-                                      valueType,
-                                      optionSet,
-                                      name,
-                                      validations,
-                                      ...props
-                                  }: RHFDHIS2FormFieldProps) => {
+																			valueType,
+																			optionSet,
+																			name,
+																			validations,
+																			...props
+																	}: RHFDHIS2FormFieldProps) => {
 
-    return (
-        <Controller
-            rules={validations}
-            render={({field, fieldState,}) => {
-                return <DHIS2FormField
-                    value={field.value}
-                    optionSet={optionSet}
-                    error={fieldState.error?.message}
-                    valueType={valueType}
-                    name={name}
-                    onChange={field.onChange}
-                    {...props}
-                />
-            }}
-            name={name}
-        />
-    )
+		return (
+				<Controller
+						rules={validations}
+						render={({field, fieldState,}) => {
+								return <DHIS2FormField
+										{...field}
+										value={field.value}
+										optionSet={optionSet}
+										error={fieldState.error?.message}
+										valueType={valueType}
+										name={name}
+										onChange={field.onChange}
+										{...props}
+								/>
+						}}
+						name={name}
+				/>
+		)
 }

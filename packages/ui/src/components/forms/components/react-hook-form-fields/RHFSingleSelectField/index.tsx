@@ -14,8 +14,9 @@ export function RHFSingleSelectField({
         <Controller
             name={name}
             rules={validations}
-            render={({field: {value, onBlur, onChange, name, ref}, fieldState: {error}}) => (
+            render={({field: {value, onBlur, onChange, name, ref, ...rest}, fieldState: {error}}) => (
                 <SingleSelectField
+                    {...rest}
                     {...props}
                     validationText={error?.message}
                     error={!!error}
