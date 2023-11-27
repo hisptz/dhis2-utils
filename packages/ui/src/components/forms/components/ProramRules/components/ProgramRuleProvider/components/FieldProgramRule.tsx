@@ -6,9 +6,11 @@ import {useFormContext} from "react-hook-form";
 
 export interface FieldProgramRuleChildrenProps {
 		hidden: boolean;
-		warning: string;
-		optionSet: OptionSet;
-		loading: boolean;
+		warning?: string;
+		min?: number | string;
+		max?: number | string;
+		optionSet?: OptionSet;
+		loading?: boolean;
 		validations?: Record<string, any>
 }
 
@@ -32,11 +34,38 @@ export const FieldProgramRule = React.memo(function FieldProgramRule({
 		const filteredValidations = useMemo(() => {
 				//If no error just pass the validations as they were
 				if (!error) {
-						return validations ?? {
+						if (!validations) {
+								return {
+										validate: {
+												programRule: () => true
+										}
+								}
+						}
+						if (!validations.validate) {
+								return {
+										...validations,
+										validate: {
+												programRule: () => true
+										}
+								}
+						}
+						if (typeof validations.validate === "object") {
+								return {
+										...validations,
+										validate: {
+												...validations.validate,
+												programRule: () => true
+										}
+								}
+						}
+
+						return {
+								...validations,
 								validate: {
+										default: validations.validate,
 										programRule: () => true
 								}
-						};
+						}
 				}
 
 				//If there were no validations passed down pass the error as the only validation

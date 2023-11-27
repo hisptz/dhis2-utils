@@ -2,6 +2,7 @@ import {Meta, Story, StoryObj} from "@storybook/react"
 import React from "react";
 import {FormProvider, useForm} from "react-hook-form";
 import {Button} from '@dhis2/ui'
+import {DateTime} from "luxon"
 import {
 		FieldProgramRule,
 		FieldProgramRuleChildrenProps,
@@ -28,7 +29,10 @@ const fields: RHFDHIS2FormFieldProps[] = [
 				name: "dob",
 				label: 'Date of birth',
 				valueType: "DATE",
-				max: new Date().toDateString(),
+				max: DateTime.now().toFormat('yyyy-MM-dd'),
+				validations: {
+						required: "This field is required"
+				}
 		},
 		{
 				label: "Age",
@@ -114,7 +118,13 @@ const FormComponent = () => <form
 
 										return (
 												<div key={`${field.name}-field-container`} style={{width: "100%"}}>
-														<RHFDHIS2FormField key={`${field.name}`} {...field} {...props} />
+														<RHFDHIS2FormField
+																key={`${field.name}`}
+																{...field}
+																{...props}
+																min={props.min || field.min}
+																max={props.max || field.max}
+														/>
 												</div>
 										)
 								}}
