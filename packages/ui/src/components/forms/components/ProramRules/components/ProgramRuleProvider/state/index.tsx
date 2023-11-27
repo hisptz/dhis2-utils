@@ -27,6 +27,11 @@ export const FieldDisabledState = atomFamily<boolean, string>({
 		default: false,
 });
 
+export const FieldErrorState = atomFamily<string | null, string>({
+		key: "field-error-state",
+		default: null
+})
+
 export const FieldMinMaxState = atomFamily<
 		{ min?: number | string; max?: number | string } | null,
 		string
@@ -69,6 +74,7 @@ export const FieldState = selectorFamily({
 						disabled: get(FieldDisabledState(field)),
 						minMax: get(FieldMinMaxState(field)),
 						loading: get(FieldLoadingState(field)),
+						error: get(FieldErrorState(field)),
 						setFieldState: setFieldState
 				}
 		}
@@ -78,7 +84,6 @@ export const FieldStateProvider = React.memo(function FieldStateProvider({childr
 		children: React.ReactNode,
 		includeRoot?: boolean
 }) {
-
 		if (includeRoot) {
 				return (
 						<RecoilRoot>
