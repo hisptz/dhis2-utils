@@ -56,7 +56,13 @@ export function useHiddenFields(suspectedHiddenFields: string[]): string[] {
 }
 
 export function useActionCallbacks(): ActionCallbacks {
-		const {setValue: formSetter, unregister, setError: setFormError, clearErrors} = useFormContext();
+		const {
+				setValue: formSetter,
+				unregister,
+				setError: setFormError,
+				clearErrors,
+				trigger: triggerValidation,
+		} = useFormContext();
 		const {fetch} = useFetch(optionGroupsQuery);
 
 		const getOptionGroups = useCallback(
@@ -77,11 +83,9 @@ export function useActionCallbacks(): ActionCallbacks {
 										setFormError(field, {
 												message: typeof error === 'string' ? error : error.message
 										})
-								} else {
-										clearErrors(field)
 								}
 						},
-				[setFormError, clearErrors]
+				[]
 		);
 
 		const setValue = useCallback(

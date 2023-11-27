@@ -42,7 +42,7 @@ export const FieldMinMaxState = atomFamily<
 export const FieldState = selectorFamily({
 		key: 'field-state',
 		get: (field: string) => ({get, getCallback}) => {
-				const setFieldState = getCallback(({set}) => (type: 'hidden' | 'hiddenOptions' | 'warning' | 'disabled' | 'minMax' | 'loading', value: any) => {
+				const setFieldState = getCallback(({set}) => (type: 'hidden' | 'hiddenOptions' | 'warning' | 'disabled' | 'minMax' | 'loading' | 'error', value: any) => {
 						switch (type) {
 								case 'hidden':
 										set(FieldVisibilityState(field), value)
@@ -56,6 +56,9 @@ export const FieldState = selectorFamily({
 								case 'disabled':
 										set(FieldDisabledState(field), value)
 										break
+								case 'error':
+										set(FieldErrorState(field), value)
+										break
 								case 'minMax':
 										set(FieldMinMaxState(field), value)
 										break
@@ -66,7 +69,6 @@ export const FieldState = selectorFamily({
 										break
 						}
 				})
-
 				return {
 						hidden: get(FieldVisibilityState(field)),
 						hiddenOptions: get(FieldHiddenOptionsState(field)),

@@ -104,7 +104,8 @@ const FormComponent = () => <form
 		style={{display: "flex", gap: 16, maxWidth: 500, alignItems: "center", width: "100%", flexDirection: "column"}}>
 		{
 				fields.map((field: JSX.IntrinsicAttributes & RHFDHIS2FormFieldProps) => (
-						<FieldProgramRule validations={field.validations} name={field.name} optionSet={field.optionSet}>
+						<FieldProgramRule key={`${field.name}-program-rule`} validations={field.validations} name={field.name}
+															optionSet={field.optionSet}>
 								{(props: FieldProgramRuleChildrenProps) => {
 
 										if (props.hidden) {
@@ -112,7 +113,7 @@ const FormComponent = () => <form
 										}
 
 										return (
-												<div style={{width: "100%"}}>
+												<div key={`${field.name}-field-container`} style={{width: "100%"}}>
 														<RHFDHIS2FormField key={`${field.name}`} {...field} {...props} />
 												</div>
 										)

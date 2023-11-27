@@ -1,7 +1,8 @@
 import {FieldState,} from '../state';
 import type {OptionSet} from '@hisptz/dhis2-utils';
-import React, {useMemo} from "react"
+import React, {useEffect, useMemo} from "react"
 import {useRecoilValue} from "recoil";
+import {useFormContext} from "react-hook-form";
 
 export interface FieldProgramRuleChildrenProps {
 		hidden: boolean;
@@ -22,6 +23,7 @@ export const FieldProgramRule = React.memo(function FieldProgramRule({
 		optionSet?: OptionSet;
 		validations?: Record<string, any>;
 }) {
+		const {trigger} = useFormContext();
 		const {loading, minMax, warning, disabled, hiddenOptions, hidden, error} = useRecoilValue(FieldState(name)) ?? {};
 		const filteredOptions =
 				optionSet?.options?.filter((option: { code: string; }) => !hiddenOptions?.includes(option.code)) ?? [];
@@ -65,7 +67,12 @@ export const FieldProgramRule = React.memo(function FieldProgramRule({
 								}
 						}
 				}
-		}, [validations, error]);
+		}, [validations, error, name]);
+
+		//Basically clears out the error if it is no longer in the validations.
+		useEffect(() => {
+				trigger(name)
+		}, [filteredValidations]);
 
 		return children({
 				optionSet: optionSet ? {...optionSet, options: filteredOptions} : undefined,
