@@ -1,8 +1,9 @@
 import {FieldState,} from '../state';
 import type {OptionSet} from '@hisptz/dhis2-utils';
-import React, {useEffect, useMemo} from "react"
+import React, {useMemo} from "react"
 import {useRecoilValue} from "recoil";
 import {useFormContext} from "react-hook-form";
+import {useUpdateEffect} from "usehooks-ts";
 
 export interface FieldProgramRuleChildrenProps {
 		hidden: boolean;
@@ -99,7 +100,7 @@ export const FieldProgramRule = React.memo(function FieldProgramRule({
 		}, [validations, error, name]);
 
 		//Basically clears out the error if it is no longer in the validations.
-		useEffect(() => {
+		useUpdateEffect(() => {
 				trigger(name)
 		}, [filteredValidations]);
 
