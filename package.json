@@ -1,52 +1,19 @@
 {
-  "name": "dhis2-utils",
-  "version": "1.0.0",
-  "repository": "git@github.com:hisptz/dhis2-utils.git",
-  "author": "HISP Tanzania",
-  "license": "MIT",
   "private": true,
-  "workspaces": {
-    "nohoist": [
-      "**/@storybook/**",
-      "**/storybook",
-      "react",
-      "react-dom"
-    ],
-    "packages": [
-      "packages/*"
-    ]
-  },
   "scripts": {
-    "lib": "yarn workspace @hisptz/dhis2-utils",
-    "ui": "yarn workspace @hisptz/dhis2-ui",
-    "analytics": "yarn workspace @hisptz/dhis2-analytics",
-    "test:lib": "yarn lib test",
-    "test:ui": "npx cypress run --component",
-    "test:ui:open": "npx cypress open --component",
-    "sb": "yarn workspace @hisptz/storybook",
-    "docs": "yarn workspace docs",
-    "build:lib": "lerna run build --scope @hisptz/dhis2-utils",
-    "build:ui": "lerna run build --scope @hisptz/dhis2-ui",
-    "build:analytics": "yarn analytics build",
-    "prebuild:docs": "yarn sb build -o ../docs/static/ui",
-    "build:docs": "lerna run build --scope @hisptz/docs",
-    "build:sb": "npx lerna run build --scope @hisptz/storybook",
-    "start:docs": "yarn docs start",
-    "watch:libs": "lerna run start --since --no-private",
-    "start:sb": "yarn sb start",
-    "test": "yarn test:lib && yarn test:ui",
-    "build": "npx lerna run build --no-private",
-    "prepublish": "npx lerna run build --no-private",
-    "publish": "npx lerna publish --no-private",
-    "deploy:docs": "yarn docs deploy"
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo run build --filter=docs^... && changeset publish"
   },
   "devDependencies": {
-    "cypress": "^12.7.0",
-    "lerna": "^6.4.1",
-    "vite": "^4.1.4"
+    "@changesets/cli": "^2.27.1",
+    "prettier": "^3.1.1",
+    "turbo": "latest"
   },
-  "dependencies": {
-    "concurrently": "^8.2.0",
-    "wait-on": "^7.0.1"
-  }
+  "packageManager": "pnpm@8.9.0"
 }

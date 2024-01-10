@@ -1,1 +1,0 @@
-export const OFFLINE_ORG_UNIT_PAGE_SIZE = 1000;
