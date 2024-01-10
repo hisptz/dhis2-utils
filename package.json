@@ -1,4 +1,5 @@
 {
+  "name": "dhis2-utils",
   "private": true,
   "scripts": {
     "build": "turbo run build",

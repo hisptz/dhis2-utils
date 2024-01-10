@@ -7,9 +7,9 @@
     "jsx": "react-jsx",
     "lib": [
       "dom",
-      "ES2020"
+      "ESNext"
     ],
     "module": "ESNext",
-    "target": "es6"
+    "target": "es2022"
   }
 }

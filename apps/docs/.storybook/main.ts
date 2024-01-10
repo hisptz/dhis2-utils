@@ -12,6 +12,11 @@ const config: StorybookConfig = {
 			files: "**/*.stories.tsx",
 			titlePrefix: "UI",
 		},
+		{
+			directory: resolve(__dirname, "../../../packages/analytics/src"),
+			files: "**/*.stories.tsx",
+			titlePrefix: "Analytics UI",
+		},
 	],
 	addons: [
 		getAbsolutePath("@storybook/addon-links"),
