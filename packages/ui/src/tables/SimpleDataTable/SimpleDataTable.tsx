@@ -13,7 +13,7 @@ import {
 } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
 import { difference, isEmpty } from "lodash";
-import EmptyList from "./components/EmptyList";
+import EmptyList from "../../shared/components/EmptyList";
 import classes from "./SimpleDataTable.module.css";
 import cx from "classnames";
 import { SimpleDataTableProps } from "./types";

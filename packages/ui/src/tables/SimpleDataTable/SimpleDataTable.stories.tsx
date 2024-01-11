@@ -1,6 +1,6 @@
 import { SimpleDataTable } from "./SimpleDataTable";
 import { Meta, StoryObj } from "@storybook/react";
-import rawRows from "./resources/data.json";
+import rawRows from "../../shared/resources/data.json";
 import { Tag } from "@dhis2/ui";
 import { useEffect, useMemo, useState } from "react";
 import { chunk, difference, isEmpty, sortBy, uniq } from "lodash";

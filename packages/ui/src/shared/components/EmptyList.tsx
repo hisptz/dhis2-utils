@@ -1,6 +1,6 @@
 import i18n from "@dhis2/d2-i18n";
 import React from "react";
-import classes from "../SimpleDataTable.module.css";
+import classes from "../../tables/SimpleDataTable/SimpleDataTable.module.css";
 
 export default function EmptyList({
 	message,
