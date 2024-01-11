@@ -22,6 +22,19 @@ import { SimpleDataTableProps } from "./types";
  * SimpleDataTable is a simplified abstraction of the `DataTable` from `@dhis2/ui`
  * that allows you to display a data table by passing formatted data and columns instead of child components.
  *
+ * @since
+ *
+ * `v2.0.0`
+ *
+ * Features:
+ *  - Empty label component
+ *  - Loading status indicator
+ *  - Selectable rows (external control)
+ *  - Pagination (external control)
+ *  - Sorting (external control)
+ *
+ *
+ *
  */
 export const SimpleDataTable: React.FC<SimpleDataTableProps> = ({
 	sortState,
@@ -99,7 +112,10 @@ export const SimpleDataTable: React.FC<SimpleDataTableProps> = ({
 				<DataTableHead>
 					<DataTableRow>
 						{selectable && (
-							<DataTableColumnHeader fixed top>
+							<DataTableColumnHeader
+								fixed
+								top={"0" as unknown as boolean}
+							>
 								<Checkbox
 									indeterminate={partiallySelected}
 									checked={allSelected}
@@ -112,7 +128,7 @@ export const SimpleDataTable: React.FC<SimpleDataTableProps> = ({
 							<DataTableColumnHeader
 								name={key}
 								fixed
-								top
+								top={"0" as unknown as boolean} //TODO: Remove this when the issue is fixed
 								sortIconTitle={
 									sortable
 										? i18n.t("Sort by {{column}}", {

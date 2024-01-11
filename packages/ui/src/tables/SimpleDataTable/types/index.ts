@@ -1,4 +1,5 @@
 import React from "react";
+import { DataTableSortDirection } from "@dhis2/ui";
 
 /**
  * Represents a column in a custom data table.
@@ -41,6 +42,11 @@ export interface SimpleDataTableRow {
 	[key: string]: any;
 }
 
+export interface SimpleDataTableSortState {
+	name?: string;
+	direction: DataTableSortDirection;
+}
+
 /**
  * SimpleDataTableProps interface represents the props for the SimpleDataTable component.
  *
@@ -76,17 +82,9 @@ export interface SimpleDataTableProps {
 		[key: string]: any;
 	};
 	tableBodyProps?: Record<string, any>;
-	onSort?: (sortConfig: {
-		/**
-		 * Represents the name of a variable.
-		 *
-		 * @typedef {string} Name
-		 */
-		name?: string;
-		direction: string;
-	}) => void;
-	sortState?: { name: string; direction: "asc" | "desc" | "default" };
-	pagination?: any;
+	onSort?: (sortConfig: SimpleDataTableSortState) => void;
+	sortState?: SimpleDataTableSortState;
+	pagination?: SimpleDataTablePagination;
 	height?: number;
 }
 
@@ -94,6 +92,7 @@ export interface SimpleDataTablePagination {
 	page: number;
 	pageSize: number;
 	total: number;
+	pageCount: number;
 
 	onPageChange(page: number): void;
 

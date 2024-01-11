@@ -4,7 +4,7 @@ import React from "react";
 import hispTheme from "./theme";
 
 export const parameters = {
-	actions: { argTypesRegex: "^on[A-Z].*" },
+	actions: { argTypesRegex: "^on*" },
 	controls: {
 		expanded: true,
 		matchers: {

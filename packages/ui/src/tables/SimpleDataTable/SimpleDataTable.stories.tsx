@@ -2,15 +2,14 @@ import { SimpleDataTable } from "./SimpleDataTable";
 import { Meta, StoryObj } from "@storybook/react";
 import rawRows from "./resources/data.json";
 import { Tag } from "@dhis2/ui";
-import { useEffect, useState } from "react";
-import { chunk, difference, isEmpty, uniq } from "lodash";
+import { useEffect, useMemo, useState } from "react";
+import { chunk, difference, isEmpty, sortBy, uniq } from "lodash";
 import { useDataQuery } from "@dhis2/app-runtime";
-import { SimpleDataTableRow } from "./types";
+import { SimpleDataTableRow, SimpleDataTableSortState } from "./types";
 
 const meta: Meta<typeof SimpleDataTable> = {
 	component: SimpleDataTable,
 	title: "Tables/Simple Data Table",
-	tags: ["autodocs"],
 	parameters: {
 		controls: {
 			expanded: false,
@@ -76,7 +75,9 @@ const tableProps = {
 
 type Story = StoryObj<typeof SimpleDataTable>;
 /**
- * By default, you can pass an array of columns and rows to be displayed.
+ * In its simplest form, you can pass an array of columns and rows to be displayed.
+ *
+ *
  */
 export const Default: Story = {
 	render: (props) => <SimpleDataTable {...props} tableProps={tableProps} />,
@@ -89,7 +90,7 @@ export const Default: Story = {
 };
 
 /**
- * When the `row` prop is not passed, the table will be replaced by the string `There are no items`
+ * When the `row` prop is not passed or is an empty array, the table will be replaced by the string `There are no items`
  */
 export const EmptyRows: Story = {
 	render: (props) => <SimpleDataTable {...props} tableProps={tableProps} />,
@@ -220,20 +221,6 @@ export const LoadingStatus: Story = {
  * 		);
  * ```
  *
- * You can also paginate in the server side
- *
- *
- * ```tsx
- *
- * const query = {
- * indicators: {
- * }
- *
- * }
- *
- *
- * ```
- *
  * */
 
 export const Pagination: Story = {
@@ -270,24 +257,29 @@ export const Pagination: Story = {
 		columns,
 		rows,
 		tableProps,
-		pagination: {
-			page: 1,
-			pageCount: 2,
-			pageSize: 10,
-			total: 20,
-		},
 	},
 };
 
 const query: any = {
 	indicators: {
 		resource: "indicators",
-		params: ({ page, pageSize }: { page: number; pageSize: number }) => {
+		params: ({
+			page,
+			pageSize,
+			orderBy,
+			direction,
+		}: {
+			page: number;
+			pageSize: number;
+			orderBy?: string;
+			direction: "asc" | "desc";
+		}) => {
 			return {
 				page,
 				pageSize,
 				totalPages: true,
 				fields: ["id", "displayName"],
+				order: orderBy ? `${orderBy}:${direction}` : undefined,
 			};
 		},
 	},
@@ -488,11 +480,305 @@ export const PaginationFromServer: Story = {
 		columns,
 		rows,
 		tableProps,
-		pagination: {
+	},
+};
+
+/**
+ * The props `sortState` and `onSort` can be used to control sorting of the table.
+ * To allow sorting on a specific column, you must set `sortable` property of the column to `true`
+ *
+ * ```tsx
+ * 		const [sortState, setSortState] = useState<SimpleDataTableSortState>();
+ * 		const onSort = (sortState: SimpleDataTableSortState) => {
+ * 			setSortState(sortState);
+ * 		};
+ *
+ * 		const sortedRows = useMemo(() => {
+ * 			if (!sortState || sortState.direction === "default") {
+ * 				return rows;
+ * 			}
+ * 			const sortedData = sortBy(rows, sortState.name);
+ * 			if (sortState.direction === "asc") {
+ * 				return sortedData;
+ * 			}
+ * 			return sortedData.toReversed();
+ * 		}, [sortState]);
+ *
+ * 		return (
+ * 			<SimpleDataTable
+ * 				{...props}
+ * 				tableProps={tableProps}
+ * 				columns={columns.map((col) =>
+ * 					col.key === "active" ? col : { ...col, sortable: true },
+ * 				)}
+ * 				rows={sortedRows}
+ * 				sortState={sortState}
+ * 				onSort={onSort}
+ * 			/>
+ * 		);
+ *
+ * ```
+ *
+ * */
+export const Sorting: Story = {
+	render: (props) => {
+		const [sortState, setSortState] = useState<SimpleDataTableSortState>();
+		const onSort = (sortState: SimpleDataTableSortState) => {
+			setSortState(sortState);
+		};
+
+		const sortedRows = useMemo(() => {
+			if (!sortState || sortState.direction === "default") {
+				return rows;
+			}
+			const sortedData = sortBy(rows, sortState.name as string);
+			if (sortState.direction === "asc") {
+				return sortedData;
+			}
+			return sortedData.toReversed();
+		}, [sortState]);
+
+		return (
+			<SimpleDataTable
+				{...props}
+				tableProps={tableProps}
+				columns={columns.map((col) =>
+					col.key === "active" ? col : { ...col, sortable: true },
+				)}
+				rows={sortedRows}
+				sortState={sortState}
+				onSort={onSort}
+			/>
+		);
+	},
+
+	name: "Sorting",
+	args: {
+		columns,
+		rows,
+		height: 500,
+	},
+};
+
+/**
+ * Sorting can also be done on the server side using `order` property
+ *
+ * Example
+ *
+ *
+ * ```tsx
+ *
+ * const query: any = {
+ * 	indicators: {
+ * 		resource: "indicators",
+ * 		params: ({
+ * 			page,
+ * 			pageSize,
+ * 			orderBy,
+ * 			direction,
+ * 		}: {
+ * 			page: number;
+ * 			pageSize: number;
+ * 			orderBy?: string;
+ * 			direction: "asc" | "desc";
+ * 		}) => {
+ * 			return {
+ * 				page,
+ * 				pageSize,
+ * 				totalPages: true,
+ * 				fields: ["id", "displayName"],
+ * 				order: orderBy ? `${orderBy}:${direction}` : undefined,
+ * 			};
+ * 		},
+ * 	},
+ * };
+ *
+ * const [pager, setPager] = useState<{
+ * 			page: number;
+ * 			pageSize: number;
+ * 			total: number;
+ * 			pageCount: number;
+ * 		}>({
+ * 			page: 1,
+ * 			pageSize: 10,
+ * 			pageCount: 1,
+ * 			total: 0,
+ * 		});
+ * 		const [sortState, setSortState] = useState<SimpleDataTableSortState>();
+ * 		const [tableData, setTableData] = useState<SimpleDataTableRow[]>();
+ * 		const { data, loading, refetch, fetching } =
+ * 			useDataQuery<IndicatorData>(query, {
+ * 				variables: {
+ * 					page: pager.page,
+ * 					pageSize: pager.pageSize,
+ * 				},
+ * 			});
+ *
+ * 		const onSort = (sortState: SimpleDataTableSortState) => {
+ * 			setSortState(sortState);
+ * 			refetch({
+ * 				orderBy: sortState.name,
+ * 				direction: sortState.direction,
+ * 			});
+ * 		};
+ * 		const onPageChange = (page: number) => {
+ * 			refetch({
+ * 				page,
+ * 			});
+ * 		};
+ * 		const onPageSizeChange = (pageSize: number) => {
+ * 			refetch({
+ * 				pageSize,
+ * 				page: 1,
+ * 			});
+ * 		};
+ *
+ * 		useEffect(() => {
+ * 			if (data) {
+ * 				const indicators = data.indicators.indicators;
+ * 				setTableData(indicators);
+ * 				setPager(data.indicators.pager);
+ * 			}
+ * 		}, [data]);
+ *
+ * 		if (loading && isEmpty(tableData)) {
+ * 			return (
+ * 				<div style={{ width: "100%", height: "100%" }}>Loading...</div>
+ * 			);
+ * 		}
+ *
+ * 		return (
+ * 			<SimpleDataTable
+ * 				{...props}
+ * 				columns={[
+ * 					{
+ * 						label: "ID",
+ * 						key: "id",
+ * 					},
+ * 					{
+ * 						label: "Name",
+ * 						key: "displayName",
+ * 						sortable: true,
+ * 					},
+ * 				]}
+ * 				rows={tableData}
+ * 				loading={fetching}
+ * 				onSort={onSort}
+ * 				sortState={sortState}
+ * 				pagination={{
+ * 					...pager,
+ * 					onPageChange,
+ * 					onPageSizeChange,
+ * 				}}
+ * 			/>
+ * 		);
+ * ```
+ * */
+export const SortingFromServer: Story = {
+	render: (props) => {
+		const [pager, setPager] = useState<{
+			page: number;
+			pageSize: number;
+			total: number;
+			pageCount: number;
+		}>({
 			page: 1,
-			pageCount: 2,
 			pageSize: 10,
-			total: 20,
+			pageCount: 1,
+			total: 0,
+		});
+		const [sortState, setSortState] = useState<SimpleDataTableSortState>();
+		const [tableData, setTableData] = useState<SimpleDataTableRow[]>();
+		const { data, loading, refetch, fetching } =
+			useDataQuery<IndicatorData>(query, {
+				variables: {
+					page: pager.page,
+					pageSize: pager.pageSize,
+				},
+			});
+
+		const onSort = (sortState: SimpleDataTableSortState) => {
+			setSortState(sortState);
+			refetch({
+				orderBy: sortState.name,
+				direction: sortState.direction,
+			});
+		};
+		const onPageChange = (page: number) => {
+			refetch({
+				page,
+			});
+		};
+		const onPageSizeChange = (pageSize: number) => {
+			refetch({
+				pageSize,
+				page: 1,
+			});
+		};
+
+		useEffect(() => {
+			if (data) {
+				const indicators = data.indicators.indicators;
+				setTableData(indicators);
+				setPager(data.indicators.pager);
+			}
+		}, [data]);
+
+		if (loading && isEmpty(tableData)) {
+			return (
+				<div style={{ width: "100%", height: "100%" }}>Loading...</div>
+			);
+		}
+
+		return (
+			<SimpleDataTable
+				{...props}
+				columns={[
+					{
+						label: "ID",
+						key: "id",
+					},
+					{
+						label: "Name",
+						key: "displayName",
+						sortable: true,
+					},
+				]}
+				rows={tableData}
+				loading={fetching}
+				onSort={onSort}
+				sortState={sortState}
+				pagination={{
+					...pager,
+					onPageChange,
+					onPageSizeChange,
+				}}
+			/>
+		);
+	},
+	name: "Sorting server side",
+	args: {
+		columns,
+		rows,
+		tableProps,
+	},
+};
+
+/**
+ * You can pass `tableProps` and `tableBodyProps` to pass props to the table and the table body respectively.
+ * You can pass `scrollHeight` property in the `tableProps` to control the scroll height
+ *
+ * See `DataTable` from `@dhis2/ui` props for more info.
+ * */
+export const OtherProps: Story = {
+	render: (props) => <SimpleDataTable {...props} />,
+	name: "Other props",
+	args: {
+		columns,
+		rows,
+		height: 500,
+		tableProps: {
+			scrollHeight: "800px",
 		},
 	},
 };

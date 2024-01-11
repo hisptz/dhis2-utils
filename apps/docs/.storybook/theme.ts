@@ -1,7 +1,7 @@
 import { create } from "@storybook/theming";
 
 export default create({
-	base: "dark",
+	base: "light",
 	brandTitle: "DHIS2 React UI",
 	brandUrl: "https://github.com/hisptz",
 	brandImage: "https://avatars.githubusercontent.com/u/13586279?s=200&v=4",
