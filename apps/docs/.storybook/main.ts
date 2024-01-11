@@ -18,6 +18,12 @@ const config: StorybookConfig = {
 			titlePrefix: "Analytics UI",
 		},
 	],
+	typescript: {
+		// Overrides the default Typescript configuration to allow multi-package components to be documented via Autodocs.
+		reactDocgen: "react-docgen",
+		skipBabel: true,
+		check: false,
+	},
 	addons: [
 		getAbsolutePath("@storybook/addon-links"),
 		getAbsolutePath("@storybook/addon-essentials"),
