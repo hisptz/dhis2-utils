@@ -4,31 +4,14 @@ import React from "react";
  * Represents a column in a custom data table.
  * @interface
  */
-export interface CustomDataTableColumn {
-	/**
-	 * Represents a label.
-	 *
-	 * @typedef {string} Label
-	 */
+export interface SimpleDataTableColumn {
+	/** Label of the column that should be displayed  @typedef {string}  */
 	label: string;
-	/**
-	 * Represents a variable key.
-	 *
-	 * @typedef {string} Key
-	 */
+	/** A reference of data in a row to be displayed on this column     */
 	key: string;
-	/**
-	 * Indicates whether the variable is sortable or not.
-	 *
-	 * @type {boolean}
-	 * @since 1.0.0
-	 */
+	/** Controls if the column header should show the sort UI  */
 	sortable?: boolean;
-	/**
-	 * Represents the width of something.
-	 *
-	 * @typedef {number} Width
-	 */
+	/** Width of the column */
 	width?: number;
 }
 
@@ -36,7 +19,7 @@ export interface CustomDataTableColumn {
  * Represents a custom data table row.
  * @interface
  */
-export interface CustomDataTableRow {
+export interface SimpleDataTableRow {
 	/**
 	 * Represents a unique identifier.
 	 * @typedef {string} Id
@@ -59,12 +42,12 @@ export interface CustomDataTableRow {
 }
 
 /**
- * CustomDataTableProps interface represents the props for the CustomDataTable component.
+ * SimpleDataTableProps interface represents the props for the SimpleDataTable component.
  *
- * @interface CustomDataTableProps
- * @property {CustomDataTableColumn[]} columns - The array of columns for the data table.
+ * @interface SimpleDataTableProps
+ * @property {SimpleDataTableColumn[]} columns - The array of columns for the data table.
  * @property {boolean} [loading] - Indicates if the data table is in a loading state.
- * @property {CustomDataTableRow[]} [rows] - The array of rows for the data table.
+ * @property {SimpleDataTableRow[]} [rows] - The array of rows for the data table.
  * @property {string | React.ReactElement} [emptyLabel] - The label to display when there are no rows in the data table.
  * @property {(selectedValueId: string) => void} [onRowClick] - The callback function to handle row clicks.
  * @property {boolean} [selectable] - Indicates if the rows in the data table are selectable.
@@ -78,10 +61,10 @@ export interface CustomDataTableRow {
  * @property {any} [pagination] - The pagination configuration for the data table.
  * @property {number} [height] - The height of the data table.
  */
-export interface CustomDataTableProps {
-	columns: CustomDataTableColumn[];
+export interface SimpleDataTableProps {
+	columns: SimpleDataTableColumn[];
 	loading?: boolean;
-	rows?: Array<CustomDataTableRow>;
+	rows?: Array<SimpleDataTableRow>;
 	emptyLabel?: string | React.ReactElement;
 	onRowClick?: (selectedValueId: string) => void;
 	selectable?: boolean;
@@ -105,4 +88,14 @@ export interface CustomDataTableProps {
 	sortState?: { name: string; direction: "asc" | "desc" | "default" };
 	pagination?: any;
 	height?: number;
+}
+
+export interface SimpleDataTablePagination {
+	page: number;
+	pageSize: number;
+	total: number;
+
+	onPageChange(page: number): void;
+
+	onPageSizeChange(pageSize: number): void;
 }

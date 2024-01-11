@@ -12,6 +12,9 @@
   },
   "dependencies": {
     "@hisptz/dhis2-ui": "workspace:*",
+    "@storybook/addon-interactions": "^7.6.7",
+    "@storybook/jest": "^0.2.3",
+    "@storybook/testing-library": "^0.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

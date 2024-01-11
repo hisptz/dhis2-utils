@@ -14,15 +14,16 @@ import {
 import i18n from "@dhis2/d2-i18n";
 import { difference, isEmpty } from "lodash";
 import EmptyList from "./components/EmptyList";
-import classes from "./CustomDataTable.module.css";
+import classes from "./SimpleDataTable.module.css";
 import cx from "classnames";
-import { CustomDataTableProps } from "./types";
+import { SimpleDataTableProps } from "./types";
 
 /**
- * CustomDataTable is a component that displays tabular data with customizable features.
+ * SimpleDataTable is a simplified abstraction of the `DataTable` from `@dhis2/ui`
+ * that allows you to display a data table by passing formatted data and columns instead of child components.
  *
  */
-export const CustomDataTable: React.FC<CustomDataTableProps> = ({
+export const SimpleDataTable: React.FC<SimpleDataTableProps> = ({
 	sortState,
 	rows,
 	tableProps,
@@ -37,7 +38,7 @@ export const CustomDataTable: React.FC<CustomDataTableProps> = ({
 	columns,
 	pagination,
 	tableBodyProps,
-}: CustomDataTableProps): ReactElement => {
+}: SimpleDataTableProps): ReactElement => {
 	const rowIds = rows?.map(({ id }) => id) ?? [];
 	const handleRowClick = (selectedValueId: string) => () => {
 		if (onRowClick) {
