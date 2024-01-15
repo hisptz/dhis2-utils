@@ -348,7 +348,11 @@ export const Pagination: Story = {
 		tableProps,
 	},
 	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+		expect(
+			canvasElement.querySelector(
+				'[data-test="dhis2-uiwidgets-pagination"]',
+			),
+		).toBeInTheDocument();
 	},
 };
 
@@ -649,6 +653,13 @@ export const Sorting: Story = {
 		columns,
 		rows,
 		height: 500,
+	},
+	play: async ({ canvasElement }) => {
+		expect(
+			canvasElement.querySelector(
+				'[data-test="dhis2-uicore-tableheadercellaction"]',
+			),
+		).toBeInTheDocument();
 	},
 };
 
