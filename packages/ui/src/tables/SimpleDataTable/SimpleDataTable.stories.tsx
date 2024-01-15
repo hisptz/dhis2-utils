@@ -95,7 +95,6 @@ export const Default: Story = {
 		for (const column of columns) {
 			expect(canvas.getByText(column.label)).toBeInTheDocument();
 		}
-
 		for (const row of rows) {
 			for (const column of columns) {
 				if (["sex", "active"].includes(column.key)) {
@@ -268,6 +267,15 @@ export const LoadingStatus: Story = {
 		tableProps,
 		loading: true,
 	},
+	play: async ({ canvasElement, args }) => {
+		if (args.loading) {
+			expect(
+				canvasElement.querySelector(
+					'[data-test="dhis2-uicore-tablebody"]',
+				),
+			).toHaveClass("loading");
+		}
+	},
 };
 
 /**
@@ -338,6 +346,9 @@ export const Pagination: Story = {
 		columns,
 		rows,
 		tableProps,
+	},
+	play: async ({ canvasElement }) => {
+		const canvas = within(canvasElement);
 	},
 };
 
