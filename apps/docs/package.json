@@ -24,6 +24,7 @@
     "@dhis2/ui": "^9.1.1",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "@storybook/addon-a11y": "^7.6.8",
     "@storybook/addon-actions": "^7.6.7",
     "@storybook/addon-docs": "^7.6.7",
     "@storybook/addon-essentials": "^7.6.7",

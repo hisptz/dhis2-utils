@@ -51,6 +51,9 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
+      '@storybook/addon-a11y':
+        specifier: ^7.6.8
+        version: 7.6.8
       '@storybook/addon-actions':
         specifier: ^7.6.7
         version: 7.6.7
@@ -7227,6 +7230,13 @@ packages:
     dependencies:
       '@sinonjs/commons': 3.0.0
 
+  /@storybook/addon-a11y@7.6.8:
+    resolution: {integrity: sha512-jaBDNQzumA/0DqN1zHM3sq3QeXtMmQDKNE24D6X9nd7FLJQlN9bTHSQJC3/LM4/wt0CUlz2L8iP5Egu5VTxr1w==}
+    dependencies:
+      '@storybook/addon-highlight': 7.6.8
+      axe-core: 4.7.2
+    dev: true
+
   /@storybook/addon-actions@7.6.7:
     resolution: {integrity: sha512-+6EZvhIeKEqG/RNsU3R5DxOrd60BL5GEvmzE2w60s2eKaNNxtyilDjiO1g4z2s2zDNyr7JL/Ft03pJ0Jgo0lew==}
     dependencies:
@@ -7326,6 +7336,12 @@ packages:
 
   /@storybook/addon-highlight@7.6.7:
     resolution: {integrity: sha512-2F/tJdn45d4zrvf/cmE1vsczl99wK8+I+kkj0G7jLsrJR0w1zTgbgjy6T9j86HBTBvWcnysNFNIRWPAOh5Wdbw==}
+    dependencies:
+      '@storybook/global': 5.0.0
+    dev: true
+
+  /@storybook/addon-highlight@7.6.8:
+    resolution: {integrity: sha512-3mUfdLxaegCKWSm0i245RhnmEgkE+uLnOkE7h2kiztrWGqYuzGBKjgfZuVrftqsEWWc7LlJ1xdDZsIgs5Z06gA==}
     dependencies:
       '@storybook/global': 5.0.0
     dev: true

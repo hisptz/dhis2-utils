@@ -3,10 +3,10 @@ import { Meta, StoryObj } from "@storybook/react";
 import rawRows from "../../shared/resources/data.json";
 import { Tag } from "@dhis2/ui";
 import { useEffect, useMemo, useState } from "react";
-import { chunk, difference, isEmpty, sortBy, uniq } from "lodash";
+import { chunk, difference, head, isEmpty, sortBy, uniq } from "lodash";
 import { useDataQuery } from "@dhis2/app-runtime";
 import { SimpleDataTableRow, SimpleDataTableSortState } from "./types";
-import { within } from "@storybook/testing-library";
+import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 
 const meta: Meta<typeof SimpleDataTable> = {
@@ -102,7 +102,9 @@ export const Default: Story = {
 					continue;
 				}
 				expect(
-					canvas.getByText(row[column.key as any]),
+					canvas.getByText(
+						row[column.key as keyof typeof row] as string,
+					),
 				).toBeInTheDocument();
 			}
 		}
@@ -201,42 +203,57 @@ export const SelectableRows: Story = {
 			console.log(selectedValueIds);
 		},
 	},
-	play: async () => {
-		// const canvas = within(canvasElement);
-		// const header = canvas.getAllByRole("row")[0];
-		// const firstRow = canvas.getAllByRole("row")[1];
-		// if (firstRow) {
-		// 	await step("Check the first row", async () => {
-		// 		const checkboxCell = head(firstRow.children);
-		// 		await expect(checkboxCell).toBeInTheDocument();
-		// 		await checkboxCell?.firstElementChild?.click();
-		// 		expect(
-		// 			checkboxCell?.firstElementChild?.firstElementChild,
-		// 		).toBeChecked();
-		// 		//
-		// 		checkboxCell?.firstElementChild?.click();
-		// 		expect(
-		// 			checkboxCell?.firstElementChild?.firstElementChild,
-		// 		).not.toBeChecked();
-		// 	});
-		// 	await step("Check all rows", async () => {
-		// 		const checkboxCell = head(header.children);
-		// 		await expect(checkboxCell).toBeInTheDocument();
-		// 		await checkboxCell?.firstElementChild?.firstElementChild?.firstElementChild?.firstElementChild?.click();
-		// 		expect(
-		// 			checkboxCell?.firstElementChild?.firstElementChild
-		// 				?.firstElementChild?.firstElementChild
-		// 				?.firstElementChild,
-		// 		).toBeChecked();
-		// 		//
-		// 		checkboxCell?.firstElementChild?.firstElementChild?.firstElementChild?.firstElementChild?.click();
-		// 		expect(
-		// 			checkboxCell?.firstElementChild?.firstElementChild
-		// 				?.firstElementChild?.firstElementChild
-		// 				?.firstElementChild,
-		// 		).not.toBeChecked();
-		// 	});
-		// }
+	play: async ({ canvasElement, step }) => {
+		const canvas = within(canvasElement);
+		const header = canvas.getAllByRole("row")[0];
+		const firstRow = canvas.getAllByRole("row")[1];
+		if (firstRow) {
+			await step("Check the first row", async () => {
+				const checkboxCell = head(firstRow.children);
+				await expect(checkboxCell).toBeInTheDocument();
+				const checkbox = checkboxCell?.firstElementChild;
+
+				expect(checkbox).not.toBeNull();
+				expect(checkbox).not.toBeUndefined();
+
+				if (checkbox) {
+					await userEvent.click(checkbox);
+					expect(
+						checkboxCell?.firstElementChild?.firstElementChild,
+					).toBeChecked();
+					await userEvent.click(checkbox);
+					expect(
+						checkboxCell?.firstElementChild?.firstElementChild,
+					).not.toBeChecked();
+				}
+			});
+			await step("Check all rows", async () => {
+				const checkboxCell = head(header.children);
+				await expect(checkboxCell).toBeInTheDocument();
+
+				const checkbox =
+					checkboxCell?.firstElementChild?.firstElementChild
+						?.firstElementChild?.firstElementChild;
+
+				expect(checkbox).not.toBeNull();
+				expect(checkbox).not.toBeUndefined();
+
+				if (checkbox) {
+					await userEvent.click(checkbox);
+					expect(
+						checkboxCell?.firstElementChild?.firstElementChild
+							?.firstElementChild?.firstElementChild
+							?.firstElementChild,
+					).toBeChecked();
+					await userEvent.click(checkbox);
+					expect(
+						checkboxCell?.firstElementChild?.firstElementChild
+							?.firstElementChild?.firstElementChild
+							?.firstElementChild,
+					).not.toBeChecked();
+				}
+			});
+		}
 	},
 };
 
