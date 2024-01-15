@@ -1,5 +1,5 @@
 {
-  "name": "@hisptz/utils",
+  "name": "@hisptz/dhis2-utils",
   "version": "2.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -12,6 +12,7 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
+    "test": "jest",
     "lint": "eslint . --max-warnings 0",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },

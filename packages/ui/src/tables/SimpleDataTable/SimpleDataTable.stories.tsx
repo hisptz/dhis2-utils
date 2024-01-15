@@ -6,6 +6,8 @@ import { useEffect, useMemo, useState } from "react";
 import { chunk, difference, isEmpty, sortBy, uniq } from "lodash";
 import { useDataQuery } from "@dhis2/app-runtime";
 import { SimpleDataTableRow, SimpleDataTableSortState } from "./types";
+import { within } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
 
 const meta: Meta<typeof SimpleDataTable> = {
 	component: SimpleDataTable,
@@ -87,6 +89,24 @@ export const Default: Story = {
 		rows,
 		height: 500,
 	},
+	play: async ({ canvasElement }) => {
+		const canvas = within(canvasElement);
+
+		for (const column of columns) {
+			expect(canvas.getByText(column.label)).toBeInTheDocument();
+		}
+
+		for (const row of rows) {
+			for (const column of columns) {
+				if (["sex", "active"].includes(column.key)) {
+					continue;
+				}
+				expect(
+					canvas.getByText(row[column.key as any]),
+				).toBeInTheDocument();
+			}
+		}
+	},
 };
 
 /**
@@ -98,6 +118,10 @@ export const EmptyRows: Story = {
 	args: {
 		columns,
 		rows: [],
+	},
+	play: async ({ canvasElement }) => {
+		const canvas = within(canvasElement);
+		expect(canvas.getByText("There are no items")).toBeInTheDocument();
 	},
 };
 
@@ -111,6 +135,10 @@ export const CustomizedEmptyRows: Story = {
 		columns,
 		rows: [],
 		emptyLabel: "A customized empty label",
+	},
+	play: async ({ canvasElement, args }) => {
+		const canvas = within(canvasElement);
+		expect(canvas.getByText(args.emptyLabel as string)).toBeInTheDocument();
 	},
 };
 
@@ -168,11 +196,47 @@ export const SelectableRows: Story = {
 		columns,
 		rows,
 		tableProps,
-		selectedRows: ["708zSF7wu", "835lS6TVu", "478iIvojm"],
 		selectable: true,
 		onRowSelect: (selectedValueIds) => {
 			console.log(selectedValueIds);
 		},
+	},
+	play: async () => {
+		// const canvas = within(canvasElement);
+		// const header = canvas.getAllByRole("row")[0];
+		// const firstRow = canvas.getAllByRole("row")[1];
+		// if (firstRow) {
+		// 	await step("Check the first row", async () => {
+		// 		const checkboxCell = head(firstRow.children);
+		// 		await expect(checkboxCell).toBeInTheDocument();
+		// 		await checkboxCell?.firstElementChild?.click();
+		// 		expect(
+		// 			checkboxCell?.firstElementChild?.firstElementChild,
+		// 		).toBeChecked();
+		// 		//
+		// 		checkboxCell?.firstElementChild?.click();
+		// 		expect(
+		// 			checkboxCell?.firstElementChild?.firstElementChild,
+		// 		).not.toBeChecked();
+		// 	});
+		// 	await step("Check all rows", async () => {
+		// 		const checkboxCell = head(header.children);
+		// 		await expect(checkboxCell).toBeInTheDocument();
+		// 		await checkboxCell?.firstElementChild?.firstElementChild?.firstElementChild?.firstElementChild?.click();
+		// 		expect(
+		// 			checkboxCell?.firstElementChild?.firstElementChild
+		// 				?.firstElementChild?.firstElementChild
+		// 				?.firstElementChild,
+		// 		).toBeChecked();
+		// 		//
+		// 		checkboxCell?.firstElementChild?.firstElementChild?.firstElementChild?.firstElementChild?.click();
+		// 		expect(
+		// 			checkboxCell?.firstElementChild?.firstElementChild
+		// 				?.firstElementChild?.firstElementChild
+		// 				?.firstElementChild,
+		// 		).not.toBeChecked();
+		// 	});
+		// }
 	},
 };
 

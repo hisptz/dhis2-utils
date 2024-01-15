@@ -7,6 +7,7 @@
     "dev": "storybook dev -p 6006",
     "build": "storybook build --docs",
     "preview-storybook": "serve storybook-static",
+    "test": "concurrently --success 'command-1' -k -n \"dev|test\" --name-separator \"|\" 'storybook dev -p 6006' 'wait-on tcp:6006 && test-storybook' ",
     "clean": "rm -rf .turbo && rm -rf node_modules",
     "lint": "eslint ./stories/*.stories.tsx --max-warnings 0"
   },
@@ -29,12 +30,16 @@
     "@storybook/addon-links": "^7.6.7",
     "@storybook/react": "^7.6.7",
     "@storybook/react-vite": "^7.6.7",
+    "@storybook/test-runner": "^0.16.0",
     "@types/node": "^20.10.8",
     "@vitejs/plugin-react": "^4.2.1",
+    "concurrently": "^8.2.2",
     "eslint": "^8.56.0",
+    "playwright": "^1.40.1",
     "serve": "^14.2.1",
     "storybook": "^7.6.7",
     "typescript": "^5.3.3",
-    "vite": "^5.0.10"
+    "vite": "^5.0.10",
+    "wait-on": "^7.2.0"
   }
 }

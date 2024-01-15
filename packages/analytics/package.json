@@ -40,7 +40,7 @@
     "react-hook-form": "^7.43.9"
   },
   "dependencies": {
-    "@hisptz/utils": "workspace:*",
+    "@hisptz/dhis2-utils": "workspace:*",
     "@hisptz/dhis2-ui": "workspace:*",
     "@react-leaflet/core": "^2.1.0",
     "d3-color": "^3.1.0",
