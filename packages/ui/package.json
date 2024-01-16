@@ -9,9 +9,22 @@
   "files": [
     "dist/**"
   ],
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./tables": {
+      "require": "./dist/tables/index.js",
+      "import": "./dist/tables/index.mjs",
+      "types": "./dist/tables/index.d.ts"
+    }
+  },
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
+    "pack": "npm pack",
     "lint": "eslint . --max-warnings 0",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
@@ -49,8 +62,6 @@
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "recoil": "^0.7.7",
-    "tsup": "^8.0.1",
-    "typescript": "^5.3.3",
     "usehooks-ts": "^2.9.2"
   },
   "publishConfig": {
