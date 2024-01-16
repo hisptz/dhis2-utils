@@ -4,7 +4,12 @@ export default defineConfig((options) => {
 	const devMode = options.watch === true;
 	return {
 		...options,
-		entry: ["src/index.ts", "src/tables/index.ts"],
+		entry: [
+			"src/index.ts",
+			"src/tables/index.ts",
+			"src/selectors/index.ts",
+			"src/forms/index.ts",
+		],
 		ignoreWatch: ["*/**.stories.*"],
 		splitting: false,
 		sourcemap: false,
