@@ -22,6 +22,13 @@ export default meta;
 
 type Story = StoryObj<typeof ConfirmDialog>;
 
+/**
+ * The simplest implementation only requires a `title`, `message`, and `onConfirm` function.
+ *
+ *
+ *
+ *
+ * */
 export const Default: Story = {
 	name: "Default",
 	render: (props) => {
@@ -48,6 +55,10 @@ export const Default: Story = {
 		message: "A specified message will appear here",
 	},
 };
+
+/**
+ * You can override the confirmation button by providing a custom background color and label text
+ * */
 export const WithPrimaryAction: Story = {
 	name: "With primary action",
 	render: (props) => {
@@ -70,11 +81,17 @@ export const WithPrimaryAction: Story = {
 		);
 	},
 	args: {
-		title: "An example confirm dialog",
-		message: "A specified message will appear here",
+		title: "Custom confirmation button example",
+		message: "Would you like allow so and so to do so and so",
 		confirmButtonColor: "primary",
+		confirmButtonText: "Allow",
 	},
 };
+
+/**
+ * You can also override the color and text of the cancel button
+ *
+ * */
 export const WithCustomButtons: Story = {
 	name: "With custom button text",
 	render: (props) => {
@@ -103,6 +120,11 @@ export const WithCustomButtons: Story = {
 		confirmButtonText: "Custom confirm",
 	},
 };
+
+/**
+ * You can add custom actions to the modal. The actions will be rendered as buttons and will be placed between the cancel and confirmation button.
+ *
+ * */
 export const WithCustomAction: Story = {
 	name: "With custom actions",
 	render: (props) => {

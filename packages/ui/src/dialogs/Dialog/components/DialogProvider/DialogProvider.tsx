@@ -9,6 +9,17 @@ import {
 } from "../../types";
 import { ConfirmDialog } from "../ConfirmDialog";
 
+/**
+ * Provides a dialog context and methods to show different types of dialogs.
+ *
+ * @param {ReactNode} children - The content of the dialog provider.
+ * @returns {ReactNode} - The result of rendering the dialog provider.
+ *
+ * @example
+ * <DialogProvider>
+ *   <App />
+ * </DialogProvider>
+ */
 export function DialogProvider({ children }: { children: ReactNode }) {
 	const [open, setOpen] = useState(false);
 	const { value: confirming, setTrue, setFalse } = useBoolean(false);
@@ -75,4 +86,15 @@ export function DialogProvider({ children }: { children: ReactNode }) {
 			</>
 		</DialogContext.Provider>
 	);
+}
+
+/**
+ * @deprecated since v2.
+ * Use `DialogProvider` instead
+ *
+ * A wrapper for `DialogProvider` for v1 compatibility.
+ *
+ * */
+export function ConfirmDialogProvider({ children }: { children: ReactNode }) {
+	return <DialogProvider>{children}</DialogProvider>;
 }

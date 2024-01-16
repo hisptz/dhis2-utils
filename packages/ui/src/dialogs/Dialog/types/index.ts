@@ -1,11 +1,17 @@
 import { ReactNode } from "react";
-import { CustomAction } from "../components/ConfirmDialog";
 import { ButtonProps } from "@dhis2/ui";
 
 export interface Dialog {
 	size?: "small" | "large";
 	position?: "top" | "bottom" | "middle";
 	title: string;
+}
+
+export interface CustomAction {
+	label: string;
+	onClick: () => void;
+	properties?: string[];
+	color?: "primary" | "secondary" | "destructive";
 }
 
 export interface ConfirmDialogConfig extends Dialog {

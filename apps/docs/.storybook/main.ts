@@ -23,6 +23,12 @@ const config: StorybookConfig = {
 		reactDocgen: "react-docgen",
 		skipBabel: true,
 		check: false,
+		reactDocgenTypescriptOptions: {
+			include: [
+				resolve(__dirname, "../../../packages/ui/src/**/**.tsx?"),
+			],
+			shouldIncludePropTagMap: true,
+		},
 	},
 	addons: [
 		getAbsolutePath("@storybook/addon-links"),

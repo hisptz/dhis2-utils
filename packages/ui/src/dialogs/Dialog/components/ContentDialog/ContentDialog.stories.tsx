@@ -22,6 +22,9 @@ export default meta;
 
 type Story = StoryObj<typeof ContentDialog>;
 
+/**
+ * By default, only `title`, `content` and `onClose` are required.
+ */
 export const Default: Story = {
 	name: "Default",
 	render: (props) => {
@@ -61,8 +64,14 @@ export const Default: Story = {
 				finibus sapien libero nec dui.
 			</>
 		),
+		onClose: () => {},
 	},
 };
+
+/**
+ * You can also add custom actions using the `actions` prop
+ *
+ * */
 export const CustomActions: Story = {
 	name: "Custom actions",
 	render: (props) => {
