@@ -14,6 +14,9 @@ export default meta;
 
 type Story = StoryObj<typeof OrgUnitSelectorModal>;
 
+/**
+ * The modal accepts all `OrgUnitSelector` props as well as visibility control props (`hide` and `onClose`)
+ * */
 export const Default: Story = {
 	name: "Default",
 	args: {},

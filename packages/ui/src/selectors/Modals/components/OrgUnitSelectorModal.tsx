@@ -16,6 +16,11 @@ import {
 } from "../../OrgUnitSelector";
 import { ModalProps } from "../types";
 
+/**
+ * This is a modal wrapper for `OrgUnitSelector` with internal state to control the selected values.
+ * It returns the value using `onUpdate` function prop when the user clicks the update button.
+ *
+ * */
 export function OrgUnitSelectorModal({
 	small,
 	large,
