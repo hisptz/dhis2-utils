@@ -34,12 +34,12 @@ const config: StorybookConfig = {
 		getAbsolutePath("@storybook/addon-links"),
 		getAbsolutePath("@storybook/addon-essentials"),
 		getAbsolutePath("@storybook/addon-docs"),
-		"@storybook/addon-interactions",
-		"@storybook/addon-a11y",
-		"@storybook/addon-coverage",
+		getAbsolutePath("@storybook/addon-interactions"),
+		getAbsolutePath("@storybook/addon-a11y"),
+		getAbsolutePath("@storybook/addon-coverage"),
 	],
 	framework: {
-		name: "@storybook/react-vite",
+		name: getAbsolutePath("@storybook/react-vite"),
 		options: {},
 	},
 

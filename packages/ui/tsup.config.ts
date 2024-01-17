@@ -4,6 +4,7 @@ export default defineConfig((options) => {
 	const devMode = options.watch === true;
 	return {
 		...options,
+		treeshake: true,
 		entry: [
 			"src/index.ts",
 			"src/tables/index.ts",

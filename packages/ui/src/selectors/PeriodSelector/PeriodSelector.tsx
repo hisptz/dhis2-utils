@@ -4,11 +4,11 @@ import { head, isEmpty } from "lodash";
 import React, { useCallback, useMemo, useState } from "react";
 import DateRange from "./components/DateRange";
 import PeriodSelect from "./components/PeriodSelect";
-import { DateRangeValue, PeriodSelectorProps } from "./types/props";
+import { DateRangeValue, PeriodSelectorProps } from "./types";
 
 export * from "./components/PeriodSelect";
-export * from "./components/FixedPeriodSelector";
-export * from "./types/props";
+export * from "./components/FixedPeriodSelector/FixedPeriodSelector";
+export * from "./types";
 
 export function PeriodSelector({
 	excludedPeriodTypes,

@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
 import { CustomSelectField } from "../../../../forms";
-import { PeriodTypeCategory, PeriodUtility } from "@hisptz/dhis2-utils";
 import i18n from "@dhis2/d2-i18n";
 import { MapOrEntries, useMap } from "usehooks-ts";
 import { head, isEmpty, uniqBy } from "lodash";
+import { PeriodTypeCategory, PeriodUtility } from "@hisptz/dhis2-utils";
 
 export interface FixedPeriodSelectorProps {
 	onSelect: ({ items }: { items: Array<string> }) => void;
@@ -11,6 +11,16 @@ export interface FixedPeriodSelectorProps {
 	allowFuturePeriods?: boolean;
 }
 
+/**
+ * This is a period selector that allows selection of fixed periods only.
+ *
+ * @param {Object} props - The component props.
+ * @param {boolean} props.allowFuturePeriods - Whether to allow future periods. Default is false.
+ * @param {Array} props.selectedPeriods - The selected periods.
+ * @param {function} props.onSelect - The callback function when a period is selected.
+ *
+ * @returns {ReactNode} The fixed period selector component.
+ */
 export function FixedPeriodSelector({
 	allowFuturePeriods,
 	selectedPeriods,
@@ -51,18 +61,18 @@ export function FixedPeriodSelector({
 			[
 				...Array.from(Array(10).keys())
 					.map((index) => ({
-						label: `${currentYear - index}`,
-						value: `${currentYear - index}`,
+						name: `${currentYear - index}`,
+						code: `${currentYear - index}`,
 					}))
 					.reverse(),
 				...(allowFuturePeriods
 					? Array.from(Array(5).keys()).map((index) => ({
-							label: `${currentYear + index}`,
-							value: `${currentYear + index}`,
+							name: `${currentYear + index}`,
+							code: `${currentYear + index}`,
 						}))
 					: []),
 			],
-			"value",
+			"code",
 		);
 	}, [year]);
 
@@ -76,8 +86,8 @@ export function FixedPeriodSelector({
 
 	const periodTypes = useMemo(() => {
 		return periodUtility.periodTypes.map((periodType) => ({
-			label: periodType.config.name,
-			value: periodType.id,
+			name: periodType.config.name,
+			code: periodType.id,
 		}));
 	}, [periodUtility]);
 
@@ -87,10 +97,14 @@ export function FixedPeriodSelector({
 		}
 		const periodTypeConfig = periodUtility.getPeriodType(periodType);
 		return periodTypeConfig?.periods?.map((period) => ({
-			label: period.name,
-			value: period.id,
+			name: period.name,
+			code: period.id,
 		}));
 	}, [periodUtility, periodType]);
+
+	console.log({
+		years,
+	});
 
 	return (
 		<div
@@ -113,15 +127,19 @@ export function FixedPeriodSelector({
 					onChange={(value: string) => set("periodType", value)}
 					name="periodType"
 					label={i18n.t("Period Type")}
-					options={periodTypes}
+					optionSet={{
+						options: periodTypes,
+					}}
 				/>
 				{!isYearPeriodType && (
 					<CustomSelectField
 						label={i18n.t("Year")}
 						value={year}
-						options={years}
 						name="year"
 						onChange={(value: string) => set("year", value)}
+						optionSet={{
+							options: years,
+						}}
 					/>
 				)}
 			</div>
@@ -131,7 +149,7 @@ export function FixedPeriodSelector({
 				}
 				label={i18n.t("Period")}
 				value={head(selectedPeriods)}
-				options={periods}
+				optionSet={{ options: periods }}
 				name="periods"
 				onChange={(value: string) => onSelect({ items: [value] })}
 			/>

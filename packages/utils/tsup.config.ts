@@ -4,11 +4,18 @@ export default defineConfig((options) => {
 	const devMode = options.watch === true;
 	return {
 		...options,
-		entry: ["src/index.ts"],
-		splitting: !devMode,
+		ignoreWatch: ["*/**.stories.*"],
+		entry: [
+			"./src/**/*.{ts,tsx}",
+			"!./src/**/*.stories.ts",
+			"!./src/**/*.test.ts",
+		],
+		splitting: false,
+		sourcemap: false,
 		clean: true,
-		dts: !devMode,
+		dts: true,
 		format: ["esm", "cjs"],
-		bundle: !devMode,
+		external: ["@dhis2/d2-i18n", "lodash", "usehooks-ts"],
+		bundle: false,
 	};
 });
