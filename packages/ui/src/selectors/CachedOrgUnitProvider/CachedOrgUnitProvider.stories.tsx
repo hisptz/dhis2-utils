@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { OfflineOrgUnitProvider } from "./CachedOrgUnitProvider";
-import { OrgUnitSelector } from "../OrgUnitSelector";
+import { OrgUnitSelector } from "../OrgUnitSelector/OrgUnitSelector";
 import { Button } from "@dhis2/ui";
 import { CustomOrgUnitProvider } from "./components/CachedOrgUnits";
 import { useClearOrganisationData } from "./hooks";

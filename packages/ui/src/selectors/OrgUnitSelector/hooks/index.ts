@@ -2,8 +2,8 @@ import { useDataQuery } from "@dhis2/app-runtime";
 import { useContext } from "react";
 import { orgUnitLevelAndGroupsQuery, orgUnitRootsQuery } from "../services";
 import { FilterState, FilterStateProps } from "../states/filter";
-import { OrganisationUnit } from "@hisptz/dhis2-utils";
 import { isEmpty } from "lodash";
+import { OrganisationUnit } from "../types";
 
 export function useOrgUnitsRoot(defaultRoots?: OrganisationUnit[]): {
 	roots?: Array<OrganisationUnit>;

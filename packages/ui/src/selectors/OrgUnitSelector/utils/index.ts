@@ -1,4 +1,3 @@
-import type { OrganisationUnit, OrgUnitSelection } from "@hisptz/dhis2-utils";
 import {
 	cloneDeep,
 	compact,
@@ -10,6 +9,7 @@ import {
 	take,
 	uniq,
 } from "lodash";
+import { OrganisationUnit, OrgUnitSelection } from "../types";
 
 type OnUpdate = (updatedOrgUnitSelection: OrgUnitSelection) => void;
 

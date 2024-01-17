@@ -1,6 +1,5 @@
 import { Field, Transfer } from "@dhis2/ui";
 import { debounce, find, findIndex, uniqBy } from "lodash";
-import PropTypes from "prop-types";
 import React, { useMemo, useState } from "react";
 import { DataSourceProps } from "../../types";
 import DataSourceSearch from "../Search";
@@ -41,10 +40,12 @@ export default function DataSource({
 	};
 
 	return (
-		<Field error={error} validationText={error?.message}>
+		<Field error={!!error} validationText={error?.message}>
 			<Transfer
 				maxSelections={
-					typeof maxSelections === "number" ? maxSelections : null
+					typeof maxSelections === "number"
+						? maxSelections
+						: undefined
 				}
 				onEndReached={onEndReached}
 				loading={loading}
@@ -82,11 +83,3 @@ export default function DataSource({
 		</Field>
 	);
 }
-
-DataSource.propTypes = {
-	disabled: PropTypes.array,
-	selected: PropTypes.array,
-	selectedDataSourceType: PropTypes.object,
-	selectedGroup: PropTypes.object,
-	onChange: PropTypes.func,
-};

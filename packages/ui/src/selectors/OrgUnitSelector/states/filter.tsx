@@ -1,5 +1,4 @@
 import { useDataQuery } from "@dhis2/app-runtime";
-import type { OrganisationUnit } from "@hisptz/dhis2-utils";
 import { compact, debounce, isEmpty } from "lodash";
 import React, {
 	createContext,
@@ -12,6 +11,7 @@ import React, {
 } from "react";
 import { orgUnitSearchQuery } from "../services";
 import { sanitizeExpansionPaths, sanitizeFilters } from "../utils";
+import { OrganisationUnit } from "../types";
 
 export interface FilterStateProps {
 	searchValue?: string;

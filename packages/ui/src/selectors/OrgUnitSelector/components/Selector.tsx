@@ -1,10 +1,4 @@
-import {
-	Box,
-	CenteredContent,
-	CircularLoader,
-	colors,
-	IconError24,
-} from "@dhis2/ui";
+import { Box, Center, CircularLoader, colors, IconError24 } from "@dhis2/ui";
 import React, { Fragment, useMemo } from "react";
 import { useOrgUnitsRoot } from "../hooks";
 import { OrgUnitSelectorProps } from "../types";
@@ -33,14 +27,14 @@ export default function OrgUnitSelector({
 	);
 
 	const BorderedContainer = styled.div`{
-      box-sizing: border-box;
-      border-radius: 4px;
-      border: 1px solid #A0ADBA;
-      display: flex;
-      flex-direction: column;
-      min-height: 400px;
-      max-height: 500px;
-      overflow: hidden;
+        box-sizing: border-box;
+        border-radius: 4px;
+        border: 1px solid #A0ADBA;
+        display: flex;
+        flex-direction: column;
+        min-height: 400px;
+        max-height: 500px;
+        overflow: hidden;
     }`;
 
 	if (error) {
@@ -55,7 +49,7 @@ export default function OrgUnitSelector({
 					justifyContent: "center",
 				}}
 			>
-				<IconError24 style={{ color: colors.grey700 }} />
+				<IconError24 color={colors.grey700} />
 				<p style={{ color: colors.grey700 }}>
 					{error.message ?? "Something went wrong"}
 				</p>
@@ -89,9 +83,9 @@ export default function OrgUnitSelector({
 							/>
 						)}
 						{error && (
-							<CenteredContent>
+							<Center>
 								<p>{error?.message || error.toString()}</p>
-							</CenteredContent>
+							</Center>
 						)}
 						<div
 							style={{
@@ -115,9 +109,9 @@ export default function OrgUnitSelector({
 								/>
 							)}
 							{loading && !error && (
-								<CenteredContent>
+								<Center>
 									<CircularLoader small />
-								</CenteredContent>
+								</Center>
 							)}
 						</div>
 					</BorderedContainer>

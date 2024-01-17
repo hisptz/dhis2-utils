@@ -7,11 +7,13 @@ import {
 	ModalContent,
 	ModalTitle,
 } from "@dhis2/ui";
-import type { OrgUnitSelection } from "@hisptz/dhis2-utils";
 import { flatten, last } from "lodash";
 import React, { useCallback, useState } from "react";
-import { OrgUnitSelector } from "../../OrgUnitSelector";
-import { OrgUnitSelectorProps } from "../../OrgUnitSelector/types";
+import {
+	OrgUnitSelection,
+	OrgUnitSelector,
+	OrgUnitSelectorProps,
+} from "../../OrgUnitSelector";
 import { ModalProps } from "../types";
 
 export function OrgUnitSelectorModal({

@@ -1,13 +1,50 @@
-import type { OrganisationUnit, OrgUnitSelection } from "@hisptz/dhis2-utils";
-
-export type OrgUnit = {
+export type OrganisationUnitGroup = {
 	id: string;
-	path?: string;
 	displayName?: string;
+	shortName?: string;
+	name?: string;
+	code?: string;
+	href?: string;
+	lastUpdated?: string;
+	created?: string;
+	sharing?:
+		| string
+		| {
+				external: boolean;
+				users: Record<string, any>;
+				userGroups: Record<string, any>;
+		  };
+	translations?: any[];
+	organisationUnits: OrganisationUnit[];
 };
 
-export type OrgUnitSelectorValue = {
-	orgUnits?: Array<OrgUnit>;
+export type OrganisationUnit = {
+	path?: string;
+	level?: number;
+	organisationUnitGroups?: OrganisationUnitGroup[];
+	children: OrganisationUnit[];
+	parent?: OrganisationUnit;
+	ancestors?: OrganisationUnit[];
+	id: string;
+	displayName?: string;
+	shortName?: string;
+	name?: string;
+	code?: string;
+	href?: string;
+	lastUpdated?: string;
+	created?: string;
+	sharing?:
+		| string
+		| {
+				external: boolean;
+				users: Record<string, any>;
+				userGroups: Record<string, any>;
+		  };
+	translations?: any[];
+};
+
+export type OrgUnitSelection = {
+	orgUnits?: Array<OrganisationUnit>;
 	levels?: Array<string>;
 	groups?: Array<string>;
 	userOrgUnit?: boolean;

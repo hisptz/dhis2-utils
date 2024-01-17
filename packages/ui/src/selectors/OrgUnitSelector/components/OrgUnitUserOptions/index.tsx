@@ -1,12 +1,12 @@
 import i18n from "@dhis2/d2-i18n";
 import { CheckboxField, colors } from "@dhis2/ui";
-import { OrgUnitSelection } from "@hisptz/dhis2-utils";
 import React from "react";
 import {
 	onUserOrUnitChange,
 	onUserSubUnitsChange,
 	onUserSubX2Units,
 } from "../../utils";
+import { OrgUnitSelection } from "../../types";
 
 export function OrgUnitUserOptions({
 	value,

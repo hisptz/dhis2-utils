@@ -9,9 +9,9 @@ export function OrgUnitSearch({ searchable }: { searchable?: boolean }) {
 	const search = onSearch;
 
 	const onSearchChange = useCallback(
-		({ value }: { value: string }) => {
+		({ value }: { value?: string }) => {
 			setKeyword(value);
-			if (onSearch) {
+			if (onSearch && value) {
 				onSearch(value);
 			}
 		},

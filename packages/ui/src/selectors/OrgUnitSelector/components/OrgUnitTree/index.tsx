@@ -1,11 +1,6 @@
 import i18n from "@dhis2/d2-i18n";
-import {
-	CenteredContent,
-	CircularLoader,
-	OrganisationUnitTree,
-} from "@dhis2/ui";
-import type { OrganisationUnit, OrgUnitSelection } from "@hisptz/dhis2-utils";
-import { isEmpty } from "lodash";
+import { Center, CircularLoader, OrganisationUnitTree } from "@dhis2/ui";
+import { compact, isEmpty } from "lodash";
 import React, { memo } from "react";
 import { useFilterOrgUnits } from "../../hooks";
 import {
@@ -13,6 +8,7 @@ import {
 	onDeselectOrgUnit,
 	onSelectOrgUnit,
 } from "../../utils";
+import { OrganisationUnit, OrgUnitSelection } from "../../types";
 
 export function CustomOrgUnitNodeLabel({
 	node,
@@ -99,9 +95,9 @@ function Tree({
 					className="column center"
 					style={{ height: "100%", width: "100%" }}
 				>
-					<CenteredContent>
+					<Center>
 						<CircularLoader small />
-					</CenteredContent>
+					</Center>
 				</div>
 			) : (searchValue?.length ?? 0) > 3 &&
 			  isEmpty(filteredOrgUnits) &&
@@ -121,8 +117,13 @@ function Tree({
 					forceReload
 					filter={filteredOrgUnits}
 					disableSelection={disableSelections}
-					selected={selectedOrgUnits?.map((orgUnit) => orgUnit.path)}
-					expanded={expanded}
+					selected={compact(
+						selectedOrgUnits?.map((orgUnit) => orgUnit.path),
+					)}
+					highlighted={compact(
+						selectedOrgUnits?.map((orgUnit) => orgUnit.path),
+					)}
+					expanded={expanded as unknown as boolean} //TODO: Report this issue and fix when done
 					handleExpand={handleExpand}
 					handleCollapse={handleExpand}
 					renderNodeLabel={(props: any) => (
