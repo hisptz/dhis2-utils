@@ -1,4 +1,4 @@
-export * from "./DataSourceSelector";
+export * from "./DataSourceSelector/DataSourceSelector";
 export * from "./Modals";
 export * from "./OrgUnitSelector";
 export * from "./PeriodSelector";

@@ -50,6 +50,7 @@ export default class NativeDataSource extends DataSource {
 					filter: Array<string>;
 				}) => ({
 					page,
+					pageSize: 100,
 					totalPages: true,
 					fields: [
 						"displayName",
@@ -112,7 +113,7 @@ export default class NativeDataSource extends DataSource {
 			filter.push(`${this.groupKey}:eq:${selectedGroup.id}`);
 		}
 		if (searchKeyword) {
-			filter.push(`displayName:ilike:${searchKeyword}`);
+			filter.push(`identifiable:token:${searchKeyword}`);
 		}
 		return await this.getDataSources(engine, { page, filter });
 	}

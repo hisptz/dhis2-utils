@@ -20,10 +20,10 @@ export type DataSourceType = {
 
 export type DataSourceSelectorProps = {
 	dataSources?: dataSource[];
-	onSelect: (data: any) => void;
+	onSelect: (data: SelectedDataItem[]) => void;
 	disabled?: Array<string>;
 	maxSelections?: number | string;
-	selected?: DataSource[];
+	selected?: SelectedDataItem[];
 };
 
 export type Pager = {
@@ -48,4 +48,12 @@ export type GroupSelectorProps = {
 	selectedDataType: DataSource;
 	onSelect: (value: any) => void;
 	selectedGroup?: { id: string };
+};
+
+export type SelectedDataItem = {
+	id: string;
+	type: dataSource;
+	displayName: string;
+
+	[key: string]: unknown;
 };

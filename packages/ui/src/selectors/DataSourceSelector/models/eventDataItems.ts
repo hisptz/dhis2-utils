@@ -63,7 +63,7 @@ export default class EventDataItems extends NativeDataSource {
 					page,
 					id: programId,
 					filter: searchKeyword
-						? [`displayName:ilike:${searchKeyword}`]
+						? [`identifiable:token:${searchKeyword}`]
 						: [],
 				},
 			});
