@@ -5,6 +5,16 @@ import React, { useCallback, useMemo } from "react";
 import { DateRangeValue } from "../../types";
 import { DateTime } from "luxon";
 
+/**
+ * A component that allows the user to select a date range.
+ *
+ * @param {Object} options - The options for the DateRange component.
+ * @param {DateRangeValue[]} options.value - The current value of the date range.
+ * @param {Function} options.onChange - The function to call when the date range changes. Receives an object with an `items` property that contains the new date range value.
+ * @param {boolean} [options.allowFuturePeriods=false] - Specifies whether future periods are allowed in the date range.
+ *
+ * @return {JSX.Element} - The DateRange component.
+ */
 export default function DateRange({
 	value,
 	onChange,
@@ -27,7 +37,7 @@ export default function DateRange({
 
 	const onDateChange = useCallback(
 		(key: string) =>
-			({ value: dateValue }: { value: string }) => {
+			({ value: dateValue }: { value?: string }) => {
 				onChange({
 					items: [{ ...data, [key]: dateValue } as DateRangeValue],
 				});

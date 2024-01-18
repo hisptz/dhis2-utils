@@ -2,6 +2,7 @@ import { Provider } from "@dhis2/app-runtime";
 import { CssReset } from "@dhis2/ui";
 import React from "react";
 import hispTheme from "./theme";
+import "./style.css";
 
 export const parameters = {
 	actions: { argTypesRegex: "^on*" },

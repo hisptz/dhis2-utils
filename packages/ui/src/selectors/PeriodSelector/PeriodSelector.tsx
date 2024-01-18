@@ -2,11 +2,11 @@ import i18n from "@dhis2/d2-i18n";
 import { SegmentedControl } from "@dhis2/ui";
 import { head, isEmpty } from "lodash";
 import React, { useCallback, useMemo, useState } from "react";
-import DateRange from "./components/DateRange";
-import PeriodSelect from "./components/PeriodSelect";
+import DateRange from "./components/DateRange/DateRange";
+import PeriodSelect from "./components/PeriodSelect/PeriodSelect";
 import { DateRangeValue, PeriodSelectorProps } from "./types";
 
-export * from "./components/PeriodSelect";
+export * from "./components/PeriodSelect/PeriodSelect";
 export * from "./components/FixedPeriodSelector/FixedPeriodSelector";
 export * from "./types";
 

@@ -20,6 +20,24 @@ import {
 	PeriodUtility,
 } from "@hisptz/dhis2-utils";
 
+/**
+ * The PeriodSelect component allows selection of both relative and fixed periods.
+ *
+ * Features:
+ *
+ *  - Period type filtering
+ *  - Future periods control
+ *
+ * @param {object} props - The properties for the PeriodSelect component.
+ * @param {Array<string>} props.excludedPeriodTypes - The types of periods to exclude from the options.
+ * @param {(items: Array<string>) => void} props.onSelect - The callback function to be called when period(s) are selected.
+ * @param {Array<string>} props.selectedPeriods - The currently selected periods.
+ * @param {boolean} [props.excludeFixedPeriods] - Whether to exclude fixed periods from the options. Defaults to false.
+ * @param {boolean} [props.excludeRelativePeriods] - Whether to exclude relative periods from the options. Defaults to false.
+ * @param {boolean} [props.singleSelection] - Whether to allow only one period to be selected. Defaults to false.
+ * @param {boolean} [props.allowFuturePeriods] - Whether to allow future periods to be shown. Defaults to false.
+ *
+ */
 export default function PeriodSelect({
 	excludedPeriodTypes,
 	onSelect,
@@ -151,7 +169,7 @@ export default function PeriodSelect({
 										dense
 										label={i18n.t("Year")}
 										type={"number"}
-										value={year}
+										value={year.toString()}
 										max={
 											!allowFuturePeriods
 												? new Date()
@@ -162,17 +180,23 @@ export default function PeriodSelect({
 										onChange={({
 											value,
 										}: {
-											value: number;
+											value?: string;
 										}) => {
-											console.log(allowFuturePeriods);
-											if (
-												!allowFuturePeriods &&
-												value > new Date().getFullYear()
-											) {
-												console.log("Really??");
+											if (!value) {
 												return;
 											}
-											setYear(value);
+
+											const parsedValue = parseInt(
+												value.toString(),
+											);
+											if (
+												!allowFuturePeriods &&
+												parsedValue >
+													new Date().getFullYear()
+											) {
+												return;
+											}
+											setYear(parsedValue);
 										}}
 									/>
 								</div>

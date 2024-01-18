@@ -1,6 +1,6 @@
-import type { PeriodPreference } from "@hisptz/dhis2-utils";
 import {
 	BasePeriod,
+	PeriodPreference,
 	PeriodTypeCategory,
 	PeriodUtility,
 } from "@hisptz/dhis2-utils";
