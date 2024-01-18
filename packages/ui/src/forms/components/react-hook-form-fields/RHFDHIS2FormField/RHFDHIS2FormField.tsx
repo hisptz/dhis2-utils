@@ -10,6 +10,21 @@ export interface RHFDHIS2FormFieldProps extends RHFFieldProps {
 	valueType: VALUE_TYPE;
 }
 
+/**
+ * This is a React hook form field wrapper for the `DHIS2FormField`.
+ * It enables the React hook form library to control the field by just specifying the field name
+ *
+ *
+ * This component must be used inside a `FormProvider` from `react-hook-form`.
+ *
+ * @param {Object} RHFDHIS2FormFieldProps - The props for the RHFDHIS2FormField component.
+ * @param {string} RHFDHIS2FormFieldProps.valueType - The type of value being held by the form field.
+ * @param {Object} RHFDHIS2FormFieldProps.optionSet - The option set for the form field.
+ * @param {string} RHFDHIS2FormFieldProps.name - The name of the form field.
+ * @param {Object} RHFDHIS2FormFieldProps.validations - The validation rules for the form field.
+ * @param {Object} props - Additional props for the component.
+ * @returns {React.Component} - The RHFDHIS2FormField component.
+ */
 export const RHFDHIS2FormField = ({
 	valueType,
 	optionSet,

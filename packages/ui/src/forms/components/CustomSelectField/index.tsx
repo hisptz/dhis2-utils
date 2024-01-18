@@ -47,6 +47,13 @@ export const CustomSelectField = React.forwardRef(
 			return "";
 		}, [options, value]);
 
+		const validationText =
+			typeof warning === "string"
+				? warning
+				: typeof error === "string"
+					? error
+					: undefined;
+
 		return (
 			<SingleSelectField
 				ref={ref}
@@ -55,7 +62,7 @@ export const CustomSelectField = React.forwardRef(
 					onChange(selected)
 				}
 				error={!!error}
-				validationText={error ?? warning}
+				validationText={validationText}
 				filterable={options.length > 5}
 				warning={Boolean(warning)}
 				{...props}

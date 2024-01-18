@@ -15,14 +15,18 @@ import { YesNoField } from "../YesNoField";
 import { LegendDefinitionsFormField } from "../LegendDefinitions";
 import { LegendMinMaxGroup } from "../LegendMinMaxGroup";
 import { RichTextEditor } from "../RichTextEditor";
+import { isEmpty } from "lodash";
 
 export interface DHIS2FormFieldProps extends FieldProps {
 	optionSet?: OptionSet;
+	/**
+	 * DHIS2 value type
+	 * */
 	valueType: VALUE_TYPE;
 }
 
 function getField(valueType: VALUE_TYPE, optionSet?: OptionSet) {
-	if (optionSet) {
+	if (!isEmpty(optionSet)) {
 		return CustomSelectField;
 	}
 	switch (valueType) {
@@ -61,16 +65,32 @@ function getField(valueType: VALUE_TYPE, optionSet?: OptionSet) {
 	}
 }
 
-export const DHIS2FormField = React.forwardRef(
-	({ valueType, optionSet, ...props }: DHIS2FormFieldProps, ref) => {
-		const Field = getField(valueType, optionSet);
-		return (
-			<Field
-				ref={ref}
-				valueType={valueType}
-				optionSet={optionSet}
-				{...props}
-			/>
-		);
-	},
-);
+/**
+ * This is a component that can be used to render fields based on DHIS2 value types.
+ * The component supports most used DHIS2 value types and has standardized how data is passed and obtained by the field.
+ *
+ * The valueType prop determines what field will be shown.
+ * In scenarios where the optionSet is provided, the valueType is ignored and a Select field is rendered instead.
+ *
+ * Apart from the valueType and optionSet, the component also accepts any prop from `FieldProps`
+ * @param {Object} props - The properties of the component.
+ *
+ * @param {string} props.valueType - The value type of the form field.
+ * @param {Object} props.optionSet - The option set of the form field.
+ * @param {React.Ref} ref - The ref of the component.
+ *
+ */
+export const DHIS2FormField = React.forwardRef<
+	DHIS2FormFieldProps,
+	DHIS2FormFieldProps
+>(({ valueType, optionSet, ...props }: DHIS2FormFieldProps, ref) => {
+	const Field = getField(valueType, optionSet);
+	return (
+		<Field
+			ref={ref}
+			valueType={valueType}
+			optionSet={optionSet}
+			{...props}
+		/>
+	);
+});

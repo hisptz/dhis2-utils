@@ -4,7 +4,6 @@ import { DateTime } from "luxon";
 import React, { useCallback, useMemo } from "react";
 import classes from "./AgeField.module.css";
 import { formatDate, getValues } from "./utils";
-import { VALUE_TYPES } from "../../constants";
 import { FieldProps } from "../../interfaces";
 
 export interface AgeFieldProps extends FieldProps {
@@ -38,7 +37,8 @@ export const AgeField = React.forwardRef(
 		);
 
 		const onDateChange = useCallback(
-			(value: string) => {
+			({ value }: { value?: string }) => {
+				if (!value) return;
 				onChange(new Date(value).toISOString());
 			},
 			[onChange],
@@ -49,11 +49,23 @@ export const AgeField = React.forwardRef(
 		}, [onChange]);
 
 		return (
-			<Field error={Boolean(error)} name={name}>
+			<Field
+				warning={!!props.warning}
+				validationText={
+					typeof props.warning === "string"
+						? props.warning
+						: typeof error === "string"
+							? error
+							: undefined
+				}
+				error={Boolean(error)}
+				name={name}
+			>
 				<div className={classes["age-field-container"]}>
 					<div className={classes["date-input"]}>
 						<InputField
 							{...props}
+							warning={undefined}
 							max={max ?? DateTime.now().toFormat("yyyy-LL-dd")}
 							error={Boolean(error)}
 							ref={ref}
@@ -61,7 +73,7 @@ export const AgeField = React.forwardRef(
 							label={i18n.t("Date")}
 							name={name}
 							onChange={onDateChange}
-							type={VALUE_TYPES.DATE.formName}
+							type={"date"}
 						/>
 					</div>
 					<div
