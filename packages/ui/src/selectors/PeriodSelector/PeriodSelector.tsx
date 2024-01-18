@@ -10,6 +10,22 @@ export * from "./components/PeriodSelect/PeriodSelect";
 export * from "./components/FixedPeriodSelector/FixedPeriodSelector";
 export * from "./types";
 
+/**
+ * The `PeriodSelector` components combines the `PeriodSelect` and `DateRange` selectors into one component with SegmentedControl to select which selector is active at a time.
+ * This is useful in use cases where both date range or periods are relevant for the selection.
+ *
+ * @param {object} props - The properties object.
+ * @param {string[]} [props.excludedPeriodTypes] - The period types to exclude from the selection.
+ * @param {string[]} [props.selectedPeriods] - The initially selected periods.
+ * @param {function} props.onSelect - The callback function called when a period or date range is selected.
+ * @param {boolean} [props.excludeFixedPeriods] - Whether to exclude fixed periods from the selection.
+ * @param {boolean} [props.excludeRelativePeriods] - Whether to exclude relative periods from the selection.
+ * @param {boolean} [props.singleSelection] - Whether to allow only one selection at a time.
+ * @param {boolean} [props.enableDateRange] - Whether to enable the date range selector.
+ * @param {string} [props.defaultInputType] - The default input type when selected periods are empty.
+ * @param {boolean} [props.enablePeriodSelector] - Whether to enable the period selector.
+ * @param {boolean} [props.allowFuturePeriods] - Whether to allow future periods to be selected.
+ */
 export function PeriodSelector({
 	excludedPeriodTypes,
 	selectedPeriods,
@@ -38,14 +54,23 @@ export function PeriodSelector({
 					return "period";
 				} else {
 					throw Error(
-						"Date range periods must be enabled by passing the prop `enablePeriodSelector`",
+						"Fixed or relative periods must be enabled by passing the prop `enablePeriodSelector`",
 					);
 				}
 			}
 		} else {
-			return defaultInputType ?? enableDateRange ? "dateRange" : "period";
+			if (defaultInputType) {
+				return defaultInputType;
+			}
+			if (enablePeriodSelector) {
+				return "period";
+			}
+			if (enableDateRange) {
+				return "dateRange";
+			}
+			return "period";
 		}
-	}, [enablePeriodSelector, enableDateRange]);
+	}, [enablePeriodSelector, enableDateRange, defaultInputType]);
 	const [inputType, setInputType] = useState<string>(initialInputType);
 
 	const onInputTypeChange = useCallback(
