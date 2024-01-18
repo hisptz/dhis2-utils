@@ -8,12 +8,17 @@ import {
 	ModalTitle,
 } from "@dhis2/ui";
 import React, { useCallback, useState } from "react";
-import type { PeriodSelectorProps } from "../../PeriodSelector/PeriodSelector";
-import { PeriodSelector } from "../../PeriodSelector/PeriodSelector";
+import type { PeriodSelectorProps } from "../../PeriodSelector";
+import { PeriodSelector } from "../../PeriodSelector";
 import { ModalProps } from "../types";
 
 export { PeriodSelectorProps };
 
+/**
+ * This is a modal wrapper for `PeriodSelector` with internal state to control the selected values.
+ * It returns the value using `onUpdate` function prop when the user clicks the update button.
+ *
+ * */
 export function PeriodSelectorModal({
 	small,
 	large,
