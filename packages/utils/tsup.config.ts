@@ -1,9 +1,9 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig((options) => {
-	const devMode = options.watch === true;
 	return {
 		...options,
+		treeshake: true,
 		ignoreWatch: ["*/**.stories.*"],
 		entry: [
 			"./src/**/*.{ts,tsx}",
@@ -11,7 +11,7 @@ export default defineConfig((options) => {
 			"!./src/**/*.test.ts",
 		],
 		splitting: false,
-		sourcemap: false,
+		sourcemap: true,
 		clean: true,
 		dts: true,
 		format: ["esm", "cjs"],

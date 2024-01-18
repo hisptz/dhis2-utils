@@ -14,11 +14,6 @@
       "require": "./dist/index.js",
       "import": "./dist/index.mjs",
       "types": "./dist/index.d.ts"
-    },
-    "./tables": {
-      "require": "./dist/tables/index.js",
-      "import": "./dist/tables/index.mjs",
-      "types": "./dist/tables/index.d.ts"
     }
   },
   "scripts": {

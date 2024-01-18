@@ -1,21 +1,19 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig((options) => {
-	const devMode = options.watch === true;
 	return {
 		...options,
 		treeshake: true,
 		entry: [
-			"src/index.ts",
-			"src/tables/index.ts",
-			"src/selectors/index.ts",
-			"src/forms/index.ts",
+			"./src/**/*.{ts,tsx}",
+			"!./src/**/*.stories.ts",
+			"!./src/**/*.test.ts",
 		],
 		ignoreWatch: ["*/**.stories.*"],
 		splitting: false,
-		sourcemap: false,
+		sourcemap: true,
 		clean: true,
-		dts: !devMode,
+		dts: false,
 		format: ["esm", "cjs"],
 		external: [
 			"react",
@@ -30,6 +28,6 @@ export default defineConfig((options) => {
 			"recoil",
 			"usehooks-ts",
 		],
-		bundle: !devMode,
+		bundle: false,
 	};
 });
