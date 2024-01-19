@@ -1,5 +1,5 @@
 import { FieldProps } from "../../interfaces";
-import { InputField } from "@dhis2/ui";
+import { InputField, InputType } from "@dhis2/ui";
 import React, { useMemo } from "react";
 import { VALUE_TYPE } from "../../constants";
 
@@ -53,16 +53,22 @@ export const NativeField = React.forwardRef(
 
 		return (
 			<InputField
+				{...props}
+				warning={!!props.warning}
 				value={value}
-				type={fieldType}
+				type={fieldType as InputType}
 				name={name}
 				min={min?.toString() ?? "0"}
 				max={max?.toString()}
 				onChange={({ value }: { value: any }) => onChange(value)}
-				ref={ref}
 				error={!!error}
-				validationText={typeof error === "string" ? error : undefined}
-				{...props}
+				validationText={
+					typeof props.warning === "string"
+						? props.warning
+						: typeof error === "string"
+							? error
+							: undefined
+				}
 			/>
 		);
 	},

@@ -30,7 +30,7 @@ export const ActionComponent = memo(
 
 		const rulesToRun = useMemo(() => {
 			return rules.filter(({ triggers }) =>
-				triggers.some(({ id }) => id === field),
+				triggers.some(({ id }: { id: string }) => id === field),
 			);
 		}, [rules, field]);
 

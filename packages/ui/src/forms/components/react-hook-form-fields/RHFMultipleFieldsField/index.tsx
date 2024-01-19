@@ -41,7 +41,7 @@ export function RHFMultipleFieldsField(
 		remove(index);
 	};
 	return (
-		<Field {...props}>
+		<Field {...props} warning={!!props.warning}>
 			<div ref={ref} className="column">
 				{multipleField
 					? fields?.map(({ id: fieldId }, index) => {

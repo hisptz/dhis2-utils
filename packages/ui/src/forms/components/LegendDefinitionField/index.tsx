@@ -1,4 +1,4 @@
-import { Field, Input, Popover } from "@dhis2/ui";
+import { Field, Input, Popover, ReferenceElement } from "@dhis2/ui";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import type { Color } from "react-color";
@@ -8,7 +8,7 @@ import classes from "./LegendDefinitionField.module.css";
 import { FieldProps, LegendDefinition } from "../../interfaces";
 
 type ColorPickerProps = {
-	reference: EventTarget;
+	reference: ReferenceElement;
 	value: any;
 	onClose: () => void;
 	onChange: (value: any) => void;
@@ -24,6 +24,8 @@ function ColorPickerPopper({
 		<Popover
 			reference={reference}
 			placement="auto"
+			/*
+      // @ts-ignore */
 			strategy="fixed"
 			className="popper"
 			onClickOutside={onClose}
@@ -61,9 +63,9 @@ export const LegendDefinitionField = React.forwardRef(
 		ref: React.Ref<any>,
 	) => {
 		const { color, name: legendName, id } = value ?? {};
-		const [reference, setReference] = useState<EventTarget | undefined>(
-			undefined,
-		);
+		const [reference, setReference] = useState<
+			ReferenceElement | undefined
+		>(undefined);
 
 		const onColorChange = (color: any) => {
 			onChange({
@@ -73,7 +75,7 @@ export const LegendDefinitionField = React.forwardRef(
 			});
 		};
 
-		const onNameChange = (newName: { value: string }) => {
+		const onNameChange = (newName: { value?: string }) => {
 			onChange({
 				...value,
 				id: id ?? uid(),
@@ -82,7 +84,13 @@ export const LegendDefinitionField = React.forwardRef(
 		};
 
 		return (
-			<Field {...props} name={name} label={label} value={value}>
+			<Field
+				{...props}
+				error={!!props.error}
+				warning={!!props.warning}
+				name={name}
+				label={label}
+			>
 				<div
 					ref={ref}
 					id={name}

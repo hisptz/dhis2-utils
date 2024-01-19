@@ -13,12 +13,19 @@ export function CustomTextAreaField({
 }: CustomTextAreaFieldProps) {
 	return (
 		<TextAreaField
+			{...props}
+			warning={!!props.warning}
 			value={value}
 			name={name}
-			onChange={({ value }: { value: any }) => onChange(value)}
+			onChange={({ value }: { value?: any }) => onChange(value)}
 			error={!!error}
-			validationText={typeof error === "string" ? error : undefined}
-			{...props}
+			validationText={
+				typeof props.warning === "string"
+					? props.warning
+					: typeof error === "string"
+						? error
+						: undefined
+			}
 		/>
 	);
 }

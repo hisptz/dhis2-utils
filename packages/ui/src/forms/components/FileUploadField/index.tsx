@@ -30,8 +30,17 @@ export const FileUploadField = React.forwardRef(
 		return (
 			<FileField
 				{...props}
-				files={[value]}
-				validationText={error}
+				warning={!!props.warning}
+				/*
+      // @ts-ignore */
+				files={[value] as unknown as any}
+				validationText={
+					typeof props.warning === "string"
+						? props.warning
+						: typeof error === "string"
+							? error
+							: undefined
+				}
 				error={!!error}
 				accept={accept ?? "image/*,.jpg,.png,.pdf,.doc,.docx"}
 				name={name}
@@ -46,6 +55,8 @@ export const FileUploadField = React.forwardRef(
 							removeText={i18n.t("Remove")}
 							onRemove={() => onChange(undefined)}
 							label={value?.name}
+							/*
+      // @ts-ignore */
 							file={value}
 						/>
 					</FileListComponent>

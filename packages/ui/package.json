@@ -3,21 +3,22 @@
   "version": "2.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "sideEffects": false,
   "license": "MIT",
   "files": [
-    "dist/**"
+    "dist/**",
+    "package.json"
   ],
   "exports": {
     ".": {
       "require": "./dist/index.js",
       "import": "./dist/index.mjs",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/types/index.d.ts"
     }
   },
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && tsc",
     "dev": "tsup --watch",
     "pack": "npm pack",
     "lint": "eslint . --max-warnings 0",
@@ -43,6 +44,7 @@
     "@types/luxon": "^3.4.0",
     "@types/prop-types": "^15.7.11",
     "@types/react": "^18.2.46",
+    "@types/react-color": "^3.0.11",
     "@types/react-dom": "^18.2.18",
     "async": "^3.2.5",
     "classnames": "^2.5.1",

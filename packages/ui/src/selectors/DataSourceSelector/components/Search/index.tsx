@@ -15,7 +15,7 @@ export default function DataSourceSearch({
 				type="text"
 				value={keyword}
 				name="keyword"
-				onChange={({ value }: { value: string }) =>
+				onChange={({ value }: { value?: string }) =>
 					setSearchKeyword(value)
 				}
 			/>

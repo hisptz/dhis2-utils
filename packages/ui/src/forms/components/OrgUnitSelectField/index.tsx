@@ -10,7 +10,7 @@ import { OrganisationUnit, OrgUnitSelection } from "@hisptz/dhis2-utils";
 import { compact, head } from "lodash";
 import { useBoolean } from "usehooks-ts";
 import i18n from "@dhis2/d2-i18n";
-import { OrgUnitSelectorProps } from "../../../selectors/OrgUnitSelector/types";
+import { OrgUnitSelectorProps } from "../../../selectors/OrgUnitSelector";
 
 export interface OrgUnitSelectFieldProps extends FieldProps {
 	/**
@@ -26,7 +26,7 @@ export interface OrgUnitSelectFieldProps extends FieldProps {
 	 * Used to override `OrgUnitSelector` component props
 	 * */
 	orgUnitProps?: OrgUnitSelectorProps;
-	customIcon?: React.ReactElement;
+	customIcon?: React.FC<any>;
 }
 
 const orgUnitQuery = {
@@ -99,16 +99,17 @@ export const OrgUnitSelectField = React.forwardRef(
 
 		return (
 			<Field
-				ref={ref}
 				required={required}
-				error={fetchError ?? Boolean(error)}
+				error={!!fetchError ?? Boolean(error)}
 				warning={Boolean(warning)}
 				validationText={
-					fetchError?.message ?? typeof error === "string"
-						? error
-						: "" ?? typeof warning === "string"
-							? warning
-							: ""
+					fetchError?.message
+						? fetchError.message
+						: typeof error === "string"
+							? error
+							: typeof warning === "string"
+								? warning
+								: undefined
 				}
 				label={label}
 			>

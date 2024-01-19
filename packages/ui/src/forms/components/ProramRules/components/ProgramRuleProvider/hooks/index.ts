@@ -9,7 +9,7 @@ import {
 	FieldWarningState,
 } from "../state";
 import { flatten, forEach, some, uniq } from "lodash";
-import { useFetch } from "../services/fetch";
+import { useDataFetch } from "../services/fetch";
 import { useFormContext } from "react-hook-form";
 import {
 	ActionCallbacks,
@@ -65,7 +65,7 @@ export function useActionCallbacks(): ActionCallbacks {
 		clearErrors,
 		trigger: triggerValidation,
 	} = useFormContext();
-	const { fetch } = useFetch(optionGroupsQuery);
+	const { fetch } = useDataFetch(optionGroupsQuery);
 
 	const getOptionGroups = useCallback(
 		async (ids: string[]) => {

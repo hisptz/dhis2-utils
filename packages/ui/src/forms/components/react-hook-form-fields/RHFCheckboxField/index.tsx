@@ -26,7 +26,6 @@ export function RHFCheckboxField({
 					{...props}
 					checked={value}
 					name={name}
-					ref={ref}
 					onBlur={onBlur}
 					onChange={({ checked }: { checked: boolean }) =>
 						onChange(checked)

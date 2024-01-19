@@ -52,7 +52,13 @@ export function LegendDefinitionsFormField({
 				{...props}
 				error={Boolean(error)}
 				warning={Boolean(warning)}
-				validationText={error ?? warning}
+				validationText={
+					typeof props.warning === "string"
+						? props.warning
+						: typeof error === "string"
+							? error
+							: undefined
+				}
 				label={label}
 				name={name}
 			>

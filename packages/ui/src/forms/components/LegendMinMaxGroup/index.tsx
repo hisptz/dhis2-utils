@@ -38,7 +38,13 @@ export function LegendMinMaxGroup({
 			{...props}
 			error={Boolean(error)}
 			warning={Boolean(warning)}
-			validationText={error ?? warning}
+			validationText={
+				typeof props.warning === "string"
+					? props.warning
+					: typeof error === "string"
+						? error
+						: undefined
+			}
 		>
 			<div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
 				{legendDefinitions?.map((legendDefinition, index) => {

@@ -57,7 +57,8 @@ export const LegendMinMax = React.forwardRef(
 
 		const onValueChange = useCallback(
 			(type: "startValue" | "endValue") =>
-				({ value: newValue }: { value: string }) => {
+				({ value: newValue }: { value?: string }) => {
+					if (!newValue) return;
 					const object = value ?? legend;
 					const newNumberValue = parseFloat(newValue);
 
@@ -94,11 +95,17 @@ export const LegendMinMax = React.forwardRef(
 
 		return (
 			<Field
-				validationText={error || rangeError}
+				validationText={
+					typeof props.warning === "string"
+						? props.warning
+						: typeof error === "string"
+							? error
+							: undefined
+				}
 				error={Boolean(error) || Boolean(rangeError)}
 				{...props}
+				warning={!!props.warning}
 				name={name}
-				value={value}
 				label={undefined}
 			>
 				<div
@@ -133,7 +140,7 @@ export const LegendMinMax = React.forwardRef(
 						<InputField
 							value={value?.startValue?.toString()}
 							type="number"
-							min={min}
+							min={min?.toString()}
 							max={`${value?.endValue ?? max ?? ""}`}
 							onChange={onValueChange("startValue")}
 							label={i18n.t("Min")}
@@ -142,7 +149,7 @@ export const LegendMinMax = React.forwardRef(
 							value={value?.endValue?.toString()}
 							type="number"
 							min={`${value?.startValue ?? min ?? ""}`}
-							max={max}
+							max={max?.toString()}
 							onChange={onValueChange("endValue")}
 							label={i18n.t("Max")}
 						/>

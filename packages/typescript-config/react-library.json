@@ -3,6 +3,7 @@
   "display": "React Library",
   "extends": "./base.json",
   "compilerOptions": {
+    "emitDeclarationOnly": true,
     "resolveJsonModule": true,
     "jsx": "react-jsx",
     "lib": [
@@ -10,6 +11,7 @@
       "ESNext"
     ],
     "module": "ESNext",
-    "target": "es2022"
+    "target": "es2022",
+    "typeRoots": []
   }
 }

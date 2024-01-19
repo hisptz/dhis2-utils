@@ -30,7 +30,7 @@ export function AddLegendDefinition({
 	return (
 		<FormProvider {...form}>
 			<Field
-				error={error}
+				error={!!error}
 				validationText={error?.message}
 				label={i18n.t("New Legend Definition")}
 			>

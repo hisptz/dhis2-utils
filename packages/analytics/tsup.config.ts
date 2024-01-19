@@ -1,14 +1,35 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig((options) => {
-	const devMode = options.watch === true;
 	return {
 		...options,
-		entry: ["src/index.ts"],
-		splitting: !devMode,
+		treeshake: true,
+		entry: [
+			"src/**/*.{ts,tsx}",
+			"!src/**/*.stories.ts",
+			"!src/**/*.test.ts",
+			"!src/**/*.test.ts",
+			"src/**/*.module.css",
+		],
+		ignoreWatch: ["*/**.stories.*"],
+		splitting: false,
+		sourcemap: true,
 		clean: true,
-		dts: !devMode,
+		dts: false,
 		format: ["esm", "cjs"],
-		bundle: !devMode,
+		external: [
+			"react",
+			"react-dom",
+			"@dhis2/app-runtime",
+			"@dhis2/d2-i18n",
+			"@dhis2/ui",
+			"classnames",
+			"eslint",
+			"lodash",
+			"react",
+			"recoil",
+			"usehooks-ts",
+		],
+		bundle: false,
 	};
 });

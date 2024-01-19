@@ -33,7 +33,6 @@ export function RHFSingleSelectField({
 							: undefined
 					}
 					filterable
-					name={name}
 					ref={ref}
 					onChange={({ selected }: { selected: any }) =>
 						onChange(selected)

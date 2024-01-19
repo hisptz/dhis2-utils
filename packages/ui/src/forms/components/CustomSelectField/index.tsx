@@ -40,8 +40,9 @@ export const CustomSelectField = React.forwardRef(
 		const selectedValue = useMemo(() => {
 			if (value) {
 				return (
-					options.find((option) => option.value === value)?.value ??
-					""
+					options.find(
+						(option: { value: string }) => option.value === value,
+					)?.value ?? ""
 				);
 			}
 			return "";

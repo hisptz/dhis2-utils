@@ -1,5 +1,18 @@
 {
   "extends": "@repo/typescript-config/react-library.json",
-  "include": ["."],
-  "exclude": ["dist", "build", "node_modules"]
+  "include": [
+    "src",
+    "global.d.ts",
+    "!tsup.config.ts"
+  ],
+  "exclude": [
+    "dist",
+    "build",
+    "node_modules",
+    "**/*.test.tsx",
+    "**/*.stories.tsx"
+  ],
+  "compilerOptions": {
+    "declarationDir": "dist/types"
+  }
 }

@@ -3,7 +3,12 @@ import { CustomSelectField } from "../../../../forms";
 import i18n from "@dhis2/d2-i18n";
 import { MapOrEntries, useMap } from "usehooks-ts";
 import { head, isEmpty, uniqBy } from "lodash";
-import { PeriodTypeCategory, PeriodUtility } from "@hisptz/dhis2-utils";
+import {
+	BasePeriod,
+	BasePeriodType,
+	PeriodTypeCategory,
+	PeriodUtility,
+} from "@hisptz/dhis2-utils";
 
 export interface FixedPeriodSelectorProps {
 	onSelect: ({ items }: { items: Array<string> }) => void;
@@ -85,7 +90,7 @@ export function FixedPeriodSelector({
 	}, [periodType]);
 
 	const periodTypes = useMemo(() => {
-		return periodUtility.periodTypes.map((periodType) => ({
+		return periodUtility.periodTypes.map((periodType: BasePeriodType) => ({
 			name: periodType.config.name,
 			code: periodType.id,
 		}));
@@ -96,7 +101,7 @@ export function FixedPeriodSelector({
 			return [];
 		}
 		const periodTypeConfig = periodUtility.getPeriodType(periodType);
-		return periodTypeConfig?.periods?.map((period) => ({
+		return periodTypeConfig?.periods?.map((period: BasePeriod) => ({
 			name: period.name,
 			code: period.id,
 		}));

@@ -28,7 +28,9 @@ export function RHFTextInputField({
 					onBlur={onBlur}
 					ref={ref}
 					value={value}
-					onChange={({ value }: { value: string }) => onChange(value)}
+					onChange={({ value }: { value?: string }) =>
+						onChange(value)
+					}
 				/>
 			)}
 		/>

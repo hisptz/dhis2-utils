@@ -3,7 +3,13 @@ import { FieldProps } from "../../interfaces";
 import { CustomCheckboxField } from "../CustomCheckboxField";
 import i18n from "@dhis2/d2-i18n";
 import { SelectOption } from "../CustomSelectField";
-import { Field, Radio, SingleSelectField, SingleSelectOption } from "@dhis2/ui";
+import {
+	Field,
+	Radio,
+	RadioChangeHandler,
+	SingleSelectField,
+	SingleSelectOption,
+} from "@dhis2/ui";
 
 export interface YesNoFieldProps extends FieldProps {
 	renderAsCheckbox?: boolean;
@@ -35,7 +41,13 @@ export function YesNoField({
 					onChange(selected)
 				}
 				error={!!error}
-				validationText={error}
+				validationText={
+					typeof props.warning === "string"
+						? props.warning
+						: typeof error === "string"
+							? error
+							: undefined
+				}
 				filterable={options.length > 5}
 			>
 				{options?.map(({ label, value }: SelectOption) => (
@@ -49,8 +61,8 @@ export function YesNoField({
 		);
 	}
 
-	const onRadioChange = useCallback(
-		({ checked, name }: { checked: boolean; name: string }) => {
+	const onRadioChange: RadioChangeHandler = useCallback(
+		({ checked, name }) => {
 			if (checked) {
 				if (name === "yes") {
 					onChange("true");
@@ -66,7 +78,13 @@ export function YesNoField({
 		<Field
 			{...props}
 			error={!!error}
-			validationText={error ?? warning}
+			validationText={
+				typeof props.warning === "string"
+					? props.warning
+					: typeof error === "string"
+						? error
+						: undefined
+			}
 			warning={Boolean(warning)}
 		>
 			<div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
