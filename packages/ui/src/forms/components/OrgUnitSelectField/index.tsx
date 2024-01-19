@@ -100,7 +100,7 @@ export const OrgUnitSelectField = React.forwardRef(
 		return (
 			<Field
 				required={required}
-				error={!!fetchError ?? Boolean(error)}
+				error={fetchError !== undefined ? !!fetchError : !!error}
 				warning={Boolean(warning)}
 				validationText={
 					fetchError?.message

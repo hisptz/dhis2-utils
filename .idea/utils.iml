@@ -26,6 +26,7 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/ui/.turbo" />
       <excludeFolder url="file://$MODULE_DIR$/packages/utils/.turbo" />
       <excludeFolder url="file://$MODULE_DIR$/packages/utils/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/analytics/dist" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

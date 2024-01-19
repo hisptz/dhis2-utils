@@ -15,14 +15,12 @@ describe("Test relative periods", () => {
 	}).periodTypes;
 
 	forEach(relativePeriodTypes, (periodType) => {
-		console.log(
-			periodType.periods.map((period: RelativePeriod) => ({
-				name: period.name,
-				start: period.start.toFormat("yyyy-MM-dd"),
-				end: period.end.toFormat("yyyy-MM-dd"),
-			})),
-		);
+		it("Should be good", () => {
+			periodType.periods.map((period: RelativePeriod) => {
+				expect(period.id).not.toBeUndefined();
+				expect(period.start).not.toBeUndefined();
+				expect(period.end).not.toBeUndefined();
+			});
+		});
 	});
-
-	it("", () => expect(true).toBe(true));
 });

@@ -13,6 +13,7 @@
     "**/*.stories.tsx"
   ],
   "compilerOptions": {
-    "declarationDir": "dist/types"
+    "declarationDir": "dist/types",
+    "resolveJsonModule": true
   }
 }

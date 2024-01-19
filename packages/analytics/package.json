@@ -3,11 +3,12 @@
   "version": "2.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "sideEffects": false,
   "license": "MIT",
   "files": [
-    "dist/**"
+    "dist/**",
+    "package.json"
   ],
   "scripts": {
     "build": "tsup && tsc",
@@ -30,8 +31,9 @@
     "@types/react": "^18.2.46",
     "@types/react-dom": "^18.2.18",
     "@types/react-helmet": "^6.1.6",
-    "async-es": "^3.2.4",
+    "async-es": "^3.2.5",
     "classnames": "^2.5.1",
+    "concurrently": "^8.2.2",
     "eslint": "^8.56.0",
     "lodash": "^4.17.21",
     "react": "^18.2.0",

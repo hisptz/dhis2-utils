@@ -2,8 +2,7 @@
   "extends": "@repo/typescript-config/react-library.json",
   "include": [
     "src",
-    "global.d.ts",
-    "!tsup.config.ts"
+    "global.d.ts"
   ],
   "exclude": [
     "dist",
@@ -13,6 +12,7 @@
     "**/*.stories.tsx"
   ],
   "compilerOptions": {
-    "declarationDir": "dist/types"
+    "declarationDir": "dist/types",
+    "resolveJsonModule": true
   }
 }

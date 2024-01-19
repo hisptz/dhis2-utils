@@ -23,12 +23,6 @@ const config: StorybookConfig = {
 		reactDocgen: "react-docgen",
 		skipBabel: true,
 		check: false,
-		reactDocgenTypescriptOptions: {
-			include: [
-				resolve(__dirname, "../../../packages/ui/src/**/**.tsx?"),
-			],
-			shouldIncludePropTagMap: true,
-		},
 	},
 	addons: [
 		getAbsolutePath("@storybook/addon-links"),
@@ -53,10 +47,24 @@ const config: StorybookConfig = {
 			resolve: {
 				alias: [
 					{
+						find: "utils",
+						replacement: resolve(
+							__dirname,
+							"../../../packages/utils/",
+						),
+					},
+					{
 						find: "ui",
 						replacement: resolve(
 							__dirname,
 							"../../../packages/ui/",
+						),
+					},
+					{
+						find: "analytics",
+						replacement: resolve(
+							__dirname,
+							"../../../packages/analytics/",
 						),
 					},
 				],

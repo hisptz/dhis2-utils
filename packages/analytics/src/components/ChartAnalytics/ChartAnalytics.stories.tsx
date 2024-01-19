@@ -5,7 +5,7 @@ import multiSeriesData from "../../shared/resources/multi-series-data.json";
 import stackedChartData from "../../shared/resources/stacked-chart-data.json";
 import pieData from "../../shared/resources/pie-data.json";
 import complexMultiSeriesData from "../../shared/resources/complex-multi-series-data.json";
-import { Analytics } from "@hisptz/dhis2-utils/src";
+import { Analytics } from "@hisptz/dhis2-utils";
 import HighCharts from "highcharts";
 
 setupHighchartsModules(HighCharts);

@@ -8,6 +8,9 @@ import {
 import { MapProvider } from "./components/MapProvider";
 import { MapProps } from "./interfaces";
 import "leaflet/dist/leaflet.css";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 const MapComponent = (
 	{
@@ -41,7 +44,7 @@ const MapComponent = (
 	];
 
 	return (
-		<>
+		<QueryClientProvider client={queryClient}>
 			<MapProvider
 				periodSelection={periodSelection}
 				orgUnitSelection={orgUnitSelection}
@@ -60,7 +63,7 @@ const MapComponent = (
 					mapOptions={mapOptions}
 				/>
 			</MapProvider>
-		</>
+		</QueryClientProvider>
 	);
 };
 export const DHIS2Map: React.FC<MapProps> = forwardRef(MapComponent);

@@ -25,7 +25,7 @@ import {
 	ThematicLayerConfig,
 } from "../../../../MapLayer/interfaces";
 import { MapOrgUnit, PointOrgUnit } from "../../../../../interfaces";
-import { asyncify, map } from "async";
+import { asyncify, map } from "async-es";
 import { LegendSet } from "@hisptz/dhis2-utils";
 import {
 	defaultClasses,
