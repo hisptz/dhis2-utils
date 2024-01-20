@@ -1,8 +1,8 @@
-import type {Legend} from "@hisptz/dhis2-utils";
-import {MapOrgUnit, PointOrgUnit} from "../../../interfaces";
-import {LegendColorScale} from "../../../utils/colors";
-import {EarthEngineOptions} from "../components/GoogleEngineLayer/interfaces";
-import {EarthEngine} from "../components/GoogleEngineLayer/services/engine";
+import type { Legend } from "@hisptz/dhis2-utils";
+import { MapOrgUnit, PointOrgUnit } from "../../../interfaces";
+import { LegendColorScale } from "../../../utils/colors";
+import { EarthEngineOptions } from "../components/GoogleEngineLayer/interfaces";
+import { EarthEngine } from "../components/GoogleEngineLayer/services/engine";
 
 export type BoundaryLayerType = "basemap" | "overlay";
 export type ThematicLayerType = "choropleth" | "bubble";

@@ -1,14 +1,18 @@
-import {MapOrgUnit} from "../../../../../interfaces";
-import {EarthEngineOptions, EarthEngineToken, RefreshToken} from "../interfaces";
+import { MapOrgUnit } from "../../../../../interfaces";
 import {
-    combineReducers,
-    getFeatureCollectionProperties,
-    getHistogramStatistics,
-    getInfo,
-    getScale,
-    hasClasses
+	EarthEngineOptions,
+	EarthEngineToken,
+	RefreshToken,
+} from "../interfaces";
+import {
+	combineReducers,
+	getFeatureCollectionProperties,
+	getHistogramStatistics,
+	getInfo,
+	getScale,
+	hasClasses,
 } from "../utils";
-import {find, head, isEmpty} from "lodash";
+import { find, head, isEmpty } from "lodash";
 
 // async function importEEModule(): Promise<any> {
 //     // @ts-ignore

@@ -1,11 +1,10 @@
-import React, {createContext, useContext, useState} from "react";
-import {Dimension} from "../DimensionsProvider";
-
+import React, { createContext, useContext, useState } from "react";
+import { Dimension } from "../DimensionsProvider";
 
 export interface Layout {
-    rows: Dimension[];
-    columns: Dimension[];
-    filters: Dimension[]
+	rows: Dimension[];
+	columns: Dimension[];
+	filters: Dimension[];
 }
 
 export interface LayoutProviderProps {

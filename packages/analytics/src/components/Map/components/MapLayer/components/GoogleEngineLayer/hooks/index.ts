@@ -1,14 +1,14 @@
-import {useDataEngine} from "@dhis2/app-runtime";
-import {find} from "lodash";
-import {useMapLayers} from "../../../../MapProvider/hooks";
-import {CustomGoogleEngineLayer} from "../../../interfaces";
-import {EarthEngineToken} from "../interfaces";
-import {useState} from "react";
+import { useDataEngine } from "@dhis2/app-runtime";
+import { find } from "lodash";
+import { useMapLayers } from "../../../../MapProvider/hooks";
+import { CustomGoogleEngineLayer } from "../../../interfaces";
+import { EarthEngineToken } from "../interfaces";
+import { useState } from "react";
 
 const googleEngineKeyQuery = {
-  token: {
-    resource: "tokens/google",
-  },
+	token: {
+		resource: "tokens/google",
+	},
 };
 
 export function useGoogleEngineToken() {

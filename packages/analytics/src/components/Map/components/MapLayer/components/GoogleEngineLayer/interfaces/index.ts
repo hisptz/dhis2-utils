@@ -1,9 +1,9 @@
-import {MapOrgUnit} from "../../../../../interfaces";
+import { MapOrgUnit } from "../../../../../interfaces";
 
 export interface EarthEngineToken {
-  access_token: string;
-  client_id: string;
-  expires_in: number;
+	access_token: string;
+	client_id: string;
+	expires_in: number;
 }
 
 export type RefreshToken = () => Promise<{ token: EarthEngineToken }>;

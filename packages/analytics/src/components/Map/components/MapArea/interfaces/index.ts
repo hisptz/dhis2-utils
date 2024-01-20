@@ -1,16 +1,16 @@
-import {ControlPosition} from "leaflet";
-import type {MapContainerProps} from "react-leaflet";
+import { ControlPosition } from "leaflet";
+import type { MapContainerProps } from "react-leaflet";
 import {
-    CustomBoundaryLayer,
-    CustomPointLayer,
-    EarthEngineLayerConfig,
-    ThematicLayerConfig
+	CustomBoundaryLayer,
+	CustomPointLayer,
+	EarthEngineLayerConfig,
+	ThematicLayerConfig,
 } from "../../MapLayer/interfaces";
 
 export interface MapControls {
-  position: ControlPosition;
-  type: "zoom" | "rotate" | "fullscreen" | "compass" | "scale" | "print";
-  options?: Record<string, any>;
+	position: ControlPosition;
+	type: "zoom" | "rotate" | "fullscreen" | "compass" | "scale" | "print";
+	options?: Record<string, any>;
 }
 
 export interface MapLegendConfig {

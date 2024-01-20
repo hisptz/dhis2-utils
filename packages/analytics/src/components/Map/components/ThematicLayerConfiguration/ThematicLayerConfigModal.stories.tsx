@@ -1,28 +1,27 @@
-import {Story} from "@storybook/react";
-import {ThematicLayerConfigModal, ThematicLayerConfigModalProps} from "./index";
 import React from "react";
+import { ThematicLayerConfigModal } from "./ThematicLayerConfigModal";
+import { Meta, StoryObj } from "@storybook/react";
 
-const Template: Story<ThematicLayerConfigModalProps> = (args) => {
-  return <ThematicLayerConfigModal {...args} />;
+type Story = StoryObj<typeof ThematicLayerConfigModal>;
+export const Default: Story = {};
+Default.args = {
+	onChange: console.info,
+	onClose: () => {},
+	open: true,
 };
 
-export const Basic = Template.bind({});
-Basic.args = {
-  onChange: console.info,
-  onClose: () => {},
-  open: true,
+const meta: Meta<typeof ThematicLayerConfigModal> = {
+	title: "DHIS2 Map/Thematic Layer Config Modal",
+	component: ThematicLayerConfigModal,
+	decorators: [
+		(MapStory: any) => {
+			return (
+				<div style={{ width: "50%", height: "50%" }}>
+					<MapStory />
+				</div>
+			);
+		},
+	],
 };
 
-export default {
-  title: "Analytics/Map/Thematic Layer Config Modal",
-  component: ThematicLayerConfigModal,
-  decorators: [
-    (MapStory: any) => {
-      return (
-        <div style={{ width: "50%", height: "50%" }}>
-          <MapStory />
-        </div>
-      );
-    },
-  ],
-};
+export default meta;

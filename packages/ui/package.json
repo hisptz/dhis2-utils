@@ -1,84 +1,81 @@
 {
   "name": "@hisptz/dhis2-ui",
-  "version": "1.0.66",
-  "description": "A collection of reusable complex DHIS2 react ui components.",
-  "license": "BSD-3-Clause",
-  "scripts": {
-    "build": "d2-app-scripts build --no-verify --mode production",
-    "build:types": "tsc --project tsconfig.build.json",
-    "postbuild": "yarn build:types",
-    "start": "d2-app-scripts build --watch",
-    "test": "cypress run --component",
-    "test:open": "npx cypress open --component",
-    "publish:ui": "yarn publish --access public"
+  "version": "2.0.0-alpha.00",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/types/index.d.ts",
+  "typings": "./dist/types/index.d.ts",
+  "sideEffects": false,
+  "license": "MIT",
+  "files": [
+    "dist/**",
+    "package.json"
+  ],
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/types/index.d.ts"
+    }
   },
-  "devDependencies": {
-    "@dhis2/cli-app-scripts": "^10.3.0",
-    "@types/jest": "^29.2.5",
-    "@types/lodash": "^4.14.191",
-    "@types/node": "^18.14.6",
-    "@types/react-color": "^3.0.6",
-    "@types/styled-components": "^5.1.26",
-    "cypress": "^12.7.0",
-    "lodash": "^4.17.21",
-    "ts-loader": "^9.4.2",
-    "typescript": "^4.9.4"
+  "scripts": {
+    "build": "tsup && tsc",
+    "dev": "tsup --watch",
+    "pack": "npm pack",
+    "lint": "eslint . --max-warnings 0",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@dhis2/app-runtime": "^3.7.0",
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
-    "@hisptz/dhis2-utils": "^1.0.61",
-    "@mui/material": "^5.11.8",
-    "@react-buddy/ide-toolbox": "^2.3.1",
-    "classnames": "^2.3.2",
     "dexie": "^3.2.3",
     "jodit-react": "^1.3.39",
     "react-circular-progressbar": "^2.1.0",
     "react-collapsible": "^2.10.0",
     "react-color": "^2.19.3",
-    "recoil": "^0.7.7",
-    "scheduler": "^0.23.0",
-    "styled-components": "^5.3.6",
-    "use-context-selector": "^1.4.1",
-    "usehooks-ts": "^2.9.1"
+    "@hisptz/dhis2-utils": "workspace:*"
   },
-  "main": "./build/cjs/index.js",
-  "module": "./build/es/index.js",
-  "types": "./build/types/index.d.ts",
-  "exports": {
-    "import": "./build/es/index.js",
-    "require": "./build/cjs/index.js"
-  },
-  "keywords": [
-    "react",
-    "dhis2",
-    "dhis2-ui",
-    "hisptz",
-    "ui"
-  ],
-  "author": "HISP Tanzania <info@hisptanzania.org>",
-  "files": [
-    "build/**",
-    "postinstall.js",
-    "!**/*.test.js",
-    "!**/*.json",
-    "!**/*.stories.js",
-    "!build/dataProviders/*",
-    "!build/data/*"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hisptz/dhis2-utils.git"
-  },
-  "bugs": {
-    "url": "https://github.com/hisptz/dhis2-utils/issues"
+  "devDependencies": {
+    "@dhis2/app-runtime": "^3.10.2",
+    "@dhis2/d2-i18n": "^1.1.3",
+    "@dhis2/ui": "^9.1.1",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@storybook/react": "^7.6.7",
+    "@types/async": "^3.2.24",
+    "@types/lodash": "^4.14.202",
+    "@types/luxon": "^3.4.0",
+    "@types/prop-types": "^15.7.11",
+    "@types/react": "^18.2.46",
+    "@types/react-color": "^3.0.11",
+    "@types/react-dom": "^18.2.18",
+    "async": "^3.2.5",
+    "classnames": "^2.5.1",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.56.0",
+    "lodash": "^4.17.21",
+    "luxon": "^3.4.4",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-hook-form": "^7.43.9",
+    "styled-components": "^6.1.8",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3",
+    "usehooks-ts": "^2.9.2"
   },
   "peerDependencies": {
-    "lodash": "^4",
-    "react": "^16.14",
-    "react-dom": "^16.14",
-    "recoil": "^0.7.7"
+    "@dhis2/d2-i18n": "^1.1.3",
+    "@dhis2/ui": "^9.1.1",
+    "classnames": "^2.5.1",
+    "eslint": "^8.56.0",
+    "lodash": "^4.17.21",
+    "luxon": "^3.4.4",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-hook-form": "^7.43.9",
+    "recoil": "^0.7.7",
+    "styled-components": "^6.1.8",
+    "usehooks-ts": "^2.9.2"
   },
-  "gitHead": "c11c14562cbb2228c2d3f9a917bf0cdbb4d25b29"
+  "publishConfig": {
+    "access": "public"
+  }
 }

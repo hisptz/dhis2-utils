@@ -1,13 +1,19 @@
-import type {OrgUnitSelection} from "@hisptz/dhis2-utils";
+import type { OrgUnitSelection } from "@hisptz/dhis2-utils";
 import React from "react";
-import type {MapContainerProps} from "react-leaflet";
-import {MapControls, MapLegendConfig} from "../components/MapArea/interfaces";
-import {EarthEngineLayerConfig, ThematicLayerConfig} from "../components/MapLayer/interfaces";
+import type { MapContainerProps } from "react-leaflet";
+import { MapControls, MapLegendConfig } from "../components/MapArea/interfaces";
+import {
+	EarthEngineLayerConfig,
+	ThematicLayerConfig,
+} from "../components/MapLayer/interfaces";
 
 export interface MapProviderProps {
-  children: React.ReactNode;
-  orgUnitSelection: OrgUnitSelection;
-  periodSelection?: { periods?: string[]; range?: { start: Date; end: Date } };
+	children: React.ReactNode;
+	orgUnitSelection: OrgUnitSelection;
+	periodSelection?: {
+		periods?: string[];
+		range?: { start: Date; end: Date };
+	};
 }
 
 export interface MapProps {

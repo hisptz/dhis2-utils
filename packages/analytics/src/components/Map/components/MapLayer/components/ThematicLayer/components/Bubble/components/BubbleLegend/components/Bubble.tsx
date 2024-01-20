@@ -1,15 +1,15 @@
 import React from "react";
-import {guideLength, textPadding} from "./Bubbles";
+import { guideLength, textPadding } from "./Bubbles";
 
 export interface BubbleProps {
-  radius: number;
-  maxRadius: number;
-  text?: string;
-  textAlign?: "left" | "right";
-  color?: string;
-  stroke?: string;
-  pattern?: string;
-  gap?: number;
+	radius: number;
+	maxRadius: number;
+	text?: string;
+	textAlign?: "left" | "right";
+	color?: string;
+	stroke?: string;
+	pattern?: string;
+	gap?: number;
 }
 
 const Bubble = ({ radius, maxRadius, text, textAlign, color, stroke, pattern }: BubbleProps) => {

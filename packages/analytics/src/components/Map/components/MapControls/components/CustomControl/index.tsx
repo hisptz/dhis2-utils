@@ -1,11 +1,11 @@
-import {ControlOptions} from "leaflet";
+import { ControlOptions } from "leaflet";
 import React from "react";
 
 const POSITION_CLASSES = {
-  bottomleft: "leaflet-bottom leaflet-left",
-  bottomright: "leaflet-bottom leaflet-right",
-  topleft: "leaflet-top leaflet-left",
-  topright: "leaflet-top leaflet-right",
+	bottomleft: "leaflet-bottom leaflet-left",
+	bottomright: "leaflet-bottom leaflet-right",
+	topleft: "leaflet-top leaflet-left",
+	topright: "leaflet-top leaflet-right",
 };
 
 interface CustomControlOptions extends ControlOptions {

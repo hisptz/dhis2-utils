@@ -1,19 +1,31 @@
 import "../../../styles/legends.css";
-import {Divider} from "@dhis2/ui";
-import type {Legend} from "@hisptz/dhis2-utils";
-import React, {forwardRef} from "react";
-import {getLegendCount} from "../../../../../../../utils/map";
-import {ThematicLayerData, ThematicLayerDataItem} from "../../../../../interfaces";
+import { Divider } from "@dhis2/ui";
+import type { Legend } from "@hisptz/dhis2-utils";
+import React, { forwardRef } from "react";
+import { getLegendCount } from "../../../../../../../utils/map";
+import {
+	ThematicLayerData,
+	ThematicLayerDataItem,
+} from "../../../../../interfaces";
 import LegendCardHeader from "../../../../LegendArea/components/LegendCardHeader";
 
-export function LegendItem({ legend, value }: { legend: { startValue: number; endValue: number; color: string }; value: number }) {
-  return (
-    <div className="legend-item">
-      <div className="legend-item-color" style={{ backgroundColor: legend.color }} />
-      <div className="legend-item-label">{`${legend.startValue} - ${legend.endValue}`}</div>
-      <div className="legend-item-value">{`(${value})`}</div>
-    </div>
-  );
+export function LegendItem({
+	legend,
+	value,
+}: {
+	legend: { startValue: number; endValue: number; color: string };
+	value: number;
+}) {
+	return (
+		<div className="legend-item">
+			<div
+				className="legend-item-color"
+				style={{ backgroundColor: legend.color }}
+			/>
+			<div className="legend-item-label">{`${legend.startValue} - ${legend.endValue}`}</div>
+			<div className="legend-item-value">{`(${value})`}</div>
+		</div>
+	);
 }
 
 function ChoroplethLegend(

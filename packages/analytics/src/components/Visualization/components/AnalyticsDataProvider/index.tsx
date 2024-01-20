@@ -1,11 +1,13 @@
-import React, {createContext, useContext, useEffect, useMemo} from "react";
-import {Analytics, AnalyticsDimension} from "@hisptz/dhis2-utils";
-import {useDimensions} from "../DimensionsProvider";
-import {useDataQuery} from "@dhis2/app-runtime";
-import {useLayout} from "../LayoutProvider";
-import {forEach, set} from "lodash";
+import React, { createContext, useContext, useEffect, useMemo } from "react";
+import { Analytics, AnalyticsDimension } from "@hisptz/dhis2-utils";
+import { useDimensions } from "../DimensionsProvider";
+import { useDataQuery } from "@dhis2/app-runtime";
+import { useLayout } from "../LayoutProvider";
+import { forEach, set } from "lodash";
 
-const AnalyticsContext = createContext<{ loading: boolean; analytics: Analytics } | undefined>(undefined);
+const AnalyticsContext = createContext<
+	{ loading: boolean; analytics: Analytics } | undefined
+>(undefined);
 
 const analyticsQuery = {
 		analytics: {

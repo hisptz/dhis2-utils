@@ -1,14 +1,18 @@
-import {colors} from "@dhis2/ui";
-import type {Legend} from "@hisptz/dhis2-utils";
-import {geoJSON} from "leaflet";
-import React, {useMemo} from "react";
-import {CircleMarker} from "react-leaflet";
-import {getColorFromLegendSet, highlightFeature, resetHighlight} from "../../../../../../utils/map";
-import {ThematicLayerData} from "../../../../interfaces";
+import { colors } from "@dhis2/ui";
+import type { Legend } from "@hisptz/dhis2-utils";
+import { geoJSON } from "leaflet";
+import React, { useMemo } from "react";
+import { CircleMarker } from "react-leaflet";
+import {
+	getColorFromLegendSet,
+	highlightFeature,
+	resetHighlight,
+} from "../../../../../../utils/map";
+import { ThematicLayerData } from "../../../../interfaces";
 import CustomTooltip from "../CustomTooltip";
 
 const defaultStyle = {
-  weight: 1,
+	weight: 1,
 };
 const highlightStyle = {
   weight: 2,

@@ -1,6 +1,6 @@
-import {hcl} from "d3-color";
-import {isString} from "lodash";
-import {COLOR_PALETTES} from "../constants/colors";
+import { hcl } from "d3-color";
+import { isString } from "lodash";
+import { COLOR_PALETTES } from "../constants/colors";
 
 const colorbrewer: Record<string, any> = COLOR_PALETTES;
 

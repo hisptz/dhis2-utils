@@ -1,17 +1,23 @@
 import i18n from "@dhis2/d2-i18n";
-import {colors} from "@dhis2/ui";
+import { colors } from "@dhis2/ui";
 import React from "react";
-import {GeoJSON, LayerGroup, LayersControl, Popup, Tooltip} from "react-leaflet";
-import {MapOrgUnit} from "../../../../interfaces";
-import {highlightFeature, resetHighlight} from "../../../../utils/map";
-import {CustomBoundaryLayer as BoundaryLayerInterface} from "../../interfaces";
-import {useBoundaryData} from "./hooks/useBoundaryData";
+import {
+	GeoJSON,
+	LayerGroup,
+	LayersControl,
+	Popup,
+	Tooltip,
+} from "react-leaflet";
+import { MapOrgUnit } from "../../../../interfaces";
+import { highlightFeature, resetHighlight } from "../../../../utils/map";
+import { CustomBoundaryLayer as BoundaryLayerInterface } from "../../interfaces";
+import { useBoundaryData } from "./hooks/useBoundaryData";
 
 export const defaultStyle = {
-  weight: 1,
-  color: colors.grey900,
-  fillColor: colors.grey900,
-  fillOpacity: 0.0,
+	weight: 1,
+	color: colors.grey900,
+	fillColor: colors.grey900,
+	fillOpacity: 0.0,
 };
 export const highlightStyle = {
   weight: 2,

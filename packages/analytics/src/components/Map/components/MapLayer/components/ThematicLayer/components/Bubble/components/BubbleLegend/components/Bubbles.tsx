@@ -1,16 +1,16 @@
 import i18n from "@dhis2/d2-i18n";
-import {scaleSqrt} from "d3-scale";
-import {reduce} from "lodash";
-import React, {memo} from "react";
-import {getContrastColor} from "../../../../../../../../../utils/colors";
-import {getLongestTextLength} from "../../../../../../../../../utils/helpers";
-import Bubble, {BubbleProps} from "./Bubble";
+import { scaleSqrt } from "d3-scale";
+import { reduce } from "lodash";
+import React, { memo } from "react";
+import { getContrastColor } from "../../../../../../../../../utils/colors";
+import { getLongestTextLength } from "../../../../../../../../../utils/helpers";
+import Bubble, { BubbleProps } from "./Bubble";
 
 const style = {
-  paddingTop: 10,
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
+	paddingTop: 10,
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "center",
 };
 
 const legendWidth = 200;

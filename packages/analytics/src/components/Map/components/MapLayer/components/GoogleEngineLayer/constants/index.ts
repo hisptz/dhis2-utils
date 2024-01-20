@@ -1,5 +1,5 @@
 import i18n from "@dhis2/d2-i18n";
-import {EarthEngineOptions} from "../interfaces";
+import { EarthEngineOptions } from "../interfaces";
 
 export const EARTH_ENGINE_LAYER = "earthEngine";
 

@@ -1,5 +1,5 @@
-import React, {createContext, useContext, useState} from "react";
-import {VisualizationConfig} from "../../index";
+import React, { createContext, useContext, useState } from "react";
+import { VisualizationConfig } from "../../index";
 
 export type VisualizationType = "pivotTable" | "chart" | "map";
 

@@ -1,11 +1,11 @@
 import React from "react";
-import {ScaleControl, ZoomControl} from "react-leaflet";
-import {MapControls} from "../MapArea/interfaces";
+import { ScaleControl, ZoomControl } from "react-leaflet";
+import { MapControls } from "../MapArea/interfaces";
 import FullscreenControl from "./components/FullscreenControl";
 import DownloadControl from "./components/DownloadControl";
 
 export interface MapControlProps extends MapControls {
-  mapId: string;
+	mapId: string;
 }
 
 export default function MapControl({ type, options, position, mapId }: MapControlProps) {

@@ -1,45 +1,19 @@
 {
-  "compilerOptions": {
-    "baseUrl": "src",
-    "target": "es2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "declaration": true,
-    "emitDeclarationOnly": false,
-    "outDir": "./build/types",
-    "types": [
-      "cypress",
-      "node"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "downlevelIteration": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": false,
-    "jsx": "react",
-    "noEmit": false,
-    "noEmitOnError": false,
-    "typeRoots": [
-      "node_modules/@types"
-    ]
-  },
+  "extends": "@repo/typescript-config/react-library.json",
   "include": [
-    "src/**/*",
-    "../../types"
+    "src",
+    "global.d.ts",
+    "!tsup.config.ts"
   ],
   "exclude": [
+    "dist",
+    "build",
     "node_modules",
-    "../../node_modules",
-    "src/locales/*/**.js",
-  ]
+    "**/*.test.tsx",
+    "**/*.stories.tsx"
+  ],
+  "compilerOptions": {
+    "declarationDir": "dist/types",
+    "resolveJsonModule": true
+  }
 }

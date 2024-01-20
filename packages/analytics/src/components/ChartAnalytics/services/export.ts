@@ -5,9 +5,9 @@ import HighChartsExport from "highcharts/modules/exporting";
 import HighChartsFullScreen from "highcharts/modules/full-screen";
 
 export function setupHighchartsModules(highcharts: typeof Highcharts) {
-  HighChartsExport(highcharts);
-  HighChartsExportCSV(highcharts);
-  HighChartsFullScreen(highcharts);
+	HighChartsExport(highcharts);
+	HighChartsExportCSV(highcharts);
+	HighChartsFullScreen(highcharts);
 }
 
 export function onFullScreenView(chartRef: HighchartsReact.RefObject, options?: Highcharts.Options) {

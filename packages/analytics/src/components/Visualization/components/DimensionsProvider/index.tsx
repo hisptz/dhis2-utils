@@ -1,7 +1,7 @@
-import React, {createContext, useContext, useReducer} from "react";
-import {AnalyticsDimension} from "@hisptz/dhis2-utils";
-import {set} from "lodash";
-import {useUpdateEffect} from "usehooks-ts";
+import React, { createContext, useContext, useReducer } from "react";
+import { AnalyticsDimension } from "@hisptz/dhis2-utils";
+import { set } from "lodash";
+import { useUpdateEffect } from "usehooks-ts";
 
 export type Dimension = "ou" | "pe" | "dx" | "co";
 

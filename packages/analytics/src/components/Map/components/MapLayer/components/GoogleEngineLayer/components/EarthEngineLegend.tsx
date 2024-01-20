@@ -1,17 +1,28 @@
-import React, {forwardRef} from "react";
+import React, { forwardRef } from "react";
 import LegendCardHeader from "../../LegendArea/components/LegendCardHeader";
-import {CustomGoogleEngineLayer} from "../../../interfaces";
-import {Divider} from "@dhis2/ui";
+import { CustomGoogleEngineLayer } from "../../../interfaces";
+import { Divider } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
-import {isEmpty} from "lodash";
+import { isEmpty } from "lodash";
 
-export function LegendItem({ legend }: { legend: { min: number; max: number; color: string; name?: string } }) {
-  return (
-    <div className="legend-item">
-      <div className="legend-item-color" style={{ backgroundColor: legend.color }} />
-      {legend.name ? <div className="legend-item-label">{`${legend.name}`}</div> : <div className="legend-item-label">{`${legend.min} - ${legend.max}`}</div>}
-    </div>
-  );
+export function LegendItem({
+	legend,
+}: {
+	legend: { min: number; max: number; color: string; name?: string };
+}) {
+	return (
+		<div className="legend-item">
+			<div
+				className="legend-item-color"
+				style={{ backgroundColor: legend.color }}
+			/>
+			{legend.name ? (
+				<div className="legend-item-label">{`${legend.name}`}</div>
+			) : (
+				<div className="legend-item-label">{`${legend.min} - ${legend.max}`}</div>
+			)}
+		</div>
+	);
 }
 
 function getLegendsFromParams(params?: { min: number; max: number; palette: string | string[] }) {

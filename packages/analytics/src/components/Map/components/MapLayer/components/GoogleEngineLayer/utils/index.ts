@@ -1,16 +1,16 @@
-import {EarthEngineOptions} from "../interfaces";
+import { EarthEngineOptions } from "../interfaces";
 
 export const combineReducers = (ee: any) => (types: string[]) =>
-  types.reduce(
-    (r: any, t: any, i: any) =>
-      i === 0
-        ? r[t]()
-        : r.combine({
-            reducer2: ee.Reducer[t](),
-            sharedInputs: true,
-          }),
-    ee.Reducer
-  );
+	types.reduce(
+		(r: any, t: any, i: any) =>
+			i === 0
+				? r[t]()
+				: r.combine({
+						reducer2: ee.Reducer[t](),
+						sharedInputs: true,
+					}),
+		ee.Reducer,
+	);
 
 export const getInfo = (instance: any) =>
   new Promise((resolve, reject) =>
