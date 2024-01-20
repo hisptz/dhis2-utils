@@ -1,0 +1,12 @@
+.nested-table-cell {
+    padding: 0 !important;
+}
+
+.nested-table {
+    margin: 0;
+    padding: 0;
+}
+
+.header-cell {
+    border-right: 1px solid rgb(232, 237, 242) !important;
+}

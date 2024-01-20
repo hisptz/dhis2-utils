@@ -1,0 +1,48 @@
+{
+  "name": "@hisptz/docs",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "build": "storybook build --docs",
+    "preview-storybook": "serve storybook-static",
+    "test": "concurrently --success 'command-1' -k -n \"dev|test\" --name-separator \"|\" 'storybook dev -p 6006' 'wait-on tcp:6006 && test-storybook' ",
+    "clean": "rm -rf .turbo && rm -rf node_modules",
+    "lint": "eslint ./stories/*.stories.tsx --max-warnings 0"
+  },
+  "dependencies": {
+    "@hisptz/dhis2-ui": "workspace:*",
+    "@storybook/addon-interactions": "^7.6.10",
+    "@storybook/jest": "^0.2.3",
+    "@storybook/testing-library": "^0.2.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@dhis2/app-runtime": "^3.10.2",
+    "@dhis2/ui": "^9.1.1",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@storybook/addon-a11y": "^7.6.10",
+    "@storybook/addon-actions": "^7.6.10",
+    "@storybook/addon-coverage": "^1.0.0",
+    "@storybook/addon-docs": "^7.6.10",
+    "@storybook/addon-essentials": "^7.6.10",
+    "@storybook/addon-links": "^7.6.10",
+    "@storybook/react": "^7.6.10",
+    "@storybook/react-vite": "^7.6.10",
+    "@storybook/test-runner": "^0.16.0",
+    "@types/node": "^20.10.8",
+    "@vitejs/plugin-react": "^4.2.1",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.56.0",
+    "eslint-plugin-storybook": "^0.6.15",
+    "playwright": "^1.40.1",
+    "serve": "^14.2.1",
+    "storybook": "^7.6.10",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10",
+    "wait-on": "^7.2.0"
+  }
+}
