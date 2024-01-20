@@ -1,6 +1,6 @@
 {
   "name": "@hisptz/dhis2-utils",
-  "version": "2.0.0",
+  "version": "2.0.0-alpha.00",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/types/index.d.ts",
@@ -14,7 +14,8 @@
   "sideEffects": false,
   "license": "MIT",
   "files": [
-    "dist/**"
+    "dist/**",
+    "package.json"
   ],
   "scripts": {
     "build": "tsup && tsc",
