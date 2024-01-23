@@ -1,9 +1,9 @@
 import { Controller } from "react-hook-form";
 import React from "react";
-import { DHIS2FormField } from "../../DHIS2FormField";
-import { RHFFieldProps } from "../../../interfaces";
+import { DHIS2FormField } from "../../DHIS2FormField/index.js";
+import { RHFFieldProps } from "../../../interfaces/index.js";
 import { OptionSet } from "@hisptz/dhis2-utils";
-import { VALUE_TYPE } from "../../../constants";
+import { VALUE_TYPE } from "../../../constants/index.js";
 
 export interface RHFDHIS2FormFieldProps extends RHFFieldProps {
 	optionSet?: OptionSet;

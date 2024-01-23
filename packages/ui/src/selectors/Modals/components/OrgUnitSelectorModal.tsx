@@ -13,8 +13,8 @@ import {
 	OrgUnitSelection,
 	OrgUnitSelector,
 	OrgUnitSelectorProps,
-} from "../../OrgUnitSelector";
-import { ModalProps } from "../types";
+} from "../../OrgUnitSelector/index.js";
+import { ModalProps } from "../types/index.js";
 
 /**
  * This is a modal wrapper for `OrgUnitSelector` with internal state to control the selected values.

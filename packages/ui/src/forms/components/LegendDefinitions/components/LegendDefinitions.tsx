@@ -1,9 +1,9 @@
 import { Button, colors, Field, IconDelete24 } from "@dhis2/ui";
 import React from "react";
-import { useManageLegendDefinitions } from "../hooks/useManageLegendDefinitions";
-import { AddLegendDefinition } from "./AddLegendDefinition";
-import { LegendDefinitionField } from "../../LegendDefinitionField";
-import { FieldProps, LegendDefinition } from "../../../interfaces";
+import { useManageLegendDefinitions } from "../hooks/useManageLegendDefinitions.js";
+import { AddLegendDefinition } from "./AddLegendDefinition.js";
+import { LegendDefinitionField } from "../../LegendDefinitionField/index.js";
+import { FieldProps, LegendDefinition } from "../../../interfaces/index.js";
 import i18n from "@dhis2/d2-i18n";
 
 export interface LegendDefinitionsFormFieldProps extends FieldProps {

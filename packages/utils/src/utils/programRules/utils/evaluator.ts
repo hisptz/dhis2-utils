@@ -1,4 +1,7 @@
-import type { ProgramRule, ProgramRuleAction } from "../../../interfaces";
+import type {
+	ProgramRule,
+	ProgramRuleAction,
+} from "../../../interfaces/index.js";
 import {
 	BuiltInVariable,
 	BuiltInVariableValueOptions,
@@ -10,10 +13,10 @@ import {
 	RuleConditionFunction,
 	RuleTarget,
 	RuleTrigger,
-} from "../interfaces";
+} from "../interfaces/index.js";
 import { compact, find, flatten, get, tail, uniq, uniqBy } from "lodash";
-import { evaluateFunction } from "./d2Functions";
-import { builtInVariables, RegularExpressions } from "../constants";
+import { evaluateFunction } from "./d2Functions.js";
+import { builtInVariables, RegularExpressions } from "../constants/index.js";
 
 export function getRuleActions(
 	programRulesActions: ProgramRuleAction[],

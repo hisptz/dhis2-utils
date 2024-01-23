@@ -3,8 +3,8 @@ import { capitalize } from "lodash";
 import React from "react";
 import { animated, useSpring } from "react-spring";
 import styles from "../../styles/SingleValueContainer.module.css";
-import { SingleValue } from "../../types/props";
-import SingleValuePercentage from "./SingleValuePercentage";
+import { SingleValue } from "../../types/props.js";
+import SingleValuePercentage from "./SingleValuePercentage.js";
 
 interface SingleValueProps extends SingleValue {
 	globalAnimationDelay?: number;

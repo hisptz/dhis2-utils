@@ -1,6 +1,6 @@
 import { SingleSelectField, SingleSelectOption } from "@dhis2/ui";
 import React, { useMemo } from "react";
-import { FieldProps } from "../../interfaces";
+import { FieldProps } from "../../interfaces/index.js";
 import { OptionSet } from "@hisptz/dhis2-utils";
 
 export interface SelectOption {

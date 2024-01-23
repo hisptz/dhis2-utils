@@ -8,7 +8,7 @@ import {
 	ModalTitle,
 } from "@dhis2/ui";
 import React from "react";
-import { ConfirmDialogConfig, CustomAction } from "../../types";
+import { ConfirmDialogConfig, CustomAction } from "../../types/index.js";
 
 export interface ConfirmDialogProps extends Omit<ConfirmDialogConfig, "type"> {
 	hide: boolean;

@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
-import { FieldProps } from "../../interfaces";
-import { CustomCheckboxField } from "../CustomCheckboxField";
+import { FieldProps } from "../../interfaces/index.js";
+import { CustomCheckboxField } from "../CustomCheckboxField/index.js";
 import i18n from "@dhis2/d2-i18n";
-import { SelectOption } from "../CustomSelectField";
+import { SelectOption } from "../CustomSelectField/index.js";
 import {
 	Field,
 	Radio,

@@ -1,2 +1,2 @@
-export * from "./SimpleTable";
-export * from "./types";
+export * from "./SimpleTable.js";
+export * from "./types/index.js";

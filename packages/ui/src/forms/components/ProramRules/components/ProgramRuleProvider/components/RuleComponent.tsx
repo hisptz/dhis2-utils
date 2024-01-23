@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useMemo } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
-import { useActionCallbacks, useTriggers } from "../hooks";
+import { useActionCallbacks, useTriggers } from "../hooks/index.js";
 import { mapValues } from "lodash";
 import {
 	evaluateRules,

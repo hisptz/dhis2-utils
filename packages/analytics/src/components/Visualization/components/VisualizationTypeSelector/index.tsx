@@ -3,7 +3,7 @@ import {
 	useVisualizationConfig,
 	useVisualizationType,
 	VisualizationType,
-} from "../VisualizationTypeProvider";
+} from "../VisualizationTypeProvider/index.js";
 import {
 	Button,
 	IconTable24,
@@ -32,26 +32,37 @@ const supportedVisualizationTypes = [
 ];
 
 export function VisualizationTypeSelector() {
-    const [type, setType] = useVisualizationType();
-    const config = useVisualizationConfig();
+	const [type, setType] = useVisualizationType();
+	const config = useVisualizationConfig();
 
-    const types = useMemo(() => supportedVisualizationTypes.filter((supportedType) => {
-        return Object.keys(config ?? {}).includes(supportedType.id) && supportedType.id !== type
-    }), [type, config]);
+	const types = useMemo(
+		() =>
+			supportedVisualizationTypes.filter((supportedType) => {
+				return (
+					Object.keys(config ?? {}).includes(supportedType.id) &&
+					supportedType.id !== type
+				);
+			}),
+		[type, config],
+	);
 
-    return (
-        <div style={{display: "flex", gap: 8}}>
-            {
-                types.map(({icon, label, id}) => {
-                    return (
-                        <Tooltip key={`${label}-tooltip`} content={i18n.t("View as {{type}}", {
-                            type: label.toLowerCase()
-                        })}>
-                            <Button onClick={() => setType(id as VisualizationType)} icon={icon}/>
-                        </Tooltip>
-                    )
-                })
-            }
-        </div>
-    )
+	return (
+		<div style={{ display: "flex", gap: 8 }}>
+			{types.map(({ icon, label, id }) => {
+				return (
+					<Tooltip
+						key={`${label}-tooltip`}
+						content={i18n.t("View as {{type}}", {
+							type: label.toLowerCase(),
+						})}
+					>
+						<Button
+							onClick={() => setType(id as VisualizationType)}
+							icon={icon}
+						/>
+					</Tooltip>
+				);
+			})}
+		</div>
+	);
 }

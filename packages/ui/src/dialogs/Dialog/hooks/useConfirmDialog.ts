@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { DialogContext } from "../states/dialog";
+import { DialogContext } from "../states/dialog.js";
 
 /**
  * @deprecated Use `useDialog` instead

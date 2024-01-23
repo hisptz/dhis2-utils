@@ -1,7 +1,7 @@
 import React from "react";
-import { FormSectionInterface, StepperStyles } from "./interfaces";
-import { FormSection } from "./components/FormSection";
-import { RHFDHIS2FormField } from "../react-hook-form-fields";
+import { FormSectionInterface, StepperStyles } from "./interfaces/index.js";
+import { FormSection } from "./components/FormSection/index.js";
+import { RHFDHIS2FormField } from "../react-hook-form-fields/index.js";
 import { Button, ButtonStrip } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
 import Collapsible from "react-collapsible";

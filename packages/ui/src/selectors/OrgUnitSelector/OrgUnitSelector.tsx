@@ -1,8 +1,8 @@
 import { CssReset } from "@dhis2/ui";
 import React from "react";
-import Selector from "./components/Selector";
-import { FilterStateProvider } from "./states/filter";
-import { OrgUnitSelectorProps } from "./types";
+import Selector from "./components/Selector.js";
+import { FilterStateProvider } from "./states/filter.js";
+import { OrgUnitSelectorProps } from "./types/index.js";
 
 /**
  * `OrgUnitSelector` is a React component used to render an organisation unit component from `@dhis2/ui`

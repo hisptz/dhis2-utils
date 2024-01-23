@@ -1,13 +1,13 @@
 import React from "react";
-import { Layout, LayoutProvider } from "../LayoutProvider";
+import { Layout, LayoutProvider } from "../LayoutProvider/index.js";
 import { AnalyticsDimension } from "@hisptz/dhis2-utils";
-import { DimensionsProvider } from "../DimensionsProvider";
-import { AnalyticsDataProvider } from "../AnalyticsDataProvider";
+import { DimensionsProvider } from "../DimensionsProvider/index.js";
+import { AnalyticsDataProvider } from "../AnalyticsDataProvider/index.js";
 import {
 	VisualizationType,
 	VisualizationTypeProvider,
-} from "../VisualizationTypeProvider";
-import { VisualizationConfig } from "../../index";
+} from "../VisualizationTypeProvider/index.js";
+import { VisualizationConfig } from "../../index.js";
 
 export interface VisualizationProviderProps {
 	children: React.ReactNode;
@@ -17,17 +17,20 @@ export interface VisualizationProviderProps {
 	config: VisualizationConfig;
 }
 
-export function VisualizationProvider({layout, dimensions, children, type, config}: VisualizationProviderProps) {
-
-    return (
-        <DimensionsProvider dimensions={dimensions}>
-            <VisualizationTypeProvider config={config} defaultType={type}>
-                <LayoutProvider defaultLayout={layout}>
-                    <AnalyticsDataProvider>
-                        {children}
-                    </AnalyticsDataProvider>
-                </LayoutProvider>
-            </VisualizationTypeProvider>
-        </DimensionsProvider>
-    )
+export function VisualizationProvider({
+	layout,
+	dimensions,
+	children,
+	type,
+	config,
+}: VisualizationProviderProps) {
+	return (
+		<DimensionsProvider dimensions={dimensions}>
+			<VisualizationTypeProvider config={config} defaultType={type}>
+				<LayoutProvider defaultLayout={layout}>
+					<AnalyticsDataProvider>{children}</AnalyticsDataProvider>
+				</LayoutProvider>
+			</VisualizationTypeProvider>
+		</DimensionsProvider>
+	);
 }

@@ -2,13 +2,13 @@ import i18n from "@dhis2/d2-i18n";
 import { Center, CircularLoader, OrganisationUnitTree } from "@dhis2/ui";
 import { compact, isEmpty } from "lodash";
 import React, { memo } from "react";
-import { useFilterOrgUnits } from "../../hooks";
+import { useFilterOrgUnits } from "../../hooks/index.js";
 import {
 	isOrgUnitSelected,
 	onDeselectOrgUnit,
 	onSelectOrgUnit,
-} from "../../utils";
-import { OrganisationUnit, OrgUnitSelection } from "../../types";
+} from "../../utils/index.js";
+import { OrganisationUnit, OrgUnitSelection } from "../../types/index.js";
 
 export function CustomOrgUnitNodeLabel({
 	node,

@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { PeriodSelectorModal } from "./PeriodSelectorModal";
+import { PeriodSelectorModal } from "./PeriodSelectorModal.js";
 import { useBoolean } from "usehooks-ts";
 import { useState } from "react";
 import { Button } from "@dhis2/ui";

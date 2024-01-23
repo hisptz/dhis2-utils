@@ -1,2 +1,2 @@
-export * from "./OrgUnitSelector";
-export * from "./types";
+export * from "./OrgUnitSelector.js";
+export * from "./types/index.js";

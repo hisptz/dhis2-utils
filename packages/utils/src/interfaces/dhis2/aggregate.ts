@@ -1,5 +1,5 @@
-import { DHIS2Resource } from "./base";
-import { DataElement } from "./metadata";
+import { DHIS2Resource } from "./base.js";
+import { DataElement } from "./metadata.js";
 
 export interface DataSet extends DHIS2Resource {
 	categoryCombo?: { id: string };

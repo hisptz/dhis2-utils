@@ -1,6 +1,6 @@
 import { useDataEngine } from "@dhis2/app-runtime";
 import { useEffect, useState } from "react";
-import DataSource from "../../../models/dataSource";
+import DataSource from "../../../models/dataSource.js";
 
 export default function useDataGroups(initialSelectedDataType: DataSource): {
 	groups: Array<any>;

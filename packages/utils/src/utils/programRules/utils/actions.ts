@@ -16,9 +16,9 @@ import {
 	RuleAction,
 	RuleExecutionOptions,
 	RunnableAction,
-} from "../interfaces";
-import { evaluateFromDataExpression } from "./evaluator";
-import type { OptionGroup } from "../../../interfaces";
+} from "../interfaces/index.js";
+import { evaluateFromDataExpression } from "./evaluator.js";
+import type { OptionGroup } from "../../../interfaces/index.js";
 
 function joinHideFieldActions(
 	actions: RunnableAction[],

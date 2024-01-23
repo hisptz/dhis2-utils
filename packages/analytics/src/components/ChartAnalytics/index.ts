@@ -1,1 +1,1 @@
-export * from "./DHIS2Chart";
+export * from "./DHIS2Chart.js";

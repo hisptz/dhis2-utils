@@ -1,12 +1,12 @@
 import { Map as LeafletMap } from "leaflet";
 import React, { forwardRef } from "react";
-import MapArea from "./components/MapArea";
+import MapArea from "./components/MapArea/index.js";
 import {
 	CustomBoundaryLayer,
 	CustomPointLayer,
 } from "./components/MapLayer/interfaces";
-import { MapProvider } from "./components/MapProvider";
-import { MapProps } from "./interfaces";
+import { MapProvider } from "./components/MapProvider/index.js";
+import { MapProps } from "./interfaces/index.js";
 import "leaflet/dist/leaflet.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 

@@ -1,6 +1,9 @@
 import { DateTime } from "luxon";
 import { find } from "lodash";
-import { BuiltInVariable, BuiltInVariableValueOptions } from "../interfaces";
+import {
+	BuiltInVariable,
+	BuiltInVariableValueOptions,
+} from "../interfaces/index.js";
 
 export {};
 export const builtInVariables: BuiltInVariable[] = [

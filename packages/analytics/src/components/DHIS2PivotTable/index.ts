@@ -1,2 +1,2 @@
-export * from "./DHIS2PivotTable";
-export * from "./interfaces";
+export * from "./DHIS2PivotTable.js";
+export * from "./interfaces/index.js";

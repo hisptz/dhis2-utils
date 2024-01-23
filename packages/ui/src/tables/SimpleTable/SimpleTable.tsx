@@ -1,5 +1,5 @@
 import React from "react";
-import { SimpleTableProps } from "./types";
+import { SimpleTableProps } from "./types/index.js";
 import {
 	Pagination,
 	Table,
@@ -12,7 +12,7 @@ import {
 	TableRowHead,
 } from "@dhis2/ui";
 import { isEmpty } from "lodash";
-import EmptyList from "../../shared/components/EmptyList";
+import EmptyList from "../../shared/components/EmptyList.js";
 
 /**
  * SimpleTable is a simplified abstraction of the `Table` from `@dhis2/ui`

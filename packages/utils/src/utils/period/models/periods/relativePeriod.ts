@@ -2,11 +2,11 @@ import {
 	PeriodInterface,
 	PeriodTypeInterface,
 	RelativePeriodConfig,
-} from "../../interfaces";
+} from "../../interfaces/index.js";
 import { DateTime, Interval } from "luxon";
-import { BasePeriod } from "./basePeriod";
-import { FIXED_PERIOD_TYPES } from "../../constants/fixed";
-import { RELATIVE_PERIOD_TYPES } from "../../constants/relative";
+import { BasePeriod } from "./basePeriod.js";
+import { FIXED_PERIOD_TYPES } from "../../constants/fixed.js";
+import { RELATIVE_PERIOD_TYPES } from "../../constants/relative.js";
 
 export class RelativePeriod extends BasePeriod {
 	id: string;

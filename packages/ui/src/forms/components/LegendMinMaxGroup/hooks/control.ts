@@ -1,6 +1,6 @@
-import { LegendDefinition } from "../../../interfaces";
+import { LegendDefinition } from "../../../interfaces/index.js";
 import { useCallback } from "react";
-import { LegendValue } from "../../LegendMinMax";
+import { LegendValue } from "../../LegendMinMax/index.js";
 import { findIndex, set } from "lodash";
 
 function normalizeValues(

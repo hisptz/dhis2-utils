@@ -1,7 +1,7 @@
 import React, { Fragment, useRef, useState } from "react";
 import { Popover } from "@dhis2/ui";
 import cx from "classnames";
-import ColorScale from "./components/ColorScale";
+import ColorScale from "./components/ColorScale/index.js";
 import styles from "./styles/ColorScaleSelect.module.css";
 import {
 	colorScales,
@@ -9,7 +9,7 @@ import {
 	defaultColorScaleName,
 	getColorPalette,
 	getColorScale,
-} from "./utils/colors";
+} from "./utils/colors.js";
 
 const ColorScaleSelect = ({
 	colorClass,

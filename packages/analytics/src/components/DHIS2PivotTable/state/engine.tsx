@@ -1,5 +1,5 @@
 import React, { createContext, ReactNode, useContext } from "react";
-import { DHIS2PivotTableEngine } from "../services/engine";
+import { DHIS2PivotTableEngine } from "../services/engine.js";
 
 const DHIS2PivotTableEngineContext =
 	createContext<DHIS2PivotTableEngine | null>(null);

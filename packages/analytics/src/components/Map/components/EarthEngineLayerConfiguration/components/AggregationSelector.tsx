@@ -8,7 +8,7 @@ import {
 import { capitalize, head } from "lodash";
 import i18n from "@dhis2/d2-i18n";
 import React from "react";
-import { useType } from "../hooks/data";
+import { useType } from "../hooks/data.js";
 
 export function AggregationSelector() {
 	const config = useType();

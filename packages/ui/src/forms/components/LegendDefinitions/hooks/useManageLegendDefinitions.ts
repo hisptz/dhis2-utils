@@ -5,9 +5,9 @@ import { useCallback } from "react";
 import {
 	getDefaultLegendDefinitions,
 	getNonDefaultLegendDefinitions,
-} from "../utils";
-import { LegendDefinition } from "../../../interfaces";
-import { useConfirmDialog } from "../../../../dialogs";
+} from "../utils/index.js";
+import { LegendDefinition } from "../../../interfaces/index.js";
+import { useConfirmDialog } from "../../../../dialogs/index.js";
 
 export function useManageLegendDefinitions(
 	legendDefinitions: LegendDefinition[],

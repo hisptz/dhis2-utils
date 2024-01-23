@@ -7,7 +7,7 @@ import {
 	last,
 	sortBy,
 } from "lodash";
-import { useMapOrganisationUnit, useMapPeriods } from "../../../hooks";
+import { useMapOrganisationUnit, useMapPeriods } from "../../../hooks/index.js";
 import { useCallback, useMemo, useState } from "react";
 import {
 	generateLegends,
@@ -15,7 +15,7 @@ import {
 	sanitizeDate,
 	sanitizeOrgUnits,
 	toGeoJson,
-} from "../../../../../utils/map";
+} from "../../../../../utils/map.js";
 import { useDataEngine } from "@dhis2/app-runtime";
 import {
 	CustomGoogleEngineLayer,
@@ -24,18 +24,18 @@ import {
 	EarthEngineLayerConfig,
 	ThematicLayerConfig,
 } from "../../../../MapLayer/interfaces";
-import { MapOrgUnit, PointOrgUnit } from "../../../../../interfaces";
+import { MapOrgUnit, PointOrgUnit } from "../../../../../interfaces/index.js";
 import { asyncify, map } from "async-es";
 import { LegendSet } from "@hisptz/dhis2-utils";
 import {
 	defaultClasses,
 	defaultColorScaleName,
-} from "../../../../../utils/colors";
-import { useGoogleEngineToken } from "../../../../MapLayer/components/GoogleEngineLayer/hooks";
-import { useBoundaryData } from "../../../../MapLayer/components/BoundaryLayer/hooks/useBoundaryData";
-import { EarthEngine } from "../../../../MapLayer/components/GoogleEngineLayer/services/engine";
-import { EARTH_ENGINE_LAYERS } from "../../../../MapLayer/components/GoogleEngineLayer/constants";
-import { EarthEngineOptions } from "../../../../MapLayer/components/GoogleEngineLayer/interfaces";
+} from "../../../../../utils/colors.js";
+import { useGoogleEngineToken } from "../../../../MapLayer/components/GoogleEngineLayer/hooks/index.js";
+import { useBoundaryData } from "../../../../MapLayer/components/BoundaryLayer/hooks/useBoundaryData.js";
+import { EarthEngine } from "../../../../MapLayer/components/GoogleEngineLayer/services/engine.js";
+import { EARTH_ENGINE_LAYERS } from "../../../../MapLayer/components/GoogleEngineLayer/constants/index.js";
+import { EarthEngineOptions } from "../../../../MapLayer/components/GoogleEngineLayer/interfaces/index.js";
 
 const analyticsQuery = {
 	analytics: {

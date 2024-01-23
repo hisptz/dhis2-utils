@@ -1,4 +1,4 @@
-import { OrganisationUnit } from "../dhis2";
+import { OrganisationUnit } from "../dhis2/index.js";
 
 /**
  * Standard access object

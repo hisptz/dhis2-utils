@@ -1,4 +1,4 @@
-import { DataSourceResponse } from "../types";
+import { DataSourceResponse } from "../types/index.js";
 /* eslint-disable no-unused-vars */
 export default class DataSource {
 	label: string;

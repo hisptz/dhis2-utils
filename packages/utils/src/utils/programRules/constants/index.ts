@@ -1,2 +1,2 @@
-export * from "./variables";
-export * from "./regularExpressions";
+export * from "./variables.js";
+export * from "./regularExpressions.js";

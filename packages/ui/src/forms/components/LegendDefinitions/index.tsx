@@ -1,1 +1,1 @@
-export * from "./components/LegendDefinitions";
+export * from "./components/LegendDefinitions.js";

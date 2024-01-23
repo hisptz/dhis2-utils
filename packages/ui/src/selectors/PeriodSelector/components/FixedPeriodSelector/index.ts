@@ -1,1 +1,1 @@
-export * from "./FixedPeriodSelector";
+export * from "./FixedPeriodSelector.js";

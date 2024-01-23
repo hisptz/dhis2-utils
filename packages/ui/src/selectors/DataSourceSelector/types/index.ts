@@ -1,4 +1,4 @@
-import DataSource from "../models/dataSource";
+import DataSource from "../models/dataSource.js";
 
 type dataSource =
 	| "indicator"

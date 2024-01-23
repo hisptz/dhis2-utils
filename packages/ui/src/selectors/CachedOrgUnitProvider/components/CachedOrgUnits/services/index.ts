@@ -13,7 +13,7 @@ import {
 	OfflineOrganisationUnit,
 	OfflineOrganisationUnitGroup,
 	OfflineOrganisationUnitLevel,
-} from "../../../services/db";
+} from "../../../services/db.js";
 
 async function getFromEngine(engine: any, query: any) {
 	return (await engine.query({ query }))?.query;

@@ -7,9 +7,9 @@ import {
 	onImageDownload,
 	onPDFDownload,
 	onViewAsTable,
-} from "../../services/export";
-import { ChartMenu } from "./components/Menu";
-import { ChartExportMenuItem } from "./interfaces/menu";
+} from "../../services/export.js";
+import { ChartMenu } from "./components/Menu.js";
+import { ChartExportMenuItem } from "./interfaces/menu.js";
 
 export function ChartDownloadMenu({
 	chartRef,

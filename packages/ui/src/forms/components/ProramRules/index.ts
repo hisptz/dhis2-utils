@@ -1,1 +1,1 @@
-export * from "./components/ProgramRuleProvider"
+export * from "./components/ProgramRuleProvider/index.js";

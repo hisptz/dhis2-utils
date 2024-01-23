@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
-import { Dimension } from "../DimensionsProvider";
+import { Dimension } from "../DimensionsProvider/index.js";
 
 export interface Layout {
 	rows: Dimension[];
@@ -8,26 +8,23 @@ export interface Layout {
 }
 
 export interface LayoutProviderProps {
-    children: React.ReactNode;
-    defaultLayout: Layout
+	children: React.ReactNode;
+	defaultLayout: Layout;
 }
 
 export const LayoutState = createContext<Layout | undefined>(undefined);
 
-
 export function useLayout() {
-
-    return [
-        useContext(LayoutState) ?? {rows: [], filters: [], columns: []}
-    ]
+	return [useContext(LayoutState) ?? { rows: [], filters: [], columns: [] }];
 }
 
-export function LayoutProvider({defaultLayout, children}: LayoutProviderProps) {
-    const [layout, setLayout] = useState(defaultLayout);
+export function LayoutProvider({
+	defaultLayout,
+	children,
+}: LayoutProviderProps) {
+	const [layout, setLayout] = useState(defaultLayout);
 
-    return (
-        <LayoutState.Provider value={layout}>
-            {children}
-        </LayoutState.Provider>
-    )
+	return (
+		<LayoutState.Provider value={layout}>{children}</LayoutState.Provider>
+	);
 }

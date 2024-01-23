@@ -4,9 +4,9 @@ import React, { forwardRef } from "react";
 import {
 	ThematicLayerData,
 	ThematicLayerDataItem,
-} from "../../../../../../interfaces";
-import LegendCardHeader from "../../../../../LegendArea/components/LegendCardHeader";
-import Bubbles from "./components/Bubbles";
+} from "../../../../../../interfaces/index.js";
+import LegendCardHeader from "../../../../../LegendArea/components/LegendCardHeader/index.js";
+import Bubbles from "./components/Bubbles.js";
 
 function BubbleLegend(
 	{

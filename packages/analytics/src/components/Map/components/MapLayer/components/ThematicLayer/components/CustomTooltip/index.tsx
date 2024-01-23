@@ -1,8 +1,8 @@
 import i18n from "@dhis2/d2-i18n";
 import React from "react";
 import { Pane, Popup, Tooltip } from "react-leaflet";
-import { useMapPeriods } from "../../../../../MapProvider/hooks";
-import { ThematicLayerData } from "../../../../interfaces";
+import { useMapPeriods } from "../../../../../MapProvider/hooks/index.js";
+import { ThematicLayerData } from "../../../../interfaces/index.js";
 
 export default function CustomTooltip({
 	data: dataObject,

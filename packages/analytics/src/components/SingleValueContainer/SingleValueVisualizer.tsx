@@ -1,11 +1,11 @@
 import i18n from "@dhis2/d2-i18n";
 import { CssReset } from "@dhis2/ui";
 import React, { Suspense } from "react";
-import SingleValueItem from "./components/SingleValueItem/SingleValueItem";
+import SingleValueItem from "./components/SingleValueItem/SingleValueItem.js";
 import styles from "./styles/SingleValueContainer.module.css";
-import { SingleValue, SingleValueVisualizerProps } from "./types/props";
+import { SingleValue, SingleValueVisualizerProps } from "./types/props.js";
 
-export * from "./types/props";
+export * from "./types/props.js";
 
 export function SingleValueVisualizer({
 	title,

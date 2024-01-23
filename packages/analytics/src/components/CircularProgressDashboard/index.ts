@@ -1,2 +1,2 @@
-export * from "./CircularProgressIndicator";
-export * from "./types/props";
+export * from "./CircularProgressIndicator.js";
+export * from "./types/props.js";

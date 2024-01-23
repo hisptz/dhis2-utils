@@ -1,6 +1,6 @@
 import { Analytics, AnalyticsItem, LegendSet } from "@hisptz/dhis2-utils";
 import { compact, findIndex, intersection, times, zip } from "lodash";
-import { DHIS2Dimension } from "../interfaces";
+import { DHIS2Dimension } from "../interfaces/index.js";
 
 export interface EngineConfig {
 	layout: {

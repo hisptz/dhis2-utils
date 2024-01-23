@@ -1,4 +1,4 @@
-import { DataSourceType } from "../types";
+import { DataSourceType } from "../types/index.js";
 
 export const DATA_SOURCES: Array<DataSourceType> = [
 	{

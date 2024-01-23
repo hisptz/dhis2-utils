@@ -1,11 +1,11 @@
 import { Field, InputField } from "@dhis2/ui";
 import React, { useCallback, useMemo, useState } from "react";
-import { FieldProps, LegendDefinition } from "../../interfaces";
+import { FieldProps, LegendDefinition } from "../../interfaces/index.js";
 import { uid } from "@hisptz/dhis2-utils";
 import { set } from "lodash";
 import i18n from "@dhis2/d2-i18n";
 
-export * from "./models";
+export * from "./models/index.js";
 
 export interface LegendValue {
 	legendDefinitionId: string;

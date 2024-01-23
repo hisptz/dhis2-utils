@@ -1,6 +1,6 @@
 import { filter as _filter, flattenDeep } from "lodash";
-import { DataSourceResponse } from "../types";
-import DataSource from "./dataSource";
+import { DataSourceResponse } from "../types/index.js";
+import DataSource from "./nativeDataSource.js";
 
 export interface Pager {
 	page: number;
@@ -132,7 +132,7 @@ export default class DataSets extends DataSource {
 			page,
 		});
 		if (selectedGroup) {
-			const filteredData = _filter(data, ({ id }) => {
+			const filteredData = _filter(data, ({ id }: { id: string }) => {
 				return id.split(".")[0] === selectedGroup?.id;
 			});
 			if (searchKeyword) {
