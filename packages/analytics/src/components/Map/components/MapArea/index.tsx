@@ -3,15 +3,19 @@ import { Map as LeafletMap } from "leaflet";
 import { isEmpty } from "lodash";
 import React, { forwardRef, useRef } from "react";
 import { LayersControl, MapContainer, TileLayer } from "react-leaflet";
-import { useMapBounds } from "../../hooks/map";
-import MapControl from "../MapControls";
-import MapLayer from "../MapLayer";
-import LegendArea from "../MapLayer/components/LegendArea";
-import { CustomThematicLayer } from "../MapLayer/interfaces";
-import { MapLayersProvider } from "../MapProvider/components/MapLayerProvider";
-import { useMapLayers } from "../MapProvider/hooks";
-import { MapAreaProps, MapControls, MapLegendConfig } from "./interfaces";
-import MapUpdater from "../MapUpdater";
+import { useMapBounds } from "../../hooks/map.js";
+import MapControl from "../MapControls/index.js";
+import MapLayer from "../MapLayer/index.js";
+import LegendArea from "../MapLayer/components/LegendArea/index.js";
+import { CustomThematicLayer } from "../MapLayer/interfaces/index.js";
+import { MapLayersProvider } from "../MapProvider/components/MapLayerProvider/index.js";
+import { useMapLayers } from "../MapProvider/hooks/index.js";
+import {
+	MapAreaProps,
+	MapControls,
+	MapLegendConfig,
+} from "./interfaces/index.js";
+import MapUpdater from "../MapUpdater/index.js";
 
 function MapLayerArea({
 	id,
@@ -73,30 +77,42 @@ function MapLayerArea({
 	);
 }
 
-const MapArea = ({ base, controls, mapOptions, key, legends, layers }: MapAreaProps, ref: React.Ref<LeafletMap> | undefined) => {
-  const { center, bounds } = useMapBounds();
-  const { current: id } = useRef<string>(uid());
+const MapArea = (
+	{ base, controls, mapOptions, key, legends, layers }: MapAreaProps,
+	ref: React.Ref<LeafletMap> | undefined,
+) => {
+	const { center, bounds } = useMapBounds();
+	const { current: id } = useRef<string>(uid());
 
-  return (
-    <div id={`${id}-"map-container`} style={{ height: "100%", width: "100%" }}>
-      <MapContainer
-        attributionControl
-        ref={ref}
-        id={id}
-        center={center}
-        bounceAtZoomLimits
-        bounds={bounds}
-        style={{ height: "100%", width: "100%", minHeight: 500 }}
-        key={key}
-        trackResize
-        {...mapOptions}>
-        <MapUpdater bounds={bounds} />
-        <MapLayersProvider layers={layers}>
-          <MapLayerArea base={base} id={id} controls={controls} legends={legends} />
-        </MapLayersProvider>
-      </MapContainer>
-    </div>
-  );
+	return (
+		<div
+			id={`${id}-"map-container`}
+			style={{ height: "100%", width: "100%" }}
+		>
+			<MapContainer
+				attributionControl
+				ref={ref}
+				id={id}
+				center={center}
+				bounceAtZoomLimits
+				bounds={bounds}
+				style={{ height: "100%", width: "100%", minHeight: 500 }}
+				key={key}
+				trackResize
+				{...mapOptions}
+			>
+				<MapUpdater bounds={bounds} />
+				<MapLayersProvider layers={layers}>
+					<MapLayerArea
+						base={base}
+						id={id}
+						controls={controls}
+						legends={legends}
+					/>
+				</MapLayersProvider>
+			</MapContainer>
+		</div>
+	);
 };
 
 export default forwardRef(MapArea);

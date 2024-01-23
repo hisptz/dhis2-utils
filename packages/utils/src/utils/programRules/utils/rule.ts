@@ -1,12 +1,12 @@
-import { executeCondition } from "./evaluator";
+import { executeCondition } from "./evaluator.js";
 import { compact, flatten, map } from "lodash";
-import { getAction } from "./actions";
+import { getAction } from "./actions.js";
 import {
 	ProgramRuleExecutionVariables,
 	ProgramRuleOptions,
 	Rule,
 	RunnableAction,
-} from "../interfaces";
+} from "../interfaces/index.js";
 
 export const evaluateRule = function (
 	rule: Rule,

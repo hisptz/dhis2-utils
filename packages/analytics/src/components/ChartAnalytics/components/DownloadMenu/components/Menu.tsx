@@ -1,8 +1,8 @@
 import { FlyoutMenu, Menu, MenuDivider, MenuItem, Popover } from "@dhis2/ui";
 import { isEmpty, map } from "lodash";
 import React from "react";
-import { chartMenuSections } from "../constants/menu";
-import { ChartExportMenuItem } from "../interfaces/menu";
+import { chartMenuSections } from "../constants/menu.js";
+import { ChartExportMenuItem } from "../interfaces/menu.js";
 
 export function ChartMenu({
 	menuRef,

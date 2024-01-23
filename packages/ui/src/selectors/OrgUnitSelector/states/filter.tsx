@@ -9,9 +9,9 @@ import React, {
 	useRef,
 	useState,
 } from "react";
-import { orgUnitSearchQuery } from "../services";
-import { sanitizeExpansionPaths, sanitizeFilters } from "../utils";
-import { OrganisationUnit } from "../types";
+import { orgUnitSearchQuery } from "../services/index.js";
+import { sanitizeExpansionPaths, sanitizeFilters } from "../utils/index.js";
+import { OrganisationUnit } from "../types/index.js";
 
 export interface FilterStateProps {
 	searchValue?: string;

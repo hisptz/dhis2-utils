@@ -1,7 +1,7 @@
 import i18n from "@dhis2/d2-i18n";
-import { ColorConfig } from "./ColorConfig";
+import { ColorConfig } from "./ColorConfig.js";
 import React from "react";
-import { useType } from "../hooks/data";
+import { useType } from "../hooks/data.js";
 
 export function StylesConfig() {
 	const config = useType();

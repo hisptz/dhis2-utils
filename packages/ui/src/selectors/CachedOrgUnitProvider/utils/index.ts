@@ -1,5 +1,5 @@
 import { get } from "lodash";
-import { OFFLINE_ORG_UNIT_PAGE_SIZE } from "../constants/config";
+import { OFFLINE_ORG_UNIT_PAGE_SIZE } from "../constants/config.js";
 
 async function getPagination(
 	engine: any,

@@ -11,7 +11,7 @@
       "ESNext"
     ],
     "module": "ESNext",
-    "target": "es2022",
+    "target": "es2020",
     "typeRoots": []
   }
 }

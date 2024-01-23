@@ -2,9 +2,9 @@ import i18n from "@dhis2/d2-i18n";
 import { MultiSelectField, MultiSelectOption } from "@dhis2/ui";
 import { intersectionWith } from "lodash";
 import React from "react";
-import { useOrgUnitLevelsAndGroups } from "../../hooks";
-import { onGroupSelect, onLevelSelect } from "../../utils";
-import { OrgUnitSelection } from "../../types";
+import { useOrgUnitLevelsAndGroups } from "../../hooks/index.js";
+import { onGroupSelect, onLevelSelect } from "../../utils/index.js";
+import { OrgUnitSelection } from "../../types/index.js";
 
 export function LevelAndGroupSelector({
 	showLevels,

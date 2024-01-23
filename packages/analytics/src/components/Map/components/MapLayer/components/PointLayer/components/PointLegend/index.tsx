@@ -1,9 +1,9 @@
 import { useConfig } from "@dhis2/app-runtime";
 import { Divider } from "@dhis2/ui";
 import React, { forwardRef } from "react";
-import { getIconUrl } from "../../../../../../utils/helpers";
-import LegendCardHeader from "../../../LegendArea/components/LegendCardHeader";
-import { usePointLayer } from "../../hooks";
+import { getIconUrl } from "../../../../../../utils/helpers.js";
+import LegendCardHeader from "../../../LegendArea/components/LegendCardHeader/index.js";
+import { usePointLayer } from "../../hooks/index.js";
 
 function PointLegends({
 	orgUnitGroups,
@@ -55,17 +55,28 @@ function PointLegends({
 	);
 }
 
-function PointLegend({ collapsible, onCollapse }: any, ref: React.LegacyRef<HTMLDivElement>) {
-  const pointLayer = usePointLayer();
-  const { label, style } = pointLayer ?? {};
+function PointLegend(
+	{ collapsible, onCollapse }: any,
+	ref: React.LegacyRef<HTMLDivElement>,
+) {
+	const pointLayer = usePointLayer();
+	const { label, style } = pointLayer ?? {};
 
-  return (
-    <div ref={ref} className="legend-card">
-      <LegendCardHeader collapsible={collapsible} onCollapse={onCollapse} title={label ?? "Points"} />
-      <Divider margin={"0"} />
-      <PointLegends label={label} orgUnitGroups={style?.orgUnitGroups ?? []} icon={style?.icon} />
-    </div>
-  );
+	return (
+		<div ref={ref} className="legend-card">
+			<LegendCardHeader
+				collapsible={collapsible}
+				onCollapse={onCollapse}
+				title={label ?? "Points"}
+			/>
+			<Divider margin={"0"} />
+			<PointLegends
+				label={label}
+				orgUnitGroups={style?.orgUnitGroups ?? []}
+				icon={style?.icon}
+			/>
+		</div>
+	);
 }
 
 export default forwardRef(PointLegend);

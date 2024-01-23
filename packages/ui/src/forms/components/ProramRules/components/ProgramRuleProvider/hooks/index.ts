@@ -7,9 +7,9 @@ import {
 	FieldMinMaxState,
 	FieldVisibilityState,
 	FieldWarningState,
-} from "../state";
+} from "../state/index.js";
 import { flatten, forEach, some, uniq } from "lodash";
-import { useDataFetch } from "../services/fetch";
+import { useDataFetch } from "../services/fetch.js";
 import { useFormContext } from "react-hook-form";
 import {
 	ActionCallbacks,

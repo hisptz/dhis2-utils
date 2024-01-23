@@ -2,13 +2,13 @@ import i18n from "@dhis2/d2-i18n";
 import { SegmentedControl } from "@dhis2/ui";
 import { head, isEmpty } from "lodash";
 import React, { useCallback, useMemo, useState } from "react";
-import DateRange from "./components/DateRange/DateRange";
-import PeriodSelect from "./components/PeriodSelect/PeriodSelect";
-import { DateRangeValue, PeriodSelectorProps } from "./types";
+import DateRange from "./components/DateRange/DateRange.js";
+import PeriodSelect from "./components/PeriodSelect/PeriodSelect.js";
+import { DateRangeValue, PeriodSelectorProps } from "./types/index.js";
 
-export * from "./components/PeriodSelect/PeriodSelect";
-export * from "./components/FixedPeriodSelector/FixedPeriodSelector";
-export * from "./types";
+export * from "./components/PeriodSelect/PeriodSelect.js";
+export * from "./components/FixedPeriodSelector/FixedPeriodSelector.js";
+export * from "./types/index.js";
 
 /**
  * The `PeriodSelector` components combines the `PeriodSelect` and `DateRange` selectors into one component with SegmentedControl to select which selector is active at a time.

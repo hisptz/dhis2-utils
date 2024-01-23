@@ -1,4 +1,4 @@
-import { FieldProps } from "../../interfaces";
+import { FieldProps } from "../../interfaces/index.js";
 import React from "react";
 import { CheckboxField } from "@dhis2/ui";
 

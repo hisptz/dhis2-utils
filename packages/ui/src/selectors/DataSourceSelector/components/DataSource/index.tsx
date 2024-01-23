@@ -1,9 +1,9 @@
 import { Field, Transfer } from "@dhis2/ui";
 import { debounce, find, findIndex, uniqBy } from "lodash";
 import React, { useMemo, useState } from "react";
-import { DataSourceProps } from "../../types";
-import DataSourceSearch from "../Search";
-import useDataSources from "./hooks/useDataSources";
+import { DataSourceProps } from "../../types/index.js";
+import DataSourceSearch from "../Search/index.js";
+import useDataSources from "./hooks/useDataSources.js";
 
 export default function DataSource({
 	selectedDataSourceType,

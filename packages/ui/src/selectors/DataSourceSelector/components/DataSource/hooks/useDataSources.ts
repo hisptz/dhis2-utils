@@ -1,8 +1,8 @@
 import { useDataEngine } from "@dhis2/app-runtime";
 import { isArray } from "lodash";
 import { useCallback, useEffect, useState } from "react";
-import DataSource from "../../../models/dataSource";
-import { DataSourceResponse } from "../../../types";
+import DataSource from "../../../models/dataSource.js";
+import { DataSourceResponse } from "../../../types/index.js";
 
 export default function useDataSources(
 	selectedDataSourceType: DataSource,

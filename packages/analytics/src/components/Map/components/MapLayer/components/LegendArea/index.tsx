@@ -2,21 +2,21 @@ import { colors, IconLegend24, Popper, Portal } from "@dhis2/ui";
 import { ControlPosition } from "leaflet";
 import { compact, head } from "lodash";
 import React, { useEffect, useRef, useState } from "react";
-import { MapLegendConfig } from "../../../MapArea/interfaces";
-import { CustomControl } from "../../../MapControls/components/CustomControl";
+import { MapLegendConfig } from "../../../MapArea/interfaces/index.js";
+import { CustomControl } from "../../../MapControls/components/CustomControl/index.js";
 import {
 	CustomBubbleLayer,
 	CustomGoogleEngineLayer,
 	CustomPointLayer,
 	CustomThematicLayer,
 	SUPPORTED_EARTH_ENGINE_LAYERS,
-} from "../../interfaces";
-import PointLegend from "../PointLayer/components/PointLegend";
-import BubbleLegend from "../ThematicLayer/components/Bubble/components/BubbleLegend";
-import ChoroplethLegend from "../ThematicLayer/components/Choropleth/components/ChoroplethLegend";
-import EarthEngineLegend from "../GoogleEngineLayer/components/EarthEngineLegend";
+} from "../../interfaces/index.js";
+import PointLegend from "../PointLayer/components/PointLegend/index.js";
+import BubbleLegend from "../ThematicLayer/components/Bubble/components/BubbleLegend/index.js";
+import ChoroplethLegend from "../ThematicLayer/components/Choropleth/components/ChoroplethLegend.js";
+import EarthEngineLegend from "../GoogleEngineLayer/components/EarthEngineLegend.js";
 import classes from "./LegendArea.module.css";
-import { usePrintMedia } from "../../../../hooks/map";
+import { usePrintMedia } from "../../../../hooks/map.js";
 
 const TOOLTIP_OFFSET = 4;
 

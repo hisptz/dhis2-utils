@@ -1,1 +1,1 @@
-export * from "./CustomCheckboxField";
+export * from "./CustomCheckboxField.js";

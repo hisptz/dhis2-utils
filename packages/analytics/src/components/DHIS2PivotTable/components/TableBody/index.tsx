@@ -1,12 +1,12 @@
 import { Header } from "../../services/engine";
 import { isEmpty, slice } from "lodash";
-import { useCustomPivotTableEngine } from "../../state/engine";
+import { useCustomPivotTableEngine } from "../../state/engine.js";
 import { DataTableCell, DataTableRow, TableBody } from "@dhis2/ui";
 import React, { Fragment, ReactNode } from "react";
 import { AnalyticsItem } from "@hisptz/dhis2-utils";
 import classes from "./TableBody.module.css";
 import { useElementSize } from "usehooks-ts";
-import { DHIS2Dimension } from "../../interfaces";
+import { DHIS2Dimension } from "../../interfaces/index.js";
 
 function DataRowRenderer({
 	mapper,

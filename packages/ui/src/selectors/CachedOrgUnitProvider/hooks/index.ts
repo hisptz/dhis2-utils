@@ -2,15 +2,15 @@ import { useDataEngine } from "@dhis2/app-runtime";
 import { mapSeries } from "async";
 import { flattenDeep, get, range, set } from "lodash";
 import { useCallback, useEffect, useState } from "react";
-import { OFFLINE_ORG_UNIT_PAGE_SIZE } from "../constants/config";
-import { groupQuery, levelQuery, ouQuery } from "../constants/queries";
+import { OFFLINE_ORG_UNIT_PAGE_SIZE } from "../constants/config.js";
+import { groupQuery, levelQuery, ouQuery } from "../constants/queries.js";
 import {
 	db,
 	OfflineOrganisationUnit,
 	OfflineOrganisationUnitGroup,
 	OfflineOrganisationUnitLevel,
-} from "../services/db";
-import { getPagination } from "../utils";
+} from "../services/db.js";
+import { getPagination } from "../utils/index.js";
 
 function sanitizeOrgUnitGroups(
 	groups: Array<any>,

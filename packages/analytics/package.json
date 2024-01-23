@@ -2,10 +2,11 @@
   "name": "@hisptz/dhis2-analytics",
   "version": "2.0.0-alpha.00",
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "module": "./dist/index.js",
   "types": "./dist/types/index.d.ts",
   "typings": "./dist/types/index.d.ts",
   "sideEffects": false,
+  "type": "module",
   "license": "MIT",
   "files": [
     "dist/**",

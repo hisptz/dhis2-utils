@@ -5,7 +5,7 @@ import type { Color } from "react-color";
 import { SketchPicker } from "react-color";
 import { uid } from "@hisptz/dhis2-utils";
 import classes from "./LegendDefinitionField.module.css";
-import { FieldProps, LegendDefinition } from "../../interfaces";
+import { FieldProps, LegendDefinition } from "../../interfaces/index.js";
 
 type ColorPickerProps = {
 	reference: ReferenceElement;

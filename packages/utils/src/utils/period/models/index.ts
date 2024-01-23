@@ -1,14 +1,17 @@
-import { FIXED_PERIOD_TYPES } from "../constants/fixed";
+import { FIXED_PERIOD_TYPES } from "../constants/fixed.js";
 import {
 	BasePeriodType,
 	FixedPeriodType,
 	RelativePeriodType,
-} from "./periodTypes";
-import { DateTimeConfiguration, PeriodPreference } from "../interfaces";
-import { RELATIVE_PERIOD_TYPES } from "../constants/relative";
-import { BasePeriod, FixedPeriod, RelativePeriod } from "./periods";
+} from "./periodTypes/index.js";
+import {
+	DateTimeConfiguration,
+	PeriodPreference,
+} from "../interfaces/index.js";
+import { RELATIVE_PERIOD_TYPES } from "../constants/relative.js";
+import { BasePeriod, FixedPeriod, RelativePeriod } from "./periods/index.js";
 import { isEmpty } from "lodash";
-import { PeriodTypeCategory } from "../constants";
+import { PeriodTypeCategory } from "../constants/index.js";
 import { Settings } from "luxon";
 
 abstract class PeriodCategory {
@@ -188,5 +191,5 @@ export class PeriodUtility {
 	}
 }
 
-export * from "./periods";
-export * from "./periodTypes";
+export * from "./periods/index.js";
+export * from "./periodTypes/index.js";

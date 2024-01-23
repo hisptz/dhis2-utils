@@ -1,5 +1,5 @@
 import { filter as _filter, isEmpty } from "lodash";
-import NativeDataSource from "./nativeDataSource";
+import NativeDataSource from "./nativeDataSource.js";
 
 export default class EventDataItems extends NativeDataSource {
 	constructor() {

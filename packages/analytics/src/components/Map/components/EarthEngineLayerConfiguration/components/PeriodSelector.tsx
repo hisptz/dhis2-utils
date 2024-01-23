@@ -8,7 +8,7 @@ import {
 	SingleSelectOption,
 } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
-import { useDatasetInfo, useType } from "../hooks/data";
+import { useDatasetInfo, useType } from "../hooks/data.js";
 
 export function PeriodSelector() {
 	const config = useType();

@@ -1,4 +1,4 @@
-import { FieldState } from "../state";
+import { FieldState } from "../state/index.js";
 import type { OptionSet } from "@hisptz/dhis2-utils";
 import React, { useMemo } from "react";
 import { useRecoilValue } from "recoil";

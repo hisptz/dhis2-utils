@@ -4,13 +4,13 @@ import type {
 	AnalyticsMetadata,
 } from "@hisptz/dhis2-utils";
 import { compact, find, findIndex, head, isEmpty, set } from "lodash";
-import { DHIS2Chart } from "../models";
-import { DHIS2ColumnChart, DHIS2StackedColumnChart } from "../models/column";
-import { DHIS2LineChart } from "../models/line";
-import { DHIS2MultiSeriesChart } from "../models/multi-series";
-import { DHIS2PieChart } from "../models/pie";
-import { ChartConfig, ChartType } from "../types/props";
-import { DHIS2BarChart, DHIS2StackedBarChart } from "../models/bar";
+import { DHIS2Chart } from "../models/index.js";
+import { DHIS2ColumnChart, DHIS2StackedColumnChart } from "../models/column.js";
+import { DHIS2LineChart } from "../models/line.js";
+import { DHIS2MultiSeriesChart } from "../models/multi-series.js";
+import { DHIS2PieChart } from "../models/pie.js";
+import { ChartConfig, ChartType } from "../types/props.js";
+import { DHIS2BarChart, DHIS2StackedBarChart } from "../models/bar.js";
 
 export function getDimensionHeaderIndex(
 	headers: AnalyticsHeader[],

@@ -1,20 +1,20 @@
 import React from "react";
-import { FieldProps } from "../../interfaces";
+import { FieldProps } from "../../interfaces/index.js";
 import { OptionSet } from "@hisptz/dhis2-utils";
-import { VALUE_TYPE, VALUE_TYPES } from "../../constants";
-import { CustomSelectField } from "../CustomSelectField";
-import { NativeField } from "../NativeField";
-import { TrueOnlyField } from "../TrueOnlyField";
-import { LegendDefinitionField } from "../LegendDefinitionField";
-import { LegendMinMax } from "../LegendMinMax";
-import { AgeField } from "../AgeField";
-import { OrgUnitSelectField } from "../OrgUnitSelectField";
-import { FileUploadField } from "../FileUploadField";
-import { CustomTextAreaField } from "../CustomTextAreaField";
-import { YesNoField } from "../YesNoField";
-import { LegendDefinitionsFormField } from "../LegendDefinitions";
-import { LegendMinMaxGroup } from "../LegendMinMaxGroup";
-import { RichTextEditor } from "../RichTextEditor";
+import { VALUE_TYPE, VALUE_TYPES } from "../../constants/index.js";
+import { CustomSelectField } from "../CustomSelectField/index.js";
+import { NativeField } from "../NativeField/index.js";
+import { TrueOnlyField } from "../TrueOnlyField/index.js";
+import { LegendDefinitionField } from "../LegendDefinitionField/index.js";
+import { LegendMinMax } from "../LegendMinMax/index.js";
+import { AgeField } from "../AgeField/index.js";
+import { OrgUnitSelectField } from "../OrgUnitSelectField/index.js";
+import { FileUploadField } from "../FileUploadField/index.js";
+import { CustomTextAreaField } from "../CustomTextAreaField/index.js";
+import { YesNoField } from "../YesNoField/index.js";
+import { LegendDefinitionsFormField } from "../LegendDefinitions/index.js";
+import { LegendMinMaxGroup } from "../LegendMinMaxGroup/index.js";
+import { RichTextEditor } from "../RichTextEditor/index.js";
 import { isEmpty } from "lodash";
 
 export interface DHIS2FormFieldProps extends FieldProps {

@@ -2,12 +2,13 @@
   "name": "@hisptz/dhis2-utils",
   "version": "2.0.0-alpha.00",
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "module": "./dist/index.js",
   "types": "./dist/types/index.d.ts",
+  "type": "module",
   "exports": {
     ".": {
       "require": "./dist/index.js",
-      "import": "./dist/index.mjs",
+      "import": "./dist/index.js",
       "types": "./dist/types/index.d.ts"
     }
   },

@@ -1,3 +1,3 @@
-export * from "./components/PeriodSelectorModal"
-export * from "./components/OrgUnitSelectorModal"
-export * from "./types"
+export * from "./components/PeriodSelectorModal.js";
+export * from "./components/OrgUnitSelectorModal.js";
+export * from "./types/index.js";

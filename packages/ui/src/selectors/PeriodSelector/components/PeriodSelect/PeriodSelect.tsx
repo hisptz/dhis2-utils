@@ -10,9 +10,9 @@ import {
 } from "@dhis2/ui";
 import { capitalize, compact } from "lodash";
 import React from "react";
-import { usePeriodGenerator } from "../Selector/hooks";
-import PeriodTransferOption from "./components/TransferOption";
-import { PeriodSelectProps } from "./interfaces/props";
+import { usePeriodGenerator } from "../Selector/hooks/index.js";
+import PeriodTransferOption from "./components/TransferOption.js";
+import { PeriodSelectProps } from "./interfaces/props.js";
 import {
 	BasePeriod,
 	BasePeriodType,

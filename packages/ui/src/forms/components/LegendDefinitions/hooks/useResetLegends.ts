@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useFormContext } from "react-hook-form";
-import { resetLegends } from "../utils";
+import { resetLegends } from "../utils/index.js";
 
 export function useResetLegends() {
 	const { watch, setValue } = useFormContext();

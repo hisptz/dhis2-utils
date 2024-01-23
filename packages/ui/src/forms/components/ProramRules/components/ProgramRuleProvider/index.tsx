@@ -1,20 +1,20 @@
 import React, { useMemo } from "react";
-import type {
+import {
 	Event,
 	Program,
 	ProgramRule,
 	Rule,
 	TrackedEntityInstance,
+	translateProgramRule,
 } from "@hisptz/dhis2-utils";
-import { translateProgramRule } from "@hisptz/dhis2-utils";
-import { RuleComponent } from "./components/RuleComponent";
-import { useVariableValues } from "./hooks";
-import { FieldStateProvider } from "./state";
+import { RuleComponent } from "./components/RuleComponent.js";
+import { useVariableValues } from "./hooks/index.js";
+import { FieldStateProvider } from "./state/index.js";
 
-export * from "./components/RuleComponent";
-export * from "./components/FieldProgramRule";
-export * from "./hooks";
-export * from "./state";
+export * from "./components/RuleComponent.js";
+export * from "./components/FieldProgramRule.js";
+export * from "./hooks/index.js";
+export * from "./state/index.js";
 
 export interface ProgramRuleProviderProps {
 	program: Program;

@@ -3,8 +3,8 @@ import { Button, Field, IconAdd24 } from "@dhis2/ui";
 import PropTypes from "prop-types";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { RHFDHIS2FormField } from "../../react-hook-form-fields";
-import { VALUE_TYPES } from "../../../constants";
+import { RHFDHIS2FormField } from "../../react-hook-form-fields/index.js";
+import { VALUE_TYPES } from "../../../constants/index.js";
 
 export function AddLegendDefinition({
 	onAdd,

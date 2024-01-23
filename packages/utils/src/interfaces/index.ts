@@ -1,2 +1,2 @@
-export * from "./dhis2";
-export * from "./common";
+export * from "./dhis2/index.js";
+export * from "./common/index.js";

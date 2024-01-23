@@ -1,5 +1,5 @@
 import React from "react";
-import { useOrganisationUnitData } from "./hooks";
+import { useOrganisationUnitData } from "./hooks/index.js";
 
 interface OfflineOrgUnitProviderProps {
 	children: React.ReactNode;

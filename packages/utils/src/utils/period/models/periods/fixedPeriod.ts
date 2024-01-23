@@ -1,9 +1,12 @@
-import { PeriodInterface, PeriodTypeInterface } from "../../interfaces";
+import {
+	PeriodInterface,
+	PeriodTypeInterface,
+} from "../../interfaces/index.js";
 import { DateTime, Interval } from "luxon";
-import { BasePeriod } from "./basePeriod";
-import { FIXED_PERIOD_TYPES } from "../../constants/fixed";
+import { BasePeriod } from "./basePeriod.js";
+import { FIXED_PERIOD_TYPES } from "../../constants/fixed.js";
 import { head } from "lodash";
-import { FixedPeriodType } from "../periodTypes";
+import { FixedPeriodType } from "../periodTypes/index.js";
 
 export class FixedPeriod extends BasePeriod {
 	id: string;

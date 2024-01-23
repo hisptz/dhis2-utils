@@ -3,13 +3,13 @@ import { Button, Field, InputField, Radio } from "@dhis2/ui";
 import { Controller, FormProvider, useWatch } from "react-hook-form";
 import React, { useMemo, useState } from "react";
 import { compact } from "lodash";
-import { defaultClasses, defaultColorScaleName } from "../../utils/colors";
-import IndicatorSelectorModal from "./components/IndicatorSelectorModal";
-import { LegendSetSelector } from "./components/LegendSetSelector";
-import { CustomLegend } from "./components/CustomLegend";
-import { ThematicLayerConfigurationProps } from "./types";
-import { RadiusField } from "./components/RadiusField";
-import { TypeField } from "./components/TypeField";
+import { defaultClasses, defaultColorScaleName } from "../../utils/colors.js";
+import IndicatorSelectorModal from "./components/IndicatorSelectorModal/index.js";
+import { LegendSetSelector } from "./components/LegendSetSelector/index.js";
+import { CustomLegend } from "./components/CustomLegend/index.js";
+import { ThematicLayerConfigurationProps } from "./types/index.js";
+import { RadiusField } from "./components/RadiusField.js";
+import { TypeField } from "./components/TypeField.js";
 
 export function ThematicLayerConfiguration({
 	exclude,

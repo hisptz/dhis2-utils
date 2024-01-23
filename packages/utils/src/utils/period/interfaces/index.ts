@@ -1,6 +1,6 @@
 import { DateTime, DateTimeUnit, DurationLikeObject, Interval } from "luxon";
-import { BasePeriod } from "../models";
-import { PeriodTypeCategory, PeriodTypeEnum } from "../constants";
+import { BasePeriod } from "../models/index.js";
+import { PeriodTypeCategory, PeriodTypeEnum } from "../constants/index.js";
 
 export interface RelativePeriodConfig {
 	id: string;

@@ -1,9 +1,9 @@
 import type { Analytics } from "@hisptz/dhis2-utils";
 import HighCharts from "highcharts";
 import { useCallback, useEffect, useState } from "react";
-import { DHIS2Chart } from "../models";
-import { ChartConfig, ChartType } from "../types/props";
-import { getChartInstance, updateLayout } from "../utils/chart";
+import { DHIS2Chart } from "../models/index.js";
+import { ChartConfig, ChartType } from "../types/props.js";
+import { getChartInstance, updateLayout } from "../utils/chart.js";
 
 export function useChart({
 	id,

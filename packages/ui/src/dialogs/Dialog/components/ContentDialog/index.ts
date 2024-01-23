@@ -1,1 +1,1 @@
-export * from "./ContentDialog";
+export * from "./ContentDialog.js";

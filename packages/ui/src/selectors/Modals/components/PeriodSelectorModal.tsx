@@ -8,9 +8,9 @@ import {
 	ModalTitle,
 } from "@dhis2/ui";
 import React, { useCallback, useState } from "react";
-import type { PeriodSelectorProps } from "../../PeriodSelector";
-import { PeriodSelector } from "../../PeriodSelector";
-import { ModalProps } from "../types";
+import type { PeriodSelectorProps } from "../../PeriodSelector/index.js";
+import { PeriodSelector } from "../../PeriodSelector/index.js";
+import { ModalProps } from "../types/index.js";
 
 export { PeriodSelectorProps };
 

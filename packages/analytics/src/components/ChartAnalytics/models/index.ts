@@ -1,6 +1,6 @@
 import type { Analytics } from "@hisptz/dhis2-utils";
 import HighCharts from "highcharts";
-import { ChartConfig } from "../types/props";
+import { ChartConfig } from "../types/props.js";
 
 export abstract class DHIS2Chart {
 	id: string;

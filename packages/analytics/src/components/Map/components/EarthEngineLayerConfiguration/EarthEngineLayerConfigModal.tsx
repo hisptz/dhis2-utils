@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { EarthEngineLayerConfig } from "../MapLayer/interfaces";
+import { EarthEngineLayerConfig } from "../MapLayer/interfaces/index.js";
 import {
 	Button,
 	ButtonStrip,
@@ -10,7 +10,7 @@ import {
 } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
 import React from "react";
-import { EarthEngineLayerConfiguration } from "./EarthEngineLayerConfiguration";
+import { EarthEngineLayerConfiguration } from "./EarthEngineLayerConfiguration.js";
 
 export interface EarthEngineLayerConfigModalProps {
 	open: boolean;

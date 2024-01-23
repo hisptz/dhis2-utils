@@ -1,2 +1,2 @@
-export * from "./EarthEngineLayerConfigModal";
-export * from "./EarthEngineLayerConfiguration";
+export * from "./EarthEngineLayerConfigModal.js";
+export * from "./EarthEngineLayerConfiguration.js";

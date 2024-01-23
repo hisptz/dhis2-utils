@@ -5,8 +5,8 @@ import {
 	onUserOrUnitChange,
 	onUserSubUnitsChange,
 	onUserSubX2Units,
-} from "../../utils";
-import { OrgUnitSelection } from "../../types";
+} from "../../utils/index.js";
+import { OrgUnitSelection } from "../../types/index.js";
 
 export function OrgUnitUserOptions({
 	value,

@@ -1,4 +1,4 @@
-import { AccessObject, CustomLegend, LegendDefinition } from "../../interfaces";
+import { AccessObject, CustomLegend, LegendDefinition } from "../../interfaces/index.js";
 
 /**
  * The uid function generates a unique identifier acceptable as a DHIS2 resource id.

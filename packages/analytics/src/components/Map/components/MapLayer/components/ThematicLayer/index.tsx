@@ -1,10 +1,10 @@
 import { last } from "lodash";
 import React from "react";
 import { LayerGroup, LayersControl, Pane } from "react-leaflet";
-import { CustomBubbleLayer } from "../../interfaces";
-import Bubble from "./components/Bubble";
-import Choropleth from "./components/Choropleth";
-import useThematicLayer from "./hooks/config";
+import { CustomBubbleLayer } from "../../interfaces/index.js";
+import Bubble from "./components/Bubble/index.js";
+import Choropleth from "./components/Choropleth/index.js";
+import useThematicLayer from "./hooks/config.js";
 
 export default function ThematicLayer({
 	layerId,

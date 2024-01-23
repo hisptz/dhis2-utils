@@ -2,7 +2,7 @@ import { OrgUnitSelectorModal } from "./OrgUnitSelectorModal";
 import { Meta, StoryObj } from "@storybook/react";
 import { useBoolean } from "usehooks-ts";
 import { useState } from "react";
-import { OrgUnitSelection } from "../../OrgUnitSelector";
+import { OrgUnitSelection } from "../../OrgUnitSelector/index.js";
 import { Button } from "@dhis2/ui";
 
 const meta: Meta<typeof OrgUnitSelectorModal> = {

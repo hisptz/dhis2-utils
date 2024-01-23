@@ -2,7 +2,7 @@ import { filter, find } from "lodash";
 import {
 	EARTH_ENGINE_LAYERS,
 	SUPPORTED_EARTH_ENGINE_LAYERS,
-} from "../../MapLayer/components/GoogleEngineLayer/constants";
+} from "../../MapLayer/components/GoogleEngineLayer/constants/index.js";
 import { Controller, useFormContext } from "react-hook-form";
 import i18n from "@dhis2/d2-i18n";
 import { SingleSelectField, SingleSelectOption } from "@dhis2/ui";

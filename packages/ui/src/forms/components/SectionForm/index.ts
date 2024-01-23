@@ -1,2 +1,2 @@
-export * from "./SectionForm";
-export * from "./interfaces";
+export * from "./SectionForm.js";
+export * from "./interfaces/index.js";

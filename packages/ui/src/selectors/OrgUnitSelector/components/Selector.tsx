@@ -1,11 +1,11 @@
 import { Box, Center, CircularLoader, colors, IconError24 } from "@dhis2/ui";
 import React, { Fragment, useMemo } from "react";
-import { useOrgUnitsRoot } from "../hooks";
-import { OrgUnitSelectorProps } from "../types";
-import { LevelAndGroupSelector } from "./LevelAndGroupSelector";
-import { OrgUnitSearch } from "./OrgUnitSearch";
-import { OrgUnitTree } from "./OrgUnitTree";
-import { OrgUnitUserOptions } from "./OrgUnitUserOptions";
+import { useOrgUnitsRoot } from "../hooks/index.js";
+import { OrgUnitSelectorProps } from "../types/index.js";
+import { LevelAndGroupSelector } from "./LevelAndGroupSelector/index.js";
+import { OrgUnitSearch } from "./OrgUnitSearch/index.js";
+import { OrgUnitTree } from "./OrgUnitTree/index.js";
+import { OrgUnitUserOptions } from "./OrgUnitUserOptions/index.js";
 import styled from "styled-components";
 
 export default function OrgUnitSelector({

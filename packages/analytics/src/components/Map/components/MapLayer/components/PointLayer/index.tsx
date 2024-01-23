@@ -9,9 +9,9 @@ import {
 	Popup,
 	Tooltip,
 } from "react-leaflet";
-import { PointOrgUnit } from "../../../../interfaces";
-import { getIcon, getIconUrl } from "../../../../utils/helpers";
-import { usePointLayer } from "./hooks";
+import { PointOrgUnit } from "../../../../interfaces/index.js";
+import { getIcon, getIconUrl } from "../../../../utils/helpers.js";
+import { usePointLayer } from "./hooks/index.js";
 
 export function PointLayer() {
 	const pointLayer = usePointLayer();

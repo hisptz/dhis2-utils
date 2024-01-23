@@ -4,8 +4,8 @@ import { LayersControlEvent } from "leaflet";
 import { compact, find, head, set } from "lodash";
 import React, { useCallback, useEffect, useState } from "react";
 import { useMapEvents } from "react-leaflet";
-import { MapLayersContext } from "../../../../state";
-import { MapLayerConfig } from "../../../MapArea/interfaces";
+import { MapLayersContext } from "../../../../state/index.js";
+import { MapLayerConfig } from "../../../MapArea/interfaces/index.js";
 import {
 	CustomBoundaryLayer,
 	CustomGoogleEngineLayer,
@@ -13,13 +13,13 @@ import {
 	CustomPointLayer,
 	CustomThematicLayer,
 	ThematicLayerConfig,
-} from "../../../MapLayer/interfaces";
-import { useMapOrganisationUnit, useMapPeriods } from "../../hooks";
+} from "../../../MapLayer/interfaces/index.js";
+import { useMapOrganisationUnit, useMapPeriods } from "../../hooks/index.js";
 import {
 	useGoogleEngineLayers,
 	usePointLayer,
 	useThematicLayers,
-} from "./hooks";
+} from "./hooks/index.js";
 
 export function MapLayersProvider({
 	layers,

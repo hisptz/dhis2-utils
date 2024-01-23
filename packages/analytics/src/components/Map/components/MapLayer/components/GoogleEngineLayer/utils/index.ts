@@ -1,4 +1,4 @@
-import { EarthEngineOptions } from "../interfaces";
+import { EarthEngineOptions } from "../interfaces/index.js";
 
 export const combineReducers = (ee: any) => (types: string[]) =>
 	types.reduce(
@@ -13,61 +13,64 @@ export const combineReducers = (ee: any) => (types: string[]) =>
 	);
 
 export const getInfo = (instance: any) =>
-  new Promise((resolve, reject) =>
-    instance.evaluate((data: any, error: Error) => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(data);
-      }
-    })
-  );
+	new Promise((resolve, reject) =>
+		instance.evaluate((data: any, error: Error) => {
+			if (error) {
+				reject(error);
+			} else {
+				resolve(data);
+			}
+		}),
+	);
 
 export const getFeatureCollectionProperties = (data: any) =>
-  data.features.reduce(
-    (obj: any, f: any) => ({
-      ...obj,
-      [f.id]: f.properties,
-    }),
-    {}
-  );
+	data.features.reduce(
+		(obj: any, f: any) => ({
+			...obj,
+			[f.id]: f.properties,
+		}),
+		{},
+	);
 
 export const getScale = async (image: any) => {
-  return image.select(0).projection().nominalScale();
+	return image.select(0).projection().nominalScale();
 };
 
 const getParamsFromLegend = (legend: any[]) => {
-  const keys = legend.map((l) => l.id);
-  const min = Math.min(...keys);
-  const max = Math.max(...keys);
-  const palette = legend.map((l) => l.color).join(",");
+	const keys = legend.map((l) => l.id);
+	const min = Math.min(...keys);
+	const max = Math.max(...keys);
+	const palette = legend.map((l) => l.color).join(",");
 
-  return { min, max, palette };
+	return { min, max, palette };
 };
 
-export const getClassifiedImage = (eeImage: any, { legend: legends, params }: EarthEngineOptions) => {
-  const legend = legends?.items ?? [];
-  if (!params) {
-    // Image has classes (e.g. landcover)
-    return { eeImage, params: getParamsFromLegend(legend) };
-  }
+export const getClassifiedImage = (
+	eeImage: any,
+	{ legend: legends, params }: EarthEngineOptions,
+) => {
+	const legend = legends?.items ?? [];
+	if (!params) {
+		// Image has classes (e.g. landcover)
+		return { eeImage, params: getParamsFromLegend(legend) };
+	}
 
-  const min = 0;
-  const max = legend.length - 1;
-  const { palette } = params;
-  let zones;
+	const min = 0;
+	const max = legend.length - 1;
+	const { palette } = params;
+	let zones;
 
-  for (let i = min, item; i < max; i++) {
-    item = legend[i] as any;
+	for (let i = min, item; i < max; i++) {
+		item = legend[i] as any;
 
-    if (!zones) {
-      zones = eeImage.gt(item.to);
-    } else {
-      zones = zones.add(eeImage.gt(item.to));
-    }
-  }
+		if (!zones) {
+			zones = eeImage.gt(item.to);
+		} else {
+			zones = zones.add(eeImage.gt(item.to));
+		}
+	}
 
-  return { eeImage: zones, params: { min, max, palette } };
+	return { eeImage: zones, params: { min, max, palette } };
 };
 
 const squareMetersToHectares = (value: number) => value / 10000;
@@ -78,28 +81,47 @@ const classAggregation = ["percentage", "hectares", "acres"];
 
 export const hasClasses = (type: string) => classAggregation.includes(type);
 
-export const getHistogramStatistics = ({ data, scale, aggregationType, legend }: { data: any; scale: any; aggregationType: string; legend: any }) =>
-  data.features.reduce((obj: Record<any, any>, { id, properties }: { id: string; properties: any }) => {
-    const { histogram } = properties;
-    const sum: number = Object.values(histogram).reduce((a: any, b: any) => a + b, 0) as number;
-    obj[id] = legend.reduce((values: any, { id }: { id: string }) => {
-      const count = histogram[id] || 0;
-      const sqMeters = count * (scale * scale);
-      let value;
-      switch (aggregationType) {
-        case "hectares":
-          value = Math.round(squareMetersToHectares(sqMeters));
-          break;
-        case "acres":
-          value = Math.round(squareMetersToAcres(sqMeters));
-          break;
-        default:
-          value = (count / sum) * 100; // percentage
-      }
+export const getHistogramStatistics = ({
+	data,
+	scale,
+	aggregationType,
+	legend,
+}: {
+	data: any;
+	scale: any;
+	aggregationType: string;
+	legend: any;
+}) =>
+	data.features.reduce(
+		(
+			obj: Record<any, any>,
+			{ id, properties }: { id: string; properties: any },
+		) => {
+			const { histogram } = properties;
+			const sum: number = Object.values(histogram).reduce(
+				(a: any, b: any) => a + b,
+				0,
+			) as number;
+			obj[id] = legend.reduce((values: any, { id }: { id: string }) => {
+				const count = histogram[id] || 0;
+				const sqMeters = count * (scale * scale);
+				let value;
+				switch (aggregationType) {
+					case "hectares":
+						value = Math.round(squareMetersToHectares(sqMeters));
+						break;
+					case "acres":
+						value = Math.round(squareMetersToAcres(sqMeters));
+						break;
+					default:
+						value = (count / sum) * 100; // percentage
+				}
 
-      values[id] = value;
+				values[id] = value;
 
-      return values;
-    }, {});
-    return obj;
-  }, {});
+				return values;
+			}, {});
+			return obj;
+		},
+		{},
+	);

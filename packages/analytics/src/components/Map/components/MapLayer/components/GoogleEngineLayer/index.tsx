@@ -8,15 +8,15 @@ import {
 	TileLayer,
 	Tooltip,
 } from "react-leaflet";
-import { useBoundaryData } from "../BoundaryLayer/hooks/useBoundaryData";
-import useGoogleEngineLayer from "./hooks";
-import { MapOrgUnit } from "../../../../interfaces";
-import { highlightFeature, resetHighlight } from "../../../../utils/map";
-import { defaultStyle, highlightStyle } from "../BoundaryLayer";
+import { useBoundaryData } from "../BoundaryLayer/hooks/useBoundaryData.js";
+import useGoogleEngineLayer from "./hooks/index.js";
+import { MapOrgUnit } from "../../../../interfaces/index.js";
+import { highlightFeature, resetHighlight } from "../../../../utils/map.js";
+import { defaultStyle, highlightStyle } from "../BoundaryLayer/index.js";
 import { useQuery } from "react-query";
 import { Center, CircularLoader, Divider } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
-import { CustomGoogleEngineLayer } from "../../interfaces";
+import { CustomGoogleEngineLayer } from "../../interfaces/index.js";
 
 function formatValues(value: number): string {
 	return Intl.NumberFormat("en-GB", { maximumFractionDigits: 2 }).format(

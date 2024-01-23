@@ -1,4 +1,4 @@
-import { useCenterMap } from "../../hooks/map";
+import { useCenterMap } from "../../hooks/map.js";
 import React from "react";
 import { LatLngTuple } from "leaflet";
 
