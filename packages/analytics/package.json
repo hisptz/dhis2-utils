@@ -1,6 +1,6 @@
 {
   "name": "@hisptz/dhis2-analytics",
-  "version": "2.0.0-alpha.00",
+  "version": "2.0.0-alpha.01",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/types/index.d.ts",
