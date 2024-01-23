@@ -3,13 +3,13 @@ import i18n from "@dhis2/d2-i18n";
 import { Center, CircularLoader } from "@dhis2/ui";
 import { compact, isEmpty } from "lodash";
 import React, { useEffect, useState } from "react";
-import { MapOrgUnit, MapProviderProps } from "../../interfaces";
-import { MapOrgUnitContext, MapPeriodContext } from "../../state";
+import { MapOrgUnit, MapProviderProps } from "../../interfaces/index.js";
+import { MapOrgUnitContext, MapPeriodContext } from "../../state/index.js";
 import {
 	getOrgUnitsSelection,
 	sanitizeOrgUnits,
 	toGeoJson,
-} from "../../utils/map";
+} from "../../utils/map.js";
 import { BasePeriod, PeriodUtility } from "@hisptz/dhis2-utils";
 
 const boundaryQuery = {

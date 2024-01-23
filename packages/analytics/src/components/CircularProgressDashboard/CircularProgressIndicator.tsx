@@ -1,9 +1,9 @@
 import { colors } from "@dhis2/ui";
 import React, { useMemo } from "react";
 import { CircularProgressbarWithChildren } from "react-circular-progressbar";
-import { CircularDashboardProps } from "./types/props";
+import { CircularDashboardProps } from "./types/props.js";
 
-export * from "./types/props";
+export * from "./types/props.js";
 
 export function CircularProgressVisualizer({
 	numerator,

@@ -1,24 +1,24 @@
 import React, { useMemo } from "react";
-import { useVisualizationType } from "../VisualizationTypeProvider";
-import { useAnalyticsData } from "../AnalyticsDataProvider";
+import { useVisualizationType } from "../VisualizationTypeProvider/index.js";
+import { useAnalyticsData } from "../AnalyticsDataProvider/index.js";
 import { CircularLoader } from "@dhis2/ui";
 import {
 	DHIS2PivotTable,
 	DHIS2PivotTableOptions,
-} from "../../../DHIS2PivotTable";
-import { useLayout } from "../LayoutProvider";
+} from "../../../DHIS2PivotTable/index.js";
+import { useLayout } from "../LayoutProvider/index.js";
 import { filter, find, findIndex, forEach, mapValues, set } from "lodash";
-import { Dimension, useDimensions } from "../DimensionsProvider";
+import { Dimension, useDimensions } from "../DimensionsProvider/index.js";
 import i18n from "@dhis2/d2-i18n";
-import { ChartConfig, DHIS2Chart } from "../../../ChartAnalytics";
-import { VisualizationConfig } from "../../index";
-import { DHIS2Map, MapProps } from "../../../Map";
+import { ChartConfig, DHIS2Chart } from "../../../ChartAnalytics/index.js";
+import { VisualizationConfig } from "../../index.js";
+import { DHIS2Map, MapProps } from "../../../Map/index.js";
 import { OrgUnitSelection } from "@hisptz/dhis2-utils";
 import {
 	ThematicLayerConfig,
 	ThematicLayerRawData,
-} from "../../../Map/components/MapLayer/interfaces";
-import { PivotTableLayoutProps } from "../../../DHIS2PivotTable/components/Table";
+} from "../../../Map/components/MapLayer/interfaces/index.js";
+import type { PivotTableLayoutProps } from "../../../DHIS2PivotTable/components/Table/index.js";
 
 export interface VisualizationSelectorProps {
 	config: VisualizationConfig;

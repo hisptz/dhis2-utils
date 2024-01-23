@@ -12,8 +12,8 @@ import {
 	getColorClasses,
 	getColorPalette,
 	getColorScale,
-} from "../../../utils/colors";
-import ColorScaleSelect from "../../ThematicLayerConfiguration/components/ColorScaleSelect";
+} from "../../../utils/colors.js";
+import ColorScaleSelect from "../../ThematicLayerConfiguration/components/ColorScaleSelect/index.js";
 import React from "react";
 
 export function ColorConfig() {

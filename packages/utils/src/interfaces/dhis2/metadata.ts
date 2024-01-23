@@ -3,8 +3,8 @@ import {
 	DHIS2AccessString,
 	DHIS2Resource,
 	DHIS2ValueType,
-} from "./base";
-import { TrackedEntityAttribute, TrackedEntityType } from "./tracker";
+} from "./base.js";
+import { TrackedEntityAttribute, TrackedEntityType } from "./tracker.js";
 
 export interface DataElement extends DHIS2Resource {
 	valueType: DHIS2ValueType;

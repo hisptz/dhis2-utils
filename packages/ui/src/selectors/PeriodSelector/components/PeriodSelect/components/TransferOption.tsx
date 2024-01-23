@@ -1,6 +1,6 @@
 import { IconClock16, Tag } from "@dhis2/ui";
 import React from "react";
-import { Period } from "../interfaces/period";
+import { Period } from "../interfaces/period.js";
 
 interface PeriodTransferOptionProps {
 	value: Period;

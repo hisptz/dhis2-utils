@@ -2,12 +2,12 @@ import "../../../styles/legends.css";
 import { Divider } from "@dhis2/ui";
 import type { Legend } from "@hisptz/dhis2-utils";
 import React, { forwardRef } from "react";
-import { getLegendCount } from "../../../../../../../utils/map";
+import { getLegendCount } from "../../../../../../../utils/map.js";
 import {
 	ThematicLayerData,
 	ThematicLayerDataItem,
-} from "../../../../../interfaces";
-import LegendCardHeader from "../../../../LegendArea/components/LegendCardHeader";
+} from "../../../../../interfaces/index.js";
+import LegendCardHeader from "../../../../LegendArea/components/LegendCardHeader/index.js";
 
 export function LegendItem({
 	legend,
@@ -29,27 +29,42 @@ export function LegendItem({
 }
 
 function ChoroplethLegend(
-  {
-    dataItem,
-    data,
-    name,
-    collapsible,
-    onCollapse,
-    legends,
-  }: { data: ThematicLayerData[]; dataItem: ThematicLayerDataItem; name?: string; collapsible?: boolean; onCollapse?: () => void; legends: Legend[] },
-  ref: React.LegacyRef<HTMLDivElement> | undefined
+	{
+		dataItem,
+		data,
+		name,
+		collapsible,
+		onCollapse,
+		legends,
+	}: {
+		data: ThematicLayerData[];
+		dataItem: ThematicLayerDataItem;
+		name?: string;
+		collapsible?: boolean;
+		onCollapse?: () => void;
+		legends: Legend[];
+	},
+	ref: React.LegacyRef<HTMLDivElement> | undefined,
 ) {
-  return (
-    <div className="legend-card" ref={ref}>
-      <LegendCardHeader title={dataItem.displayName} collapsible={collapsible} onCollapse={onCollapse} />
-      <Divider margin={"0"} />
-      <div className="legend-list pt-8">
-        {legends?.map((legend: any) => (
-          <LegendItem key={`${legend?.color}-legend-list`} legend={legend} value={getLegendCount(legend, data)} />
-        ))}
-      </div>
-    </div>
-  );
+	return (
+		<div className="legend-card" ref={ref}>
+			<LegendCardHeader
+				title={dataItem.displayName}
+				collapsible={collapsible}
+				onCollapse={onCollapse}
+			/>
+			<Divider margin={"0"} />
+			<div className="legend-list pt-8">
+				{legends?.map((legend: any) => (
+					<LegendItem
+						key={`${legend?.color}-legend-list`}
+						legend={legend}
+						value={getLegendCount(legend, data)}
+					/>
+				))}
+			</div>
+		</div>
+	);
 }
 
 export default forwardRef(ChoroplethLegend);

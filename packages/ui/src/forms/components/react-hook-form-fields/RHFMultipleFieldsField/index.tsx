@@ -2,7 +2,7 @@ import i18n from "@dhis2/d2-i18n";
 import { Button, Field, IconAdd24, IconDelete24 } from "@dhis2/ui";
 import React from "react";
 import { useFieldArray } from "react-hook-form";
-import { RHFFieldProps } from "../../../interfaces";
+import { RHFFieldProps } from "../../../interfaces/index.js";
 
 export interface MultipleFieldsFieldProps extends RHFFieldProps {
 	multipleField?: RHFFieldProps;

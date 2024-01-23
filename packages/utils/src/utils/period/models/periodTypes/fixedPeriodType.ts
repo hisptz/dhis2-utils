@@ -1,9 +1,9 @@
 import { compact, filter } from "lodash";
 import { DateTime, Interval } from "luxon";
-import { PeriodPreference } from "../../interfaces";
-import { FIXED_PERIOD_TYPES } from "../../constants/fixed";
-import { BasePeriodType } from "./basePeriodType";
-import { FixedPeriod } from "../periods";
+import { PeriodPreference } from "../../interfaces/index.js";
+import { FIXED_PERIOD_TYPES } from "../../constants/fixed.js";
+import { BasePeriodType } from "./basePeriodType.js";
+import { FixedPeriod } from "../periods/index.js";
 
 export class FixedPeriodType extends BasePeriodType {
 	get periods(): FixedPeriod[] {

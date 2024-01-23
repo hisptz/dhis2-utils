@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { CustomSelectField } from "../../../../forms";
+import { CustomSelectField } from "../../../../forms/index.js";
 import i18n from "@dhis2/d2-i18n";
 import { MapOrEntries, useMap } from "usehooks-ts";
 import { head, isEmpty, uniqBy } from "lodash";

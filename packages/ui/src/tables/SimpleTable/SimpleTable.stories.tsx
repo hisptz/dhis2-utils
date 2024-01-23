@@ -127,7 +127,9 @@ export const CustomizedEmptyRows: Story = {
 	},
 	play: async ({ canvasElement, args }) => {
 		const canvas = within(canvasElement);
-		expect(canvas.getByText(args.emptyLabel as string)).toBeInTheDocument();
+		await expect(
+			canvas.getByText(args.emptyLabel as string),
+		).toBeInTheDocument();
 	},
 };
 

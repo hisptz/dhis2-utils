@@ -1,2 +1,2 @@
-export * from "./DataSourceSelector";
-export * from "./types";
+export * from "./DataSourceSelector.js";
+export * from "./types/index.js";

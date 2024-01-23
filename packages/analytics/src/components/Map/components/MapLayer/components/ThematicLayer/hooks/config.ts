@@ -1,7 +1,7 @@
 import { find } from "lodash";
 import { useContext } from "react";
-import { MapLayersContext } from "../../../../../state";
-import { CustomThematicLayer } from "../../../interfaces";
+import { MapLayersContext } from "../../../../../state/index.js";
+import { CustomThematicLayer } from "../../../interfaces/index.js";
 
 export default function useThematicLayer(
 	layerId: string,

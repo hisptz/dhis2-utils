@@ -2,13 +2,13 @@ import { uid } from "@hisptz/dhis2-utils";
 import HighCharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import React, { forwardRef, useRef } from "react";
-import { useChart } from "./hooks/useChart";
+import { useChart } from "./hooks/useChart.js";
 import "./styles/custom-highchart.css";
-import { ChartAnalyticsProps } from "./types/props";
+import { ChartAnalyticsProps } from "./types/props.js";
 
-export * from "./services/export";
-export * from "./types/props";
-export * from "./components/DownloadMenu";
+export * from "./services/export.js";
+export * from "./types/props.js";
+export * from "./components/DownloadMenu/index.js";
 
 function ChartAnalyticsComponent(
 	{ analytics, config, containerProps }: ChartAnalyticsProps,

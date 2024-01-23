@@ -1,5 +1,5 @@
-import { DHIS2AccessString, DHIS2Resource, DHIS2ValueType } from "./base";
-import { LegendSet, OptionSet } from "./metadata";
+import { DHIS2AccessString, DHIS2Resource, DHIS2ValueType } from "./base.js";
+import { LegendSet, OptionSet } from "./metadata.js";
 
 export interface Attribute extends DHIS2Resource {
 	mandatory: boolean;

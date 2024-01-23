@@ -1,4 +1,4 @@
-import { OrgUnitSelection } from "../../interfaces";
+import { OrgUnitSelection } from "../../interfaces/index.js";
 
 /**
  * Returns a display name for selected organisation unit based on organisation unit selection passed

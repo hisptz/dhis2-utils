@@ -1,6 +1,6 @@
 import { PlotOptions, SeriesOptionsType, XAxisOptions } from "highcharts";
-import { getAllCategories, getPointSeries } from "../utils/chart";
-import { DHIS2Chart } from "./index";
+import { getAllCategories, getPointSeries } from "../utils/chart.js";
+import { DHIS2Chart } from "./index.js";
 
 export class DHIS2ColumnChart extends DHIS2Chart {
 	getCategories(): any[] | undefined {
@@ -39,14 +39,12 @@ export class DHIS2ColumnChart extends DHIS2Chart {
 }
 
 export class DHIS2StackedColumnChart extends DHIS2ColumnChart {
-  getPlotOptions(): PlotOptions {
-    return {
-      column: {
-        stacking: "normal",
-        ...super.getPlotOptions().column,
-      },
-    };
-  }
+	getPlotOptions(): PlotOptions {
+		return {
+			column: {
+				stacking: "normal",
+				...super.getPlotOptions().column,
+			},
+		};
+	}
 }
-
-

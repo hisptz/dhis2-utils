@@ -1,1 +1,1 @@
-export * from "./DHIS2FormField";
+export * from "./DHIS2FormField.js";

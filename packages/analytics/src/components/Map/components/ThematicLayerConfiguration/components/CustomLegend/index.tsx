@@ -3,9 +3,9 @@ import { Field, SingleSelectField, SingleSelectOption } from "@dhis2/ui";
 import {
 	defaultClasses,
 	defaultColorScaleName,
-} from "../../../../utils/colors";
+} from "../../../../utils/colors.js";
 import i18n from "@dhis2/d2-i18n";
-import ColorScaleSelect from "../ColorScaleSelect";
+import ColorScaleSelect from "../ColorScaleSelect/index.js";
 import React from "react";
 
 export function CustomLegend() {

@@ -10,7 +10,7 @@ export default defineConfig((options) => {
 		sourcemap: true,
 		clean: !options.watch,
 		dts: false,
-		format: ["esm", "cjs"],
+		format: ["esm"],
 		external: ["@dhis2/d2-i18n", "lodash", "usehooks-ts"],
 		bundle: false,
 	};

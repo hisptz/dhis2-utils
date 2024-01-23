@@ -1,4 +1,4 @@
-import { VALUE_TYPE } from "../../../constants";
+import { VALUE_TYPE } from "../../../constants/index.js";
 import { OptionSet } from "@hisptz/dhis2-utils";
 
 export interface FormElement {

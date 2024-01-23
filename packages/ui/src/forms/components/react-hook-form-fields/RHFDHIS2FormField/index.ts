@@ -1,1 +1,1 @@
-export * from "./RHFDHIS2FormField";
+export * from "./RHFDHIS2FormField.js";

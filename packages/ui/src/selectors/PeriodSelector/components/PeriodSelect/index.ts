@@ -1,1 +1,1 @@
-export * from "./PeriodSelect";
+export * from "./PeriodSelect.js";

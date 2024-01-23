@@ -3,16 +3,16 @@ import {
 	MapLayersContext,
 	MapOrgUnitContext,
 	MapPeriodContext,
-} from "../../../state";
+} from "../../../state/index.js";
 
 export function useMapOrganisationUnit() {
 	return useContext(MapOrgUnitContext);
 }
 
 export function useMapPeriods() {
-  return useContext(MapPeriodContext);
+	return useContext(MapPeriodContext);
 }
 
 export function useMapLayers() {
-  return useContext(MapLayersContext);
+	return useContext(MapLayersContext);
 }

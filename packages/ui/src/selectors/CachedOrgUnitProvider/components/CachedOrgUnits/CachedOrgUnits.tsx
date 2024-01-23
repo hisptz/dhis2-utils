@@ -1,7 +1,7 @@
 import { CustomDataProvider, useDataEngine } from "@dhis2/app-runtime";
 import React from "react";
-import { db } from "../../services/db";
-import { getData, getOrgUnits } from "./services";
+import { db } from "../../services/db.js";
+import { getData, getOrgUnits } from "./services/index.js";
 
 export function CachedOrgUnits({ children }: { children: React.ReactNode }) {
 	const engine = useDataEngine();

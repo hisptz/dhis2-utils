@@ -1,6 +1,6 @@
-import { FieldProps } from "../../interfaces";
+import { FieldProps } from "../../interfaces/index.js";
 import React from "react";
-import { CustomCheckboxField } from "../CustomCheckboxField";
+import { CustomCheckboxField } from "../CustomCheckboxField/index.js";
 
 export interface TrueOnlyFieldProps extends FieldProps {}
 

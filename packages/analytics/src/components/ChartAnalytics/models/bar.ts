@@ -1,5 +1,5 @@
 import { PlotOptions } from "highcharts";
-import { DHIS2ColumnChart } from "./column";
+import { DHIS2ColumnChart } from "./column.js";
 
 export class DHIS2BarChart extends DHIS2ColumnChart {
 	getHighchartsType(): string {
@@ -8,12 +8,12 @@ export class DHIS2BarChart extends DHIS2ColumnChart {
 }
 
 export class DHIS2StackedBarChart extends DHIS2BarChart {
-    getPlotOptions(): PlotOptions {
-        return {
-            column: {
-                stacking: "normal",
-                ...super.getPlotOptions().column,
-            },
-        };
-    }
+	getPlotOptions(): PlotOptions {
+		return {
+			column: {
+				stacking: "normal",
+				...super.getPlotOptions().column,
+			},
+		};
+	}
 }

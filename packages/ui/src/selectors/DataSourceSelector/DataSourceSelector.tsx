@@ -1,13 +1,13 @@
 import { Chip, CssReset } from "@dhis2/ui";
 import { head } from "lodash";
 import React, { useMemo, useState } from "react";
-import DataSource from "./components/DataSource";
-import GroupSelector from "./components/GroupSelector";
-import { DATA_SOURCES } from "./constants";
-import DataSourceModel from "./models/dataSource";
-import NativeDataSource from "./models/nativeDataSource";
-import { DataSourceSelectorProps, SelectedDataItem } from "./types";
-import { getDataSourcesList } from "./utils";
+import DataSource from "./components/DataSource/index.js";
+import GroupSelector from "./components/GroupSelector/index.js";
+import { DATA_SOURCES } from "./constants/index.js";
+import DataSourceModel from "./models/dataSource.js";
+import NativeDataSource from "./models/nativeDataSource.js";
+import { DataSourceSelectorProps, SelectedDataItem } from "./types/index.js";
+import { getDataSourcesList } from "./utils/index.js";
 import styled from "styled-components";
 
 /**

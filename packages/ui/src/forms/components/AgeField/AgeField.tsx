@@ -3,8 +3,8 @@ import { Button, Field, IconCross24, InputField } from "@dhis2/ui";
 import { DateTime } from "luxon";
 import React, { useCallback, useMemo } from "react";
 import classes from "./AgeField.module.css";
-import { formatDate, getValues } from "./utils";
-import { FieldProps } from "../../interfaces";
+import { formatDate, getValues } from "./utils/index.js";
+import { FieldProps } from "../../interfaces/index.js";
 
 export interface AgeFieldProps extends FieldProps {
 	/**

@@ -1,16 +1,16 @@
-import { FieldProps } from "../../interfaces";
+import { FieldProps } from "../../interfaces/index.js";
 import React, { useCallback, useEffect } from "react";
 import { Button, colors, Field, IconDimensionOrgUnit16 } from "@dhis2/ui";
 import { useDataQuery } from "@dhis2/app-runtime";
 import {
 	CustomOrgUnitProvider,
 	OrgUnitSelectorModal,
-} from "../../../selectors";
+} from "../../../selectors/index.js";
 import { OrganisationUnit, OrgUnitSelection } from "@hisptz/dhis2-utils";
 import { compact, head } from "lodash";
 import { useBoolean } from "usehooks-ts";
 import i18n from "@dhis2/d2-i18n";
-import { OrgUnitSelectorProps } from "../../../selectors/OrgUnitSelector";
+import { OrgUnitSelectorProps } from "../../../selectors/OrgUnitSelector/index.js";
 
 export interface OrgUnitSelectFieldProps extends FieldProps {
 	/**

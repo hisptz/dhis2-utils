@@ -1,8 +1,8 @@
-import { FieldProps, LegendDefinition } from "../../interfaces";
-import { LegendMinMax, LegendValue } from "../LegendMinMax";
+import { FieldProps, LegendDefinition } from "../../interfaces/index.js";
+import { LegendMinMax, LegendValue } from "../LegendMinMax/index.js";
 import { Field } from "@dhis2/ui";
 import React from "react";
-import { useControlMinMaxFields } from "./hooks/control";
+import { useControlMinMaxFields } from "./hooks/control.js";
 import { find } from "lodash";
 
 export interface LegendMinMaxGroupProps extends FieldProps {

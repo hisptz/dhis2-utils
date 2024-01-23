@@ -1,6 +1,9 @@
-import { PeriodPreference, PeriodTypeInterface } from "../../interfaces";
+import {
+	PeriodPreference,
+	PeriodTypeInterface,
+} from "../../interfaces/index.js";
 import { DateTime, Duration } from "luxon";
-import { BasePeriod } from "../periods/basePeriod";
+import { BasePeriod } from "../periods/index.js";
 
 export class BasePeriodType {
 	config: PeriodTypeInterface;

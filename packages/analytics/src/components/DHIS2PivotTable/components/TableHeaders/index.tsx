@@ -1,8 +1,8 @@
 import React from "react";
-import { useCustomPivotTableEngine } from "../../state/engine";
+import { useCustomPivotTableEngine } from "../../state/engine.js";
 import { DataTableColumnHeader, DataTableRow, TableHead } from "@dhis2/ui";
 import { isEmpty, slice, times } from "lodash";
-import { Header } from "../../services/engine";
+import { Header } from "../../services/engine.js";
 import classes from "./TableHeaders.module.css";
 import { useElementSize } from "usehooks-ts";
 

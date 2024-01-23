@@ -1,4 +1,4 @@
-import NativeDataSource from "./nativeDataSource";
+import NativeDataSource from "./nativeDataSource.js";
 
 export default class DataElements extends NativeDataSource {
 	async getDataSources(

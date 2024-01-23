@@ -2,7 +2,7 @@ import type {
 	Event,
 	Program,
 	TrackedEntityInstance,
-} from "../../../interfaces";
+} from "../../../interfaces/index.js";
 
 export interface RuleExecutionOptions {
 	triggers: RuleTrigger[];

@@ -1,6 +1,6 @@
 import { ThematicLayerConfigModalProps } from "./types";
 import { useForm } from "react-hook-form";
-import { ThematicLayerConfig } from "../MapLayer/interfaces";
+import { ThematicLayerConfig } from "../MapLayer/interfaces/index.js";
 import {
 	Button,
 	ButtonStrip,
@@ -11,7 +11,7 @@ import {
 } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
 import React from "react";
-import { ThematicLayerConfiguration } from "./ThematicLayerConfiguration";
+import { ThematicLayerConfiguration } from "./ThematicLayerConfiguration.js";
 
 export function ThematicLayerConfigModal({
 	open,

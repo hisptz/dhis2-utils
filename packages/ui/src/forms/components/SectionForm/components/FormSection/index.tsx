@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import Collapsible from "react-collapsible";
 import { CircularProgressbarWithChildren } from "react-circular-progressbar";
-import { FormSectionInterface } from "../../interfaces";
+import { FormSectionInterface } from "../../interfaces/index.js";
 import {
 	colors,
 	IconChevronDown24,
@@ -9,9 +9,9 @@ import {
 	IconErrorFilled24,
 } from "@dhis2/ui";
 import { useFormState, useWatch } from "react-hook-form";
-import { useHiddenFields } from "../../../ProramRules/components/ProgramRuleProvider/hooks";
+import { useHiddenFields } from "../../../ProramRules/index.js";
 import { difference, isEmpty } from "lodash";
-import { RHFDHIS2FormField } from "../../../react-hook-form-fields";
+import { RHFDHIS2FormField } from "../../../react-hook-form-fields/index.js";
 
 export interface FormSectionProps {
 	showProgress?: boolean;

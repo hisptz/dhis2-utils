@@ -9,7 +9,7 @@ import {
 	take,
 	uniq,
 } from "lodash";
-import { OrganisationUnit, OrgUnitSelection } from "../types";
+import { OrganisationUnit, OrgUnitSelection } from "../types/index.js";
 
 type OnUpdate = (updatedOrgUnitSelection: OrgUnitSelection) => void;
 

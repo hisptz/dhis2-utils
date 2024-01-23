@@ -1,11 +1,11 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { Button, IconClock24, IconLocation24, Tooltip } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
-import { useDimensions } from "../DimensionsProvider";
+import { useDimensions } from "../DimensionsProvider/index.js";
 import { OrgUnitSelectorModal, PeriodSelectorModal } from "@hisptz/dhis2-ui";
 import { OrgUnitSelection } from "@hisptz/dhis2-utils";
-import { getOrgUnitSelectionFromIds } from "../VisualizationSelector";
-import { getOrgUnitsSelection } from "../../../Map/utils/map";
+import { getOrgUnitSelectionFromIds } from "../VisualizationSelector/index.js";
+import { getOrgUnitsSelection } from "../../../Map/utils/map.js";
 
 export function VisualizationDimensionSelector({
 	showPeriodSelector,

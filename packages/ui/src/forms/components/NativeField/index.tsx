@@ -1,7 +1,7 @@
-import { FieldProps } from "../../interfaces";
+import { FieldProps } from "../../interfaces/index.js";
 import { InputField, InputType } from "@dhis2/ui";
 import React, { useMemo } from "react";
-import { VALUE_TYPE } from "../../constants";
+import { VALUE_TYPE } from "../../constants/index.js";
 
 export interface NativeFieldProps extends FieldProps {
 	type?:

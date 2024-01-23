@@ -1,5 +1,5 @@
-import { DataSourceType } from "../types";
-import DataSource from "./dataSource";
+import { type DataSourceResponse, DataSourceType } from "../types/index.js";
+import DataSource from "./dataSource.js";
 
 export default class NativeDataSource extends DataSource {
 	resource: string;
@@ -107,7 +107,7 @@ export default class NativeDataSource extends DataSource {
 			selectedGroup: { id: string };
 			searchKeyword: string;
 		},
-	) {
+	): Promise<DataSourceResponse> {
 		const filter = [];
 		if (selectedGroup?.id) {
 			filter.push(`${this.groupKey}:eq:${selectedGroup.id}`);
