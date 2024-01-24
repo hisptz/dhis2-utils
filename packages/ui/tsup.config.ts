@@ -4,12 +4,12 @@ export default defineConfig((options) => {
 	return {
 		...options,
 		treeshake: true,
+		legacyOutput: true,
 		entry: [
 			"src/**/*.{ts,tsx}",
+			"src/**/*.css",
 			"!src/**/*.stories.ts",
 			"!src/**/*.test.ts",
-			"!src/**/*.test.ts",
-			"src/**/*.css",
 		],
 		ignoreWatch: ["*/**.stories.*"],
 		splitting: false,
@@ -17,7 +17,7 @@ export default defineConfig((options) => {
 		clean: true,
 		dts: false,
 		minify: !options.watch,
-		format: ["esm"],
+		format: ["esm", "cjs"],
 		external: [
 			"react",
 			"react-dom",

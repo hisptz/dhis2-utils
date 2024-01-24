@@ -1,6 +1,5 @@
 import i18n from "@dhis2/d2-i18n";
 import { Button, Field, IconAdd24 } from "@dhis2/ui";
-import PropTypes from "prop-types";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { RHFDHIS2FormField } from "../../react-hook-form-fields/index.js";
@@ -18,7 +17,7 @@ export function AddLegendDefinition({
 
 	const onAddClick = () => {
 		form.handleSubmit(({ newLegendDefinition }) =>
-			onAdd(newLegendDefinition),
+			onAdd(newLegendDefinition)
 		)();
 		form.reset({ newLegendDefinition: { color: "", name: "" } });
 	};
@@ -62,7 +61,3 @@ export function AddLegendDefinition({
 		</FormProvider>
 	);
 }
-
-AddLegendDefinition.propTypes = {
-	onAdd: PropTypes.func.isRequired,
-};

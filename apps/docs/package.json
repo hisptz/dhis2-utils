@@ -12,7 +12,6 @@
     "lint": "eslint ./stories/*.stories.tsx --max-warnings 0"
   },
   "dependencies": {
-    "@hisptz/dhis2-ui": "workspace:*",
     "@storybook/addon-interactions": "^7.6.10",
     "@storybook/jest": "^0.2.3",
     "@storybook/testing-library": "^0.2.2",
