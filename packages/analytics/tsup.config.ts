@@ -4,6 +4,7 @@ export default defineConfig((options) => {
 	return {
 		...options,
 		treeshake: true,
+		legacyOutput: true,
 		entry: [
 			"src/**/*.{ts,tsx}",
 			"src/**/*.js",
@@ -17,7 +18,7 @@ export default defineConfig((options) => {
 		sourcemap: true,
 		clean: true,
 		dts: false,
-		format: ["esm"],
+		format: ["esm", "cjs"],
 		external: [
 			"react",
 			"react-dom",

@@ -1,12 +1,11 @@
 {
   "name": "@hisptz/dhis2-analytics",
-  "version": "2.0.0-alpha.01",
+  "version": "2.0.0",
   "main": "./dist/index.js",
-  "module": "./dist/index.js",
+  "module": "./dist/esm/index.js",
   "types": "./dist/types/index.d.ts",
   "typings": "./dist/types/index.d.ts",
   "sideEffects": false,
-  "type": "module",
   "license": "MIT",
   "files": [
     "dist/**",
@@ -38,7 +37,7 @@
     "concurrently": "^8.2.2",
     "eslint": "^8.56.0",
     "lodash": "^4.17.21",
-    "react": "^18.2.0",
+    "react": "^16.14.0",
     "react-error-boundary": "^4.0.12",
     "react-hook-form": "^7.43.9",
     "styled-jsx": "^5.1.2",
