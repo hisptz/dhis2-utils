@@ -1,5 +1,4 @@
 import { Field, Input, Popover, ReferenceElement } from "@dhis2/ui";
-import PropTypes from "prop-types";
 import React, { useState } from "react";
 import type { Color } from "react-color";
 import { SketchPicker } from "react-color";
@@ -45,13 +44,6 @@ function ColorPickerPopper({
 	);
 }
 
-ColorPickerPopper.propTypes = {
-	reference: PropTypes.object,
-	value: PropTypes.string,
-	onChange: PropTypes.func,
-	onClose: PropTypes.func,
-};
-
 export interface LegendDefinitionFieldProps extends FieldProps {
 	label?: string;
 	value?: LegendDefinition;
@@ -60,7 +52,7 @@ export interface LegendDefinitionFieldProps extends FieldProps {
 export const LegendDefinitionField = React.forwardRef(
 	(
 		{ name, label, value, onChange, ...props }: LegendDefinitionFieldProps,
-		ref: React.Ref<any>,
+		ref: React.Ref<any>
 	) => {
 		const { color, name: legendName, id } = value ?? {};
 		const [reference, setReference] = useState<
@@ -126,5 +118,5 @@ export const LegendDefinitionField = React.forwardRef(
 				)}
 			</Field>
 		);
-	},
+	}
 );
