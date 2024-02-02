@@ -6,7 +6,6 @@ import { LevelAndGroupSelector } from "./LevelAndGroupSelector/index.js";
 import { OrgUnitSearch } from "./OrgUnitSearch/index.js";
 import { OrgUnitTree } from "./OrgUnitTree/index.js";
 import { OrgUnitUserOptions } from "./OrgUnitUserOptions/index.js";
-import styled from "styled-components";
 
 export default function OrgUnitSelector({
 	value,
@@ -25,17 +24,6 @@ export default function OrgUnitSelector({
 		() => userOrgUnit || userSubX2Unit || userSubUnit,
 		[userOrgUnit, userSubUnit, userSubX2Unit],
 	);
-
-	const BorderedContainer = styled.div`{
-        box-sizing: border-box;
-        border-radius: 4px;
-        border: 1px solid #A0ADBA;
-        display: flex;
-        flex-direction: column;
-        min-height: 400px;
-        max-height: 500px;
-        overflow: hidden;
-    }`;
 
 	if (error) {
 		return (
@@ -75,7 +63,18 @@ export default function OrgUnitSelector({
 				</div>
 			) : (
 				<Fragment>
-					<BorderedContainer>
+					<div
+						style={{
+							boxSizing: "border-box",
+							borderRadius: 4,
+							border: "1px solid #A0ADBA",
+							display: "flex",
+							flexDirection: "column",
+							minHeight: 400,
+							maxHeight: 500,
+							overflow: "hidden",
+						}}
+					>
 						{showUserOptions && (
 							<OrgUnitUserOptions
 								value={value}
@@ -114,7 +113,7 @@ export default function OrgUnitSelector({
 								</Center>
 							)}
 						</div>
-					</BorderedContainer>
+					</div>
 					{(showLevels || showGroups) && (
 						<LevelAndGroupSelector
 							showLevels={showLevels}

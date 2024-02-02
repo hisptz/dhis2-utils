@@ -28,7 +28,11 @@ const appConfig = {
 		// @ts-ignore
 		parseInt(import.meta.env.STORYBOOK_DHIS2_API_VERSION ?? "38") ?? 38,
 };
-const DHIS2Provider = ({ children }: { children: any }) => (
+const DHIS2Provider = ({
+	children,
+}: {
+	children: React.ReactNode | React.ReactNodeArray;
+}) => (
 	<Provider
 		plugin
 		showAlertsInPlugin
