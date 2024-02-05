@@ -1,6 +1,6 @@
 import { hcl } from "d3-color";
 import { isString } from "lodash";
-import { COLOR_PALETTES } from "../constants/colors.js";
+import { COLOR_PALETTES, COLOR_SCALES } from "../constants/colors.js";
 
 const colorbrewer: Record<string, any> = COLOR_PALETTES;
 
@@ -16,7 +16,7 @@ export const getColorClasses = (palette: string) => {
 // Returns color scale name for a palette
 export const getColorScale = (palette: string) => {
 	const classes = palette.split(",").length;
-	return colorScales.find(
+	return COLOR_SCALES.find(
 		(name) => colorbrewer[name][classes]?.join(",") === palette,
 	);
 };
@@ -67,37 +67,4 @@ export const isDarkColor = (color: string) => hcl(color).l < 70;
 // Returns constrasting color
 export const getContrastColor = (color: string) =>
 	isDarkColor(color) ? "#fff" : "#000";
-export type LegendColorScale = (typeof colorScales)[number];
-export const colorScales = [
-	"YlOrBr",
-	"Reds",
-	"YlGn",
-	"Greens",
-	"Blues",
-	"BuPu",
-	"RdPu",
-	"PuRd",
-	"Greys",
-	"YlOrBr_reverse",
-	"Reds_reverse",
-	"YlGn_reverse",
-	"Greens_reverse",
-	"Blues_reverse",
-	"BuPu_reverse",
-	"RdPu_reverse",
-	"PuRd_reverse",
-	"Greys_reverse",
-	"PuOr",
-	"BrBG",
-	"PRGn",
-	"PiYG",
-	"RdBu",
-	"RdGy",
-	"RdYlBu",
-	"Spectral",
-	"RdYlGn",
-	"Paired",
-	"Pastel1",
-	"Set1",
-	"Set3",
-];
+export type LegendColorScale = (typeof COLOR_SCALES)[number];
