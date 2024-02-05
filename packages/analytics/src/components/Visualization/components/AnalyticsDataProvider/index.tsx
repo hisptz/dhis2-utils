@@ -67,10 +67,6 @@ export function AnalyticsDataProvider({ children }: DataProviderProps) {
 		};
 	}, [layout, analyticsDimensions]);
 
-	console.log({
-		filters,
-	});
-
 	const {
 		data: analytics,
 		error,

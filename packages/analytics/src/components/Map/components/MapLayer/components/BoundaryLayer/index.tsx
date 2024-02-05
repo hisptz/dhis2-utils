@@ -45,7 +45,6 @@ export default function BoundaryLayer(props: BoundaryLayerInterface) {
 									resetHighlight(e, defaultStyle),
 								...(customEventHandlers ?? {}),
 								mousedown: (e) => {
-									console.log(onLayerClick);
 									if (onLayerClick) {
 										onLayerClick(e, { orgUnit: area });
 									}
