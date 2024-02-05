@@ -32,6 +32,11 @@ export interface MapProps {
 			icon?: string;
 			groupSet?: string;
 		};
+		customEventHandlers?: LeafletEventHandlerFnMap;
+		onLayerClick?: (
+			e: LeafletMouseEvent,
+			data: { orgUnit: MapOrgUnit },
+		) => void;
 	};
 	boundaryLayer?: {
 		enabled: boolean;
