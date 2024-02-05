@@ -4,6 +4,7 @@ import React, { forwardRef } from "react";
 import { getIconUrl } from "../../../../../../utils/helpers.js";
 import LegendCardHeader from "../../../LegendArea/components/LegendCardHeader/index.js";
 import { usePointLayer } from "../../hooks/index.js";
+import i18n from "@dhis2/d2-i18n";
 
 function PointLegends({
 	orgUnitGroups,
@@ -18,12 +19,23 @@ function PointLegends({
 
 	return (
 		<div
-			style={{ minWidth: 100, alignItems: "flex-start" }}
-			className="w-100 p-8 legend-list column"
+			style={{
+				minWidth: 100,
+				alignItems: "flex-start",
+				width: "100%",
+				padding: 8,
+				display: "flex",
+				flexDirection: "column",
+			}}
 		>
 			{icon && (
 				<div
 					key={`${icon}-legend`}
+					style={{
+						display: "flex",
+						gap: 16,
+						alignItems: "center",
+					}}
 					className="row gap-16  align-items-center"
 				>
 					<img
@@ -67,7 +79,7 @@ function PointLegend(
 			<LegendCardHeader
 				collapsible={collapsible}
 				onCollapse={onCollapse}
-				title={label ?? "Points"}
+				title={label ?? i18n.t("Points")}
 			/>
 			<Divider margin={"0"} />
 			<PointLegends
