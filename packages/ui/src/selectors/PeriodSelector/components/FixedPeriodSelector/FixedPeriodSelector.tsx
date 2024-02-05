@@ -107,10 +107,6 @@ export function FixedPeriodSelector({
 		}));
 	}, [periodUtility, periodType]);
 
-	console.log({
-		years,
-	});
-
 	return (
 		<div
 			style={{

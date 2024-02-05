@@ -11,7 +11,15 @@ export default function LegendCardHeader({
 	collapsible?: boolean;
 }) {
 	return (
-		<div className="row w-100 space-between align-items-center">
+		<div
+			style={{
+				display: "flex",
+				width: "100%",
+				justifyContent: "space-between",
+				alignItems: "center",
+				padding: 8,
+			}}
+		>
 			<h4 style={{ margin: 0 }} className="legend-header">
 				{title}
 			</h4>

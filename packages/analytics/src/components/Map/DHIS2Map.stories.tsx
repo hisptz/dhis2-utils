@@ -1,6 +1,8 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { DHIS2Map } from "./DHIS2Map";
 
+import { COLOR_SCALES } from "./constants/colors.js";
+
 const meta: Meta<typeof DHIS2Map> = {
 	title: "DHIS2 Map",
 	component: DHIS2Map,
@@ -55,6 +57,9 @@ BoundaryLayer.args = {
 	},
 	boundaryLayer: {
 		enabled: true,
+		onLayerClick: (e, data) => {
+			console.log(e, data);
+		},
 	},
 };
 
@@ -99,6 +104,10 @@ ChoroplethThematicLayer.args = {
 				id: "Uvn6LCg7dVU",
 				displayName: "ANC 1 Coverage",
 				type: "indicator",
+				legendConfig: {
+					colorClass: COLOR_SCALES[0],
+					scale: 5,
+				},
 			},
 			control: {
 				enabled: true,
@@ -107,7 +116,7 @@ ChoroplethThematicLayer.args = {
 		},
 	],
 	periodSelection: {
-		periods: ["2022"],
+		periods: ["2023"],
 	},
 	legends: {
 		enabled: true,
@@ -122,7 +131,7 @@ BubbleThematicLayer.args = {
 		orgUnits: [],
 		userOrgUnit: true,
 		userSubUnit: true,
-		userSubX2Unit: true,
+		userSubX2Unit: false,
 	},
 	boundaryLayer: {
 		enabled: true,
@@ -132,10 +141,15 @@ BubbleThematicLayer.args = {
 			type: "bubble",
 			id: "bubble",
 			enabled: true,
+
 			dataItem: {
 				id: "Uvn6LCg7dVU",
 				displayName: "ANC 1 Coverage",
 				type: "indicator",
+				legendConfig: {
+					colorClass: COLOR_SCALES[0],
+					scale: 5,
+				},
 			},
 			control: {
 				enabled: true,
@@ -153,7 +167,7 @@ BubbleThematicLayer.args = {
 		collapsible: true,
 	},
 	periodSelection: {
-		periods: ["2022"],
+		periods: ["2023"],
 	},
 	controls: [
 		{
@@ -179,6 +193,9 @@ AllThematicLayers.args = {
 			type: "choropleth",
 			id: "ReUHfIn0pTQ",
 			enabled: true,
+			onLayerClick: (e, data) => {
+				console.log(e, data);
+			},
 			dataItem: {
 				id: "ReUHfIn0pTQ",
 				displayName: "ANC 1-3 Dropout Rate",
@@ -191,13 +208,17 @@ AllThematicLayers.args = {
 			},
 		},
 		{
-			type: "choropleth",
+			type: "bubble",
 			id: "Uvn6LCg7dVU",
 			enabled: true,
 			dataItem: {
 				id: "Uvn6LCg7dVU",
 				displayName: "ANC 1 Coverage",
 				type: "indicator",
+				legendConfig: {
+					colorClass: COLOR_SCALES[0],
+					scale: 5,
+				},
 			},
 			control: {
 				enabled: true,
@@ -211,7 +232,7 @@ AllThematicLayers.args = {
 		collapsible: true,
 	},
 	periodSelection: {
-		periods: ["2022"],
+		periods: ["2023"],
 	},
 	controls: [
 		{
@@ -268,7 +289,7 @@ ChoroplethThematicLayerWithLevels.args = {
 		collapsible: true,
 	},
 	periodSelection: {
-		periods: ["2022"],
+		periods: ["2023"],
 	},
 	controls: [
 		{
@@ -308,14 +329,17 @@ PointLayer.args = {
 		},
 	],
 	periodSelection: {
-		periods: ["2022"],
+		periods: ["2023"],
 	},
 	pointLayer: {
 		enabled: true,
 		label: "Facilities",
 		level: "m9lBJogzE95",
 		style: {
-			groupSet: "J5jldMd8OHv",
+			icon: "hospital_negative",
+		},
+		onLayerClick: (e, data) => {
+			console.log(e, data);
 		},
 	},
 };
@@ -330,7 +354,7 @@ GoogleEarthEngineLayers.args = {
 	},
 	thematicLayers: [],
 	periodSelection: {
-		periods: ["2022"],
+		periods: ["2023"],
 	},
 	earthEngineLayers: [
 		{

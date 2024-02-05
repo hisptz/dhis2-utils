@@ -3,6 +3,7 @@ import { MapOrgUnit, PointOrgUnit } from "../../../interfaces/index.js";
 import { LegendColorScale } from "../../../utils/colors.js";
 import { EarthEngineOptions } from "../components/GoogleEngineLayer/interfaces/index.js";
 import { EarthEngine } from "../components/GoogleEngineLayer/services/engine.js";
+import type { LeafletEventHandlerFnMap, LeafletMouseEvent } from "leaflet";
 
 export type BoundaryLayerType = "basemap" | "overlay";
 export type ThematicLayerType = "choropleth" | "bubble";
@@ -101,6 +102,7 @@ export interface CustomChoroplethLayer extends CustomMapLayer {
 	type: "choropleth";
 	control?: ThematicLayerControl;
 	legends?: Legend[];
+	customEventHandlers?: LeafletEventHandlerFnMap;
 }
 
 export interface CustomBubbleLayer extends CustomMapLayer {
@@ -119,6 +121,12 @@ export interface CustomBubbleLayer extends CustomMapLayer {
 
 export type CustomThematicLayer = CustomBubbleLayer | CustomChoroplethLayer;
 
+interface LayerData {
+	orgUnit: MapOrgUnit;
+	data?: number;
+	dataItem?: ThematicLayerDataItem;
+}
+
 export interface ThematicLayerConfig {
 	id: string;
 	data?: ThematicLayerRawData[];
@@ -127,6 +135,8 @@ export interface ThematicLayerConfig {
 	dataItem: ThematicLayerDataItem;
 	type: ThematicLayerType;
 	control?: ThematicLayerControl;
+	customEventHandlers?: LeafletEventHandlerFnMap;
+	onLayerClick?: (e: LeafletMouseEvent, data: LayerData) => void;
 	radius?: {
 		min: number;
 		max: number;
@@ -137,6 +147,8 @@ export interface CustomMapLayer {
 	id: string;
 	type: string;
 	enabled: boolean;
+	customEventHandlers?: LeafletEventHandlerFnMap;
+	onLayerClick?: (e: LeafletMouseEvent, data: LayerData) => void;
 }
 
 export type MapLayer =

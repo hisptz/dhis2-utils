@@ -12,20 +12,24 @@ export default function CustomTooltip({
 	const { dataItem, orgUnit, data } = dataObject ?? {};
 	const { periods } = useMapPeriods() ?? {};
 
+	const formatter = Intl.NumberFormat(navigator.language, {}).format;
+
+	const formattedData = formatter(data as number);
+
 	return (
 		<Pane
 			name={`${dataItem.displayName}-${orgUnit.id}-popup-pane`}
 			pane="popupPane"
 		>
 			<Tooltip>
-				{orgUnit?.name} ({data})
+				{orgUnit?.name} ({formattedData})
 			</Tooltip>
 			<Popup minWidth={80}>
 				<h3 style={{ margin: 0 }}>{orgUnit?.name}</h3>
 				<div>{dataItem?.displayName}</div>
 				<div>{periods?.map((period) => period.name).join(",")}</div>
 				<div>
-					{i18n.t("Value")}: {data}
+					{i18n.t("Value")}: {formattedData}
 				</div>
 			</Popup>
 		</Pane>

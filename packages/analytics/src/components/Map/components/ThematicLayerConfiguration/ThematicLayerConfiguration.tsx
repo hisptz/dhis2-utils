@@ -47,7 +47,7 @@ export function ThematicLayerConfiguration({
 	);
 	return (
 		<FormProvider {...form}>
-			<div className="column gap-16">
+			<div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
 				<TypeField />
 				<Controller
 					rules={{
@@ -63,8 +63,11 @@ export function ThematicLayerConfiguration({
 					render={({ field, fieldState }) => (
 						<>
 							<div
-								style={{ alignItems: "flex-end" }}
-								className="row w-100 gap-16 align-end"
+								style={{
+									alignItems: "flex-end",
+									display: "flex",
+									gap: 16,
+								}}
 							>
 								<div
 									onClick={() => setDataSelectorOpen(true)}
