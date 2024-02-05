@@ -57,6 +57,9 @@ BoundaryLayer.args = {
 	},
 	boundaryLayer: {
 		enabled: true,
+		onLayerClick: (e, data) => {
+			console.log(e, data);
+		},
 	},
 };
 

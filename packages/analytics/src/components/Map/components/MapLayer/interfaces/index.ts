@@ -124,7 +124,7 @@ export type CustomThematicLayer = CustomBubbleLayer | CustomChoroplethLayer;
 interface LayerData {
 	orgUnit: MapOrgUnit;
 	data?: number;
-	dataItem: ThematicLayerDataItem;
+	dataItem?: ThematicLayerDataItem;
 }
 
 export interface ThematicLayerConfig {

@@ -212,7 +212,14 @@ export default function LegendArea({
 
 	return (
 		<CustomControl position={position}>
-			<div className="column gap-16 align-items-end">
+			<div
+				style={{
+					display: "flex",
+					flexDirection: "column",
+					gap: 16,
+					alignItems: "flex-end",
+				}}
+			>
 				{legends?.map((legend: any, index) => (
 					<Legend
 						collapsible={collapsible ?? true}

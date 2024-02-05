@@ -9,6 +9,7 @@ import {
 	EarthEngineLayerConfig,
 	ThematicLayerConfig,
 } from "../components/MapLayer/interfaces/index.js";
+import type { LeafletEventHandlerFnMap, LeafletMouseEvent } from "leaflet";
 
 export interface MapProviderProps {
 	children: React.ReactNode;
@@ -34,6 +35,11 @@ export interface MapProps {
 	};
 	boundaryLayer?: {
 		enabled: boolean;
+		customEventHandlers?: LeafletEventHandlerFnMap;
+		onLayerClick?: (
+			e: LeafletMouseEvent,
+			data: { orgUnit: MapOrgUnit },
+		) => void;
 	};
 	controls?: MapControls[];
 	legends?: MapLegendConfig;

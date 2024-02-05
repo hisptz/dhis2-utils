@@ -27,7 +27,7 @@ export const highlightStyle = {
 };
 
 export default function BoundaryLayer(props: BoundaryLayerInterface) {
-	const { enabled } = props ?? {};
+	const { enabled, customEventHandlers, onLayerClick } = props ?? {};
 	const orgUnits = useBoundaryData();
 
 	return (
@@ -43,6 +43,13 @@ export default function BoundaryLayer(props: BoundaryLayerInterface) {
 									highlightFeature(e, highlightStyle),
 								mouseout: (e) =>
 									resetHighlight(e, defaultStyle),
+								...(customEventHandlers ?? {}),
+								mousedown: (e) => {
+									console.log(onLayerClick);
+									if (onLayerClick) {
+										onLayerClick(e, { orgUnit: area });
+									}
+								},
 							}}
 							key={`${area.id}-polygon`}
 							pathOptions={defaultStyle}
