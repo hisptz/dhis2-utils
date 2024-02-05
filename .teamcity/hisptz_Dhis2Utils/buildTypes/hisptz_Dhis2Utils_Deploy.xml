@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="ea28673c-c736-4374-9cab-ec6cca1da755" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>Deploy</name>
+  <description>A package of reusable functions, interfaces, constants, and other implementations for DHIS2 related applications</description>
+  <settings>
+    <options>
+      <option name="allowPersonalBuildTriggering" value="false" />
+      <option name="buildConfigurationType" value="DEPLOYMENT" />
+      <option name="maximumNumberOfBuilds" value="1" />
+    </options>
+    <disabled-settings>
+      <setting-ref ref="Run_tests" />
+      <setting-ref ref="Static_code_analysis" />
+    </disabled-settings>
+    <parameters />
+    <build-runners>
+      <runner id="Static_code_analysis" name="Static code analysis" type="Qodana">
+        <parameters>
+          <param name="code-inspection-profile-name" value="qodana.recommended" />
+          <param name="code-inspection-xml-config" value="Default" />
+          <param name="collect-anonymous-statistics" value="true" />
+          <param name="linterVersion" value="latest" />
+          <param name="namesAndTags" value="public-image-qodana-jvm" />
+          <param name="namesAndTagsCustom" value="jetbrains/qodana" />
+          <param name="secure:cloud-token" value="credentialsJSON:84316552-1348-427e-9e9c-97e6a0e16a8f" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="Setup_dependencies" name="Setup dependencies" type="nodejs-runner">
+        <parameters>
+          <param name="plugin.docker.imageId" value="node:lts" />
+          <param name="plugin.docker.imagePlatform" value="linux" />
+          <param name="shellScript"><![CDATA[corepack enable
+
+pnpm install]]></param>
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="Run_tests" name="Run tests" type="nodejs-runner">
+        <parameters>
+          <param name="plugin.docker.imageId" value="node:lts" />
+          <param name="plugin.docker.imagePlatform" value="linux" />
+          <param name="shellScript"><![CDATA[corepack enable
+pnpm create playwright
+pnpm exec playwright install
+pnpm test]]></param>
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="Build" name="Build" type="nodejs-runner">
+        <parameters>
+          <param name="plugin.docker.imageId" value="node:lts" />
+          <param name="plugin.docker.imagePlatform" value="linux" />
+          <param name="shellScript"><![CDATA[corepack enable
+pnpm build]]></param>
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="Publish_packages" name="Publish packages" type="nodejs-runner">
+        <parameters>
+          <param name="plugin.docker.imageId" value="node:lts" />
+          <param name="plugin.docker.imagePlatform" value="linux" />
+          <param name="shellScript"><![CDATA[corepack enable
+pnpm release]]></param>
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings>
+      <vcs-entry-ref root-id="hisptz_Dhis2Utils_GitGithubComHisptzDhis2utilsGitRefsHeadsMain" />
+    </vcs-settings>
+    <requirements />
+    <build-triggers>
+      <build-trigger id="TRIGGER_4" type="vcsTrigger">
+        <parameters>
+          <param name="branchFilter" value="+:main" />
+          <param name="enableQueueOptimization" value="true" />
+          <param name="quietPeriodMode" value="DO_NOT_USE" />
+        </parameters>
+      </build-trigger>
+    </build-triggers>
+    <build-extensions>
+      <extension id="perfmon" type="perfmon">
+        <parameters>
+          <param name="teamcity.perfmon.feature.enabled" value="true" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_3" type="NpmRegistryConnection">
+        <parameters>
+          <param name="connectionId" value="PROJECT_EXT_9" />
+        </parameters>
+      </extension>
+      <extension id="DockerSupport" type="DockerSupport">
+        <parameters>
+          <param name="cleanupPushed" value="true" />
+          <param name="login2registry" value="PROJECT_EXT_8" />
+          <param name="loginCheckbox" value="on" />
+        </parameters>
+      </extension>
+    </build-extensions>
+    <cleanup />
+  </settings>
+</build-type>
+
