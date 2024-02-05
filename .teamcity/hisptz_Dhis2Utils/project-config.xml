@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" parent-id="hisptz" uuid="f633cb5f-c6d2-4ca2-a869-284683fa11c8" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>DHIS2 Utils</name>
+  <parameters />
+  <project-extensions>
+    <extension id="PROJECT_EXT_11" type="IssueTracker">
+      <parameters>
+        <param name="authType" value="accesstoken" />
+        <param name="name" value="hisptz/dhis2-utils" />
+        <param name="pattern" value="#(\d+)" />
+        <param name="repository" value="https://github.com/hisptz/dhis2-utils" />
+        <param name="secure:accessToken" value="credentialsJSON:52d23ed9-43c8-42b0-9d62-c2660268fa8d" />
+        <param name="secure:password" value="" />
+        <param name="tokenId" value="" />
+        <param name="type" value="GithubIssues" />
+        <param name="username" value="" />
+      </parameters>
+    </extension>
+    <extension id="PROJECT_EXT_12" type="versionedSettings">
+      <parameters>
+        <param name="buildSettings" value="ALWAYS_USE_CURRENT" />
+        <param name="credentialsStorageType" value="credentialsJSON" />
+        <param name="enabled" value="true" />
+        <param name="ignoreChangesInDependenciesAndVcsSettings" value="false" />
+        <param name="rootId" value="hisptz_Dhis2Utils_GitGithubComHisptzDhis2utilsGitRefsHeadsMain" />
+        <param name="showChanges" value="false" />
+      </parameters>
+    </extension>
+  </project-extensions>
+  <cleanup />
+</project>
+
