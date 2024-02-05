@@ -190,6 +190,9 @@ AllThematicLayers.args = {
 			type: "choropleth",
 			id: "ReUHfIn0pTQ",
 			enabled: true,
+			onLayerClick: (e, data) => {
+				console.log(e, data);
+			},
 			dataItem: {
 				id: "ReUHfIn0pTQ",
 				displayName: "ANC 1-3 Dropout Rate",

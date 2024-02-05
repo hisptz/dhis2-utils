@@ -10,6 +10,7 @@ import {
 } from "../../../../../../utils/map.js";
 import { ThematicLayerDataItem } from "../../../../interfaces/index.js";
 import CustomTooltip from "../CustomTooltip/index.js";
+import type { LeafletEventHandlerFnMap, LeafletMouseEvent } from "leaflet";
 
 const defaultStyle = {
 	weight: 1,
@@ -18,16 +19,22 @@ const highlightStyle = {
 	weight: 2,
 };
 
+interface LayerData {
+	orgUnit: MapOrgUnit;
+	data?: number;
+	dataItem: ThematicLayerDataItem;
+}
+
 export default function Choropleth({
 	data,
 	legends,
+	customEventHandlers,
+	onLayerClick,
 }: {
-	data: {
-		orgUnit: MapOrgUnit;
-		data?: number;
-		dataItem: ThematicLayerDataItem;
-	};
+	data: LayerData;
 	legends: Legend[];
+	customEventHandlers?: LeafletEventHandlerFnMap;
+	onLayerClick?: (e: LeafletMouseEvent, data: LayerData) => void;
 }) {
 	const { orgUnit } = data;
 	return (
@@ -37,6 +44,12 @@ export default function Choropleth({
 				eventHandlers={{
 					mouseover: (e) => highlightFeature(e, highlightStyle),
 					mouseout: (e) => resetHighlight(e, defaultStyle),
+					...(customEventHandlers ?? {}),
+					mousedown: (e) => {
+						if (onLayerClick) {
+							onLayerClick(e, data);
+						}
+					},
 				}}
 				pathOptions={{
 					fillColor: getColorFromLegendSet(legends, data.data),
