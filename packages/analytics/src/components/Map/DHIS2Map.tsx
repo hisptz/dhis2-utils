@@ -37,6 +37,7 @@ const MapComponent = (
 	];
 	const sanitizedBoundaryLayers: CustomBoundaryLayer[] = [
 		{
+			...boundaryLayer,
 			type: "overlay",
 			id: "boundary",
 			enabled: boundaryLayer?.enabled ?? false,

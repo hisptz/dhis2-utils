@@ -54,7 +54,7 @@ function ChoroplethLegend(
 				onCollapse={onCollapse}
 			/>
 			<Divider margin={"0"} />
-			<div className="legend-list pt-8">
+			<div style={{ paddingTop: 8 }} className="legend-list">
 				{legends?.map((legend: any) => (
 					<LegendItem
 						key={`${legend?.color}-legend-list`}

@@ -15,7 +15,14 @@ import { usePointLayer } from "./hooks/index.js";
 
 export function PointLayer() {
 	const pointLayer = usePointLayer();
-	const { enabled, label, points: orgUnits, style } = pointLayer ?? {};
+	const {
+		enabled,
+		label,
+		points: orgUnits,
+		style,
+		customEventHandlers,
+		onLayerClick,
+	} = pointLayer ?? {};
 	const { baseUrl } = useConfig();
 	return (
 		<LayersControl.Overlay
@@ -35,6 +42,14 @@ export function PointLayer() {
 										),
 									),
 								});
+							}}
+							eventHandlers={{
+								...(customEventHandlers ?? {}),
+								mousedown: (e) => {
+									if (onLayerClick) {
+										onLayerClick(e, { orgUnit: area });
+									}
+								},
 							}}
 							data={area.geoJSON}
 							interactive

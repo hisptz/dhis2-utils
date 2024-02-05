@@ -9,6 +9,7 @@ import { PeriodSelector } from "./components/PeriodSelector.js";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient();
+
 export interface EarthEngineLayerConfigurationProps {
 	form: UseFormReturn<EarthEngineLayerConfig>;
 	excluded?: string[];
@@ -23,7 +24,13 @@ export function EarthEngineLayerConfiguration({
 	return (
 		<QueryClientProvider client={queryClient}>
 			<FormProvider {...form}>
-				<div className="column gap-16">
+				<div
+					style={{
+						display: "flex",
+						flexDirection: "column",
+						gap: 16,
+					}}
+				>
 					<TypeField excluded={excluded} />
 					<Name />
 					<AggregationSelector />

@@ -19,7 +19,16 @@ export default function ThematicLayer({
 		return null;
 	}
 
-	const { type, dataItem, name, data, enabled, legends } = layer ?? {};
+	const {
+		type,
+		dataItem,
+		name,
+		data,
+		enabled,
+		legends,
+		customEventHandlers,
+		onLayerClick,
+	} = layer ?? {};
 	const uniqueName = name ?? dataItem.displayName;
 	return (
 		<>
@@ -34,6 +43,8 @@ export default function ThematicLayer({
 						{data?.map((datum) =>
 							type === "choropleth" ? (
 								<Choropleth
+									customEventHandlers={customEventHandlers}
+									onLayerClick={onLayerClick}
 									legends={legends ?? []}
 									data={datum}
 									key={`${datum?.dataItem?.id}-${datum?.orgUnit?.id}-layer`}

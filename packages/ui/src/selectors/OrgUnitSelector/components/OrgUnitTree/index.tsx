@@ -120,9 +120,6 @@ function Tree({
 					selected={compact(
 						selectedOrgUnits?.map((orgUnit) => orgUnit.path),
 					)}
-					highlighted={compact(
-						selectedOrgUnits?.map((orgUnit) => orgUnit.path),
-					)}
 					expanded={expanded as unknown as boolean} //TODO: Report this issue and fix when done
 					handleExpand={handleExpand}
 					handleCollapse={handleExpand}
