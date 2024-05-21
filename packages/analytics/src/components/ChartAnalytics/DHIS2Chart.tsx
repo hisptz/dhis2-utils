@@ -10,10 +10,12 @@ export * from "./services/export.js";
 export * from "./types/props.js";
 export * from "./components/DownloadMenu/index.js";
 
-function ChartAnalyticsComponent(
-	{ analytics, config, containerProps }: ChartAnalyticsProps,
-	ref: React.ForwardedRef<HighchartsReact.RefObject>,
-) {
+function ChartAnalyticsComponent({
+	analytics,
+	config,
+	containerProps,
+	setRef,
+}: ChartAnalyticsProps) {
 	const id = useRef(`${uid()}-chart-item`);
 	const { chart } = useChart({ id: id.current, analytics, config });
 
@@ -23,7 +25,7 @@ function ChartAnalyticsComponent(
 	return (
 		<HighchartsReact
 			immutable
-			ref={ref}
+			ref={setRef}
 			containerProps={{ id: id.current, ...(containerProps ?? {}) }}
 			highcharts={HighCharts}
 			options={{ ...chart }}
@@ -43,11 +45,12 @@ function ChartAnalyticsComponent(
  * @param {Record<string, any>} [props.containerProps] - Props that will be passed to the chart container
  * @param {forwardRef} forwardRef - A function that creates a higher order component that forwards the ref through the component tree.
  *
- * @returns {React.FC<ChartAnalyticsProps & { ref: React.Ref<unknown> }>} - The DHIS2 chart component with forward ref support.
+ * @returns {React.ForwardRefExoticComponent<ChartAnalyticsProps>} - The DHIS2 chart component with forward ref support.
  */
-export const DHIS2Chart: React.FC<ChartAnalyticsProps> = forwardRef(
-	ChartAnalyticsComponent,
-);
+export const DHIS2Chart: React.ForwardRefExoticComponent<ChartAnalyticsProps> =
+	forwardRef<HighchartsReact.RefObject, ChartAnalyticsProps>(
+		ChartAnalyticsComponent,
+	);
 
 /**
  * @deprecated since `v2`. Use `DHIS2Chart` instead
