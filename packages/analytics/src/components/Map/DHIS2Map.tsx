@@ -67,7 +67,8 @@ const MapComponent = (
 		</QueryClientProvider>
 	);
 };
-export const DHIS2Map: React.FC<MapProps> = forwardRef(MapComponent);
+export const DHIS2Map: React.ForwardRefExoticComponent<MapProps> =
+	forwardRef(MapComponent);
 
 /**
  * @deprecated since `v2`. Use `DHIS2Map` instead
