@@ -23,6 +23,7 @@ export interface DHIS2PivotTableOptions {
 export interface DHIS2PivotTableProps {
 	analytics: Analytics;
 	tableProps?: DataTableProps;
+	setRef?: (ref: HTMLTableElement) => void;
 	config: {
 		layout: {
 			columns: {
@@ -46,6 +47,7 @@ export function DHIS2PivotTable({
 	analytics,
 	config,
 	tableProps,
+	setRef,
 }: DHIS2PivotTableProps) {
 	const engine = useMemo(
 		() => new DHIS2PivotTableEngine({ analytics, config }),
@@ -54,7 +56,7 @@ export function DHIS2PivotTable({
 
 	return (
 		<DHIS2PivotTableEngineProvider engine={engine}>
-			<PivotTable tableProps={tableProps}>
+			<PivotTable setRef={setRef} tableProps={tableProps}>
 				<TableHeaders />
 				<CustomPivotTableBody />
 			</PivotTable>
