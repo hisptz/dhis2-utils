@@ -9,7 +9,11 @@ import {
 	EarthEngineLayerConfig,
 	ThematicLayerConfig,
 } from "../components/MapLayer/interfaces/index.js";
-import type { LeafletEventHandlerFnMap, LeafletMouseEvent } from "leaflet";
+import {
+	type LeafletEventHandlerFnMap,
+	type LeafletMouseEvent,
+	Map as LeafletMap,
+} from "leaflet";
 
 export interface MapProviderProps {
 	children: React.ReactNode;
@@ -22,6 +26,7 @@ export interface MapProviderProps {
 
 export interface MapProps {
 	key?: string;
+	setRef?: (ref: LeafletMap) => void;
 	orgUnitSelection: OrgUnitSelection; //Organisation unit selection
 	pointLayer?: {
 		enabled: boolean;

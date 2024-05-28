@@ -1,32 +1,29 @@
-import { Map as LeafletMap } from "leaflet";
-import React, { forwardRef } from "react";
+import React from "react";
 import MapArea from "./components/MapArea/index.js";
 import {
 	CustomBoundaryLayer,
 	CustomPointLayer,
 } from "./components/MapLayer/interfaces";
-import { MapProvider } from "./components/MapProvider/index.js";
-import { MapProps } from "./interfaces/index.js";
+import { MapProvider } from "./components/MapProvider";
+import { MapProps } from "./interfaces";
 import "leaflet/dist/leaflet.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient();
 
-const MapComponent = (
-	{
-		orgUnitSelection,
-		pointLayer,
-		boundaryLayer,
-		thematicLayers,
-		earthEngineLayers,
-		periodSelection,
-		mapOptions,
-		key,
-		controls,
-		legends,
-	}: MapProps,
-	ref: React.Ref<LeafletMap> | undefined,
-) => {
+const MapComponent = ({
+	orgUnitSelection,
+	pointLayer,
+	boundaryLayer,
+	thematicLayers,
+	earthEngineLayers,
+	periodSelection,
+	mapOptions,
+	key,
+	controls,
+	legends,
+	setRef,
+}: MapProps) => {
 	const sanitizedPointLayers: CustomPointLayer[] = [
 		{
 			type: "point",
@@ -60,15 +57,14 @@ const MapComponent = (
 					legends={legends}
 					controls={controls}
 					key={key}
-					ref={ref}
+					ref={setRef}
 					mapOptions={mapOptions}
 				/>
 			</MapProvider>
 		</QueryClientProvider>
 	);
 };
-export const DHIS2Map: React.ForwardRefExoticComponent<MapProps> =
-	forwardRef(MapComponent);
+export const DHIS2Map: React.FC<MapProps> = MapComponent;
 
 /**
  * @deprecated since `v2`. Use `DHIS2Map` instead
