@@ -26,7 +26,7 @@ export const CustomCheckboxField = React.forwardRef(({
             checked={Boolean(value)}
             onChange={({checked}: { checked: boolean }) => {
                 if (trueOnly) {
-                    onChange(checked ? checked : null);
+                    onChange(checked ? checked : "");
                 } else {
                     onChange(checked);
                 }
