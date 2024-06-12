@@ -1,11 +1,10 @@
 import { Analytics, LegendSet } from "@hisptz/dhis2-utils";
-import { DHIS2PivotTableEngine } from "./services/engine.js";
+import { DHIS2PivotTableEngine, type EngineConfig } from "./services/engine.js";
 import React, { useMemo } from "react";
 import { DHIS2PivotTableEngineProvider } from "./state/engine.js";
 import { PivotTable } from "./components/Table/index.js";
 import { TableHeaders } from "./components/TableHeaders/index.js";
 import { CustomPivotTableBody } from "./components/TableBody/index.js";
-import { DHIS2Dimension } from "./interfaces/index.js";
 import { DataTableProps } from "@dhis2/ui";
 
 export interface DHIS2PivotTableOptions {
@@ -18,29 +17,14 @@ export interface DHIS2PivotTableOptions {
 	showColumnSubtotals?: boolean;
 	fixColumnHeaders?: boolean;
 	fixRowHeaders?: boolean;
+	showFilterAsTitle?: boolean;
 }
 
 export interface DHIS2PivotTableProps {
 	analytics: Analytics;
 	tableProps?: DataTableProps;
 	setRef?: (ref: HTMLTableElement) => void;
-	config: {
-		layout: {
-			columns: {
-				dimension: DHIS2Dimension;
-				label?: string;
-			}[];
-			rows: {
-				dimension: DHIS2Dimension;
-				label?: string;
-			}[];
-			filter?: {
-				dimension: DHIS2Dimension;
-				label?: string;
-			}[];
-		};
-		options?: DHIS2PivotTableOptions;
-	};
+	config: EngineConfig;
 }
 
 export function DHIS2PivotTable({

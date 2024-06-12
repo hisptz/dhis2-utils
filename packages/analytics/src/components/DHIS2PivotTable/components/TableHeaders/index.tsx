@@ -2,14 +2,14 @@ import React from "react";
 import { useCustomPivotTableEngine } from "../../state/engine.js";
 import { DataTableColumnHeader, DataTableRow, TableHead } from "@dhis2/ui";
 import { isEmpty, slice, times } from "lodash";
-import { Header } from "../../services/engine.js";
+import { DHIS2PivotTableEngine, Header } from "../../services/engine.js";
 import classes from "./TableHeaders.module.css";
 import { useElementSize } from "usehooks-ts";
 
 function ColumnRenderer({
 	column,
 	index,
-	config: { fixColumnHeaders, rowHeaders, prevHeight = 0, columns },
+	config: { fixColumnHeaders, rowHeaders, prevHeight = 0, columns, engine },
 }: {
 	column: Header;
 	index: number;
@@ -18,6 +18,7 @@ function ColumnRenderer({
 		rowHeaders?: Header[];
 		prevHeight?: number;
 		fixColumnHeaders?: boolean;
+		engine: DHIS2PivotTableEngine;
 	};
 }): React.ReactElement | null {
 	const [columnHeaderRef, { height }] = useElementSize();
@@ -41,6 +42,16 @@ function ColumnRenderer({
 
 	return (
 		<>
+			{engine?.showTitle && (
+				<DataTableRow>
+					<DataTableColumnHeader
+						align="center"
+						colSpan={engine.titleSpan.toString()}
+					>
+						{engine.title ?? ""}
+					</DataTableColumnHeader>
+				</DataTableRow>
+			)}
 			<DataTableRow>
 				{index === 0 &&
 					rowHeaders?.map((header) => {
@@ -107,7 +118,7 @@ export function TableHeaders() {
 			<ColumnRenderer
 				column={columns[0]}
 				index={0}
-				config={{ rowHeaders, columns, fixColumnHeaders }}
+				config={{ engine, rowHeaders, columns, fixColumnHeaders }}
 			/>
 		</TableHead>
 	);
