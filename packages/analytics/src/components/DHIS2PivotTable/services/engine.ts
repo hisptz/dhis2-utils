@@ -16,6 +16,7 @@ export interface EngineConfig {
 		showColumnTotals?: boolean;
 		showRowSubtotals?: boolean;
 		showColumnSubtotals?: boolean;
+		showFilterAsTitle?: boolean;
 		fixColumnHeaders?: boolean;
 		fixRowHeaders?: boolean;
 		[key: string]: any;
@@ -52,6 +53,38 @@ export class DHIS2PivotTableEngine {
 		]);
 		this.getHeaders();
 		this.getColumnMap();
+	}
+
+	get title() {
+		const filters = this.config.layout.filter;
+		const labels =
+			filters?.map(({ dimension }) => {
+				const dimensions =
+					this.analyticsData.metaData?.dimensions[dimension];
+
+				return dimensions?.map((dimension) => {
+					const dimensionItem =
+						this.analyticsData.metaData?.items[dimension];
+					return dimensionItem?.name;
+				});
+			}) ?? [];
+
+		return compact(labels.flat()).join(", ");
+	}
+
+	get titleSpan() {
+		const rowHeaders = this.rowHeaders?.length ?? 0;
+		const columnHeaders =
+			this.columnHeaders?.reduce(
+				(acc, val) => acc + (val.items?.length ?? 0),
+				0,
+			) ?? 0;
+
+		return rowHeaders + columnHeaders;
+	}
+
+	get showTitle() {
+		return this.config?.options?.showFilterAsTitle;
 	}
 
 	get fixColumnHeaders() {
