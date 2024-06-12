@@ -96,6 +96,7 @@ function ColumnRenderer({
 						rowHeaders,
 						prevHeight: height,
 						fixColumnHeaders,
+						engine,
 					}}
 				/>
 			) : null}
