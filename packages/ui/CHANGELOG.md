@@ -1,5 +1,11 @@
 # @hisptz/dhis2-ui
 
+## 2.0.11
+
+### Patch Changes
+
+- 66cfd02: Fixed issues with import in package.json having extra slash, causing errors when imported from an app
+
 ## 2.0.10
 
 ### Patch Changes
