@@ -47,6 +47,7 @@ export type ChartConfig = {
 	type?: ChartType;
 	height?: number;
 	colors?: Array<string>;
+	showFilterAsTitle?: boolean;
 	name?: string;
 	allowChartTypeChange?: boolean;
 	highChartOverrides?:

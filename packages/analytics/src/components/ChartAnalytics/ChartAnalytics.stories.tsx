@@ -29,6 +29,7 @@ export const Default: Story = {
 				category: ["ou"],
 				filter: ["pe"],
 			},
+			showFilterAsTitle: true,
 			type: "column",
 		},
 	},
@@ -44,6 +45,7 @@ export const Bar: Story = {
 				category: ["ou"],
 				filter: ["pe"],
 			},
+			showFilterAsTitle: true,
 			type: "bar",
 		},
 	},
@@ -58,6 +60,7 @@ export const MultipleColumns: Story = {
 				category: ["pe"],
 				filter: ["dx"],
 			},
+			showFilterAsTitle: true,
 			type: "column",
 		},
 	},
@@ -73,6 +76,7 @@ export const StackedColumn: Story = {
 				category: ["pe"],
 				filter: ["dx"],
 			},
+			showFilterAsTitle: true,
 			type: "stacked-column",
 		},
 	},
@@ -87,6 +91,7 @@ export const StackedBar: Story = {
 				category: ["pe"],
 				filter: ["dx"],
 			},
+			showFilterAsTitle: true,
 			type: "stacked-bar",
 		},
 	},
@@ -101,6 +106,7 @@ export const Line: Story = {
 				category: ["ou"],
 				filter: ["pe"],
 			},
+			showFilterAsTitle: true,
 			type: "line",
 		},
 	},
@@ -116,6 +122,7 @@ export const MultipleLines: Story = {
 				category: ["pe"],
 				filter: ["dx"],
 			},
+			showFilterAsTitle: true,
 			type: "line",
 		},
 	},
@@ -129,8 +136,9 @@ export const PieChart: Story = {
 			layout: {
 				series: ["dx"],
 				category: [],
-				filter: ["dx", "pe"],
+				filter: ["pe", "ou"],
 			},
+			showFilterAsTitle: true,
 			type: "pie",
 		},
 	},
@@ -146,6 +154,7 @@ export const MultiSeries: Story = {
 				category: ["pe"],
 				filter: ["dx"],
 			},
+			showFilterAsTitle: true,
 			type: "multi-series",
 			multiSeries: {
 				series: [
@@ -210,6 +219,7 @@ export const ComplexMultiSeries: Story = {
 				filter: ["ou"],
 			},
 			type: "multi-series",
+			showFilterAsTitle: true,
 			multiSeries: {
 				series: [
 					{

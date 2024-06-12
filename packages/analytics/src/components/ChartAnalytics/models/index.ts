@@ -1,6 +1,7 @@
 import type { Analytics } from "@hisptz/dhis2-utils";
 import HighCharts from "highcharts";
 import { ChartConfig } from "../types/props.js";
+import { compact } from "lodash";
 
 export abstract class DHIS2Chart {
 	id: string;
@@ -52,7 +53,11 @@ export abstract class DHIS2Chart {
 			],
 			series: this.getSeries(),
 			plotOptions: this.getPlotOptions(),
-			title: { text: "" },
+			title: {
+				text: this.config.showFilterAsTitle
+					? this.getFilterLabel()
+					: "",
+			},
 			xAxis: this.getXAxis(),
 			exporting: this.getExporting(),
 			legend: { enabled: true },
@@ -131,5 +136,18 @@ export abstract class DHIS2Chart {
 				},
 			},
 		};
+	}
+
+	private getFilterLabel() {
+		const filters = this.config.layout.filter;
+		const labels = filters.map((filter) => {
+			const dimensions =
+				this.analytics.metaData?.dimensions[filter] ?? [];
+			return dimensions.map((dimension) => {
+				const filterItem = this.analytics.metaData?.items[dimension];
+				return filterItem?.name;
+			});
+		});
+		return compact(labels.flat()).join(", ");
 	}
 }
