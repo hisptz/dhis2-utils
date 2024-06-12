@@ -1,5 +1,13 @@
 # @hisptz/dhis2-analytics
 
+## 2.0.10
+
+### Patch Changes
+
+- 6f3ce3c: Fixed issues with missing types
+- Updated dependencies [6f3ce3c]
+  - @hisptz/dhis2-ui@2.0.10
+
 ## 2.0.9
 
 ### Patch Changes
