@@ -12,6 +12,7 @@ export function SingleValueVisualizer({
 	singleValueItems,
 	animationDuration,
 	animationDelay,
+	disableAnimation,
 }: SingleValueVisualizerProps): React.ReactElement {
 	return (
 		<div className="w-100 h-100">
@@ -27,6 +28,7 @@ export function SingleValueVisualizer({
 						{singleValueItems.map(
 							(singleValueItem: SingleValue) => (
 								<SingleValueItem
+									disableAnimation={disableAnimation}
 									key={`${singleValueItem.label}-${singleValueItem.value}`}
 									{...singleValueItem}
 									globalAnimationDuration={animationDuration}

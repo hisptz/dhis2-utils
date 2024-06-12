@@ -9,6 +9,7 @@ import SingleValuePercentage from "./SingleValuePercentage.js";
 interface SingleValueProps extends SingleValue {
 	globalAnimationDelay?: number;
 	globalAnimationDuration?: number;
+	disableAnimation?: boolean;
 }
 
 export default function SingleValueItem({
@@ -21,6 +22,7 @@ export default function SingleValueItem({
 	globalAnimationDelay,
 	decimalPlaces,
 	globalAnimationDuration,
+	disableAnimation,
 }: SingleValueProps): React.ReactElement {
 	const numberFormatter = (value: number) =>
 		Intl.NumberFormat("en-US", {
@@ -29,6 +31,7 @@ export default function SingleValueItem({
 		}).format(value);
 
 	const sanitizedValue = useSpring({
+		cancel: disableAnimation,
 		val: value,
 		from: { val: 0 },
 		config: {

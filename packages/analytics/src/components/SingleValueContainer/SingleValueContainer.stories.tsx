@@ -146,3 +146,41 @@ SingleValuesWithDecimalPlaces.args = {
 		},
 	],
 };
+
+export const DisabledAnimation: Story = {
+	name: "Disabled Animation",
+};
+DisabledAnimation.args = {
+	title: "PRIORITY INDICATORS",
+	animationDuration: 1500,
+	animationDelay: 500,
+	disableAnimation: true,
+	singleValueItems: [
+		{
+			label: "Total Bookings",
+			value: 136344,
+		},
+		{
+			label: "At least one dose",
+			value: 4423,
+			percentage: 23,
+			color: "#0D47A1",
+		},
+		{
+			label: "Partially vaccinated",
+			value: 1394,
+			percentage: 17,
+			color: "#0D47A1",
+		},
+		{
+			label: "Fully vaccinated",
+			value: 12432,
+			percentage: 83,
+			color: "#0D47A1",
+		},
+		{
+			label: "Number of AEFI",
+			value: 26423,
+		},
+	],
+};
