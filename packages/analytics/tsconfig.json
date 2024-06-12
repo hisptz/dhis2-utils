@@ -11,4 +11,8 @@
     "**/*.test.tsx",
     "**/*.stories.tsx"
   ],
+  "compilerOptions": {
+    "declarationDir": "dist/types",
+    "resolveJsonModule": true
+  }
 }
