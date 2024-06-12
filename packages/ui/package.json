@@ -7,7 +7,7 @@
   "sideEffects": false,
   "license": "MIT",
   "exports": {
-    "import": "./dist/",
+    "import": "./dist",
     "types": "./dist/types/index.d.ts"
   },
   "files": [
