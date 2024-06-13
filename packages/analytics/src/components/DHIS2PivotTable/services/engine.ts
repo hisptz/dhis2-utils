@@ -56,7 +56,7 @@ export class DHIS2PivotTableEngine {
 	}
 
 	get title() {
-		const filters = this.config.layout.filter;
+		const filters = this.config.layout.filter ?? [];
 		const labels =
 			filters?.map(({ dimension }) => {
 				const dimensions =

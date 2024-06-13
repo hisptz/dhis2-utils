@@ -139,7 +139,7 @@ export abstract class DHIS2Chart {
 	}
 
 	private getFilterLabel() {
-		const filters = this.config.layout.filter;
+		const filters = this.config.layout.filter ?? [];
 		const labels = filters.map((filter) => {
 			const dimensions =
 				this.analytics.metaData?.dimensions[filter] ?? [];

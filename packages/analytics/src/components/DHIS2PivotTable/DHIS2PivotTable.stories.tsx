@@ -22,9 +22,10 @@ Default.args = {
 				{ dimension: "pe", label: "Period" },
 			],
 			rows: [{ dimension: "dx", label: "Services" }],
-			filter: [],
 		},
-		options: {},
+		options: {
+			showFilterAsTitle: true,
+		},
 	},
 	tableProps: {},
 };
