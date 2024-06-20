@@ -21,7 +21,6 @@ const config: StorybookConfig = {
 	typescript: {
 		// Overrides the default Typescript configuration to allow multi-package components to be documented via Autodocs.
 		reactDocgen: "react-docgen",
-		skipBabel: true,
 		check: false,
 	},
 	addons: [
@@ -31,9 +30,10 @@ const config: StorybookConfig = {
 		getAbsolutePath("@storybook/addon-interactions"),
 		getAbsolutePath("@storybook/addon-a11y"),
 		getAbsolutePath("@storybook/addon-coverage"),
+		"@chromatic-com/storybook",
 	],
 	framework: {
-		name: "@storybook/react-vite",
+		name: getAbsolutePath("@storybook/react-vite"),
 		options: {},
 	},
 
@@ -72,9 +72,7 @@ const config: StorybookConfig = {
 		};
 	},
 
-	docs: {
-		autodocs: true,
-	},
+	docs: {},
 };
 
 export default config;

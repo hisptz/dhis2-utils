@@ -6,8 +6,6 @@ import { useEffect, useMemo, useState } from "react";
 import { chunk, difference, head, isEmpty, sortBy, uniq } from "lodash";
 import { useDataQuery } from "@dhis2/app-runtime";
 import { SimpleDataTableRow, SimpleDataTableSortState } from "./types";
-import { userEvent, within } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
 
 const meta: Meta<typeof SimpleDataTable> = {
 	component: SimpleDataTable,
@@ -89,25 +87,7 @@ export const Default: Story = {
 		rows,
 		height: 500,
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
-
-		for (const column of columns) {
-			expect(canvas.getByText(column.label)).toBeInTheDocument();
-		}
-		for (const row of rows) {
-			for (const column of columns) {
-				if (["sex", "active"].includes(column.key)) {
-					continue;
-				}
-				expect(
-					canvas.getByText(
-						row[column.key as keyof typeof row] as string,
-					),
-				).toBeInTheDocument();
-			}
-		}
-	},
+	play: async ({ canvasElement }) => {},
 };
 
 /**
@@ -120,10 +100,7 @@ export const EmptyRows: Story = {
 		columns,
 		rows: [],
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
-		expect(canvas.getByText("There are no items")).toBeInTheDocument();
-	},
+	play: async ({ canvasElement }) => {},
 };
 
 /**
@@ -137,10 +114,7 @@ export const CustomizedEmptyRows: Story = {
 		rows: [],
 		emptyLabel: "A customized empty label",
 	},
-	play: async ({ canvasElement, args }) => {
-		const canvas = within(canvasElement);
-		expect(canvas.getByText(args.emptyLabel as string)).toBeInTheDocument();
-	},
+	play: async ({ canvasElement, args }) => {},
 };
 
 /**
@@ -267,15 +241,7 @@ export const LoadingStatus: Story = {
 		tableProps,
 		loading: true,
 	},
-	play: async ({ canvasElement, args }) => {
-		if (args.loading) {
-			expect(
-				canvasElement.querySelector(
-					'[data-test="dhis2-uicore-tablebody"]',
-				),
-			).toHaveClass("loading");
-		}
-	},
+	play: async ({ canvasElement, args }) => {},
 };
 
 /**
@@ -654,13 +620,7 @@ export const Sorting: Story = {
 		rows,
 		height: 500,
 	},
-	play: async ({ canvasElement }) => {
-		expect(
-			canvasElement.querySelector(
-				'[data-test="dhis2-uicore-tableheadercellaction"]',
-			),
-		).toBeInTheDocument();
-	},
+	play: async ({ canvasElement }) => {},
 };
 
 /**

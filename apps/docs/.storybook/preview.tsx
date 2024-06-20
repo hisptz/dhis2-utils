@@ -5,7 +5,6 @@ import hispTheme from "./theme";
 import "./style.css";
 
 export const parameters = {
-	actions: { argTypesRegex: "^on*" },
 	controls: {
 		expanded: true,
 		matchers: {
@@ -66,3 +65,4 @@ export const decorators = [
 		</React.StrictMode>
 	),
 ];
+export const tags = ["autodocs"];
