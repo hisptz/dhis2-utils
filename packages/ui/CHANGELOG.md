@@ -1,5 +1,11 @@
 # @hisptz/dhis2-ui
 
+## 2.0.12
+
+### Patch Changes
+
+- Removed @dhis2/multi-calendar-dates deps
+
 ## 2.0.11
 
 ### Patch Changes
