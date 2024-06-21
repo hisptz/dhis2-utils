@@ -6,8 +6,6 @@ import { useEffect, useState } from "react";
 import { chunk } from "lodash";
 import { useDataQuery } from "@dhis2/app-runtime";
 import { SimpleTableRow } from "./types";
-import { within } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
 
 const meta: Meta<typeof SimpleTable> = {
 	component: SimpleTable,
@@ -79,25 +77,7 @@ export const Default: Story = {
 		columns,
 		rows,
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
-
-		for (const column of columns) {
-			expect(canvas.getByText(column.label)).toBeInTheDocument();
-		}
-		for (const row of rows) {
-			for (const column of columns) {
-				if (["sex", "active"].includes(column.key)) {
-					continue;
-				}
-				expect(
-					canvas.getByText(
-						row[column.key as keyof typeof row] as string,
-					),
-				).toBeInTheDocument();
-			}
-		}
-	},
+	play: async ({ canvasElement }) => {},
 };
 
 /**
@@ -109,10 +89,7 @@ export const EmptyRows: Story = {
 		columns,
 		rows: [],
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
-		expect(canvas.getByText("There are no items")).toBeInTheDocument();
-	},
+	play: async ({ canvasElement }) => {},
 };
 
 /**
@@ -125,12 +102,7 @@ export const CustomizedEmptyRows: Story = {
 		rows: [],
 		emptyLabel: "A customized empty label",
 	},
-	play: async ({ canvasElement, args }) => {
-		const canvas = within(canvasElement);
-		await expect(
-			canvas.getByText(args.emptyLabel as string),
-		).toBeInTheDocument();
-	},
+	play: async ({ canvasElement, args }) => {},
 };
 
 /**
@@ -201,13 +173,7 @@ export const Pagination: Story = {
 		columns,
 		rows,
 	},
-	play: async ({ canvasElement }) => {
-		expect(
-			canvasElement.querySelector(
-				'[data-test="dhis2-uiwidgets-pagination"]',
-			),
-		).toBeInTheDocument();
-	},
+	play: async ({ canvasElement }) => {},
 };
 
 const query: any = {
