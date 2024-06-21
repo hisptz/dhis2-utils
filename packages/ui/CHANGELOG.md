@@ -1,5 +1,13 @@
 # @hisptz/dhis2-ui
 
+## 2.0.13
+
+### Patch Changes
+
+- Removed @dhis2/multi-calendar-dates dependency
+- Updated dependencies
+  - @hisptz/dhis2-utils@2.0.5
+
 ## 2.0.12
 
 ### Patch Changes
