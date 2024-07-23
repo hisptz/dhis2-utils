@@ -14,7 +14,7 @@ export default function CustomTooltip({
 
 	const formatter = Intl.NumberFormat(navigator.language, {}).format;
 
-	const formattedData = formatter(data as number);
+	const formattedData = data ? formatter(data as number) : "";
 
 	return (
 		<Pane
