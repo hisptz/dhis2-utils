@@ -17,6 +17,7 @@
   "scripts": {
     "build": "tsup && tsc",
     "dev": "tsup --watch",
+    "test": "vitest",
     "pack": "npm pack",
     "lint": "eslint . --max-warnings 0",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
