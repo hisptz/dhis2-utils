@@ -82,6 +82,15 @@ export const dataHolderSchema = z.object({
 
 export type ScorecardDataHolder = z.infer<typeof dataHolderSchema>;
 
+export const dataGroupSchema = z.object({
+	id: z.string(),
+	dataHolders: z.array(dataHolderSchema),
+	style: z.object({}),
+	title: z.string(),
+});
+
+export type ScorecardDataGroup = z.infer<typeof dataGroupSchema>;
+
 const scorecardConfig = z.object({
 	id: z.string(),
 	title: z.string(),
@@ -93,9 +102,17 @@ const scorecardConfig = z.object({
 	orgUnitSelection: organisationUnitSelectionSchema,
 	periodSelection: periodSelectionSchema,
 	dataSelection: z.object({
-		dataGroups: z.array(dataHolderSchema),
+		dataGroups: z.array(dataGroupSchema),
 	}),
 	additionalLabels: z.array(z.string()),
 });
 
 export type ScorecardConfig = z.infer<typeof scorecardConfig>;
+
+const scorecardStateSchema = z.object({
+	orgUnitSelection: organisationUnitSelectionSchema,
+	periodSelection: periodSelectionSchema,
+	options: scorecardViewOptionsSchema,
+});
+
+export type ScorecardState = z.infer<typeof scorecardStateSchema>;
