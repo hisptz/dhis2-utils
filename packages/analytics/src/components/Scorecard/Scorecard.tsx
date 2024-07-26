@@ -17,7 +17,7 @@ export function Scorecard({
 		<ScorecardConfigProvider config={config}>
 			<ScorecardStateProvider config={state}>
 				<ScorecardMetaProvider>
-					<></>
+					<>Scorecard will appear here</>
 				</ScorecardMetaProvider>
 			</ScorecardStateProvider>
 		</ScorecardConfigProvider>

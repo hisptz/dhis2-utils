@@ -13,6 +13,7 @@ export const legendDefinitionSchema = z.object({
 	id: z.string(),
 	color: z.string(),
 	name: z.string(),
+	isDefault: z.boolean().optional(),
 });
 
 export type LegendDefinition = z.infer<typeof legendDefinitionSchema>;
@@ -66,6 +67,7 @@ export const dataSourceSchema = z.object({
 	id: z.string(),
 	label: z.string().optional(),
 	type: supportedDataSources,
+	displayArrows: z.boolean(),
 	highIsGood: z.boolean(),
 	effectiveGap: z.number(),
 	showColors: z.boolean(),
@@ -76,14 +78,14 @@ export const dataSourceSchema = z.object({
 export type ScorecardDataSource = z.infer<typeof dataSourceSchema>;
 
 export const dataHolderSchema = z.object({
-	id: z.string(),
+	id: z.number(),
 	dataSources: z.array(dataSourceSchema),
 });
 
 export type ScorecardDataHolder = z.infer<typeof dataHolderSchema>;
 
 export const dataGroupSchema = z.object({
-	id: z.string(),
+	id: z.number(),
 	dataHolders: z.array(dataHolderSchema),
 	style: z.object({}),
 	title: z.string(),
@@ -104,6 +106,7 @@ const scorecardConfig = z.object({
 	dataSelection: z.object({
 		dataGroups: z.array(dataGroupSchema),
 	}),
+	highlightedIndicators: z.array(dataSourceSchema),
 	additionalLabels: z.array(z.string()),
 });
 

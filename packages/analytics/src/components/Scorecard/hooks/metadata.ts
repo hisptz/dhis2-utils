@@ -3,6 +3,8 @@ import { useScorecardState } from "../components/StateProvider";
 import { getDataSourcesFromGroups } from "../utils/dataSources";
 import { getOrgUnitsForAnalytics } from "../utils/orgUnits";
 import { useDataQuery } from "@dhis2/app-runtime";
+import { useMemo } from "react";
+import type { ScorecardConfig, ScorecardState } from "../schemas/config";
 
 const query: any = {
 	meta: {
@@ -32,13 +34,63 @@ const query: any = {
 	},
 };
 
+export type ItemMeta = {
+	uid: string;
+	name: string;
+	code?: string;
+	description?: string;
+	valueType?: string;
+	totalAggregationType?: string;
+	aggregationType?: string;
+	[key: string]: string | number | undefined;
+};
+
 type MetaResponse = {
 	meta: {
 		columns: any[];
 		rows: [];
-		metaData: any;
+		headers: [];
+		metaData: {
+			dimensions: {
+				dx: string[];
+				ou: string[];
+				pe: string[];
+				co: string[];
+				[key: string]: string[];
+			};
+			items: {
+				[key: string]: ItemMeta;
+			};
+			ouNameHierarchy: {
+				[key: string]: string;
+			};
+		};
 	};
 };
+
+export function getDimensions({
+	config,
+	state,
+}: {
+	config: ScorecardConfig;
+	state: ScorecardState;
+}) {
+	const dataItemObjects = getDataSourcesFromGroups(
+		config?.dataSelection?.dataGroups ?? [],
+	);
+
+	const dataItemsIds = dataItemObjects?.map((item) => item?.id);
+	const orgUnitsIds = getOrgUnitsForAnalytics(
+		state?.orgUnitSelection ?? config?.orgUnitSelection,
+	);
+	const periodsIds = state.periodSelection.periods;
+
+	return {
+		dataItemsIds,
+		orgUnitsIds,
+		periodsIds,
+	};
+}
 
 export function useGetScorecardMeta() {
 	const config = useScorecardConfig();
@@ -50,25 +102,51 @@ export function useGetScorecardMeta() {
 		);
 	}
 
-	const dataItemObjects = getDataSourcesFromGroups(
-		config?.dataSelection?.dataGroups ?? [],
-	);
-	const dataItems = dataItemObjects?.map((item) => item?.id);
-	const orgUnits = getOrgUnitsForAnalytics(
-		state?.orgUnitSelection ?? config?.orgUnitSelection,
-	);
-	const periods = state.periodSelection.periods;
+	const { dataItemsIds, orgUnitsIds, periodsIds } = getDimensions({
+		config,
+		state,
+	});
+
 	const { loading, data } = useDataQuery<MetaResponse>(query, {
 		variables: {
-			periods,
-			orgUnits,
-			dataItems,
+			periods: periodsIds,
+			orgUnits: orgUnitsIds,
+			dataItems: dataItemsIds,
 		},
 	});
 
-	console.log({ data });
+	const orgUnits = useMemo(() => {
+		return (
+			data?.meta?.metaData.dimensions["ou"]
+				.map((ou) => {
+					return data?.meta?.metaData.items[ou];
+				})
+				.filter(Boolean) ?? []
+		);
+	}, [data?.meta]);
+	const periods = useMemo(() => {
+		return (
+			data?.meta?.metaData.dimensions["pe"]
+				.map((pe) => {
+					return data?.meta?.metaData.items[pe];
+				})
+				.filter(Boolean) ?? []
+		);
+	}, [data?.meta]);
+	const dataItems = useMemo(() => {
+		return (
+			data?.meta?.metaData.dimensions["dx"]
+				.map((dx) => {
+					return data?.meta?.metaData.items[dx];
+				})
+				.filter(Boolean) ?? []
+		);
+	}, [data?.meta]);
 
 	return {
 		loading,
+		orgUnits,
+		periods,
+		dataItems,
 	};
 }
