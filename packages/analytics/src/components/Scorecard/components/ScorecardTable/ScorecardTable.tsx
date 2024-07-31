@@ -1,5 +1,12 @@
 import { DataTable } from "@dhis2/ui";
+import { TableHeader } from "./components/TableHeader";
+import { TableBody } from "./components/TableBody";
 
 export function ScorecardTable() {
-	return <DataTable></DataTable>;
+	return (
+		<DataTable layout="inherit">
+			<TableHeader />
+			<TableBody />
+		</DataTable>
+	);
 }

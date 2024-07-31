@@ -172,9 +172,7 @@ export const SelectableRows: Story = {
 		rows,
 		tableProps,
 		selectable: true,
-		onRowSelect: (selectedValueIds) => {
-			console.log(selectedValueIds);
-		},
+		onRowSelect: (selectedValueIds) => {},
 	},
 	play: async ({ canvasElement, step }) => {
 		const canvas = within(canvasElement);

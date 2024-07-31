@@ -3,6 +3,9 @@ import React from "react";
 import { ScorecardConfigProvider } from "./components/ConfigProvider";
 import { ScorecardMetaProvider } from "./components/MetaProvider";
 import { ScorecardStateProvider } from "./components/StateProvider";
+import { TableStateProvider } from "./components/TableStateProvider";
+import { ScorecardTable } from "./components/ScorecardTable";
+import { ScorecardDataProvider } from "./components/DataProvider";
 
 export interface ScorecardProps {
 	config: ScorecardConfig;
@@ -17,7 +20,11 @@ export function Scorecard({
 		<ScorecardConfigProvider config={config}>
 			<ScorecardStateProvider config={state}>
 				<ScorecardMetaProvider>
-					<>Scorecard will appear here</>
+					<ScorecardDataProvider>
+						<TableStateProvider>
+							<ScorecardTable />
+						</TableStateProvider>
+					</ScorecardDataProvider>
 				</ScorecardMetaProvider>
 			</ScorecardStateProvider>
 		</ScorecardConfigProvider>

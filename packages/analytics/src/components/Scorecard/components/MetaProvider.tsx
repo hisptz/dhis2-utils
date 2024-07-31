@@ -4,8 +4,15 @@ import { CircularLoader } from "@dhis2/ui";
 
 export interface ScorecardMeta {
 	periods: Array<ItemMeta>;
-	orgUnits: Array<ItemMeta>;
+	orgUnits: Array<ItemMeta & { hierarchy: string }>;
 	dataItems: Array<ItemMeta>;
+	orgUnitLevels: Array<{
+		id: string;
+		level: number;
+		organisationUnits: Array<{
+			id: string;
+		}>;
+	}>;
 }
 
 const ScorecardMetaContext = createContext<ScorecardMeta | null>(null);

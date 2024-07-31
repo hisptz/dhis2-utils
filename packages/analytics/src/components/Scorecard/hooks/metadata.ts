@@ -1,10 +1,8 @@
 import { useScorecardConfig } from "../components/ConfigProvider";
 import { useScorecardState } from "../components/StateProvider";
-import { getDataSourcesFromGroups } from "../utils/dataSources";
-import { getOrgUnitsForAnalytics } from "../utils/orgUnits";
 import { useDataQuery } from "@dhis2/app-runtime";
 import { useMemo } from "react";
-import type { ScorecardConfig, ScorecardState } from "../schemas/config";
+import { getDimensions } from "../utils/analytics";
 
 const query: any = {
 	meta: {
@@ -30,6 +28,12 @@ const query: any = {
 					`ou:${orgUnits.join(";")}`,
 				],
 			};
+		},
+	},
+	ouLevel: {
+		resource: "organisationUnitLevels",
+		params: {
+			fields: ["id", "displayName", "level"],
 		},
 	},
 };
@@ -66,31 +70,16 @@ type MetaResponse = {
 			};
 		};
 	};
-};
-
-export function getDimensions({
-	config,
-	state,
-}: {
-	config: ScorecardConfig;
-	state: ScorecardState;
-}) {
-	const dataItemObjects = getDataSourcesFromGroups(
-		config?.dataSelection?.dataGroups ?? [],
-	);
-
-	const dataItemsIds = dataItemObjects?.map((item) => item?.id);
-	const orgUnitsIds = getOrgUnitsForAnalytics(
-		state?.orgUnitSelection ?? config?.orgUnitSelection,
-	);
-	const periodsIds = state.periodSelection.periods;
-
-	return {
-		dataItemsIds,
-		orgUnitsIds,
-		periodsIds,
+	ouLevel: {
+		organisationUnitLevels: Array<{
+			id: string;
+			level: number;
+			organisationUnits: Array<{
+				id: string;
+			}>;
+		}>;
 	};
-}
+};
 
 export function useGetScorecardMeta() {
 	const config = useScorecardConfig();
@@ -119,7 +108,10 @@ export function useGetScorecardMeta() {
 		return (
 			data?.meta?.metaData.dimensions["ou"]
 				.map((ou) => {
-					return data?.meta?.metaData.items[ou];
+					return {
+						...data?.meta?.metaData.items[ou],
+						hierarchy: data?.meta?.metaData?.ouNameHierarchy[ou],
+					};
 				})
 				.filter(Boolean) ?? []
 		);
@@ -142,11 +134,16 @@ export function useGetScorecardMeta() {
 				.filter(Boolean) ?? []
 		);
 	}, [data?.meta]);
+	const orgUnitLevels = useMemo(
+		() => data?.ouLevel?.organisationUnitLevels ?? [],
+		[data?.ouLevel?.organisationUnitLevels],
+	);
 
 	return {
 		loading,
 		orgUnits,
 		periods,
 		dataItems,
+		orgUnitLevels,
 	};
 }
