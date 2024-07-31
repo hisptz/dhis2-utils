@@ -24,7 +24,6 @@ function findLegend({
 	if (!value) {
 		return find(legendDefinitions, { id: "No Data" });
 	}
-
 	const numericValue = +value;
 	if (numericValue > max) {
 		return find(legendDefinitions, { id: "N/A" });
@@ -32,6 +31,14 @@ function findLegend({
 	if (isNaN(numericValue)) {
 		return find(legendDefinitions, { id: "No Data" });
 	}
+
+	console.log({
+		legends,
+		value,
+		legendDefinitions,
+		max,
+		numericValue,
+	});
 
 	const { legendDefinitionId } =
 		find(legends, (legend) => {
@@ -46,6 +53,7 @@ function findLegend({
 			}
 			return false;
 		}) ?? {};
+
 	return find(legendDefinitions, ["id", legendDefinitionId]);
 }
 
@@ -100,8 +108,9 @@ export function getLegend({
 		}>;
 	}>;
 }) {
-	let legends: ScorecardLegend[] = [];
-	if (typeof dataSource.legends === "object") {
+	let legends: ScorecardLegend[];
+
+	if (!Array.isArray(dataSource.legends)) {
 		legends = getLegendByOrgUnitLevel({
 			orgUnit,
 			orgUnitLevels,
@@ -129,12 +138,30 @@ export function getLegend({
 				default:
 					legends = dataSource.legends;
 			}
+		} else {
+			legends = dataSource.legends;
 		}
 	}
+
 	return findLegend({
 		legends,
 		value: value?.value,
 		max: dataSource.weight,
 		legendDefinitions: config.legendDefinitions,
 	});
+}
+
+export function getTextColorFromBackgroundColor(background: string): string {
+	if (background.startsWith("#")) {
+		background = background.slice(1);
+	}
+	const r = parseInt(background.substr(0, 2), 16);
+	const g = parseInt(background.substr(2, 2), 16);
+	const b = parseInt(background.substr(4, 2), 16);
+	const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+	if (luminance > 0.5) {
+		return "black"; // bright background, use dark text
+	} else {
+		return "white"; // dark background, use bright text
+	}
 }

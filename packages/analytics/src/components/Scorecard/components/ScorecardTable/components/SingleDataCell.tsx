@@ -8,7 +8,10 @@ import { useScorecardConfig } from "../../ConfigProvider";
 import { useScorecardMeta } from "../../MetaProvider";
 import { head } from "lodash";
 import { DataTableCell } from "@dhis2/ui";
-import { getLegend } from "../../../utils/legends";
+import {
+	getLegend,
+	getTextColorFromBackgroundColor,
+} from "../../../utils/legends";
 
 export interface SingleDataCellProps {
 	dataSources: Array<
@@ -41,7 +44,17 @@ export function SingleDataCell({
 	});
 
 	return (
-		<DataTableCell color={legendDefinition?.color}>
+		<DataTableCell
+			bordered
+			style={{
+				background: legendDefinition?.color,
+				textAlign: "center",
+				minWidth: 100,
+				color: legendDefinition
+					? getTextColorFromBackgroundColor(legendDefinition?.color)
+					: undefined,
+			}}
+		>
 			{dataValue?.value}
 		</DataTableCell>
 	);
