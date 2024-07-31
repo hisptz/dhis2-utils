@@ -4,7 +4,7 @@ import { TableBody } from "./components/TableBody";
 
 export function ScorecardTable() {
 	return (
-		<DataTable layout="inherit">
+		<DataTable layout="auto">
 			<TableHeader />
 			<TableBody />
 		</DataTable>

@@ -1012,7 +1012,8 @@ const config: ScorecardConfig = {
 		legend: true,
 		showHierarchy: true,
 		title: true,
-		showDataInRows: true,
+		showDataInRows: false,
+		arrows: true,
 	},
 	orgUnitSelection: {
 		groups: [],
@@ -1040,7 +1041,7 @@ const meta: Meta<typeof Scorecard> = {
 			options: config.options,
 		});
 		return (
-			<div style={{ maxWidth: 1000, overflowX: "auto" }}>
+			<div style={{ maxWidth: 1400, overflowX: "auto" }}>
 				<Story args={{ config, state: scorecardState }} />
 			</div>
 		);

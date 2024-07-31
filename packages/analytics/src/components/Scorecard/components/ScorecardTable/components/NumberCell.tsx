@@ -2,7 +2,7 @@ import type { CellContext } from "@tanstack/react-table";
 import type { ScorecardTableData } from "../../../schemas/config";
 import { DataTableCell } from "@dhis2/ui";
 
-export function HeaderCell(
+export function NumberCell(
 	props: CellContext<ScorecardTableData, string | number>,
 ) {
 	const data = props.getValue().toString();
@@ -11,7 +11,6 @@ export function HeaderCell(
 		<DataTableCell
 			style={{
 				width: "fit-content",
-				minWidth: 200,
 			}}
 			fixed
 		>

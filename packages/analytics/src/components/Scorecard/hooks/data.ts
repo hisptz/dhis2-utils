@@ -2,8 +2,7 @@ import { useScorecardState } from "../components/StateProvider";
 import { useMemo } from "react";
 import { getDimensions } from "../utils/analytics";
 import { useScorecardConfig } from "../components/ConfigProvider";
-import { useConfig, useDataQuery } from "@dhis2/app-runtime";
-import type { SupportedCalendar } from "@dhis2/multi-calendar-dates/build/types/types";
+import { useDataQuery } from "@dhis2/app-runtime";
 import {
 	createFixedPeriodFromPeriodId,
 	getAdjacentFixedPeriods,
@@ -11,6 +10,7 @@ import {
 import { uniq } from "lodash";
 import { useScorecardMeta } from "../components/MetaProvider";
 import { getTableDataFromAnalytics } from "../utils/data";
+import { useCalendar } from "./metadata";
 
 const query: any = {
 	data: {
@@ -56,11 +56,7 @@ export function useGetScorecardData() {
 	const config = useScorecardConfig();
 	const meta = useScorecardMeta();
 	const state = useScorecardState();
-	const { systemInfo } = useConfig();
-	const calendar =
-		(systemInfo as unknown as { calendar?: SupportedCalendar })?.calendar ??
-		"iso8601";
-
+	const calendar = useCalendar();
 	if (!config || !state || !meta) {
 		throw new Error(
 			"Invalid scorecard setup. Make sure the valid config and state props are passed.",

@@ -1,8 +1,9 @@
 import { useScorecardConfig } from "../components/ConfigProvider";
 import { useScorecardState } from "../components/StateProvider";
-import { useDataQuery } from "@dhis2/app-runtime";
+import { useConfig, useDataQuery } from "@dhis2/app-runtime";
 import { useMemo } from "react";
 import { getDimensions } from "../utils/analytics";
+import type { SupportedCalendar } from "@dhis2/multi-calendar-dates/build/types/types";
 
 const query: any = {
 	meta: {
@@ -146,4 +147,12 @@ export function useGetScorecardMeta() {
 		dataItems,
 		orgUnitLevels,
 	};
+}
+
+export function useCalendar() {
+	const { systemInfo } = useConfig();
+	return (
+		(systemInfo as unknown as { calendar?: SupportedCalendar })?.calendar ??
+		"iso8601"
+	);
 }

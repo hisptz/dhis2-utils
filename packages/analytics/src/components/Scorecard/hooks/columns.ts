@@ -14,6 +14,7 @@ import {
 import i18n from "@dhis2/d2-i18n";
 import { HeaderCell } from "../components/ScorecardTable/components/HeaderCell";
 import { ExpandCell } from "../components/ScorecardTable/components/ExpandCell";
+import { NumberCell } from "../components/ScorecardTable/components/NumberCell";
 
 const columnHelper = createColumnHelper<ScorecardTableData>();
 
@@ -36,7 +37,7 @@ export function useMetaColumns() {
 				isMeta: true,
 				fixed: true,
 			},
-			cell: HeaderCell,
+			cell: NumberCell,
 		}),
 	];
 
