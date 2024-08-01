@@ -9,6 +9,7 @@ import { type ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { head } from "lodash";
 import type { ItemMeta } from "../hooks/metadata";
 import { DataContainer } from "../components/ScorecardTable/components/DataContainer";
+import { DataHeaderCell } from "../components/ScorecardTable/components/DataHeaderCell";
 
 const columnHelper = createColumnHelper<ScorecardTableData>();
 
@@ -46,14 +47,20 @@ export function getOrgUnitColumnHeaders({
 					} as ScorecardTableCellData;
 				},
 				{
-					header: orgUnit.name,
+					meta: {
+						label: orgUnit.name,
+					},
+					header: DataHeaderCell,
 					id: orgUnit.uid,
 				},
 			);
 		} else {
 			return columnHelper.group({
 				id: orgUnit.uid,
-				header: orgUnit.name,
+				meta: {
+					label: orgUnit.name,
+				},
+				header: DataHeaderCell,
 				columns: periods.map(({ name, uid }) =>
 					columnHelper.accessor(
 						(rowData) => {
@@ -87,7 +94,10 @@ export function getOrgUnitColumnHeaders({
 							} as ScorecardTableCellData;
 						},
 						{
-							header: name,
+							header: DataHeaderCell,
+							meta: {
+								label: name,
+							},
 							cell: DataContainer,
 							id: `${orgUnit.uid}-${uid}`,
 						},
@@ -168,13 +178,19 @@ function getDataHolderColumn({
 					} as ScorecardTableCellData;
 				},
 				{
-					header: name,
+					header: DataHeaderCell,
+					meta: {
+						label: name,
+					},
 					cell: DataContainer,
 					id: `${id.toString()}-${uid}`,
 				},
 			),
 		),
-		header,
+		meta: {
+			label: header,
+		},
+		header: DataHeaderCell,
 	});
 }
 
@@ -199,9 +215,13 @@ export function getDataColumnHeaders({
 			});
 		});
 	} else {
-		return dataGroups.map(({ title, dataHolders }) => {
+		return dataGroups.map(({ title, dataHolders, id }) => {
 			return columnHelper.group({
-				header: title,
+				id: id.toString(),
+				header: DataHeaderCell,
+				meta: {
+					label: title,
+				},
 				columns: dataHolders.map((dataHolder) => {
 					return getDataHolderColumn({
 						hasOnePeriod,

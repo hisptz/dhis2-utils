@@ -32,14 +32,6 @@ function findLegend({
 		return find(legendDefinitions, { id: "No Data" });
 	}
 
-	console.log({
-		legends,
-		value,
-		legendDefinitions,
-		max,
-		numericValue,
-	});
-
 	const { legendDefinitionId } =
 		find(legends, (legend) => {
 			if (legend) {

@@ -11,10 +11,10 @@ import {
 	getDataColumnHeaders,
 	getOrgUnitColumnHeaders,
 } from "../utils/columns";
-import i18n from "@dhis2/d2-i18n";
-import { HeaderCell } from "../components/ScorecardTable/components/HeaderCell";
+import { LabelCell } from "../components/ScorecardTable/components/LabelCell";
 import { ExpandCell } from "../components/ScorecardTable/components/ExpandCell";
 import { NumberCell } from "../components/ScorecardTable/components/NumberCell";
+import { MetaHeaderCell } from "../components/ScorecardTable/components/MetaHeaderCell";
 
 const columnHelper = createColumnHelper<ScorecardTableData>();
 
@@ -23,19 +23,21 @@ export function useMetaColumns() {
 	const metaColumns: ColumnDef<ScorecardTableData, any>[] = [
 		columnHelper.accessor("expand", {
 			id: "expand",
-			header: "",
+			header: () => null,
 			meta: {
 				isMeta: true,
 				fixed: true,
+				label: "",
 			},
 			cell: ExpandCell,
 		}),
 		columnHelper.accessor("count", {
-			header: "",
 			id: "count",
+			header: () => null,
 			meta: {
 				isMeta: true,
 				fixed: true,
+				label: "",
 			},
 			cell: NumberCell,
 		}),
@@ -44,25 +46,25 @@ export function useMetaColumns() {
 	if (state?.options?.showDataInRows) {
 		metaColumns.push(
 			columnHelper.accessor("label", {
+				header: () => null,
 				id: "label",
-				header: i18n.t("Data Items"),
 				meta: {
 					isMeta: true,
 					fixed: true,
 				},
-				cell: HeaderCell,
+				cell: LabelCell,
 			}),
 		);
 	} else {
 		metaColumns.push(
 			columnHelper.accessor("label", {
+				header: () => null,
 				id: "orgUnits",
-				header: i18n.t("Organisation Unit"),
 				meta: {
 					isMeta: true,
 					fixed: true,
 				},
-				cell: HeaderCell,
+				cell: LabelCell,
 			}),
 		);
 	}
@@ -84,7 +86,13 @@ export function useTableColumns(): ColumnDef<
 	}
 	return useMemo(() => {
 		const columns: ColumnDef<ScorecardTableData, ScorecardTableCellData>[] =
-			[...metaColumns];
+			[
+				columnHelper.group({
+					id: "metaHeader",
+					columns: metaColumns,
+					header: MetaHeaderCell,
+				}),
+			];
 
 		if (state.options.showDataInRows) {
 			columns.push(
