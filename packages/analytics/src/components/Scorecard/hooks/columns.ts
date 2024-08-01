@@ -11,10 +11,10 @@ import {
 	getDataColumnHeaders,
 	getOrgUnitColumnHeaders,
 } from "../utils/columns";
-import { LabelCell } from "../components/ScorecardTable/components/LabelCell";
-import { ExpandCell } from "../components/ScorecardTable/components/ExpandCell";
-import { NumberCell } from "../components/ScorecardTable/components/NumberCell";
-import { MetaHeaderCell } from "../components/ScorecardTable/components/MetaHeaderCell";
+import { LabelCell } from "../components/ScorecardTable/components/TableHeader/components/LabelCell";
+import { ExpandCell } from "../components/ScorecardTable/components/TableHeader/components/ExpandCell";
+import { NumberCell } from "../components/ScorecardTable/components/TableHeader/components/NumberCell";
+import { MetaHeaderCell } from "../components/ScorecardTable/components/TableHeader/components/MetaHeaderCell";
 
 const columnHelper = createColumnHelper<ScorecardTableData>();
 
@@ -29,6 +29,7 @@ export function useMetaColumns() {
 				fixed: true,
 				label: "",
 			},
+			enableColumnFilter: false,
 			cell: ExpandCell,
 		}),
 		columnHelper.accessor("count", {
@@ -39,6 +40,7 @@ export function useMetaColumns() {
 				fixed: true,
 				label: "",
 			},
+			enableColumnFilter: false,
 			cell: NumberCell,
 		}),
 	];
@@ -47,11 +49,11 @@ export function useMetaColumns() {
 		metaColumns.push(
 			columnHelper.accessor("label", {
 				header: () => null,
-				id: "label",
+				id: "dataItems",
 				meta: {
-					isMeta: true,
-					fixed: true,
+					filterable: true,
 				},
+				enableColumnFilter: true,
 				cell: LabelCell,
 			}),
 		);
@@ -60,6 +62,7 @@ export function useMetaColumns() {
 			columnHelper.accessor("label", {
 				header: () => null,
 				id: "orgUnits",
+				enableColumnFilter: true,
 				meta: {
 					isMeta: true,
 					fixed: true,

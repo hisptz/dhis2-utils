@@ -1,5 +1,5 @@
 import type { CellContext } from "@tanstack/react-table";
-import type { ScorecardTableData } from "../../../schemas/config";
+import type { ScorecardTableData } from "../../../../../schemas/config";
 import { DataTableCell } from "@dhis2/ui";
 
 export function NumberCell(

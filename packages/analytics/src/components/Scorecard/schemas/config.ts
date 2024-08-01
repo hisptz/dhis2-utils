@@ -137,6 +137,7 @@ const scorecardStateSchema = z.object({
 	periodSelection: periodSelectionSchema,
 	options: scorecardViewOptionsSchema,
 	nested: z.boolean().optional(),
+	hasOnePeriod: z.boolean().optional(),
 });
 
 export type ScorecardState = z.infer<typeof scorecardStateSchema>;

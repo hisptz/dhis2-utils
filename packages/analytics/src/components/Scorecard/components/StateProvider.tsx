@@ -12,7 +12,12 @@ export const ScorecardStateProvider: React.FC<{
 	children: React.ReactNode;
 }> = ({ config, children }) => {
 	return (
-		<ScorecardStateContext.Provider value={config}>
+		<ScorecardStateContext.Provider
+			value={{
+				...config,
+				hasOnePeriod: config.periodSelection.periods.length === 1,
+			}}
+		>
 			{children}
 		</ScorecardStateContext.Provider>
 	);

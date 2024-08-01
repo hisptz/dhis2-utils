@@ -1,5 +1,5 @@
 import type { HeaderContext } from "@tanstack/react-table";
-import type { ScorecardTableData } from "../../../schemas/config";
+import type { ScorecardTableData } from "../../../../../schemas/config";
 import { DataTableColumnHeader } from "@dhis2/ui";
 
 export function DataHeaderCell({

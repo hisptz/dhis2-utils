@@ -9,7 +9,7 @@ import { type ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { head } from "lodash";
 import type { ItemMeta } from "../hooks/metadata";
 import { DataContainer } from "../components/ScorecardTable/components/DataContainer";
-import { DataHeaderCell } from "../components/ScorecardTable/components/DataHeaderCell";
+import { DataHeaderCell } from "../components/ScorecardTable/components/TableHeader/components/DataHeaderCell";
 
 const columnHelper = createColumnHelper<ScorecardTableData>();
 
