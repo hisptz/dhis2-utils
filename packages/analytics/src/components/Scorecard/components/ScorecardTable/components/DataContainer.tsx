@@ -22,6 +22,7 @@ export function DataContainer(
 	const data = props.getValue();
 	const config = useScorecardConfig();
 	const meta = useScorecardMeta();
+
 	if (!config || !meta) {
 		return <DataTableCell />;
 	}

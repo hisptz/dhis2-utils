@@ -22,6 +22,8 @@ import {
 import type { SupportedCalendar } from "@dhis2/multi-calendar-dates/build/types/types";
 import { AverageCell } from "../components/ScorecardTable/components/AverageCell";
 import { AverageHeaderCell } from "../components/ScorecardTable/components/TableHeader/components/AverageHeaderCell";
+import { DataFooterCell } from "../components/ScorecardTable/components/DataFooterCell";
+import { EmptyFooterCell } from "../components/ScorecardTable/components/EmptyFooterCell";
 
 const columnHelper = createColumnHelper<ScorecardTableData>();
 
@@ -41,6 +43,21 @@ function sortingFunction(
 	}
 
 	return valueA > valueB ? 1 : -1;
+}
+
+export function getAverageValue({
+	dataValues,
+	meta,
+}: {
+	dataValues: ScorecardAnalyticsData[];
+	meta: ScorecardMeta;
+}) {
+	const currentPeriodValues = dataValues.filter(({ pe }) => {
+		return !!meta.periods.find(({ uid }) => uid === pe);
+	});
+
+	const values = currentPeriodValues.map(({ value }) => (value ? +value : 0));
+	return Math.round((sum(values) / values.length) * 100) / 100;
 }
 
 function getValues({
@@ -201,6 +218,7 @@ export function getOrgUnitColumnHeaders({
 							id: `${orgUnit.uid}-${uid}`,
 							enableSorting: true,
 							sortingFn: sortingFunction,
+							footer: DataFooterCell,
 						},
 					),
 				),
@@ -221,24 +239,17 @@ export function getAverageColumn({
 		columns: [
 			columnHelper.accessor(
 				(rowData) => {
-					const currentPeriodValues = rowData.dataValues.filter(
-						({ pe }) => {
-							return !!meta.periods.find(({ uid }) => uid === pe);
-						},
-					);
-
-					const values = currentPeriodValues.map(({ value }) =>
-						value ? +value : 0,
-					);
-					return (
-						Math.round((sum(values) / values.length) * 100) / 100
-					);
+					return getAverageValue({
+						dataValues: rowData.dataValues,
+						meta,
+					});
 				},
 				{
 					id: `average`,
 					header: () => null,
 					cell: AverageCell,
 					enableHiding: true,
+					footer: EmptyFooterCell,
 				},
 			),
 		],
@@ -367,6 +378,7 @@ function getDataHolderColumn({
 					id: `${id.toString()}-${uid}`,
 					enableSorting: true,
 					sortingFn: sortingFunction,
+					footer: DataFooterCell,
 				},
 			),
 		),
@@ -420,6 +432,7 @@ export function getDataColumnHeaders({
 					});
 				}),
 				enableSorting: false,
+				footer: () => null,
 			});
 		});
 	}

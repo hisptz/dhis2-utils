@@ -17,6 +17,7 @@ import { ExpandCell } from "../components/ScorecardTable/components/TableHeader/
 import { NumberCell } from "../components/ScorecardTable/components/TableHeader/components/NumberCell";
 import { MetaHeaderCell } from "../components/ScorecardTable/components/TableHeader/components/MetaHeaderCell";
 import { useCalendar } from "./metadata";
+import { MetaFooterCell } from "../components/ScorecardTable/components/MetaFooterCell";
 
 const columnHelper = createColumnHelper<ScorecardTableData>();
 
@@ -33,9 +34,10 @@ export function useMetaColumns() {
 			},
 			enableColumnFilter: false,
 			cell: ExpandCell,
+			footer: () => null,
 		}),
 		columnHelper.accessor(
-			(rowData, index) => {
+			(_, index) => {
 				return index + 1;
 			},
 			{
@@ -48,6 +50,7 @@ export function useMetaColumns() {
 				},
 				enableColumnFilter: false,
 				cell: NumberCell,
+				footer: () => null,
 			},
 		),
 	];
@@ -62,6 +65,7 @@ export function useMetaColumns() {
 				},
 				enableColumnFilter: true,
 				cell: LabelCell,
+				footer: MetaFooterCell,
 			}),
 		);
 	} else {
@@ -75,6 +79,7 @@ export function useMetaColumns() {
 					fixed: true,
 				},
 				cell: LabelCell,
+				footer: MetaFooterCell,
 			}),
 		);
 	}
@@ -101,6 +106,7 @@ export function useTableColumns(): ColumnDef<
 				id: "metaHeader",
 				columns: metaColumns,
 				header: MetaHeaderCell,
+				footer: () => null,
 			}),
 		];
 
