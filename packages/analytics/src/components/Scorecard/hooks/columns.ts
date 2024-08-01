@@ -32,17 +32,22 @@ export function useMetaColumns() {
 			enableColumnFilter: false,
 			cell: ExpandCell,
 		}),
-		columnHelper.accessor("count", {
-			id: "count",
-			header: () => null,
-			meta: {
-				isMeta: true,
-				fixed: true,
-				label: "",
+		columnHelper.accessor(
+			(rowData, index) => {
+				return index + 1;
 			},
-			enableColumnFilter: false,
-			cell: NumberCell,
-		}),
+			{
+				id: "count",
+				header: () => null,
+				meta: {
+					isMeta: true,
+					fixed: true,
+					label: "",
+				},
+				enableColumnFilter: false,
+				cell: NumberCell,
+			},
+		),
 	];
 
 	if (state?.options?.showDataInRows) {

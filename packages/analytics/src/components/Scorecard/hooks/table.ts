@@ -2,6 +2,8 @@ import {
 	type ColumnFiltersState,
 	getCoreRowModel,
 	getFilteredRowModel,
+	getSortedRowModel,
+	type SortingState,
 	type TableOptions,
 } from "@tanstack/react-table";
 import { useTableColumns } from "./columns";
@@ -11,6 +13,7 @@ import { useState } from "react";
 
 export function useTableSetup(): TableOptions<ScorecardTableData> {
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+	const [sorting, setSorting] = useState<SortingState>([]);
 	const columns = useTableColumns();
 	const { data } = useScorecardData();
 
@@ -19,9 +22,12 @@ export function useTableSetup(): TableOptions<ScorecardTableData> {
 		data,
 		state: {
 			columnFilters,
+			sorting,
 		},
 		onColumnFiltersChange: setColumnFilters,
+		onSortingChange: setSorting,
 		getCoreRowModel: getCoreRowModel(),
 		getFilteredRowModel: getFilteredRowModel(),
+		getSortedRowModel: getSortedRowModel(),
 	};
 }
