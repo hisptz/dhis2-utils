@@ -15,6 +15,7 @@ import { LabelCell } from "../components/ScorecardTable/components/TableHeader/c
 import { ExpandCell } from "../components/ScorecardTable/components/TableHeader/components/ExpandCell";
 import { NumberCell } from "../components/ScorecardTable/components/TableHeader/components/NumberCell";
 import { MetaHeaderCell } from "../components/ScorecardTable/components/TableHeader/components/MetaHeaderCell";
+import { useCalendar } from "./metadata";
 
 const columnHelper = createColumnHelper<ScorecardTableData>();
 
@@ -88,6 +89,7 @@ export function useTableColumns(): ColumnDef<
 	const meta = useScorecardMeta();
 	const state = useScorecardState();
 	const metaColumns = useMetaColumns();
+	const calendar = useCalendar();
 
 	if (!config || !meta || !state) {
 		return [];
@@ -106,6 +108,7 @@ export function useTableColumns(): ColumnDef<
 			columns.push(
 				...getOrgUnitColumnHeaders({
 					meta,
+					calendar,
 				}),
 			);
 		} else {
@@ -113,6 +116,7 @@ export function useTableColumns(): ColumnDef<
 				...getDataColumnHeaders({
 					meta,
 					config,
+					calendar,
 				}),
 			);
 		}

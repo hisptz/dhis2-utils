@@ -1,8 +1,5 @@
-import {
-	type ScorecardAnalyticsData,
-	type ScorecardDataSource,
-} from "../../../schemas/config";
-import { type ItemMeta, useCalendar } from "../../../hooks/metadata";
+import { type ScorecardTableCellData } from "../../../schemas/config";
+import { type ItemMeta } from "../../../hooks/metadata";
 import { type ReactNode, useMemo } from "react";
 import { useScorecardConfig } from "../../ConfigProvider";
 import { useScorecardMeta } from "../../MetaProvider";
@@ -12,16 +9,10 @@ import {
 	getLegend,
 	getTextColorFromBackgroundColor,
 } from "../../../utils/legends";
-import {
-	createFixedPeriodFromPeriodId,
-	getAdjacentFixedPeriods,
-} from "@dhis2/multi-calendar-dates";
 import { useScorecardState } from "../../StateProvider";
 
 export interface SingleDataCellProps {
-	dataSources: Array<
-		ScorecardDataSource & { data: ScorecardAnalyticsData[] }
-	>;
+	dataSources: ScorecardTableCellData["dataSources"];
 	orgUnit: ItemMeta & { hierarchy: string };
 	period: string;
 }
@@ -35,57 +26,27 @@ export function SingleDataCell({
 	const config = useScorecardConfig();
 	const meta = useScorecardMeta();
 	const dataSource = head(dataSources)!;
-	const calendar = useCalendar();
 
-	const dataValue = useMemo(() => {
-		return dataSource.data.find(({ pe, ou, dx }) => {
-			return pe === period && ou === orgUnit.uid && dx === dataSource.id;
-		});
-	}, [dataSource, orgUnit, period]);
+	const currentValue = dataSource.data.current;
+	const previousValue = dataSource.data.previous;
 
 	const legendDefinition = useMemo(() => {
 		return getLegend({
 			dataSource,
-			value: dataValue,
+			value: currentValue,
 			orgUnitLevels: meta!.orgUnitLevels,
 			config: config!,
 			orgUnit,
 			periodId: period,
 		});
-	}, [dataSource, dataValue, meta, orgUnit, period]);
-
-	const previousPeriodDataValue = useMemo(() => {
-		const previousPeriod = getAdjacentFixedPeriods({
-			calendar,
-			period: createFixedPeriodFromPeriodId({
-				calendar,
-				periodId: period,
-			}),
-			steps: -1,
-		});
-		return dataSource.data.find(({ pe, ou, dx }) => {
-			return (
-				pe === head(previousPeriod)!.id &&
-				ou === orgUnit.uid &&
-				dx === dataSource.id
-			);
-		});
-	}, [period]);
+	}, [dataSource, currentValue, meta, orgUnit, period]);
 
 	const showArrow: "decreasing" | "increasing" | undefined = useMemo(() => {
 		if (!state?.options?.arrows) {
 			return;
 		}
 
-		if (!previousPeriodDataValue || !dataValue) {
-			return;
-		}
-		const currentValue = parseFloat(dataValue.value as string);
-		const previousValue = parseFloat(
-			previousPeriodDataValue?.value as string,
-		);
-
-		if (isNaN(currentValue) || isNaN(previousValue)) {
+		if (!previousValue || !currentValue) {
 			return;
 		}
 
@@ -100,12 +61,7 @@ export function SingleDataCell({
 		}
 
 		return currentValue > previousValue ? "increasing" : "decreasing";
-	}, [
-		previousPeriodDataValue,
-		dataValue,
-		dataSource.effectiveGap,
-		state?.options?.arrows,
-	]);
+	}, [currentValue, dataSource.effectiveGap, state?.options?.arrows]);
 
 	return (
 		<DataTableCell
@@ -129,7 +85,7 @@ export function SingleDataCell({
 			>
 				{showArrow === "decreasing" && <IconArrowDown16 />}
 				{showArrow === "increasing" && <IconArrowUp16 />}
-				{dataValue?.value}
+				{currentValue?.toString() ?? ""}
 			</div>
 		</DataTableCell>
 	);

@@ -1,7 +1,6 @@
 import type {
 	LegendDefinition,
 	OrgUnitLevelLegend,
-	ScorecardAnalyticsData,
 	ScorecardConfig,
 	ScorecardDataSource,
 	ScorecardLegend,
@@ -19,12 +18,12 @@ function findLegend({
 	max: number;
 	legendDefinitions: LegendDefinition[];
 	legends: ScorecardLegend[];
-	value?: string;
+	value?: number;
 }): LegendDefinition | undefined {
 	if (!value) {
 		return find(legendDefinitions, { id: "No Data" });
 	}
-	const numericValue = +value;
+	const numericValue = value;
 	if (numericValue > max) {
 		return find(legendDefinitions, { id: "N/A" });
 	}
@@ -88,7 +87,7 @@ export function getLegend({
 	orgUnitLevels,
 }: {
 	dataSource: ScorecardDataSource;
-	value?: ScorecardAnalyticsData;
+	value?: number;
 	config: ScorecardConfig;
 	periodId: string;
 	orgUnit: ItemMeta & { hierarchy: string };
@@ -137,7 +136,7 @@ export function getLegend({
 
 	return findLegend({
 		legends,
-		value: value?.value,
+		value: value,
 		max: dataSource.weight,
 		legendDefinitions: config.legendDefinitions,
 	});

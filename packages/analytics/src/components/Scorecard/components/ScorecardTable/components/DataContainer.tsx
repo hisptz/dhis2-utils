@@ -1,6 +1,4 @@
 import type {
-	ScorecardAnalyticsData,
-	ScorecardDataSource,
 	ScorecardTableCellData,
 	ScorecardTableData,
 } from "../../../schemas/config";
@@ -13,9 +11,7 @@ import type { CellContext } from "@tanstack/react-table";
 import { DataTableCell } from "@dhis2/ui";
 
 export interface DataContainerProps {
-	dataSources: Array<
-		ScorecardDataSource & { data: ScorecardAnalyticsData[] }
-	>;
+	dataSources: Array<ScorecardTableCellData>;
 	orgUnit: ItemMeta & { hierarchy: string };
 	period: string;
 }

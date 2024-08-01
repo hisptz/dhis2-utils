@@ -171,7 +171,10 @@ export type ScorecardTableData = z.infer<typeof scorecardTableData> & RowData;
 export const scorecardTableCellData = z.object({
 	dataSources: z.array(
 		dataSourceSchema.extend({
-			data: z.array(scorecardAnalyticsData),
+			data: z.object({
+				previous: z.number().optional(),
+				current: z.number().optional(),
+			}),
 		}),
 	),
 	orgUnit: z.object({
