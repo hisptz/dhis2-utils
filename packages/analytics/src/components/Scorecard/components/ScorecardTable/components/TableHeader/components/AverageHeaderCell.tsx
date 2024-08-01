@@ -1,0 +1,30 @@
+import type { HeaderContext } from "@tanstack/react-table";
+import type { ScorecardTableData } from "../../../../../schemas/config";
+import { DataTableColumnHeader } from "@dhis2/ui";
+import i18n from "@dhis2/d2-i18n";
+import styles from "../TableHeader.module.css";
+import { useScorecardState } from "../../../../StateProvider";
+
+export function AverageHeaderCell({
+	header,
+	column,
+}: HeaderContext<ScorecardTableData, any>) {
+	const state = useScorecardState();
+	const hasOnePeriod = state?.hasOnePeriod;
+	const dataInRows = state?.options?.showDataInRows;
+	const rowSpan = dataInRows ? (hasOnePeriod ? "1" : "2") : "3";
+
+	return (
+		<DataTableColumnHeader
+			key={header.id}
+			align="right"
+			onFilterIconClick={() => {}}
+			fixed
+			colSpan={header.colSpan.toString()}
+			rowSpan={rowSpan}
+			className={styles.metaHeader}
+		>
+			<b>{i18n.t("Average")}</b>
+		</DataTableColumnHeader>
+	);
+}

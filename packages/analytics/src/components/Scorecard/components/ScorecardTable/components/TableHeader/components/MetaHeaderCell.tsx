@@ -31,6 +31,7 @@ export function MetaHeaderCell({
 
 	return (
 		<DataTableColumnHeader
+			key={header.id}
 			align="right"
 			onFilterIconClick={() => {}}
 			sortIconTitle={i18n.t("Sort {{nextSortType}}", { nextSortType })}

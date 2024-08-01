@@ -11,7 +11,7 @@ import {
 	createColumnHelper,
 	type Row,
 } from "@tanstack/react-table";
-import { head } from "lodash";
+import { head, sum } from "lodash";
 import type { ItemMeta } from "../hooks/metadata";
 import { DataContainer } from "../components/ScorecardTable/components/DataContainer";
 import { DataHeaderCell } from "../components/ScorecardTable/components/TableHeader/components/DataHeaderCell";
@@ -20,6 +20,8 @@ import {
 	getAdjacentFixedPeriods,
 } from "@dhis2/multi-calendar-dates";
 import type { SupportedCalendar } from "@dhis2/multi-calendar-dates/build/types/types";
+import { AverageCell } from "../components/ScorecardTable/components/AverageCell";
+import { AverageHeaderCell } from "../components/ScorecardTable/components/TableHeader/components/AverageHeaderCell";
 
 const columnHelper = createColumnHelper<ScorecardTableData>();
 
@@ -204,6 +206,42 @@ export function getOrgUnitColumnHeaders({
 				),
 			});
 		}
+	});
+}
+
+export function getAverageColumn({
+	meta,
+}: {
+	meta: ScorecardMeta;
+	config: ScorecardConfig;
+}) {
+	return columnHelper.group({
+		id: "average-header",
+		header: AverageHeaderCell,
+		columns: [
+			columnHelper.accessor(
+				(rowData) => {
+					const currentPeriodValues = rowData.dataValues.filter(
+						({ pe }) => {
+							return !!meta.periods.find(({ uid }) => uid === pe);
+						},
+					);
+
+					const values = currentPeriodValues.map(({ value }) =>
+						value ? +value : 0,
+					);
+					return (
+						Math.round((sum(values) / values.length) * 100) / 100
+					);
+				},
+				{
+					id: `average`,
+					header: () => null,
+					cell: AverageCell,
+					enableHiding: true,
+				},
+			),
+		],
 	});
 }
 

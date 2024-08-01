@@ -1010,7 +1010,7 @@ const config: ScorecardConfig = {
 		highlightedIndicators: false,
 		itemNumber: false,
 		legend: true,
-		showHierarchy: true,
+		showHierarchy: false,
 		title: true,
 		showDataInRows: false,
 		arrows: true,

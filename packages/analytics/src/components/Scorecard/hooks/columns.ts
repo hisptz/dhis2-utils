@@ -8,6 +8,7 @@ import {
 	type ScorecardTableData,
 } from "../schemas/config";
 import {
+	getAverageColumn,
 	getDataColumnHeaders,
 	getOrgUnitColumnHeaders,
 } from "../utils/columns";
@@ -95,14 +96,13 @@ export function useTableColumns(): ColumnDef<
 		return [];
 	}
 	return useMemo(() => {
-		const columns: ColumnDef<ScorecardTableData, ScorecardTableCellData>[] =
-			[
-				columnHelper.group({
-					id: "metaHeader",
-					columns: metaColumns,
-					header: MetaHeaderCell,
-				}),
-			];
+		const columns: ColumnDef<ScorecardTableData, any>[] = [
+			columnHelper.group({
+				id: "metaHeader",
+				columns: metaColumns,
+				header: MetaHeaderCell,
+			}),
+		];
 
 		if (state.options.showDataInRows) {
 			columns.push(
@@ -120,6 +120,13 @@ export function useTableColumns(): ColumnDef<
 				}),
 			);
 		}
+
+		columns.push(
+			getAverageColumn({
+				meta,
+				config,
+			}),
+		);
 
 		return columns;
 	}, [state.options.showDataInRows]);
