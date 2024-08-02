@@ -96,134 +96,74 @@ export function getOrgUnitColumnHeaders({
 	const orgUnits = meta.orgUnits ?? [];
 	const periods = meta.periods ?? [];
 	return orgUnits.map((orgUnit) => {
-		const hasOnePeriod = periods.length === 1;
-		if (hasOnePeriod) {
-			const currentPeriod = head(periods)!.uid;
-			const previousPeriod = head(
-				getAdjacentFixedPeriods({
-					calendar,
-					period: createFixedPeriodFromPeriodId({
-						calendar,
-						periodId: currentPeriod,
-					}),
-					steps: -1,
-				}),
-			)?.id;
-			return columnHelper.accessor(
-				(rowData) => {
-					const values = rowData.dataValues.filter(({ ou }) => {
-						return ou === orgUnit.uid;
-					});
-					const dataSources = rowData.dataHolder?.dataSources?.map(
-						(dataSource) => {
-							const dataSourceValues = values.filter((value) => {
-								return value.dx === dataSource.id;
-							});
-
-							const data = getValues({
-								currentPeriod,
-								previousPeriod,
-								values: dataSourceValues,
-							});
-
-							return {
-								...dataSource,
-								data,
-							};
-						},
-					);
-					return {
-						...rowData,
-						period: head(periods)?.uid,
-						dataSources,
-						orgUnit: orgUnit,
-					} as ScorecardTableCellData;
-				},
-				{
-					meta: {
-						label: orgUnit.name,
-					},
-					header: DataHeaderCell,
-					id: orgUnit.uid,
-					enableSorting: true,
-					sortingFn: sortingFunction,
-					footer: DataFooterCell,
-				},
-			);
-		} else {
-			return columnHelper.group({
-				id: orgUnit.uid,
-				meta: {
-					label: orgUnit.name,
-				},
-				header: DataHeaderCell,
-				columns: periods.map(({ name, uid }) =>
-					columnHelper.accessor(
-						(rowData) => {
-							const currentPeriod = uid;
-							const previousPeriod = head(
-								getAdjacentFixedPeriods({
+		return columnHelper.group({
+			id: orgUnit.uid,
+			header: DataHeaderCell,
+			meta: {
+				label: orgUnit.name,
+			},
+			columns: periods.map(({ name, uid }) =>
+				columnHelper.accessor(
+					(rowData) => {
+						const currentPeriod = uid;
+						const previousPeriod = head(
+							getAdjacentFixedPeriods({
+								calendar,
+								period: createFixedPeriodFromPeriodId({
 									calendar,
-									period: createFixedPeriodFromPeriodId({
-										calendar,
-										periodId: currentPeriod,
-									}),
-									steps: -1,
+									periodId: currentPeriod,
 								}),
-							)?.id;
+								steps: -1,
+							}),
+						)?.id;
 
-							const values = rowData.dataValues.filter(
-								({ ou }) => {
-									return ou === orgUnit.uid;
+						const values = rowData.dataValues.filter(({ ou }) => {
+							return ou === orgUnit.uid;
+						});
+
+						const dataSources =
+							rowData.dataHolder?.dataSources?.map(
+								(dataSource) => {
+									const dataSourceValues = values.filter(
+										(value) => {
+											return value.dx === dataSource.id;
+										},
+									);
+
+									const data = getValues({
+										currentPeriod,
+										previousPeriod,
+										values: dataSourceValues,
+									});
+
+									return {
+										...dataSource,
+										data,
+									};
 								},
 							);
 
-							const dataSources =
-								rowData.dataHolder?.dataSources?.map(
-									(dataSource) => {
-										const dataSourceValues = values.filter(
-											(value) => {
-												return (
-													value.dx === dataSource.id
-												);
-											},
-										);
-
-										const data = getValues({
-											currentPeriod,
-											previousPeriod,
-											values: dataSourceValues,
-										});
-
-										return {
-											...dataSource,
-											data,
-										};
-									},
-								);
-
-							return {
-								...rowData,
-								period: uid,
-								dataSources,
-								orgUnit: orgUnit,
-							} as ScorecardTableCellData;
+						return {
+							...rowData,
+							period: uid,
+							dataSources,
+							orgUnit: orgUnit,
+						} as ScorecardTableCellData;
+					},
+					{
+						header: DataHeaderCell,
+						meta: {
+							label: name,
 						},
-						{
-							header: DataHeaderCell,
-							meta: {
-								label: name,
-							},
-							cell: DataContainer,
-							id: `${orgUnit.uid}-${uid}`,
-							enableSorting: true,
-							sortingFn: sortingFunction,
-							footer: DataFooterCell,
-						},
-					),
+						cell: DataContainer,
+						id: `${orgUnit.uid}-${uid}`,
+						enableSorting: true,
+						sortingFn: sortingFunction,
+						footer: DataFooterCell,
+					},
 				),
-			});
-		}
+			),
+		});
 	});
 }
 
@@ -240,11 +180,25 @@ export function getAverageColumn({
 			columnHelper.accessor(
 				(rowData) => {
 					return {
+						...rowData,
+						dataSources: rowData.dataHolder?.dataSources?.map(
+							(dataSource) => {
+								const dataValues = rowData.dataValues.filter(
+									({ dx }) => dx === dataSource.id,
+								);
+								return {
+									...dataSource,
+									average: getAverageValue({
+										dataValues,
+										meta,
+									}),
+								};
+							},
+						),
 						average: getAverageValue({
 							dataValues: rowData.dataValues,
 							meta,
 						}),
-						...rowData,
 					};
 				},
 				{
@@ -326,6 +280,7 @@ function getDataHolderColumn({
 				cell: DataContainer,
 				enableSorting: true,
 				sortingFn: sortingFunction,
+				footer: DataFooterCell,
 			},
 		);
 	}

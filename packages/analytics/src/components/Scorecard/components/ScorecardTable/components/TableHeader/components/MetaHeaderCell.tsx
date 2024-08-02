@@ -13,7 +13,13 @@ export function MetaHeaderCell({
 	const hasOnePeriod = state?.hasOnePeriod ?? false;
 	const dataInRows = state?.options?.showDataInRows ?? false;
 
-	const rowSpan = dataInRows ? (hasOnePeriod ? "1" : "2") : "3";
+	const rowSpan = dataInRows
+		? hasOnePeriod
+			? "2"
+			: "2"
+		: hasOnePeriod
+			? "2"
+			: "3";
 
 	const filterColumn = header.subHeaders.find((header) =>
 		header.column.getCanFilter(),

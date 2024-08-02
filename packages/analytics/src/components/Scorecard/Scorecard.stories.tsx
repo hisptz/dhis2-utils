@@ -1724,3 +1724,18 @@ export const WithLinkedCells: Story = {
 		},
 	},
 };
+
+export const WithLinkedCellsDataInRows: Story = {
+	name: "With linked cells and data in rows",
+	args: {
+		config: linkedConfig,
+		state: {
+			options: {
+				...config.options,
+				showDataInRows: true,
+			},
+			orgUnitSelection: linkedConfig.orgUnitSelection,
+			periodSelection: linkedConfig.periodSelection,
+		},
+	},
+};

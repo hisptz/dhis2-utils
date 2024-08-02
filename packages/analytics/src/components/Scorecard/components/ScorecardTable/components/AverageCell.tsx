@@ -1,45 +1,34 @@
 import type { CellContext } from "@tanstack/react-table";
-import type { ScorecardTableData } from "../../../schemas/config";
+import type {
+	ScorecardDataSource,
+	ScorecardTableData,
+} from "../../../schemas/config";
 import { DataTableCell } from "@dhis2/ui";
+import { head, isEmpty } from "lodash";
+import { useScorecardConfig } from "../../ConfigProvider";
 import { useMemo } from "react";
-import { head } from "lodash";
 import {
 	getLegend,
 	getTextColorFromBackgroundColor,
 } from "../../../utils/legends";
-import { useScorecardConfig } from "../../ConfigProvider";
-import { useScorecardState } from "../../StateProvider";
-import { useScorecardMeta } from "../../MetaProvider";
+import { LinkedCell } from "./LinkedCell";
 
-export function AverageCell(
-	props: CellContext<
-		ScorecardTableData,
-		ScorecardTableData & { average: number }
-	>,
-) {
+export function SingleAverageCell({
+	dataSource,
+}: {
+	dataSource: ScorecardDataSource & { average: number };
+}) {
 	const config = useScorecardConfig();
-	const state = useScorecardState();
-	const meta = useScorecardMeta();
-	const value = props.getValue();
-	const average = value.average;
-
 	const legendDefinition = useMemo(() => {
-		if (!state?.options?.showDataInRows) {
-			return;
-		}
-		const dataSource = head(value.dataHolder?.dataSources);
-
 		if (!dataSource) {
 			return;
 		}
-
 		return getLegend({
 			dataSource,
 			config: config!,
-			value: average,
-			orgUnitLevels: meta!.orgUnitLevels,
+			value: dataSource.average,
 		});
-	}, [meta, state, config, average]);
+	}, [dataSource]);
 
 	return (
 		<DataTableCell
@@ -53,8 +42,82 @@ export function AverageCell(
 					: undefined,
 			}}
 			align="center"
-			key={props.row.id}
 		>
+			<b>{dataSource.average.toString()}</b>
+		</DataTableCell>
+	);
+}
+
+export function LinkedAverageCell({
+	dataSources,
+}: {
+	dataSources: Array<ScorecardDataSource & { average: number }>;
+}) {
+	const [top, bottom] = dataSources ?? [];
+	const config = useScorecardConfig();
+	const topLegendDefinition = useMemo(() => {
+		if (!top) {
+			return;
+		}
+		return getLegend({
+			dataSource: top,
+			config: config!,
+			value: top.average,
+		});
+	}, [top]);
+	const bottomLegendDefinition = useMemo(() => {
+		if (!bottom) {
+			return;
+		}
+		return getLegend({
+			dataSource: bottom,
+			config: config!,
+			value: bottom.average,
+		});
+	}, [bottom]);
+
+	return (
+		<LinkedCell
+			top={{
+				dataSource: {
+					...top,
+					data: {},
+				},
+				legendDefinition: topLegendDefinition,
+				value: top.average,
+			}}
+			bottom={{
+				dataSource: { ...bottom, data: {} },
+				legendDefinition: bottomLegendDefinition,
+				value: bottom.average,
+			}}
+		/>
+	);
+}
+
+export function AverageCell(
+	props: CellContext<
+		ScorecardTableData,
+		ScorecardTableData & {
+			average: number;
+			dataSources?: Array<ScorecardDataSource & { average: number }>;
+		}
+	>,
+) {
+	const value = props.getValue();
+	const average = value.average;
+	const dataSources = value?.dataSources;
+
+	if (!isEmpty(dataSources)) {
+		if (dataSources!.length === 1) {
+			return <SingleAverageCell dataSource={head(dataSources)!} />;
+		} else {
+			return <LinkedAverageCell dataSources={dataSources!} />;
+		}
+	}
+
+	return (
+		<DataTableCell bordered align="center" key={props.row.id}>
 			<b>{average}</b>
 		</DataTableCell>
 	);

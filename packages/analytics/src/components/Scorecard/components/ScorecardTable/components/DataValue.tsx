@@ -5,14 +5,14 @@ import { useScorecardState } from "../../StateProvider";
 
 export function DataValue({
 	dataSource,
+	value,
 }: {
 	dataSource: ScorecardTableCellData["dataSources"][number];
+	value?: number;
 }) {
 	const state = useScorecardState();
-
 	const currentValue = dataSource.data.current;
 	const previousValue = dataSource.data.previous;
-
 	const showArrow: "decreasing" | "increasing" | undefined = useMemo(() => {
 		if (!state?.options?.arrows) {
 			return;
@@ -34,6 +34,21 @@ export function DataValue({
 
 		return currentValue > previousValue ? "increasing" : "decreasing";
 	}, [currentValue, dataSource.effectiveGap, state?.options?.arrows]);
+
+	if (value) {
+		return (
+			<div
+				style={{
+					display: "flex",
+					alignItems: "center",
+					justifyContent: "center",
+					gap: 4,
+				}}
+			>
+				<b>{value?.toString() ?? ""}</b>
+			</div>
+		);
+	}
 
 	return (
 		<div

@@ -12,7 +12,13 @@ export function AverageHeaderCell({
 	const state = useScorecardState();
 	const hasOnePeriod = state?.hasOnePeriod;
 	const dataInRows = state?.options?.showDataInRows;
-	const rowSpan = dataInRows ? (hasOnePeriod ? "1" : "2") : "3";
+	const rowSpan = dataInRows
+		? hasOnePeriod
+			? "2"
+			: "2"
+		: hasOnePeriod
+			? "2"
+			: "3";
 
 	return (
 		<DataTableColumnHeader
