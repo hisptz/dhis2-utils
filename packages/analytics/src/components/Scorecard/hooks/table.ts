@@ -18,12 +18,13 @@ export function useTableSetup(): TableOptions<ScorecardTableData> {
 
 	const showAverageColumn = state?.options?.averageColumn ?? false;
 	const showItemNumber = state?.options?.itemNumber ?? false;
-
+	// const [expanded, setExpanded] = useState<ExpandedState>({});
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
 		average: showAverageColumn,
 		count: showItemNumber,
 	});
+
 	const [sorting, setSorting] = useState<SortingState>([]);
 	const columns = useTableColumns();
 	const { data } = useScorecardData();

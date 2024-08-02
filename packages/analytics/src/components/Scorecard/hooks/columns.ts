@@ -18,24 +18,52 @@ import { NumberCell } from "../components/ScorecardTable/components/TableHeader/
 import { MetaHeaderCell } from "../components/ScorecardTable/components/TableHeader/components/MetaHeaderCell";
 import { useCalendar } from "./metadata";
 import { MetaFooterCell } from "../components/ScorecardTable/components/MetaFooterCell";
+import { last, sortBy } from "lodash";
+import { getOrgUnitLevel } from "../utils/orgUnits";
 
 const columnHelper = createColumnHelper<ScorecardTableData>();
 
 export function useMetaColumns() {
 	const state = useScorecardState();
+	const meta = useScorecardMeta();
+
+	const lowestLevel = useMemo(() => {
+		const sortedOrgUnitLevels = sortBy(meta?.orgUnitLevels ?? [], "level");
+		return last(sortedOrgUnitLevels)?.level;
+	}, [meta?.orgUnitLevels]);
+
 	const metaColumns: ColumnDef<ScorecardTableData, any>[] = [
-		columnHelper.accessor("expand", {
-			id: "expand",
-			header: () => null,
-			meta: {
-				isMeta: true,
-				fixed: true,
-				label: "",
+		columnHelper.accessor(
+			(rowData) => {
+				const dataInRows = state?.options?.showDataInRows;
+				if (dataInRows) {
+					return false;
+				}
+				if (!lowestLevel) {
+					return false;
+				}
+
+				const orgUnit = rowData.orgUnit;
+				if (!orgUnit) {
+					return false;
+				}
+				const ouLevel = getOrgUnitLevel(orgUnit);
+
+				return ouLevel !== lowestLevel;
 			},
-			enableColumnFilter: false,
-			cell: ExpandCell,
-			footer: () => null,
-		}),
+			{
+				id: "expand",
+				header: () => null,
+				meta: {
+					isMeta: true,
+					fixed: true,
+					label: "",
+				},
+				enableColumnFilter: false,
+				cell: ExpandCell,
+				footer: () => null,
+			},
+		),
 		columnHelper.accessor(
 			(_, index) => {
 				return index + 1;

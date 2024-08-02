@@ -1,4 +1,5 @@
 import type { OrgUnitSelection } from "../schemas/config";
+import type { ItemMeta } from "../hooks/metadata";
 
 export function getOrgUnitsForAnalytics(
 	orgUnitSelection: OrgUnitSelection,
@@ -33,4 +34,11 @@ export function getOrgUnitsForAnalytics(
 		results.push(...levels.map((level) => `LEVEL-${level}`));
 	}
 	return results;
+}
+
+export function getOrgUnitLevel(orgUnit: ItemMeta & { hierarchy: string }) {
+	console.log({
+		level: orgUnit.hierarchy.split("/").filter(Boolean).length,
+	});
+	return orgUnit.hierarchy.split("/").filter(Boolean).length;
 }
