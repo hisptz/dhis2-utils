@@ -13,6 +13,7 @@ import {
 import i18n from "@dhis2/d2-i18n";
 import { Visualization } from "../../../../Visualization";
 import { getOrgUnitsForAnalytics } from "../../../utils/orgUnits";
+import type { DataItemType } from "../../../../Map/components/MapLayer/interfaces";
 
 export interface FurtherAnalysisConfig {
 	orgUnitSelection: OrgUnitSelection;
@@ -74,6 +75,25 @@ export function FurtherAnalysis({
 								},
 							},
 							pivotTable: {},
+							map: {
+								thematicLayers: config.dataSources.map(
+									(item) => ({
+										enabled: true,
+										name: item.label,
+										id: item.id,
+										type: "choropleth",
+										dataItem: {
+											type: item.type as DataItemType,
+											displayName: item.label!,
+											id: item.id,
+											legendConfig: {
+												colorClass: "YlOrBr",
+												scale: 7,
+											},
+										},
+									}),
+								),
+							},
 						}}
 					/>
 				</div>

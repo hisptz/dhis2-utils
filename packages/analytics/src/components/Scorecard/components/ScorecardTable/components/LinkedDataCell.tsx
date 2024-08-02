@@ -43,7 +43,7 @@ export function LinkedDataCell({
 					onClose={() => {
 						setFurtherAnalysisConfig(null);
 					}}
-					hide={!!furtherAnalysisConfig}
+					hide={!furtherAnalysisConfig}
 					config={furtherAnalysisConfig}
 				/>
 			)}
