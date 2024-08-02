@@ -111,9 +111,6 @@ export function getOrgUnitColumnHeaders({
 			)?.id;
 			return columnHelper.accessor(
 				(rowData) => {
-					console.log({
-						orgUnit,
-					});
 					const values = rowData.dataValues.filter(({ ou }) => {
 						return ou === orgUnit.uid;
 					});
@@ -180,12 +177,6 @@ export function getOrgUnitColumnHeaders({
 									return ou === orgUnit.uid;
 								},
 							);
-
-							console.log({
-								orgUnit: orgUnit.uid,
-								allValues: rowData.dataValues,
-								orgUnitValues: values,
-							});
 
 							const dataSources =
 								rowData.dataHolder?.dataSources?.map(
