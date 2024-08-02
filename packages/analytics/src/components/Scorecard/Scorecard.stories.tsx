@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Scorecard } from "./Scorecard";
-import { useState } from "react";
-import type { ScorecardConfig, ScorecardState } from "./schemas/config";
+import type { ScorecardConfig } from "./schemas/config";
 
 // const config: ScorecardConfig = {
 // 	additionalLabels: [],
@@ -1035,14 +1034,9 @@ const meta: Meta<typeof Scorecard> = {
 	title: "Scorecard",
 	component: Scorecard,
 	decorators: (Story) => {
-		const [scorecardState, setScorecardState] = useState<ScorecardState>({
-			orgUnitSelection: config.orgUnitSelection,
-			periodSelection: config.periodSelection,
-			options: config.options,
-		});
 		return (
 			<div style={{ maxWidth: 1400, overflowX: "auto" }}>
-				<Story args={{ config, state: scorecardState }} />
+				<Story />
 			</div>
 		);
 	},
@@ -1054,4 +1048,29 @@ type Story = StoryObj<typeof Scorecard>;
 
 export const Default: Story = {
 	name: "Default View",
+	args: {
+		config,
+		state: {
+			options: {
+				...config.options,
+				averageRow: false,
+			},
+			orgUnitSelection: config.orgUnitSelection,
+			periodSelection: config.periodSelection,
+		},
+	},
+};
+export const DataInRows: Story = {
+	name: "Data in rows view",
+	args: {
+		config,
+		state: {
+			options: {
+				...config.options,
+				showDataInRows: true,
+			},
+			orgUnitSelection: config.orgUnitSelection,
+			periodSelection: config.periodSelection,
+		},
+	},
 };

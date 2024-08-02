@@ -55,8 +55,8 @@ export function getAverageValue({
 	const currentPeriodValues = dataValues.filter(({ pe }) => {
 		return !!meta.periods.find(({ uid }) => uid === pe);
 	});
-
 	const values = currentPeriodValues.map(({ value }) => (value ? +value : 0));
+
 	return Math.round((sum(values) / values.length) * 100) / 100;
 }
 
@@ -109,9 +109,11 @@ export function getOrgUnitColumnHeaders({
 					steps: -1,
 				}),
 			)?.id;
-
 			return columnHelper.accessor(
 				(rowData) => {
+					console.log({
+						orgUnit,
+					});
 					const values = rowData.dataValues.filter(({ ou }) => {
 						return ou === orgUnit.uid;
 					});
@@ -148,6 +150,7 @@ export function getOrgUnitColumnHeaders({
 					id: orgUnit.uid,
 					enableSorting: true,
 					sortingFn: sortingFunction,
+					footer: DataFooterCell,
 				},
 			);
 		} else {
@@ -177,6 +180,12 @@ export function getOrgUnitColumnHeaders({
 									return ou === orgUnit.uid;
 								},
 							);
+
+							console.log({
+								orgUnit: orgUnit.uid,
+								allValues: rowData.dataValues,
+								orgUnitValues: values,
+							});
 
 							const dataSources =
 								rowData.dataHolder?.dataSources?.map(

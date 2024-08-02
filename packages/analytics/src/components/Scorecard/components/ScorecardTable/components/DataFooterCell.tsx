@@ -44,7 +44,6 @@ export function DataFooterCell({
 			orgUnitLevels: meta!.orgUnitLevels,
 		});
 	}, [table]);
-
 	const dataValues = useMemo(() => {
 		const rowModel = table.getRowModel();
 		return rowModel.rows
@@ -54,7 +53,6 @@ export function DataFooterCell({
 			})
 			.flat();
 	}, [table, column]);
-
 	const average = useMemo(() => {
 		return Math.round((sum(dataValues) / dataValues.length) * 100) / 100;
 	}, [dataValues]);

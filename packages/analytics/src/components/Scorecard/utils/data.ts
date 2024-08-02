@@ -59,6 +59,7 @@ export function getTableDataFromAnalytics(
 									(acc, { label }) => `${acc} / ${label}`,
 									"",
 								)) ?? "";
+
 					return {
 						id,
 						label,

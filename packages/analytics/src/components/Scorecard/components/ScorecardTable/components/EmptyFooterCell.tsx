@@ -5,6 +5,5 @@ import type { ScorecardTableData } from "../../../schemas/config";
 export function EmptyFooterCell(
 	props: HeaderContext<ScorecardTableData, unknown>,
 ) {
-	console.log(props);
 	return <DataTableCell />;
 }
