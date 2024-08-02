@@ -149,16 +149,17 @@ export function getLegend({
 }
 
 export function getTextColorFromBackgroundColor(background: string): string {
-	if (background.startsWith("#")) {
-		background = background.slice(1);
-	}
-	const r = parseInt(background.substr(0, 2), 16);
-	const g = parseInt(background.substr(2, 2), 16);
-	const b = parseInt(background.substr(4, 2), 16);
-	const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-	if (luminance > 0.5) {
-		return "black"; // bright background, use dark text
-	} else {
-		return "white"; // dark background, use bright text
-	}
+	// Remove the hash at the start if it's there
+	background = background.replace(/^#/, "");
+
+	// Convert hex to RGB
+	let r = parseInt(background.substring(0, 2), 16);
+	let g = parseInt(background.substring(2, 4), 16);
+	let b = parseInt(background.substring(4, 6), 16);
+
+	// Calculate the YIQ value
+	let yiq = (r * 299 + g * 587 + b * 114) / 1000;
+
+	// Return black for light backgrounds and white for dark backgrounds
+	return yiq >= 128 ? "#000000" : "#FFFFFF";
 }

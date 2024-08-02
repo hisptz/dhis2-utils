@@ -1023,11 +1023,618 @@ const config: ScorecardConfig = {
 		userSubX2Unit: true,
 	},
 	periodSelection: {
-		periods: ["201811", "201809", "201810"],
+		periods: ["201811", "201809", "201810"].map((id) => ({ id })),
 		type: "Monthly",
 	},
 	subtitle: "",
 	title: "League Table: RMNCAH",
+};
+
+const linkedConfig: ScorecardConfig = {
+	additionalLabels: [],
+	customHeader:
+		'<p style="text-align: center;"><strong><span style="font-size: 14pt;">Reproductive Mother Newborn Child Adolescent Health Scorecard</span></strong></p>',
+	dataSelection: {
+		dataGroups: [
+			{
+				dataHolders: [
+					{
+						dataSources: [
+							{
+								displayArrows: true,
+								effectiveGap: 5,
+								highIsGood: true,
+								id: "UT1DJmtzyox",
+								label: "ANC 1st visit coverage (%)",
+								legends: {
+									BNQIkbGlA00: [
+										{
+											endValue: "100",
+											id: "KpYHhHJn6TW",
+											legendDefinitionId: "Hp7RQEOkeeI",
+											startValue: "66",
+										},
+										{
+											endValue: "66",
+											id: "D7p3mOofXV5",
+											legendDefinitionId: "Tdn0N0KCkfS",
+											startValue: "33",
+										},
+										{
+											endValue: "33",
+											id: "h53u0qtfWrm",
+											legendDefinitionId: "wvkMv3ABWbT",
+											startValue: "0",
+										},
+									],
+									P0QFTFfTl2X: [
+										{
+											endValue: "100",
+											id: "Gu1MEoKBM9z",
+											legendDefinitionId: "Hp7RQEOkeeI",
+											startValue: "66",
+										},
+										{
+											endValue: "66",
+											id: "Ov1gJoUyWGA",
+											legendDefinitionId: "Tdn0N0KCkfS",
+											startValue: "33",
+										},
+										{
+											endValue: "33",
+											id: "kdr4mFvCXeF",
+											legendDefinitionId: "wvkMv3ABWbT",
+											startValue: "0",
+										},
+									],
+									VJJOhuBJSJe: [
+										{
+											endValue: "100",
+											id: "ZRel5tdDTxP",
+											legendDefinitionId: "Hp7RQEOkeeI",
+											startValue: "66",
+										},
+										{
+											endValue: "66",
+											id: "ZdkqaQjk4dy",
+											legendDefinitionId: "Tdn0N0KCkfS",
+											startValue: "33",
+										},
+										{
+											endValue: "33",
+											id: "yHqYRGJTuZ7",
+											legendDefinitionId: "wvkMv3ABWbT",
+											startValue: "0",
+										},
+									],
+									ZqI1kKnH7ve: [
+										{
+											endValue: "100",
+											id: "M8SRVFU7qaJ",
+											legendDefinitionId: "Hp7RQEOkeeI",
+											startValue: "66",
+										},
+										{
+											endValue: "66",
+											id: "t0kMCebyKa3",
+											legendDefinitionId: "Tdn0N0KCkfS",
+											startValue: "33",
+										},
+										{
+											endValue: "33",
+											id: "qQWheNiAv5H",
+											legendDefinitionId: "wvkMv3ABWbT",
+											startValue: "0",
+										},
+									],
+								},
+								showColors: true,
+								type: "dataElement",
+								weight: 100,
+							},
+							{
+								displayArrows: true,
+								effectiveGap: 5,
+								highIsGood: true,
+								id: "FgNnsRgCs8r",
+								label: "ANC 4th visit coverage (%)",
+								legends: {
+									BNQIkbGlA00: [
+										{
+											endValue: "100",
+											id: "XMzI6YTRjnh",
+											legendDefinitionId: "Hp7RQEOkeeI",
+											startValue: "66",
+										},
+										{
+											endValue: "66",
+											id: "XaSA3Wbd8ev",
+											legendDefinitionId: "Tdn0N0KCkfS",
+											startValue: "33",
+										},
+										{
+											endValue: "33",
+											id: "zTVnWeobd1W",
+											legendDefinitionId: "wvkMv3ABWbT",
+											startValue: "0",
+										},
+									],
+									P0QFTFfTl2X: [
+										{
+											endValue: "100",
+											id: "uMqW1iTVZbk",
+											legendDefinitionId: "Hp7RQEOkeeI",
+											startValue: "66",
+										},
+										{
+											endValue: "66",
+											id: "KF017pCID2N",
+											legendDefinitionId: "Tdn0N0KCkfS",
+											startValue: "33",
+										},
+										{
+											endValue: "33",
+											id: "L3PNXKkZlKn",
+											legendDefinitionId: "wvkMv3ABWbT",
+											startValue: "0",
+										},
+									],
+									VJJOhuBJSJe: [
+										{
+											endValue: "100",
+											id: "lpPPAVPWAHa",
+											legendDefinitionId: "Hp7RQEOkeeI",
+											startValue: "66",
+										},
+										{
+											endValue: "66",
+											id: "qtzhYa0YOZe",
+											legendDefinitionId: "Tdn0N0KCkfS",
+											startValue: "33",
+										},
+										{
+											endValue: "33",
+											id: "rcPPIBAegMP",
+											legendDefinitionId: "wvkMv3ABWbT",
+											startValue: "0",
+										},
+									],
+									ZqI1kKnH7ve: [
+										{
+											endValue: "100",
+											id: "w31XD1NVKYc",
+											legendDefinitionId: "Hp7RQEOkeeI",
+											startValue: "66",
+										},
+										{
+											endValue: "66",
+											id: "Yka97h8Gp5S",
+											legendDefinitionId: "Tdn0N0KCkfS",
+											startValue: "33",
+										},
+										{
+											endValue: "33",
+											id: "rq5CQddHPzj",
+											legendDefinitionId: "wvkMv3ABWbT",
+											startValue: "0",
+										},
+									],
+								},
+								showColors: true,
+								type: "dataElement",
+								weight: 100,
+							},
+						],
+						id: "kJx1Eg83H1A",
+					},
+				],
+				id: "uRgQI4ArrDc",
+				style: {
+					backgroundColor: "#FFFFFF",
+					color: "#000000",
+				},
+				title: "ANC",
+			},
+			{
+				dataHolders: [
+					{
+						dataSources: [
+							{
+								displayArrows: true,
+								effectiveGap: 5,
+								highIsGood: true,
+								id: "S0IzYPGQLnN",
+								label: "PCV 3 coverage (%)",
+								legends: [
+									{
+										endValue: "100",
+										id: "bnLSP7FW4CD",
+										legendDefinitionId: "Hp7RQEOkeeI",
+										startValue: "66",
+									},
+									{
+										endValue: "66",
+										id: "eIQjXQYMwYF",
+										legendDefinitionId: "Tdn0N0KCkfS",
+										startValue: "33",
+									},
+									{
+										endValue: "33",
+										id: "eeXyZVN0FCX",
+										legendDefinitionId: "wvkMv3ABWbT",
+										startValue: "0",
+									},
+								],
+								showColors: true,
+								type: "dataElement",
+								weight: 100,
+							},
+							{
+								displayArrows: true,
+								effectiveGap: 5,
+								highIsGood: true,
+								id: "ZNz5XzwJZK5",
+								label: "RMNCH IPTp1 coverage (%)",
+								legends: [
+									{
+										endValue: "100",
+										id: "M3O2zlFt2QR",
+										legendDefinitionId: "Hp7RQEOkeeI",
+										startValue: "66",
+									},
+									{
+										endValue: "66",
+										id: "XrYIKCaK5uO",
+										legendDefinitionId: "Tdn0N0KCkfS",
+										startValue: "33",
+									},
+									{
+										endValue: "33",
+										id: "yAfwEbfXWab",
+										legendDefinitionId: "wvkMv3ABWbT",
+										startValue: "0",
+									},
+								],
+								showColors: true,
+								type: "dataElement",
+								weight: 100,
+							},
+						],
+						id: "kfl50Ej7lDu",
+					},
+				],
+				id: "QcZw8mJ1Rze",
+				style: {
+					backgroundColor: "#FFFFFF",
+					color: "#000000",
+				},
+				title: "Child Health",
+			},
+			{
+				dataHolders: [
+					{
+						dataSources: [
+							{
+								displayArrows: true,
+								effectiveGap: 5,
+								highIsGood: true,
+								id: "wc3XYCyuxyE",
+								label: "Post partum care coverage (within 2 days) (%)",
+								legends: [
+									{
+										endValue: "100",
+										id: "b3UiR0upygY",
+										legendDefinitionId: "Hp7RQEOkeeI",
+										startValue: "66",
+									},
+									{
+										endValue: "66",
+										id: "Qws2zJ6nnhO",
+										legendDefinitionId: "Tdn0N0KCkfS",
+										startValue: "33",
+									},
+									{
+										endValue: "33",
+										id: "EjYfDZUMrvh",
+										legendDefinitionId: "wvkMv3ABWbT",
+										startValue: "0",
+									},
+								],
+								showColors: true,
+								type: "dataElement",
+								weight: 100,
+							},
+							{
+								displayArrows: true,
+								effectiveGap: 5,
+								highIsGood: true,
+								id: "NV6Xc9oGJZV",
+								label: "Breastfeeding within 1 hour after delivery (%)",
+								legends: [
+									{
+										endValue: "100",
+										id: "wqt6J8rW5Gg",
+										legendDefinitionId: "Hp7RQEOkeeI",
+										startValue: "66",
+									},
+									{
+										endValue: "66",
+										id: "BoXJK9Y7xfL",
+										legendDefinitionId: "Tdn0N0KCkfS",
+										startValue: "33",
+									},
+									{
+										endValue: "33",
+										id: "leioF1u23By",
+										legendDefinitionId: "wvkMv3ABWbT",
+										startValue: "0",
+									},
+								],
+								showColors: true,
+								type: "dataElement",
+								weight: 100,
+							},
+						],
+						id: "w8XIm3FYgHf",
+					},
+				],
+				id: "UVvskRg3Q3O",
+				style: {
+					backgroundColor: "#FFFFFF",
+					color: "#000000",
+				},
+				title: "PNC",
+			},
+			{
+				dataHolders: [
+					{
+						dataSources: [
+							{
+								displayArrows: true,
+
+								effectiveGap: 5,
+								highIsGood: true,
+								id: "XXDXVGzvSx1",
+								label: "Caesarean section delivery rate (%)",
+								legends: [
+									{
+										endValue: "100",
+										id: "nYuMTV2paEd",
+										legendDefinitionId: "Hp7RQEOkeeI",
+										startValue: "66",
+									},
+									{
+										endValue: "66",
+										id: "iRmHVCt9uCF",
+										legendDefinitionId: "Tdn0N0KCkfS",
+										startValue: "33",
+									},
+									{
+										endValue: "33",
+										id: "oZC6QPZ7AAS",
+										legendDefinitionId: "wvkMv3ABWbT",
+										startValue: "0",
+									},
+								],
+								showColors: true,
+								type: "dataElement",
+								weight: 100,
+							},
+							{
+								displayArrows: true,
+								effectiveGap: 5,
+								highIsGood: true,
+								id: "lMRhTK17SDQ",
+								label: "Institutional delivery rate (%)",
+								legends: {
+									BNQIkbGlA00: [
+										{
+											endValue: "100",
+											id: "mOYx4YWdhVl",
+											legendDefinitionId: "Hp7RQEOkeeI",
+											startValue: "66",
+										},
+										{
+											endValue: "66",
+											id: "gxG34EbioX8",
+											legendDefinitionId: "Tdn0N0KCkfS",
+											startValue: "33",
+										},
+										{
+											endValue: "33",
+											id: "MBAKh3ZG2dK",
+											legendDefinitionId: "wvkMv3ABWbT",
+											startValue: "0",
+										},
+									],
+									P0QFTFfTl2X: [
+										{
+											endValue: "100",
+											id: "MmQldQ7jgAH",
+											legendDefinitionId: "Hp7RQEOkeeI",
+											startValue: "66",
+										},
+										{
+											endValue: "66",
+											id: "WF1kso6rvDr",
+											legendDefinitionId: "Tdn0N0KCkfS",
+											startValue: "33",
+										},
+										{
+											endValue: "33",
+											id: "JcaFJoC6kNi",
+											legendDefinitionId: "wvkMv3ABWbT",
+											startValue: "0",
+										},
+									],
+									VJJOhuBJSJe: [
+										{
+											endValue: "100",
+											id: "L07Gb3JDHVS",
+											legendDefinitionId: "Hp7RQEOkeeI",
+											startValue: "66",
+										},
+										{
+											endValue: "66",
+											id: "jZ9fu7sOQDr",
+											legendDefinitionId: "Tdn0N0KCkfS",
+											startValue: "33",
+										},
+										{
+											endValue: "33",
+											id: "EoTSwqHRfZV",
+											legendDefinitionId: "wvkMv3ABWbT",
+											startValue: "0",
+										},
+									],
+									ZqI1kKnH7ve: [
+										{
+											endValue: "100",
+											id: "CO0eiIoCRty",
+											legendDefinitionId: "Hp7RQEOkeeI",
+											startValue: "66",
+										},
+										{
+											endValue: "66",
+											id: "YWySiVblPtQ",
+											legendDefinitionId: "Tdn0N0KCkfS",
+											startValue: "33",
+										},
+										{
+											endValue: "33",
+											id: "paJxvmioynV",
+											legendDefinitionId: "wvkMv3ABWbT",
+											startValue: "0",
+										},
+									],
+								},
+								showColors: true,
+								type: "dataElement",
+								weight: 100,
+							},
+						],
+						id: "yZsI8HZOKab",
+					},
+				],
+				id: "erF3HyaFtYs",
+				style: {
+					backgroundColor: "#FFFFFF",
+					color: "#000000",
+				},
+				title: "Birth",
+			},
+		],
+	},
+	description:
+		"Reproductive Mother Newborn Child Adolescent Health Score Card",
+	highlightedIndicators: [
+		{
+			displayArrows: true,
+			effectiveGap: 5,
+			highIsGood: true,
+			id: "BvG8P80QxqZ",
+			label: "Access to ANC Services",
+			legends: [
+				{
+					endValue: "100",
+					id: "gpxLYDFnZmu",
+					legendDefinitionId: "Hp7RQEOkeeI",
+					startValue: "80",
+				},
+				{
+					endValue: "80",
+					id: "nG6xsue9WBm",
+					legendDefinitionId: "Tdn0N0KCkfS",
+					startValue: "60",
+				},
+				{
+					endValue: "60",
+					id: "UeAJV56yLPg",
+					legendDefinitionId: "wvkMv3ABWbT",
+					startValue: "40",
+				},
+				{
+					endValue: "40",
+					id: "Gop7mo2IUdC",
+					legendDefinitionId: "N/A",
+					startValue: "20",
+				},
+				{
+					endValue: "20",
+					id: "RE0ln0cImOf",
+					legendDefinitionId: "No Data",
+					startValue: "0",
+				},
+			],
+			showColors: true,
+			type: "indicator",
+			weight: 100,
+		},
+	],
+	id: "KKQrggIIOlT",
+	legendDefinitions: [
+		{
+			color: "#008000",
+			id: "Hp7RQEOkeeI",
+			name: "Target Reached/ On Track",
+		},
+		{
+			color: "#FFFF00",
+			id: "Tdn0N0KCkfS",
+			name: "Progress, but more effort required",
+		},
+		{
+			color: "#FF0000",
+			id: "wvkMv3ABWbT",
+			name: "Not on track",
+		},
+		{
+			color: "#D3D3D3",
+			id: "N/A",
+			isDefault: true,
+			name: "N/A",
+		},
+		{
+			color: "#FFFFFF",
+			id: "No Data",
+			isDefault: true,
+			name: "No Data",
+		},
+	],
+	options: {
+		arrows: true,
+		averageColumn: false,
+		averageDisplayType: "ALL",
+		averageRow: false,
+		emptyRows: false,
+		highlightedIndicators: false,
+		itemNumber: true,
+		legend: true,
+		showDataInRows: false,
+		showHierarchy: true,
+		title: true,
+	},
+	orgUnitSelection: {
+		groups: [],
+		levels: ["P0QFTFfTl2X"],
+		orgUnits: [
+			{
+				id: "GD7TowwI46c",
+			},
+		],
+		userOrgUnit: false,
+		userSubUnit: false,
+		userSubX2Unit: false,
+	},
+	periodSelection: {
+		periods: [
+			{
+				id: "2018",
+			},
+		],
+	},
+	subtitle: "",
+	title: "RMNCAH Score Card Revised",
 };
 
 const meta: Meta<typeof Scorecard> = {
@@ -1101,6 +1708,19 @@ export const FilteredBelowAverage: Story = {
 			},
 			orgUnitSelection: config.orgUnitSelection,
 			periodSelection: config.periodSelection,
+		},
+	},
+};
+export const WithLinkedCells: Story = {
+	name: "With linked cells",
+	args: {
+		config: linkedConfig,
+		state: {
+			options: {
+				...config.options,
+			},
+			orgUnitSelection: linkedConfig.orgUnitSelection,
+			periodSelection: linkedConfig.periodSelection,
 		},
 	},
 };

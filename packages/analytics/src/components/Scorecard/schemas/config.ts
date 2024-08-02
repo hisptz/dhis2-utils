@@ -51,7 +51,11 @@ export const organisationUnitSelectionSchema = z.object({
 export type OrgUnitSelection = z.infer<typeof organisationUnitSelectionSchema>;
 
 export const periodSelectionSchema = z.object({
-	periods: z.array(z.string()),
+	periods: z.array(
+		z.object({
+			id: z.string(),
+		}),
+	),
 	type: z.string(),
 });
 
@@ -60,8 +64,8 @@ export type PeriodSelection = z.infer<typeof periodSelectionSchema>;
 export const legendSchema = z.object({
 	legendDefinitionId: z.string(),
 	id: z.string(),
-	startValue: z.number(),
-	endValue: z.number(),
+	startValue: z.union([z.string(), z.number()]),
+	endValue: z.union([z.string(), z.number()]),
 });
 
 export type ScorecardLegend = z.infer<typeof legendSchema>;

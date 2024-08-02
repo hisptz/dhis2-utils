@@ -17,7 +17,7 @@ export function getDimensions({
 	const orgUnitsIds = getOrgUnitsForAnalytics(
 		state?.orgUnitSelection ?? config?.orgUnitSelection,
 	);
-	const periodsIds = state.periodSelection.periods;
+	const periodsIds = state.periodSelection.periods.map(({ id }) => id);
 
 	return {
 		dataItemsIds,
