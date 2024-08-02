@@ -89,9 +89,9 @@ export function getLegend({
 	dataSource: ScorecardDataSource;
 	value?: number;
 	config: ScorecardConfig;
-	periodId: string;
-	orgUnit: ItemMeta & { hierarchy: string };
-	orgUnitLevels: Array<{
+	periodId?: string;
+	orgUnit?: ItemMeta & { hierarchy: string };
+	orgUnitLevels?: Array<{
 		id: string;
 		level: number;
 		organisationUnits: Array<{
@@ -99,37 +99,43 @@ export function getLegend({
 		}>;
 	}>;
 }) {
-	let legends: ScorecardLegend[];
+	let legends: ScorecardLegend[] = [];
 
-	if (!Array.isArray(dataSource.legends)) {
-		legends = getLegendByOrgUnitLevel({
-			orgUnit,
-			orgUnitLevels,
-			legends: dataSource.legends as OrgUnitLevelLegend,
-		});
-	} else {
-		const specificTargets = dataSource.specificTargets;
-		if (!isEmpty(specificTargets)) {
-			const specificTarget = head(specificTargets)!;
-			switch (specificTarget.type) {
-				case "period":
-					const targetLegends = getSpecificTargetLegends(
-						specificTarget,
-						periodId,
-					);
-					legends = targetLegends ?? dataSource.legends;
-					break;
-				case "orgUnit":
-					const targetOrgUnitLegends = getSpecificTargetLegends(
-						specificTarget,
-						orgUnit.uid,
-					);
-					legends = targetOrgUnitLegends ?? dataSource.legends;
-					break;
-				default:
-					legends = dataSource.legends;
-			}
+	if (periodId && orgUnit && orgUnitLevels) {
+		if (!Array.isArray(dataSource.legends)) {
+			legends = getLegendByOrgUnitLevel({
+				orgUnit,
+				orgUnitLevels,
+				legends: dataSource.legends as OrgUnitLevelLegend,
+			});
 		} else {
+			const specificTargets = dataSource.specificTargets;
+			if (!isEmpty(specificTargets)) {
+				const specificTarget = head(specificTargets)!;
+				switch (specificTarget.type) {
+					case "period":
+						const targetLegends = getSpecificTargetLegends(
+							specificTarget,
+							periodId,
+						);
+						legends = targetLegends ?? dataSource.legends;
+						break;
+					case "orgUnit":
+						const targetOrgUnitLegends = getSpecificTargetLegends(
+							specificTarget,
+							orgUnit.uid,
+						);
+						legends = targetOrgUnitLegends ?? dataSource.legends;
+						break;
+					default:
+						legends = dataSource.legends;
+				}
+			} else {
+				legends = dataSource.legends;
+			}
+		}
+	} else {
+		if (Array.isArray(dataSource.legends)) {
 			legends = dataSource.legends;
 		}
 	}

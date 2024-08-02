@@ -1053,7 +1053,7 @@ export const Default: Story = {
 		state: {
 			options: {
 				...config.options,
-				averageRow: false,
+				averageRow: true,
 			},
 			orgUnitSelection: config.orgUnitSelection,
 			periodSelection: config.periodSelection,

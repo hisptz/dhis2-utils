@@ -239,10 +239,13 @@ export function getAverageColumn({
 		columns: [
 			columnHelper.accessor(
 				(rowData) => {
-					return getAverageValue({
-						dataValues: rowData.dataValues,
-						meta,
-					});
+					return {
+						average: getAverageValue({
+							dataValues: rowData.dataValues,
+							meta,
+						}),
+						...rowData,
+					};
 				},
 				{
 					id: `average`,
