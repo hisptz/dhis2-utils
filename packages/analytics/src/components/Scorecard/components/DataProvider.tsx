@@ -1,5 +1,8 @@
 import { createContext, type ReactNode, useContext } from "react";
-import type { ScorecardTableData } from "../schemas/config";
+import type {
+	ScorecardAnalyticsData,
+	ScorecardTableData,
+} from "../schemas/config";
 import { useGetScorecardData } from "../hooks/data";
 import { CircularLoader } from "@dhis2/ui";
 
@@ -7,11 +10,13 @@ export interface ScorecardData {
 	loading: boolean;
 	progress?: number;
 	data: ScorecardTableData[];
+	rawData: ScorecardAnalyticsData[];
 }
 
 const ScorecardDataContext = createContext<ScorecardData>({
 	loading: false,
 	data: [],
+	rawData: [],
 });
 
 export function useScorecardData() {
@@ -19,9 +24,9 @@ export function useScorecardData() {
 }
 
 export function ScorecardDataProvider({ children }: { children: ReactNode }) {
-	const { loading, data } = useGetScorecardData();
+	const value = useGetScorecardData();
 
-	if (loading) {
+	if (value.loading) {
 		return (
 			<div
 				style={{
@@ -38,7 +43,7 @@ export function ScorecardDataProvider({ children }: { children: ReactNode }) {
 	}
 
 	return (
-		<ScorecardDataContext.Provider value={{ loading, data }}>
+		<ScorecardDataContext.Provider value={value}>
 			{children}
 		</ScorecardDataContext.Provider>
 	);

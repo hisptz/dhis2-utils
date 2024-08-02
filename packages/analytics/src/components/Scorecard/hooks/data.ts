@@ -9,7 +9,10 @@ import {
 } from "@dhis2/multi-calendar-dates";
 import { uniq } from "lodash";
 import { useScorecardMeta } from "../components/MetaProvider";
-import { getTableDataFromAnalytics } from "../utils/data";
+import {
+	getTableDataFromAnalytics,
+	sanitizeAnalyticsData,
+} from "../utils/data";
 import { useCalendar } from "./metadata";
 
 const query: any = {
@@ -85,30 +88,34 @@ export function useGetScorecardData() {
 		return uniq([...periodsIds, ...pastPeriods]);
 	}, [periodsIds]);
 
-	const { loading, data: rawData } = useDataQuery<ScorecardDataQueryResponse>(
-		query,
-		{
+	const { loading, data: rawAnalyticsData } =
+		useDataQuery<ScorecardDataQueryResponse>(query, {
 			variables: {
 				periods: analyticsPeriod,
 				dataItems: dataItemsIds,
 				orgUnits: orgUnitsIds,
 			},
-		},
-	);
+		});
+
+	const rawData = useMemo(() => {
+		if (!rawAnalyticsData) return [];
+		return sanitizeAnalyticsData(rawAnalyticsData);
+	}, [rawAnalyticsData]);
 
 	const data = useMemo(() => {
-		if (rawData) {
-			return getTableDataFromAnalytics(rawData, {
+		if (rawAnalyticsData) {
+			return getTableDataFromAnalytics(rawAnalyticsData, {
 				meta,
 				state,
 				config,
 			});
 		}
 		return [];
-	}, [rawData, meta]);
+	}, [rawAnalyticsData, meta]);
 
 	return {
 		loading,
 		data,
+		rawData,
 	};
 }

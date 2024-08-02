@@ -5,9 +5,10 @@ import type {
 	ScorecardState,
 	ScorecardTableData,
 } from "../schemas/config";
-import { fromPairs, head } from "lodash";
+import { compact, fromPairs, head } from "lodash";
+import { getAverageValue } from "./columns";
 
-interface AnalyticsData {
+export interface AnalyticsData {
 	dx?: string;
 	pe?: string;
 	ou?: string;
@@ -15,7 +16,7 @@ interface AnalyticsData {
 	[key: string]: string | undefined;
 }
 
-function sanitizeAnalyticsData(data: ScorecardDataQueryResponse) {
+export function sanitizeAnalyticsData(data: ScorecardDataQueryResponse) {
 	const { headers, rows } = data.data;
 	return rows.map((row) => {
 		return fromPairs(
@@ -39,55 +40,209 @@ export function getTableDataFromAnalytics(
 	const showHierarchy = state.options.showHierarchy;
 	const sanitizedAnalyticsData = sanitizeAnalyticsData(data);
 
-	if (dataInRows) {
-		//Rows are derived from groups
-		const dataGroups = config.dataSelection.dataGroups;
-		return dataGroups
-			.map(({ dataHolders }) => {
-				return dataHolders.map((dataHolder) => {
-					const { dataSources, id } = dataHolder;
-					const dataItemIds = dataSources.map(({ id }) => id);
-					const dataValues = sanitizedAnalyticsData.filter(
-						(value) => {
-							return dataItemIds.includes(value.dx as string);
-						},
-					);
-					const label =
-						(dataSources.length === 1
-							? head(dataSources)?.label
-							: dataSources.reduce(
-									(acc, { label }) => `${acc} / ${label}`,
-									"",
-								)) ?? "";
+	const averageFilter = state.options.averageDisplayType;
+	if (
+		averageFilter !== "ABOVE_AVERAGE" &&
+		averageFilter !== "BELOW_AVERAGE"
+	) {
+		//No need of computing the average of each row
+		if (dataInRows) {
+			//Rows are derived from groups
+			const dataGroups = config.dataSelection.dataGroups;
+			return dataGroups
+				.map(({ dataHolders }) => {
+					return dataHolders.map((dataHolder) => {
+						const { dataSources, id } = dataHolder;
+						const dataItemIds = dataSources.map(({ id }) => id);
+						const dataValues = sanitizedAnalyticsData.filter(
+							(value) => {
+								return dataItemIds.includes(value.dx as string);
+							},
+						);
+						const label =
+							(dataSources.length === 1
+								? head(dataSources)?.label
+								: dataSources.reduce(
+										(acc, { label }) => `${acc} / ${label}`,
+										"",
+									)) ?? "";
 
-					return {
-						id,
-						label,
-						dataValues,
-						dataHolder,
-					};
+						return {
+							id,
+							label,
+							dataValues,
+							dataHolder,
+						};
+					});
+				})
+				.flat()
+				.map((data, index) => ({ ...data, count: index + 1 }));
+		}
+
+		return meta.orgUnits
+			.map((orgUnit, i) => {
+				const dataValues = sanitizedAnalyticsData.filter((value) => {
+					return orgUnit.uid === value.ou;
 				});
+
+				const label = showHierarchy
+					? orgUnit.hierarchy.replace("/", "") ?? ""
+					: orgUnit.name ?? "";
+
+				return {
+					dataValues,
+					label,
+					orgUnit,
+				};
 			})
 			.flat()
 			.map((data, index) => ({ ...data, count: index + 1 }));
 	}
 
-	return meta.orgUnits
-		.map((orgUnit, i) => {
-			const dataValues = sanitizedAnalyticsData.filter((value) => {
-				return orgUnit.uid === value.ou;
-			});
+	const totalAverage = getAverageValue({
+		dataValues: sanitizedAnalyticsData,
+		meta,
+	});
 
-			const label = showHierarchy
-				? orgUnit.hierarchy.replace("/", "") ?? ""
-				: orgUnit.name ?? "";
+	if (averageFilter === "BELOW_AVERAGE") {
+		if (dataInRows) {
+			//Rows are derived from groups
+			const dataGroups = config.dataSelection.dataGroups;
+			return compact(
+				dataGroups.map(({ dataHolders }) => {
+					return dataHolders.map((dataHolder) => {
+						const { dataSources, id } = dataHolder;
+						const dataItemIds = dataSources.map(({ id }) => id);
+						const dataValues = sanitizedAnalyticsData.filter(
+							(value) => {
+								return dataItemIds.includes(value.dx as string);
+							},
+						);
 
-			return {
-				dataValues,
-				label,
-				orgUnit,
-			};
-		})
-		.flat()
-		.map((data, index) => ({ ...data, count: index + 1 }));
+						const label =
+							(dataSources.length === 1
+								? head(dataSources)?.label
+								: dataSources.reduce(
+										(acc, { label }) => `${acc} / ${label}`,
+										"",
+									)) ?? "";
+
+						return {
+							id,
+							label,
+							dataValues,
+							dataHolder,
+						};
+					});
+				}),
+			)
+				.flat()
+				.filter((data) => {
+					const average = getAverageValue({
+						meta,
+						dataValues: data.dataValues,
+					});
+
+					return average <= totalAverage;
+				})
+				.map((data, index) => ({ ...data, count: index + 1 }));
+		}
+
+		return meta.orgUnits
+			.map((orgUnit, i) => {
+				const dataValues = sanitizedAnalyticsData.filter((value) => {
+					return orgUnit.uid === value.ou;
+				});
+
+				const label = showHierarchy
+					? orgUnit.hierarchy.replace("/", "") ?? ""
+					: orgUnit.name ?? "";
+
+				return {
+					dataValues,
+					label,
+					orgUnit,
+				};
+			})
+			.flat()
+			.filter((data) => {
+				const average = getAverageValue({
+					meta,
+					dataValues: data.dataValues,
+				});
+
+				return average <= totalAverage;
+			})
+			.map((data, index) => ({ ...data, count: index + 1 }));
+	} else {
+		if (dataInRows) {
+			//Rows are derived from groups
+			const dataGroups = config.dataSelection.dataGroups;
+			return compact(
+				dataGroups.map(({ dataHolders }) => {
+					return dataHolders.map((dataHolder) => {
+						const { dataSources, id } = dataHolder;
+						const dataItemIds = dataSources.map(({ id }) => id);
+						const dataValues = sanitizedAnalyticsData.filter(
+							(value) => {
+								return dataItemIds.includes(value.dx as string);
+							},
+						);
+
+						const label =
+							(dataSources.length === 1
+								? head(dataSources)?.label
+								: dataSources.reduce(
+										(acc, { label }) => `${acc} / ${label}`,
+										"",
+									)) ?? "";
+
+						return {
+							id,
+							label,
+							dataValues,
+							dataHolder,
+						};
+					});
+				}),
+			)
+				.flat()
+				.filter((data) => {
+					const average = getAverageValue({
+						meta,
+						dataValues: data.dataValues,
+					});
+
+					return average >= totalAverage;
+				})
+				.map((data, index) => ({ ...data, count: index + 1 }));
+		}
+
+		return meta.orgUnits
+			.map((orgUnit, i) => {
+				const dataValues = sanitizedAnalyticsData.filter((value) => {
+					return orgUnit.uid === value.ou;
+				});
+
+				const label = showHierarchy
+					? orgUnit.hierarchy.replace("/", "") ?? ""
+					: orgUnit.name ?? "";
+
+				return {
+					dataValues,
+					label,
+					orgUnit,
+				};
+			})
+			.flat()
+			.filter((data) => {
+				const average = getAverageValue({
+					meta,
+					dataValues: data.dataValues,
+				});
+
+				return average >= totalAverage;
+			})
+			.map((data, index) => ({ ...data, count: index + 1 }));
+	}
 }

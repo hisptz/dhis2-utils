@@ -23,7 +23,7 @@ import type { SupportedCalendar } from "@dhis2/multi-calendar-dates/build/types/
 import { AverageCell } from "../components/ScorecardTable/components/AverageCell";
 import { AverageHeaderCell } from "../components/ScorecardTable/components/TableHeader/components/AverageHeaderCell";
 import { DataFooterCell } from "../components/ScorecardTable/components/DataFooterCell";
-import { EmptyFooterCell } from "../components/ScorecardTable/components/EmptyFooterCell";
+import { AverageFooterCell } from "../components/ScorecardTable/components/AverageFooterCell";
 
 const columnHelper = createColumnHelper<ScorecardTableData>();
 
@@ -252,7 +252,7 @@ export function getAverageColumn({
 					header: () => null,
 					cell: AverageCell,
 					enableHiding: true,
-					footer: EmptyFooterCell,
+					footer: AverageFooterCell,
 				},
 			),
 		],

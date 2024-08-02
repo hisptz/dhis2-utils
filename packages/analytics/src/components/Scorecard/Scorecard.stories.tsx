@@ -1074,3 +1074,33 @@ export const DataInRows: Story = {
 		},
 	},
 };
+export const FilteredAboveAverage: Story = {
+	name: "Filtered above average",
+	args: {
+		config,
+		state: {
+			options: {
+				...config.options,
+				showDataInRows: true,
+				averageDisplayType: "ABOVE_AVERAGE",
+			},
+			orgUnitSelection: config.orgUnitSelection,
+			periodSelection: config.periodSelection,
+		},
+	},
+};
+export const FilteredBelowAverage: Story = {
+	name: "Filtered below average",
+	args: {
+		config,
+		state: {
+			options: {
+				...config.options,
+				showDataInRows: true,
+				averageDisplayType: "BELOW_AVERAGE",
+			},
+			orgUnitSelection: config.orgUnitSelection,
+			periodSelection: config.periodSelection,
+		},
+	},
+};

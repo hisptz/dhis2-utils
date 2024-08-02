@@ -21,7 +21,7 @@ export type LegendDefinition = z.infer<typeof legendDefinitionSchema>;
 
 export const scorecardViewOptionsSchema = z.object({
 	averageColumn: z.boolean(),
-	averageDisplayType: z.enum(["ALL"]),
+	averageDisplayType: z.enum(["ALL", "ABOVE_AVERAGE", "BELOW_AVERAGE"]),
 	averageRow: z.boolean(),
 	emptyRows: z.boolean(),
 	highlightedIndicators: z.boolean(),
