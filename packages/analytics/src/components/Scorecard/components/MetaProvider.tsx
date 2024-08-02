@@ -9,9 +9,6 @@ export interface ScorecardMeta {
 	orgUnitLevels: Array<{
 		id: string;
 		level: number;
-		organisationUnits: Array<{
-			id: string;
-		}>;
 	}>;
 }
 

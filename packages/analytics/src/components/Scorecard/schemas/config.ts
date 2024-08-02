@@ -57,7 +57,7 @@ export const periodSelectionSchema = z.object({
 			id: z.string(),
 		}),
 	),
-	type: z.string(),
+	type: z.string().optional(),
 });
 
 export type PeriodSelection = z.infer<typeof periodSelectionSchema>;

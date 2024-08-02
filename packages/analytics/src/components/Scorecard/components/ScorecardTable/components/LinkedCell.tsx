@@ -19,10 +19,13 @@ export interface LinkedCellProps {
 		legendDefinition?: LegendDefinition;
 		value?: number;
 	};
+
+	[key: string]: unknown;
 }
 
-export function LinkedCell({ top, bottom }: LinkedCellProps) {
+export function LinkedCell({ top, bottom, ...props }: LinkedCellProps) {
 	const [ref, { height, width }] = useElementSize();
+
 	const {
 		legendDefinition: topLegendDefinition,
 		dataSource: topDataSource,
@@ -40,6 +43,7 @@ export function LinkedCell({ top, bottom }: LinkedCellProps) {
 
 	return (
 		<DataTableCell
+			{...props}
 			/*
       // @ts-ignore */
 			ref={ref}

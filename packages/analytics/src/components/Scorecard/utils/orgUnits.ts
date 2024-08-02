@@ -37,8 +37,5 @@ export function getOrgUnitsForAnalytics(
 }
 
 export function getOrgUnitLevel(orgUnit: ItemMeta & { hierarchy: string }) {
-	console.log({
-		level: orgUnit.hierarchy.split("/").filter(Boolean).length,
-	});
 	return orgUnit.hierarchy.split("/").filter(Boolean).length;
 }

@@ -18,19 +18,15 @@ import { NumberCell } from "../components/ScorecardTable/components/TableHeader/
 import { MetaHeaderCell } from "../components/ScorecardTable/components/TableHeader/components/MetaHeaderCell";
 import { useCalendar } from "./metadata";
 import { MetaFooterCell } from "../components/ScorecardTable/components/MetaFooterCell";
-import { last, sortBy } from "lodash";
 import { getOrgUnitLevel } from "../utils/orgUnits";
+import { useLowestOrgUnitLevel } from "./orgUnit";
 
 const columnHelper = createColumnHelper<ScorecardTableData>();
 
 export function useMetaColumns() {
 	const state = useScorecardState();
-	const meta = useScorecardMeta();
 
-	const lowestLevel = useMemo(() => {
-		const sortedOrgUnitLevels = sortBy(meta?.orgUnitLevels ?? [], "level");
-		return last(sortedOrgUnitLevels)?.level;
-	}, [meta?.orgUnitLevels]);
+	const lowestLevel = useLowestOrgUnitLevel();
 
 	const metaColumns: ColumnDef<ScorecardTableData, any>[] = [
 		columnHelper.accessor(
@@ -54,7 +50,7 @@ export function useMetaColumns() {
 				}
 				const ouLevel = getOrgUnitLevel(orgUnit);
 
-				return ouLevel !== lowestLevel;
+				return ouLevel !== lowestLevel.level;
 			},
 			{
 				id: "expand",
