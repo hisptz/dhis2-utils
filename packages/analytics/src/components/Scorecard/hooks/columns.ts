@@ -35,10 +35,15 @@ export function useMetaColumns() {
 	const metaColumns: ColumnDef<ScorecardTableData, any>[] = [
 		columnHelper.accessor(
 			(rowData) => {
+				if (state?.options?.disableExpanding) {
+					return false;
+				}
+
 				const dataInRows = state?.options?.showDataInRows;
 				if (dataInRows) {
 					return false;
 				}
+
 				if (!lowestLevel) {
 					return false;
 				}

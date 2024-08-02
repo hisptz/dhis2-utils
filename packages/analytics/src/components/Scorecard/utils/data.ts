@@ -2,6 +2,7 @@ import type { ScorecardDataQueryResponse } from "../hooks/data";
 import type { ScorecardMeta } from "../components/MetaProvider";
 import type {
 	ScorecardConfig,
+	ScorecardDataGroup,
 	ScorecardState,
 	ScorecardTableData,
 } from "../schemas/config";
@@ -39,46 +40,9 @@ export function getTableDataFromAnalytics(
 	const dataInRows = state.options.showDataInRows;
 	const showHierarchy = state.options.showHierarchy;
 	const sanitizedAnalyticsData = sanitizeAnalyticsData(data);
-
 	const averageFilter = state.options.averageDisplayType;
-	if (
-		averageFilter !== "ABOVE_AVERAGE" &&
-		averageFilter !== "BELOW_AVERAGE"
-	) {
-		//No need of computing the average of each row
-		if (dataInRows) {
-			//Rows are derived from groups
-			const dataGroups = config.dataSelection.dataGroups;
-			return dataGroups
-				.map(({ dataHolders }) => {
-					return dataHolders.map((dataHolder) => {
-						const { dataSources, id } = dataHolder;
-						const dataItemIds = dataSources.map(({ id }) => id);
-						const dataValues = sanitizedAnalyticsData.filter(
-							(value) => {
-								return dataItemIds.includes(value.dx as string);
-							},
-						);
-						const label =
-							(dataSources.length === 1
-								? head(dataSources)?.label
-								: dataSources.reduce(
-										(acc, { label }) => `${acc} / ${label}`,
-										"",
-									)) ?? "";
 
-						return {
-							id,
-							label,
-							dataValues,
-							dataHolder,
-						};
-					});
-				})
-				.flat()
-				.map((data, index) => ({ ...data, count: index + 1 }));
-		}
-
+	function getOrgUnitData() {
 		return meta.orgUnits
 			.map((orgUnit, i) => {
 				const dataValues = sanitizedAnalyticsData.filter((value) => {
@@ -95,8 +59,50 @@ export function getTableDataFromAnalytics(
 					orgUnit,
 				};
 			})
-			.flat()
-			.map((data, index) => ({ ...data, count: index + 1 }));
+			.flat();
+	}
+
+	function getDataGroupsData(dataGroups: ScorecardDataGroup[]) {
+		return dataGroups
+			.map(({ dataHolders }) => {
+				return dataHolders.map((dataHolder) => {
+					const { dataSources, id } = dataHolder;
+					const dataItemIds = dataSources.map(({ id }) => id);
+					const dataValues = sanitizedAnalyticsData.filter(
+						(value) => {
+							return dataItemIds.includes(value.dx as string);
+						},
+					);
+					const label =
+						(dataSources.length === 1
+							? head(dataSources)?.label
+							: dataSources.reduce(
+									(acc, { label }) => `${acc} / ${label}`,
+									"",
+								)) ?? "";
+
+					return {
+						id,
+						label,
+						dataValues,
+						dataHolder,
+					};
+				});
+			})
+			.flat();
+	}
+
+	if (
+		averageFilter !== "ABOVE_AVERAGE" &&
+		averageFilter !== "BELOW_AVERAGE"
+	) {
+		//No need of computing the average of each row
+		if (dataInRows) {
+			//Rows are derived from groups
+			const dataGroups = config.dataSelection.dataGroups;
+			return getDataGroupsData(dataGroups);
+		}
+		return getOrgUnitData();
 	}
 
 	const totalAverage = getAverageValue({
@@ -108,35 +114,7 @@ export function getTableDataFromAnalytics(
 		if (dataInRows) {
 			//Rows are derived from groups
 			const dataGroups = config.dataSelection.dataGroups;
-			return compact(
-				dataGroups.map(({ dataHolders }) => {
-					return dataHolders.map((dataHolder) => {
-						const { dataSources, id } = dataHolder;
-						const dataItemIds = dataSources.map(({ id }) => id);
-						const dataValues = sanitizedAnalyticsData.filter(
-							(value) => {
-								return dataItemIds.includes(value.dx as string);
-							},
-						);
-
-						const label =
-							(dataSources.length === 1
-								? head(dataSources)?.label
-								: dataSources.reduce(
-										(acc, { label }) => `${acc} / ${label}`,
-										"",
-									)) ?? "";
-
-						return {
-							id,
-							label,
-							dataValues,
-							dataHolder,
-						};
-					});
-				}),
-			)
-				.flat()
+			return getDataGroupsData(dataGroups)
 				.filter((data) => {
 					const average = getAverageValue({
 						meta,
@@ -148,23 +126,7 @@ export function getTableDataFromAnalytics(
 				.map((data, index) => ({ ...data, count: index + 1 }));
 		}
 
-		return meta.orgUnits
-			.map((orgUnit, i) => {
-				const dataValues = sanitizedAnalyticsData.filter((value) => {
-					return orgUnit.uid === value.ou;
-				});
-
-				const label = showHierarchy
-					? orgUnit.hierarchy.replace("/", "") ?? ""
-					: orgUnit.name ?? "";
-
-				return {
-					dataValues,
-					label,
-					orgUnit,
-				};
-			})
-			.flat()
+		return getOrgUnitData()
 			.filter((data) => {
 				const average = getAverageValue({
 					meta,

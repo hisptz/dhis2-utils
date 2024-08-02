@@ -31,6 +31,7 @@ export const scorecardViewOptionsSchema = z.object({
 	title: z.boolean(),
 	arrows: z.boolean(),
 	showDataInRows: z.boolean(),
+	disableExpanding: z.boolean().optional(),
 });
 
 export type ScorecardViewOptions = z.infer<typeof scorecardViewOptionsSchema>;
@@ -157,7 +158,6 @@ export type ScorecardAnalyticsData = z.infer<typeof scorecardAnalyticsData>;
 
 export const scorecardTableData = z.object({
 	label: z.string(),
-	count: z.number(),
 	dataValues: z.array(scorecardAnalyticsData),
 	dataHolder: dataHolderSchema.optional(),
 	orgUnit: z

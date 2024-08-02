@@ -7,7 +7,7 @@ import {
 	createFixedPeriodFromPeriodId,
 	getAdjacentFixedPeriods,
 } from "@dhis2/multi-calendar-dates";
-import { uniq } from "lodash";
+import { isEmpty, uniq } from "lodash";
 import { useScorecardMeta } from "../components/MetaProvider";
 import {
 	getTableDataFromAnalytics,
@@ -104,11 +104,16 @@ export function useGetScorecardData() {
 
 	const data = useMemo(() => {
 		if (rawAnalyticsData) {
-			return getTableDataFromAnalytics(rawAnalyticsData, {
+			const data = getTableDataFromAnalytics(rawAnalyticsData, {
 				meta,
 				state,
 				config,
 			});
+			if (!!state.options.emptyRows) {
+				return data;
+			} else {
+				return data.filter(({ dataValues }) => !isEmpty(dataValues));
+			}
 		}
 		return [];
 	}, [rawAnalyticsData, meta]);
