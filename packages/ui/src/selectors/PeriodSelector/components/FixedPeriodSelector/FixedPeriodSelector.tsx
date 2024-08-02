@@ -101,7 +101,7 @@ export function FixedPeriodSelector({
 			return [];
 		}
 		const periodTypeConfig = periodUtility.getPeriodType(periodType);
-		return periodTypeConfig?.periodsIds?.map((period: BasePeriod) => ({
+		return periodTypeConfig?.periods?.map((period: BasePeriod) => ({
 			name: period.name,
 			code: period.id,
 		}));
