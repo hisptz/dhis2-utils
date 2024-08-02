@@ -11,11 +11,6 @@ export function AverageFooterCell({}: HeaderContext<ScorecardTableData, any>) {
 	const { rawData } = useScorecardData();
 
 	const average = useMemo(() => {
-		console.log({
-			meta,
-			rawData,
-		});
-
 		return getAverageValue({
 			dataValues: rawData,
 			meta: meta!,

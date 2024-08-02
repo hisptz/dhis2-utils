@@ -21,14 +21,8 @@ export function DataFooterCell({
 			column.id,
 		) as ScorecardTableCellData;
 
-		console.log({ dataValue });
-
 		return dataValue.dataSources;
 	}, [state, table.getRowModel().rows]);
-
-	console.log({
-		dataSources,
-	});
 
 	if (dataSources?.length === 1 || state?.options?.showDataInRows) {
 		return (
