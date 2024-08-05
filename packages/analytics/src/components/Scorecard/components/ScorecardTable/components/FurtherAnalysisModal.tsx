@@ -11,9 +11,9 @@ import {
 	ModalTitle,
 } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
-import { Visualization } from "../../../../Visualization";
-import { getOrgUnitsForAnalytics } from "../../../utils/orgUnits";
-import type { DataItemType } from "../../../../Map/components/MapLayer/interfaces";
+import { useState } from "react";
+import { FurtherAnalysisVisualization } from "../FurtherAnalysisVisualization";
+import { FurtherAnalysisDictionary } from "../FurtherAnalysisDictionary";
 
 export interface FurtherAnalysisConfig {
 	orgUnitSelection: OrgUnitSelection;
@@ -32,70 +32,56 @@ export function FurtherAnalysis({
 	onClose,
 	config,
 }: FurtherAnalysisProps) {
-	const orgUnits = getOrgUnitsForAnalytics(config.orgUnitSelection);
-	const periods = config.periodSelection.periods.map(({ id }) => id);
-	const dataItems = config.dataSources.map(({ id }) => id);
+	const [activeElement, setActiveElement] = useState<
+		"visualization" | "dictionary" | undefined
+	>("visualization");
 
 	return (
 		<Modal onClose={onClose} hide={hide} large position="middle">
 			<ModalTitle>{i18n.t("Further Analysis")}</ModalTitle>
 			<ModalContent>
+				{/*<SegmentedControl*/}
+				{/*	options={[*/}
+				{/*		{*/}
+				{/*			value: "visualization",*/}
+				{/*			label: i18n.t("Visualization"),*/}
+				{/*		},*/}
+				{/*		{*/}
+				{/*			value: "dictionary",*/}
+				{/*			label: i18n.t("Dictionary"),*/}
+				{/*		},*/}
+				{/*	]}*/}
+				{/*	selected={activeElement!}*/}
+				{/*	onChange={({ value }) =>*/}
+				{/*		setActiveElement(*/}
+				{/*			value as "visualization" | "dictionary",*/}
+				{/*		)*/}
+				{/*	}*/}
+				{/*/>*/}
 				<div
 					style={{
 						width: "100%",
-						height: 400,
-						padding: 32,
-						minHeight: 500,
-						maxHeight: "80dvh",
+						height: "100%",
+						flexDirection: "column",
+						display: "flex",
 					}}
 				>
-					<Visualization
-						height={400}
-						layout={{
-							columns: ["dx"],
-							filters: ["pe"],
-							rows: ["ou"],
+					<div
+						style={{
+							flex: 1,
+							width: "100%",
+							height: "100%",
 						}}
-						showToolbar
-						showOrgUnitSelector
-						showPeriodSelector
-						defaultVisualizationType={"chart"}
-						dimensions={{
-							ou: orgUnits,
-							pe: periods,
-							dx: dataItems,
-						}}
-						config={{
-							chart: {
-								type: "column",
-								layout: {
-									filter: ["pe"],
-									category: ["ou"],
-									series: ["dx"],
-								},
-							},
-							pivotTable: {},
-							map: {
-								thematicLayers: config.dataSources.map(
-									(item) => ({
-										enabled: true,
-										name: item.label,
-										id: item.id,
-										type: "choropleth",
-										dataItem: {
-											type: item.type as DataItemType,
-											displayName: item.label!,
-											id: item.id,
-											legendConfig: {
-												colorClass: "YlOrBr",
-												scale: 7,
-											},
-										},
-									}),
-								),
-							},
-						}}
-					/>
+					>
+						{activeElement === "dictionary" && (
+							<FurtherAnalysisDictionary
+								config={config}
+							></FurtherAnalysisDictionary>
+						)}
+						{activeElement === "visualization" && (
+							<FurtherAnalysisVisualization config={config} />
+						)}
+					</div>
 				</div>
 			</ModalContent>
 			<ModalActions>
