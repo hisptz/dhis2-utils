@@ -53,6 +53,25 @@ export function SingleDataCell({
 			<DataTableCell
 				onClick={(event) => {
 					event.stopPropagation();
+					setFurtherAnalysisConfig({
+						periodSelection: {
+							periods: [
+								{
+									id: period,
+								},
+							],
+						},
+						orgUnitSelection: {
+							levels: [],
+							groups: [],
+							orgUnits: [
+								{
+									id: orgUnit.uid,
+								},
+							],
+						},
+						dataSources,
+					});
 				}}
 				onContextMenu={(e: any) => {
 					e.preventDefault();

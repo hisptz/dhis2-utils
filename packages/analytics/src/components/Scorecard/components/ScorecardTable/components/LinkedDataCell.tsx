@@ -52,6 +52,28 @@ export function LinkedDataCell({
 					e.preventDefault();
 					setStateActionRef(e.target);
 				}}
+				onClick={(event) => {
+					event.stopPropagation();
+					setFurtherAnalysisConfig({
+						periodSelection: {
+							periods: [
+								{
+									id: period,
+								},
+							],
+						},
+						orgUnitSelection: {
+							levels: [],
+							groups: [],
+							orgUnits: [
+								{
+									id: orgUnit.uid,
+								},
+							],
+						},
+						dataSources,
+					});
+				}}
 				top={{
 					legendDefinition: topLegendDefinition,
 					dataSource: top,
