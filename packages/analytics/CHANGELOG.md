@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.0.16
+
+### Patch Changes
+
+- Fixes
+
 ## 2.0.15
 
 ### Patch Changes
