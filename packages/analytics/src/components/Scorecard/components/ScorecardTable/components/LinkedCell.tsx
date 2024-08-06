@@ -23,7 +23,7 @@ export interface LinkedCellProps {
 	[key: string]: unknown;
 }
 
-export function LinkedCell({ top, bottom, ...props }: LinkedCellProps) {
+function LinkedCellComponent({ top, bottom, ...props }: LinkedCellProps) {
 	const [ref, { height, width }] = useElementSize();
 
 	const {
@@ -107,3 +107,10 @@ export function LinkedCell({ top, bottom, ...props }: LinkedCellProps) {
 		</DataTableCell>
 	);
 }
+
+export const LinkedCell = React.memo(LinkedCellComponent, (prev, next) => {
+	return (
+		prev.top.value === next.top.value &&
+		prev.bottom.value === next.bottom.value
+	);
+});

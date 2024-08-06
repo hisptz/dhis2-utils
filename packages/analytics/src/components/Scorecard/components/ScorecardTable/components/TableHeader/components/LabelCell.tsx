@@ -7,8 +7,9 @@ import { DataTableCell } from "@dhis2/ui";
 import DroppableCell from "../../DroppableCell";
 import { DraggableCell } from "../../DraggableCell";
 import { useScorecardState } from "../../../../StateProvider";
+import { memo } from "react";
 
-export function LabelCell(
+export function LabelCellComponent(
 	props: CellContext<ScorecardTableData, string | number>,
 ) {
 	const data = props.getValue().toString();
@@ -44,3 +45,5 @@ export function LabelCell(
 		</DataTableCell>
 	);
 }
+
+export const LabelCell = memo(LabelCellComponent);

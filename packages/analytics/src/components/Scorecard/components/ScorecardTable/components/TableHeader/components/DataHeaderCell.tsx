@@ -9,7 +9,7 @@ import { DraggableCell } from "../../DraggableCell";
 import DroppableCell from "../../DroppableCell";
 import { useScorecardState } from "../../../../StateProvider";
 
-export function DataHeaderCell({
+export function DataHeaderCellComponent({
 	column,
 	header,
 }: HeaderContext<ScorecardTableData, any>) {
@@ -78,3 +78,5 @@ export function DataHeaderCell({
 		</DataTableColumnHeader>
 	);
 }
+
+export const DataHeaderCell = DataHeaderCellComponent;

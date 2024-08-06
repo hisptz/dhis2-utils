@@ -1,6 +1,6 @@
 import { type ScorecardTableCellData } from "../../../schemas/config";
 import { type ItemMeta } from "../../../hooks/metadata";
-import { type ReactNode, useState } from "react";
+import { memo, type ReactNode, useState } from "react";
 import { head } from "lodash";
 import { DataTableCell } from "@dhis2/ui";
 import { getTextColorFromBackgroundColor } from "../../../utils/legends";
@@ -18,7 +18,7 @@ export interface SingleDataCellProps {
 	period: string;
 }
 
-export function SingleDataCell({
+function SingleDataCellComponent({
 	dataSources,
 	period,
 	orgUnit,
@@ -105,3 +105,5 @@ export function SingleDataCell({
 		</>
 	);
 }
+
+export const SingleDataCell = memo(SingleDataCellComponent);

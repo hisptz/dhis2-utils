@@ -6,9 +6,9 @@ import i18n from "@dhis2/d2-i18n";
 import styles from "../TableHeader.module.css";
 import { FilterArea } from "./FilterArea";
 import { uid } from "@hisptz/dhis2-utils/src";
-import { useRef } from "react";
+import { memo, useRef } from "react";
 
-export function MetaHeaderCell({
+function MetaHeaderCellComponent({
 	header,
 }: HeaderContext<ScorecardTableData, any>) {
 	const randomId = useRef<string>(uid());
@@ -65,3 +65,5 @@ export function MetaHeaderCell({
 		</DataTableColumnHeader>
 	);
 }
+
+export const MetaHeaderCell = memo(MetaHeaderCellComponent);

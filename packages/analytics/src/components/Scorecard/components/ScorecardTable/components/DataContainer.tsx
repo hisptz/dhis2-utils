@@ -3,20 +3,14 @@ import type {
 	ScorecardTableData,
 } from "../../../schemas/config";
 import { useScorecardConfig } from "../../ConfigProvider";
-import type { ItemMeta } from "../../../hooks/metadata";
 import { useScorecardMeta } from "../../MetaProvider";
 import { SingleDataCell } from "./SingleDataCell";
 import { LinkedDataCell } from "./LinkedDataCell";
 import type { CellContext } from "@tanstack/react-table";
 import { DataTableCell } from "@dhis2/ui";
+import { memo } from "react";
 
-export interface DataContainerProps {
-	dataSources: Array<ScorecardTableCellData>;
-	orgUnit: ItemMeta & { hierarchy: string };
-	period: string;
-}
-
-export function DataContainer(
+function DataContainerComponent(
 	props: CellContext<ScorecardTableData, ScorecardTableCellData>,
 ) {
 	const data = props.getValue();
@@ -32,3 +26,5 @@ export function DataContainer(
 
 	return <LinkedDataCell {...data} />;
 }
+
+export const DataContainer = memo(DataContainerComponent);

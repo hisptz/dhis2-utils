@@ -2,7 +2,7 @@ import type { ScorecardTableCellData } from "../../../schemas/config";
 import type { ItemMeta } from "../../../hooks/metadata";
 import { useCellData } from "../../../hooks/cellData";
 import { LinkedCell } from "./LinkedCell";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { FurtherAnalysisMenu } from "./FurtherAnalysisMenu";
 import {
 	FurtherAnalysis,
@@ -15,7 +15,7 @@ export interface LinkedDataCellProps {
 	period: string;
 }
 
-export function LinkedDataCell({
+function LinkedDataCellComponent({
 	dataSources,
 	orgUnit,
 	period,
@@ -96,3 +96,5 @@ export function LinkedDataCell({
 		</>
 	);
 }
+
+export const LinkedDataCell = memo(LinkedDataCellComponent);
