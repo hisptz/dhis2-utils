@@ -94,9 +94,6 @@ export function getLegend({
 	orgUnitLevels?: Array<{
 		id: string;
 		level: number;
-		organisationUnits: Array<{
-			id: string;
-		}>;
 	}>;
 }) {
 	let legends: ScorecardLegend[] = [];

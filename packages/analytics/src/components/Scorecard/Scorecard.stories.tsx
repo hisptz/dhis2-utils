@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Scorecard } from "./Scorecard";
 import type { ScorecardConfig } from "./schemas/config";
+import { useState } from "react";
 
 // const config: ScorecardConfig = {
 // 	additionalLabels: [],
@@ -1641,10 +1642,18 @@ const linkedConfig: ScorecardConfig = {
 const meta: Meta<typeof Scorecard> = {
 	title: "Scorecard",
 	component: Scorecard,
-	decorators: (Story) => {
+	decorators: (Story, context) => {
+		const [state, setState] = useState({
+			options: {
+				...config.options,
+				averageRow: true,
+			},
+			orgUnitSelection: config.orgUnitSelection,
+			periodSelection: config.periodSelection,
+		});
 		return (
 			<div style={{ maxWidth: 1400, overflowX: "auto" }}>
-				<Story />
+				<Story args={{ ...context.args, state, setState }} />
 			</div>
 		);
 	},

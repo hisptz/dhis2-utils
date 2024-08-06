@@ -43,6 +43,5 @@ export function useTableSetup(): TableOptions<ScorecardTableData> {
 		getFilteredRowModel: getFilteredRowModel(),
 		getSortedRowModel: getSortedRowModel(),
 		onColumnVisibilityChange: setColumnVisibility,
-		debugAll: true,
 	};
 }

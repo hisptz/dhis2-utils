@@ -52,7 +52,7 @@ export function LinkedDataCell({
 					e.preventDefault();
 					setStateActionRef(e.target);
 				}}
-				onClick={(event) => {
+				onClick={(event: MouseEvent) => {
 					event.stopPropagation();
 					setFurtherAnalysisConfig({
 						periodSelection: {

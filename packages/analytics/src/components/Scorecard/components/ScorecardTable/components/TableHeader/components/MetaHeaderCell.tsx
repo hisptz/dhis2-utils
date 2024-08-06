@@ -5,10 +5,13 @@ import { useScorecardState } from "../../../../StateProvider";
 import i18n from "@dhis2/d2-i18n";
 import styles from "../TableHeader.module.css";
 import { FilterArea } from "./FilterArea";
+import { uid } from "@hisptz/dhis2-utils/src";
+import { useRef } from "react";
 
 export function MetaHeaderCell({
 	header,
 }: HeaderContext<ScorecardTableData, any>) {
+	const randomId = useRef<string>(uid());
 	const state = useScorecardState();
 	const hasOnePeriod = state?.hasOnePeriod ?? false;
 	const dataInRows = state?.options?.showDataInRows ?? false;
@@ -37,7 +40,7 @@ export function MetaHeaderCell({
 
 	return (
 		<DataTableColumnHeader
-			key={header.id}
+			key={`${header.id}-${randomId.current}`}
 			align="right"
 			onFilterIconClick={() => {}}
 			sortIconTitle={i18n.t("Sort {{nextSortType}}", { nextSortType })}
@@ -53,7 +56,12 @@ export function MetaHeaderCell({
 			rowSpan={rowSpan}
 			className={styles.metaHeader}
 		>
-			{!!filterColumn && <FilterArea column={filterColumn} />}
+			{!!filterColumn && (
+				<FilterArea
+					key={`${header.id}-filter-area`}
+					column={filterColumn}
+				/>
+			)}
 		</DataTableColumnHeader>
 	);
 }

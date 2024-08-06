@@ -1,12 +1,21 @@
 import type { HeaderContext } from "@tanstack/react-table";
-import type { ScorecardTableData } from "../../../../../schemas/config";
+import {
+	ScorecardDraggableItems,
+	type ScorecardTableData,
+} from "../../../../../schemas/config";
 import { DataTableColumnHeader, type DataTableSortDirection } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
+import { DraggableCell } from "../../DraggableCell";
+import DroppableCell from "../../DroppableCell";
+import { useScorecardState } from "../../../../StateProvider";
 
 export function DataHeaderCell({
 	column,
 	header,
 }: HeaderContext<ScorecardTableData, any>) {
+	const state = useScorecardState();
+
+	const dataInRows = state?.options?.showDataInRows ?? false;
 	const label =
 		(header.column.columnDef.meta as { label: string }).label ??
 		(column.columnDef.meta as { label: string }).label;
@@ -26,6 +35,7 @@ export function DataHeaderCell({
 			: column?.getNextSortingOrder() === "desc"
 				? i18n.t("in descending order")
 				: i18n.t("disable");
+
 	return (
 		<DataTableColumnHeader
 			fixed
@@ -48,7 +58,23 @@ export function DataHeaderCell({
 			align="center"
 			colSpan={colSpan}
 		>
-			{bold ? <b>{label}</b> : label}
+			<DroppableCell
+				accept={
+					dataInRows
+						? [ScorecardDraggableItems.data]
+						: [ScorecardDraggableItems.ou]
+				}
+			>
+				<DraggableCell
+					type={
+						dataInRows
+							? ScorecardDraggableItems.ou
+							: ScorecardDraggableItems.data
+					}
+				>
+					{bold ? <b>{label}</b> : label}
+				</DraggableCell>
+			</DroppableCell>
 		</DataTableColumnHeader>
 	);
 }

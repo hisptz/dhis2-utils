@@ -204,3 +204,8 @@ export enum ScorecardTableDimension {
 	PERIODS = "periods",
 	DATA = "data",
 }
+
+export enum ScorecardDraggableItems {
+	ou = "ou",
+	data = "data",
+}

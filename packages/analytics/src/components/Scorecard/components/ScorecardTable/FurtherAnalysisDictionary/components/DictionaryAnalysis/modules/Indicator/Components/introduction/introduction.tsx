@@ -18,8 +18,6 @@ export default function Introduction() {
 		displayDescription: string;
 	}>();
 
-	console.log({ details });
-
 	return (
 		<div>
 			<h2 id={"test-indicator-details"}>{details?.name} </h2>
