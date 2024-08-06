@@ -17,11 +17,11 @@ export interface FixedPeriodSelectorProps {
 }
 
 /**
- * This is a period selector that allows selection of fixed periods only.
+ * This is a period selector that allows selection of fixed periodsIds only.
  *
  * @param {Object} props - The component props.
- * @param {boolean} props.allowFuturePeriods - Whether to allow future periods. Default is false.
- * @param {Array} props.selectedPeriods - The selected periods.
+ * @param {boolean} props.allowFuturePeriods - Whether to allow future periodsIds. Default is false.
+ * @param {Array} props.selectedPeriods - The selected periodsIds.
  * @param {function} props.onSelect - The callback function when a period is selected.
  *
  * @returns {ReactNode} The fixed period selector component.
@@ -96,7 +96,7 @@ export function FixedPeriodSelector({
 		}));
 	}, [periodUtility]);
 
-	const periods = useMemo(() => {
+	const periodsIds = useMemo(() => {
 		if (!periodType) {
 			return [];
 		}
@@ -150,8 +150,8 @@ export function FixedPeriodSelector({
 				}
 				label={i18n.t("Period")}
 				value={head(selectedPeriods)}
-				optionSet={{ options: periods }}
-				name="periods"
+				optionSet={{ options: periodsIds }}
+				name="periodsIds"
 				onChange={(value: string) => onSelect({ items: [value] })}
 			/>
 		</div>

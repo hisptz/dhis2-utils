@@ -1,0 +1,11 @@
+
+.expandCell > td:first-child {
+    left: auto;
+    top: auto;
+    text-align: left;
+    width: auto;
+    background-color: rgb(243, 245, 247);
+    position: sticky;
+    z-index: 1;
+    padding: 10px 12px;
+}
