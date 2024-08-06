@@ -1,5 +1,5 @@
 import type { FurtherAnalysisConfig } from "../components/FurtherAnalysisModal";
-import DictionaryAnalysis from "./components/DictionaryAnalysis";
+import i18n from "@dhis2/d2-i18n";
 
 export interface FurtherAnalysisVisualizationProps {
 	config: FurtherAnalysisConfig;
@@ -17,7 +17,7 @@ export function FurtherAnalysisDictionary({
 				maxHeight: "80dvh",
 			}}
 		>
-			<DictionaryAnalysis dataSources={config.dataSources} />
+			{i18n.t("To be implemented")}
 		</div>
 	);
 }

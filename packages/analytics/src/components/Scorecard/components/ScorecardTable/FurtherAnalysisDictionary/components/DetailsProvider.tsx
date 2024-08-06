@@ -4,7 +4,6 @@ import type {
 	SupportedDataSources,
 } from "../../../../schemas/config";
 import { useDataQuery } from "@dhis2/app-runtime";
-import Loader from "./DictionaryAnalysis/Shared/Componets/Loaders/Loader";
 import i18n from "@dhis2/d2-i18n";
 
 function getResourceFromType(type: SupportedDataSources) {
@@ -59,7 +58,7 @@ export function DetailsProvider({
 	});
 
 	if (loading) {
-		return <Loader />;
+		return <>{i18n.t("Loading...")}</>;
 	}
 
 	if (error) {
