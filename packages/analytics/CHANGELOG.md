@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.0.15
+
+### Patch Changes
+
+- Implementation of scorecard as a reusable component
+
 ## 2.0.14
 
 ### Patch Changes
