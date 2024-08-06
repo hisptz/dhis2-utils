@@ -1,5 +1,11 @@
 # @hisptz/dhis2-ui
 
+## 2.0.14
+
+### Patch Changes
+
+- Fixed for Calendar error
+
 ## 2.0.13
 
 ### Patch Changes
