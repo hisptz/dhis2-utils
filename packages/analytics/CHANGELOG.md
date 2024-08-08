@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.0.18
+
+### Patch Changes
+
+- Fixed on multi calendar package
+
 ## 2.0.17
 
 ### Patch Changes
