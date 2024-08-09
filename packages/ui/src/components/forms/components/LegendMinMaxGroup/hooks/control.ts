@@ -49,7 +49,12 @@ export function useControlMinMaxFields({
                                            value,
                                            highIsGood,
                                            onFieldChange,
-                                       }: { value?: LegendValue[], legendDefinitions: LegendDefinition[], highIsGood: boolean; onFieldChange: (legends: LegendValue[]) => void }) {
+                                       }: {
+    value?: LegendValue[],
+    legendDefinitions: LegendDefinition[],
+    highIsGood: boolean;
+    onFieldChange: (legends: LegendValue[]) => void
+}) {
 
 
     const onChange = useCallback(
@@ -61,7 +66,7 @@ export function useControlMinMaxFields({
             } else {
                 set(updatedList, [legendIndex], legend);
             }
-            onFieldChange(normalizeValues(updatedList, legend, {highIsGood, legendDefinitions}));
+            onFieldChange(updatedList);
         },
         [value, onFieldChange, highIsGood, legendDefinitions],
     );
