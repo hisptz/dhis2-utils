@@ -97,6 +97,7 @@ export const dataSourceSchema = z.object({
 	weight: z.number(),
 	legends: z.union([z.array(legendSchema), orgUnitLevelLegendSchema]),
 	specificTargets: z.array(specificTargetSchema),
+	specificTargetsSet: z.boolean().optional(),
 	description: z.string().optional(),
 });
 

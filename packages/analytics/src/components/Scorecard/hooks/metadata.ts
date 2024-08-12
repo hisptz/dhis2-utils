@@ -75,9 +75,7 @@ type MetaResponse = {
 		organisationUnitLevels: Array<{
 			id: string;
 			level: number;
-			organisationUnits: Array<{
-				id: string;
-			}>;
+			displayName: string;
 		}>;
 	};
 };

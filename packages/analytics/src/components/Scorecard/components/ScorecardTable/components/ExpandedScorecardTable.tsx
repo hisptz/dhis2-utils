@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { getOrgUnitLevel } from "../../../utils/orgUnits";
 import type { OrgUnitSelection, ScorecardState } from "../../../schemas/config";
 import { Scorecard } from "../../../Scorecard";
+import { ScorecardContext } from "../../ScorecardContext";
 
 export function ExpandedScorecardTable({
 	orgUnit,
@@ -34,6 +35,10 @@ export function ExpandedScorecardTable({
 		orgUnitSelection,
 	});
 
+	if (!config) {
+		return null;
+	}
+
 	return (
 		<div
 			style={{
@@ -43,12 +48,9 @@ export function ExpandedScorecardTable({
 				padding: 32,
 			}}
 		>
-			<Scorecard
-				setState={setScorecardState}
-				key={`${orgUnit.uid}-expanded-scorecard`}
-				config={config!}
-				state={scorecardState}
-			/>
+			<ScorecardContext config={config}>
+				<Scorecard />
+			</ScorecardContext>
 		</div>
 	);
 }

@@ -1,11 +1,13 @@
-import { DataTable } from "@dhis2/ui";
+import { DataTable, type DataTableProps } from "@dhis2/ui";
 import { TableHeader } from "./components/TableHeader";
 import { TableBody } from "./components/TableBody";
 import { TableFoot } from "./components/TableFoot";
 import { DndContext } from "@dnd-kit/core";
-import { useScorecardSetState } from "../StateSetProvider";
+import { useScorecardSetState } from "../StateProvider";
 
-export function ScorecardTable() {
+export interface ScorecardTableProps extends Omit<DataTableProps, "children"> {}
+
+export function ScorecardTable(props: ScorecardTableProps) {
 	const updateState = useScorecardSetState();
 	return (
 		<DndContext
@@ -26,7 +28,7 @@ export function ScorecardTable() {
 				}
 			}}
 		>
-			<DataTable layout="auto">
+			<DataTable {...props} layout="auto">
 				<TableHeader />
 				<TableBody />
 				<TableFoot />
