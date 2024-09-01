@@ -364,12 +364,24 @@ export function getDataColumnHeaders({
 	const hasOnePeriod = periods.length === 1;
 
 	if (hasOneGroup) {
-		return head(dataGroups)!.dataHolders.map((dataHolder) => {
-			return getDataHolderColumn({
-				hasOnePeriod,
-				dataHolder,
-				periods,
-				calendar,
+		return dataGroups.map(({ title, dataHolders, id }) => {
+			return columnHelper.group({
+				id: id.toString(),
+				header: DataHeaderCell,
+				meta: {
+					label: title,
+					bold: true,
+				},
+				columns: dataHolders.map((dataHolder) => {
+					return getDataHolderColumn({
+						hasOnePeriod,
+						dataHolder,
+						periods,
+						calendar,
+					});
+				}),
+				enableSorting: false,
+				footer: () => null,
 			});
 		});
 	} else {

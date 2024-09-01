@@ -1,6 +1,7 @@
 import type { ScorecardConfig, ScorecardState } from "../schemas/config";
 import { getDataSourcesFromGroups } from "./dataSources";
 import { getOrgUnitsForAnalytics } from "./orgUnits";
+import type { ScorecardMeta } from "../components";
 
 export function getDimensions({
 	config,
@@ -17,7 +18,19 @@ export function getDimensions({
 	const orgUnitsIds = getOrgUnitsForAnalytics(
 		state?.orgUnitSelection ?? config?.orgUnitSelection,
 	);
-	const periodsIds = state.periodSelection.periods.map(({ id }) => id);
+	const periodsIds = state.periodSelection.periods.map((period) => period.id);
+
+	return {
+		dataItemsIds,
+		orgUnitsIds,
+		periodsIds,
+	};
+}
+
+export function getDimensionsFromMeta({ meta }: { meta: ScorecardMeta }) {
+	const dataItemsIds = meta.dataItems.map((item) => item.uid);
+	const orgUnitsIds = meta.orgUnits.map((orgUnit) => orgUnit.uid);
+	const periodsIds = meta.periods.map((period) => period.uid);
 
 	return {
 		dataItemsIds,

@@ -2,7 +2,7 @@ import {
 	PeriodInterface,
 	PeriodTypeInterface,
 	RelativePeriodConfig,
-} from "../../interfaces/index.js";
+} from "../../interfaces";
 import { DateTime, Interval } from "luxon";
 import { BasePeriod } from "./basePeriod.js";
 import { FIXED_PERIOD_TYPES } from "../../constants/fixed.js";

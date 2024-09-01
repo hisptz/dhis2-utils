@@ -5,9 +5,10 @@ import React, {
 	useContext,
 	useState,
 } from "react";
-import type { ScorecardConfig, ScorecardState } from "../schemas/config";
+import type { ScorecardState } from "../schemas/config";
 import i18n from "@dhis2/d2-i18n";
-import { PeriodUtility } from "@hisptz/dhis2-utils";
+import { useScorecardConfig } from "./ConfigProvider";
+import { getInitialStateFromConfig } from "../utils/state";
 
 export type ScorecardSetState = Dispatch<SetStateAction<ScorecardState>>;
 const ScorecardStateContext = createContext<ScorecardState | null>(null);
@@ -38,20 +39,19 @@ export function useScorecardSetState() {
 }
 
 export const ScorecardStateProvider: React.FC<{
-	config: ScorecardConfig;
 	children: React.ReactNode;
-}> = ({ config, children }) => {
-	const [state, setState] = useState<ScorecardState>({
-		...config,
-	});
-
-	const relativePeriod = PeriodUtility.getPeriodById("LAST_MONTH");
+	initialState?: ScorecardState;
+}> = ({ children, initialState }) => {
+	const config = useScorecardConfig();
+	const [state, setState] = useState<ScorecardState>(
+		initialState ?? getInitialStateFromConfig(config),
+	);
 
 	return (
 		<ScorecardStateContext.Provider
 			value={{
 				...state,
-				hasOnePeriod: state.periodSelection.periods.length === 1,
+				hasOnePeriod: state.periodSelection.periods?.length === 1,
 			}}
 		>
 			<ScorecardSetStateContext.Provider value={setState}>

@@ -1,7 +1,9 @@
 import { type ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { useScorecardConfig } from "../components/ConfigProvider";
-import { useScorecardMeta } from "../components/MetaProvider";
-import { useScorecardState } from "../components/StateProvider";
+import {
+	useScorecardConfig,
+	useScorecardMeta,
+	useScorecardState,
+} from "../components";
 import { useMemo } from "react";
 import {
 	type ScorecardTableCellData,
@@ -164,5 +166,9 @@ export function useTableColumns(): ColumnDef<
 		);
 
 		return columns;
-	}, [state.options.showDataInRows]);
+	}, [
+		state.options.showDataInRows,
+		state.periodSelection,
+		state.orgUnitSelection,
+	]);
 }

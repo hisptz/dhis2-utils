@@ -1,7 +1,6 @@
-import { useScorecardConfig } from "../components/ConfigProvider";
-import { useScorecardState } from "../components/StateProvider";
+import { useScorecardConfig, useScorecardState } from "../components";
 import { useConfig, useDataQuery } from "@dhis2/app-runtime";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { getDimensions } from "../utils/analytics";
 import type { SupportedCalendar } from "@dhis2/multi-calendar-dates/build/types/types";
 
@@ -84,23 +83,22 @@ export function useGetScorecardMeta() {
 	const config = useScorecardConfig();
 	const state = useScorecardState();
 
-	if (!config || !state) {
-		throw new Error(
-			"Invalid scorecard setup. Make sure the valid config and state props are passed.",
-		);
-	}
+	const { dataItemsIds, orgUnitsIds, periodsIds } = useMemo(
+		() =>
+			getDimensions({
+				config,
+				state,
+			}),
+		[state, config],
+	);
 
-	const { dataItemsIds, orgUnitsIds, periodsIds } = getDimensions({
-		config,
-		state,
-	});
-
-	const { loading, data } = useDataQuery<MetaResponse>(query, {
+	const { loading, data, refetch } = useDataQuery<MetaResponse>(query, {
 		variables: {
 			periods: periodsIds,
 			orgUnits: orgUnitsIds,
 			dataItems: dataItemsIds,
 		},
+		lazy: true,
 	});
 
 	const orgUnits = useMemo(() => {
@@ -137,6 +135,14 @@ export function useGetScorecardMeta() {
 		() => data?.ouLevel?.organisationUnitLevels ?? [],
 		[data?.ouLevel?.organisationUnitLevels],
 	);
+
+	useEffect(() => {
+		refetch({
+			periods: periodsIds,
+			orgUnits: orgUnitsIds,
+			dataItems: dataItemsIds,
+		});
+	}, [state.periodSelection, state.orgUnitSelection]);
 
 	return {
 		loading,

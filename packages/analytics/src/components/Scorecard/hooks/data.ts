@@ -1,14 +1,16 @@
-import { useScorecardState } from "../components/StateProvider";
+import {
+	useScorecardConfig,
+	useScorecardMeta,
+	useScorecardState,
+} from "../components";
 import { useMemo } from "react";
-import { getDimensions } from "../utils/analytics";
-import { useScorecardConfig } from "../components/ConfigProvider";
+import { getDimensionsFromMeta } from "../utils/analytics";
 import { useDataQuery } from "@dhis2/app-runtime";
 import {
 	createFixedPeriodFromPeriodId,
 	getAdjacentFixedPeriods,
 } from "@dhis2/multi-calendar-dates";
 import { isEmpty, uniq } from "lodash";
-import { useScorecardMeta } from "../components/MetaProvider";
 import {
 	getTableDataFromAnalytics,
 	sanitizeAnalyticsData,
@@ -65,10 +67,10 @@ export function useGetScorecardData() {
 			"Invalid scorecard setup. Make sure the valid config and state props are passed.",
 		);
 	}
-	const { dataItemsIds, orgUnitsIds, periodsIds } = getDimensions({
-		config,
-		state,
+	const { dataItemsIds, orgUnitsIds, periodsIds } = getDimensionsFromMeta({
+		meta,
 	});
+
 	//We need to make sure each period has a past period
 	const analyticsPeriod = useMemo(() => {
 		const pastPeriods = periodsIds

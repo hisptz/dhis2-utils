@@ -1,11 +1,11 @@
 import { useScorecardConfig } from "../../ConfigProvider";
-import { useScorecardState } from "../../StateProvider";
 import type { ItemMeta } from "../../../hooks/metadata";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { getOrgUnitLevel } from "../../../utils/orgUnits";
-import type { OrgUnitSelection, ScorecardState } from "../../../schemas/config";
+import type { OrgUnitSelection } from "../../../schemas/config";
 import { Scorecard } from "../../../Scorecard";
 import { ScorecardContext } from "../../ScorecardContext";
+import { useScorecardState } from "../../StateProvider";
 
 export function ExpandedScorecardTable({
 	orgUnit,
@@ -30,11 +30,6 @@ export function ExpandedScorecardTable({
 		};
 	}, [orgUnit]);
 
-	const [scorecardState, setScorecardState] = useState<ScorecardState>({
-		...state!,
-		orgUnitSelection,
-	});
-
 	if (!config) {
 		return null;
 	}
@@ -48,8 +43,24 @@ export function ExpandedScorecardTable({
 				padding: 32,
 			}}
 		>
-			<ScorecardContext config={config}>
-				<Scorecard />
+			<ScorecardContext
+				key={`${orgUnit.uid}-expanded`}
+				config={{
+					...config,
+					orgUnitSelection,
+				}}
+				initialState={{
+					...state,
+					orgUnitSelection,
+				}}
+			>
+				<Scorecard
+					tableProps={{
+						scrollWidth: "100%",
+						scrollHeight: "100%",
+						width: "auto",
+					}}
+				/>
 			</ScorecardContext>
 		</div>
 	);

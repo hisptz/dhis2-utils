@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Scorecard } from "./Scorecard";
 import type { ScorecardConfig } from "./schemas/config";
 import { useState } from "react";
+import { ScorecardContext } from "./components";
 
 // const config: ScorecardConfig = {
 // 	additionalLabels: [],
@@ -1653,7 +1654,9 @@ const meta: Meta<typeof Scorecard> = {
 		});
 		return (
 			<div style={{ maxWidth: 1400, overflowX: "auto" }}>
-				<Story args={{ ...context.args, state, setState }} />
+				<ScorecardContext config={config}>
+					<Story args={{ ...context.args }} />
+				</ScorecardContext>
 			</div>
 		);
 	},
