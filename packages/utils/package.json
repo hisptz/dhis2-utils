@@ -1,6 +1,6 @@
 {
   "name": "@hisptz/dhis2-utils",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "main": "./dist/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/types/index.d.ts",

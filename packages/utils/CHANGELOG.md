@@ -1,5 +1,11 @@
 # @hisptz/dhis2-utils
 
+## 2.0.6
+
+### Patch Changes
+
+- 03350ee: Fixes on scorecard view
+
 ## 2.0.5
 
 ### Patch Changes

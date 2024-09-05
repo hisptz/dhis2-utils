@@ -1,5 +1,14 @@
 # @hisptz/dhis2-analytics
 
+## 2.0.19
+
+### Patch Changes
+
+- 03350ee: Fixes on scorecard view
+- Updated dependencies [03350ee]
+  - @hisptz/dhis2-utils@2.0.6
+  - @hisptz/dhis2-ui@2.0.15
+
 ## 2.0.18
 
 ### Patch Changes
