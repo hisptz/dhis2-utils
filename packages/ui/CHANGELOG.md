@@ -1,5 +1,11 @@
 # @hisptz/dhis2-ui
 
+## 2.0.17
+
+### Patch Changes
+
+- react-hook-form deps
+
 ## 2.0.16
 
 ### Patch Changes
