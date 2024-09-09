@@ -1,3 +1,3 @@
-export * from "./fixedPeriod.js";
-export * from "./basePeriod.js";
-export * from "./relativePeriod.js";
+export * from "./fixedPeriod";
+export * from "./basePeriod";
+export * from "./relativePeriod";

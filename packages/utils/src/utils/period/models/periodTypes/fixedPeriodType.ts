@@ -1,9 +1,10 @@
-import { compact, filter } from "lodash";
-import { DateTime, Interval } from "luxon";
-import { PeriodPreference } from "../../interfaces/index.js";
-import { FIXED_PERIOD_TYPES } from "../../constants/fixed.js";
-import { BasePeriodType } from "./basePeriodType.js";
-import { FixedPeriod } from "../periods/index.js";
+import { compact } from "lodash";
+import { PeriodPreference } from "../../interfaces";
+import { BasePeriodType } from "./basePeriodType";
+import { FixedPeriod } from "../periods";
+import { FIXED_PERIOD_TYPES } from "../../constants/fixed";
+import { generateFixedPeriods, periodTypes } from "@dhis2/multi-calendar-dates";
+import { DateTime } from "luxon";
 
 export class FixedPeriodType extends BasePeriodType {
 	get periods(): FixedPeriod[] {
@@ -24,46 +25,35 @@ export class FixedPeriodType extends BasePeriodType {
 	}
 
 	private _generateFixedPeriods(): FixedPeriod[] {
-		const duration = this.duration;
-		const config = this.config;
-		let startDate = this.start;
-		let endDate = this.end;
-		if ([2, 3].includes(config.rank ?? -1)) {
-			//The code below offsets the start date to start on the start of a week (default: Monday), only applied to weekly periods
-			startDate = startDate.plus({ day: 7 - startDate.weekday + 1 });
-		}
-		if (config.offset) {
-			const unit = this.config.offset?.unit ?? this.config.unit;
-			startDate = startDate.plus({ [unit]: config.offset.value });
-			endDate = endDate.plus({ [unit]: config.offset.value });
-		}
-
-		//Filter out intervals falling out of the respective year and are in future if allow future periods is set to false
-		const intervals = filter(
-			Interval.fromDateTimes(startDate, endDate).splitBy(duration),
-			(interval: Interval) => {
-				const isFuture =
-					(interval?.end?.diffNow("days")?.days ?? 0) > 0 &&
-					!interval?.contains(DateTime.now());
-				return (
-					Interval.fromDateTimes(this.start, endDate).engulfs(
-						interval,
-					) &&
-					(this.preference?.allowFuturePeriods || !isFuture)
-				);
-			},
-		);
-		return compact(
-			intervals.map((interval) => {
-				return new FixedPeriod(interval, { type: this.config });
+		const periods = generateFixedPeriods({
+			year: this.year,
+			calendar: this.preference?.calendar ?? "iso8601",
+			periodType: this.id as (typeof periodTypes)[number],
+			locale: this.preference?.locale,
+			yearsCount: this.preference?.yearsCount,
+		});
+		const periodObjects = compact(
+			periods.map((periodConfig) => {
+				return new FixedPeriod({
+					config: periodConfig,
+					nested: false,
+					preference: this.preference,
+					type: this.config,
+				});
 			}),
 		);
+
+		if (this.preference?.allowFuturePeriods) {
+			return periodObjects;
+		}
+
+		return periodObjects.filter((period) => !isPeriodInFuture(period));
 	}
 }
 
 function isPeriodInFuture(period: FixedPeriod) {
 	return (
-		period.end.diffNow("days").days < 0 ||
-		period.interval.contains(DateTime.now())
+		period.end.diffNow("days").days < 0 &&
+		!period.interval.contains(DateTime.now())
 	);
 }
