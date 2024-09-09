@@ -38,6 +38,7 @@
     "usehooks-ts": "^2.9.2"
   },
   "dependencies": {
+    "@dhis2/multi-calendar-dates": "^1.2.4",
     "luxon": "^3.4.4"
   },
   "peerDependencies": {

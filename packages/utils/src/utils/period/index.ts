@@ -1,3 +1,3 @@
-export * from "./interfaces/index.js";
-export * from "./models/index.js";
-export * from "./constants/index.js";
+export * from "./interfaces";
+export * from "./models";
+export * from "./constants";

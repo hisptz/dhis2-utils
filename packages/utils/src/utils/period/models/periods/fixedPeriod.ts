@@ -1,12 +1,27 @@
 import {
 	PeriodInterface,
+	type PeriodPreference,
 	PeriodTypeInterface,
-} from "../../interfaces/index.js";
+} from "../../interfaces";
 import { DateTime, Interval } from "luxon";
-import { BasePeriod } from "./basePeriod.js";
-import { FIXED_PERIOD_TYPES } from "../../constants/fixed.js";
+import { BasePeriod } from "./basePeriod";
+import { FIXED_PERIOD_TYPES } from "../../constants/fixed";
 import { head } from "lodash";
-import { FixedPeriodType } from "../periodTypes/index.js";
+import { FixedPeriodType } from "../periodTypes";
+import {
+	getAdjacentFixedPeriods,
+	type periodTypes,
+} from "@dhis2/multi-calendar-dates";
+
+export interface D2FixedPeriod {
+	displayName: string;
+	iso?: string;
+	id: string;
+	name: string;
+	startDate: string;
+	endDate: string;
+	periodType: (typeof periodTypes)[number];
+}
 
 export class FixedPeriod extends BasePeriod {
 	id: string;
@@ -16,18 +31,34 @@ export class FixedPeriod extends BasePeriod {
 	end: DateTime;
 	interval: Interval;
 	nested: boolean;
+	preference?: PeriodPreference;
+	config: D2FixedPeriod;
 
-	constructor(
-		interval: Interval,
-		{ type, nested }: { type: PeriodTypeInterface; nested?: boolean },
-	) {
+	constructor({
+		config,
+		nested,
+		type,
+		preference,
+	}: {
+		config: D2FixedPeriod;
+		type: PeriodTypeInterface;
+		nested?: boolean;
+		preference?: PeriodPreference;
+	}) {
 		super();
+		this.config = config;
+		const { startDate, endDate, id, name } = config;
+		const interval = Interval.fromDateTimes(
+			DateTime.fromJSDate(new Date(startDate)),
+			DateTime.fromJSDate(new Date(endDate)),
+		);
+		this.preference = preference;
 		this.start = interval.start?.startOf("day") ?? DateTime.now();
 		this.end = interval.end?.endOf("day") ?? DateTime.now();
 		this.type = type;
 		this.interval = interval;
-		this.id = this._generateId();
-		this.name = this._generateName();
+		this.id = id ?? this._generateId();
+		this.name = name ?? this._generateName();
 		this.nested = nested ?? false;
 	}
 
@@ -51,32 +82,33 @@ export class FixedPeriod extends BasePeriod {
 		};
 	}
 
+	private _getAdjacentPeriod(step: number): PeriodInterface | undefined {
+		const previousPeriodObject = getAdjacentFixedPeriods({
+			calendar: this.preference?.calendar ?? "gregory",
+			period: this.config,
+			locale: this.preference?.locale,
+			steps: step,
+		});
+		return new FixedPeriod({
+			config: head(previousPeriodObject)!,
+			nested: true,
+			preference: this.preference,
+			type: this.type,
+		}).get();
+	}
+
 	private _getPreviousPeriod(): PeriodInterface | undefined {
 		if (this.nested) {
 			return;
 		}
-		const newInterval = Interval.before(
-			this.interval.start ?? DateTime.now(),
-			this.interval.toDuration().minus({ day: 4 }),
-		);
-		return new FixedPeriod(newInterval, {
-			type: this.type,
-			nested: true,
-		}).get();
+		return this._getAdjacentPeriod(-1);
 	}
 
 	private _getNextPeriod(): PeriodInterface | undefined {
 		if (this.nested) {
 			return;
 		}
-		const newInterval = Interval.after(
-			this.interval.end ?? DateTime.now(),
-			this.interval.toDuration().minus({ day: 4 }),
-		);
-		return new FixedPeriod(newInterval, {
-			type: this.type,
-			nested: true,
-		}).get();
+		return this._getAdjacentPeriod(1);
 	}
 
 	private _generateId(): string {

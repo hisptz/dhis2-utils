@@ -27,7 +27,6 @@ export function usePeriodGenerator(
 		if (!excludeFixedPeriods) {
 			categories.push(PeriodTypeCategory.FIXED);
 		}
-
 		return categories;
 	}, [excludeRelativePeriods, excludeFixedPeriods]);
 	const [year, setYear] = useState<number>(new Date().getFullYear());
