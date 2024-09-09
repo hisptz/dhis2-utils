@@ -122,8 +122,8 @@ export type ScorecardDataGroup = z.infer<typeof dataGroupSchema>;
 const scorecardConfig = z.object({
 	id: z.string(),
 	title: z.string(),
-	subtitle: z.string(),
-	customHeader: z.string(),
+	subtitle: z.string().optional(),
+	customHeader: z.string().optional(),
 	description: z.string().optional(),
 	legendDefinitions: z.array(legendDefinitionSchema),
 	options: scorecardViewOptionsSchema,
@@ -133,7 +133,7 @@ const scorecardConfig = z.object({
 		dataGroups: z.array(dataGroupSchema),
 	}),
 	highlightedIndicators: z.array(dataSourceSchema),
-	additionalLabels: z.array(z.string()),
+	additionalLabels: z.array(z.string()).optional(),
 });
 
 export type ScorecardConfig = z.infer<typeof scorecardConfig>;
