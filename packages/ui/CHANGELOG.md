@@ -1,5 +1,11 @@
 # @hisptz/dhis2-ui
 
+## 2.0.18
+
+### Patch Changes
+
+- period utility improvement
+
 ## 2.0.17
 
 ### Patch Changes
