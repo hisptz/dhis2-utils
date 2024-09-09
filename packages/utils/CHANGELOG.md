@@ -1,5 +1,11 @@
 # @hisptz/dhis2-utils
 
+## 2.0.7
+
+### Patch Changes
+
+- period utility improvements
+
 ## 2.0.6
 
 ### Patch Changes
