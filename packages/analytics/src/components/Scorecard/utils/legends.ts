@@ -110,7 +110,7 @@ export function getLegend({
 			if (!isEmpty(specificTargets)) {
 				const specificTarget = head(specificTargets)!;
 				switch (specificTarget.type) {
-					case "period":
+					case "periods":
 						const targetLegends = getSpecificTargetLegends(
 							specificTarget,
 							periodId,
