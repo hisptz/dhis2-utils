@@ -3,9 +3,11 @@ import type { RowData } from "@tanstack/react-table";
 
 export const supportedDataSources = z.enum([
 	"indicator",
-	"dataElement",
+	"programIndicator",
 	"dataSet",
-	"",
+	"dataElement",
+	"customFunction",
+	"sqlView",
 ]);
 
 export type SupportedDataSources = z.infer<typeof supportedDataSources>;
@@ -45,8 +47,8 @@ export const organisationUnitSelectionSchema = z.object({
 			id: z.string(),
 		}),
 	),
-	groups: z.array(z.string()),
-	levels: z.array(z.string()),
+	groups: z.array(z.string()).optional(),
+	levels: z.array(z.string()).optional(),
 });
 
 export type OrgUnitSelection = z.infer<typeof organisationUnitSelectionSchema>;
@@ -72,7 +74,7 @@ export const legendSchema = z.object({
 export type ScorecardLegend = z.infer<typeof legendSchema>;
 
 export const specificTargetSchema = z.object({
-	type: z.enum(["period", "orgUnit"]),
+	type: z.enum(["periods", "orgUnit"]),
 	items: z.array(z.string()),
 	legends: z.array(legendSchema),
 });
@@ -88,6 +90,7 @@ export type OrgUnitLevelLegend = z.infer<typeof orgUnitLevelLegendSchema>;
 
 export const dataSourceSchema = z.object({
 	id: z.string(),
+	name: z.string(),
 	label: z.string().optional(),
 	type: supportedDataSources,
 	displayArrows: z.boolean(),
@@ -96,7 +99,7 @@ export const dataSourceSchema = z.object({
 	showColors: z.boolean(),
 	weight: z.number(),
 	legends: z.union([z.array(legendSchema), orgUnitLevelLegendSchema]),
-	specificTargets: z.array(specificTargetSchema),
+	specificTargets: z.array(specificTargetSchema).optional(),
 	specificTargetsSet: z.boolean().optional(),
 	description: z.string().optional(),
 });
