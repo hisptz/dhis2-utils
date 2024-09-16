@@ -5,6 +5,7 @@ import { InputField } from "@dhis2/ui";
 export function RHFTextInputField({
 	name,
 	validations,
+	type,
 	...props
 }: {
 	name: string;
@@ -28,9 +29,20 @@ export function RHFTextInputField({
 					onBlur={onBlur}
 					ref={ref}
 					value={value}
-					onChange={({ value }: { value?: string }) =>
-						onChange(value)
-					}
+					onChange={({ value }: { value?: string }) => {
+						if (value !== undefined) {
+							if (type === "number") {
+								const numberValue = parseFloat(value);
+								if (isNaN(numberValue)) {
+									onChange(value);
+								} else {
+									onChange(numberValue);
+								}
+							}
+						} else {
+							onChange(value);
+						}
+					}}
 				/>
 			)}
 		/>
