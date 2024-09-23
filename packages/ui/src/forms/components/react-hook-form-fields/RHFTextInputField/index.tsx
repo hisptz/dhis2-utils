@@ -38,6 +38,8 @@ export function RHFTextInputField({
 								} else {
 									onChange(numberValue);
 								}
+							} else {
+								onChange(value);
 							}
 						} else {
 							onChange(value);

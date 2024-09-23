@@ -37,17 +37,19 @@ export const legendDefinitionSchema = z.object({
 export type LegendDefinition = z.infer<typeof legendDefinitionSchema>;
 
 export const scorecardViewOptionsSchema = z.object({
-	averageColumn: z.boolean(),
-	averageDisplayType: z.enum(["ALL", "ABOVE_AVERAGE", "BELOW_AVERAGE"]),
-	averageRow: z.boolean(),
-	emptyRows: z.boolean(),
-	highlightedIndicators: z.boolean(),
-	itemNumber: z.boolean(),
-	legend: z.boolean(),
-	showHierarchy: z.boolean(),
-	title: z.boolean(),
-	arrows: z.boolean(),
-	showDataInRows: z.boolean(),
+	averageColumn: z.boolean().optional(),
+	averageDisplayType: z
+		.enum(["ALL", "ABOVE_AVERAGE", "BELOW_AVERAGE"])
+		.optional(),
+	averageRow: z.boolean().optional(),
+	emptyRows: z.boolean().optional(),
+	highlightedIndicators: z.boolean().optional(),
+	itemNumber: z.boolean().optional(),
+	legend: z.boolean().optional(),
+	showHierarchy: z.boolean().optional(),
+	title: z.boolean().optional(),
+	arrows: z.boolean().optional(),
+	showDataInRows: z.boolean().optional(),
 	disableExpanding: z.boolean().optional(),
 });
 
