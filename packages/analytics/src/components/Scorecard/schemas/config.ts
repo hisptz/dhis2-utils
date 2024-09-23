@@ -10,6 +10,21 @@ export const supportedDataSources = z.enum([
 	"sqlView",
 ]);
 
+export const scorecardSharing = z.object({
+	owner: z.string(),
+	external: z.boolean(),
+	users: z.record(
+		z.string(),
+		z.object({ access: z.string(), id: z.string() }),
+	),
+	userGroups: z.record(
+		z.string(),
+		z.object({ access: z.string(), id: z.string() }),
+	),
+});
+
+export type ScorecardSharing = z.infer<typeof scorecardSharing>;
+
 export type SupportedDataSources = z.infer<typeof supportedDataSources>;
 
 export const legendDefinitionSchema = z.object({
@@ -137,6 +152,7 @@ const scorecardConfig = z.object({
 	}),
 	highlightedIndicators: z.array(dataSourceSchema),
 	additionalLabels: z.array(z.string()).optional(),
+	sharing: scorecardSharing,
 });
 
 export type ScorecardConfig = z.infer<typeof scorecardConfig>;
