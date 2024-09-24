@@ -13,6 +13,7 @@ export const supportedDataSources = z.enum([
 export const scorecardSharing = z.object({
 	owner: z.string(),
 	external: z.boolean(),
+	public: z.string(),
 	users: z.record(
 		z.string(),
 		z.object({ access: z.string(), id: z.string() }),

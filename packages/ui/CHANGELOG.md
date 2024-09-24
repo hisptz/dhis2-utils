@@ -1,5 +1,11 @@
 # @hisptz/dhis2-ui
 
+## 2.0.21
+
+### Patch Changes
+
+- Fixed input field
+
 ## 2.0.20
 
 ### Patch Changes

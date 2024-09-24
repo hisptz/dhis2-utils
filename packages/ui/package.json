@@ -1,6 +1,6 @@
 {
   "name": "@hisptz/dhis2-ui",
-  "version": "2.0.20",
+  "version": "2.0.21",
   "main": "./dist/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/types/index.d.ts",
