@@ -16,6 +16,7 @@ export type DataSourceType = {
 	groupKey?: string;
 	native?: boolean;
 	filterType?: string;
+	filter?: string[];
 };
 
 export type DataSourceSelectorProps = {
@@ -28,10 +29,13 @@ export type DataSourceSelectorProps = {
 
 export type Pager = {
 	pageCount: number;
+	page: number;
+	total: number;
+	pageSize: number;
 };
 
 export type DataSourceResponse = {
-	data: Array<any> | undefined;
+	data: Array<{ id: string; displayName?: string; name: string }> | undefined;
 	pager?: Pager;
 };
 

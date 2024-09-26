@@ -1,44 +1,34 @@
 import { Field, Transfer } from "@dhis2/ui";
 import { debounce, find, findIndex, uniqBy } from "lodash";
-import React, { useMemo, useState } from "react";
-import { DataSourceProps } from "../../types/index.js";
+import React, { memo, useMemo, useRef, useState } from "react";
+import { DataSourceProps } from "../../types";
 import DataSourceSearch from "../Search/index.js";
 import useDataSources from "./hooks/useDataSources.js";
+import type { FetchError } from "@dhis2/app-runtime";
 
-export default function DataSource({
-	selectedDataSourceType,
-	selectedGroup,
-	onChange,
-	selected,
-	disabled,
+function DataSourceField({
+	error,
 	maxSelections,
-}: DataSourceProps) {
-	const [searchKeyword, setSearchKeyword] = useState<string | undefined>();
-	const { loading, data, error, nexPage, search } = useDataSources(
-		selectedDataSourceType,
-		selectedGroup,
-	);
-
-	const dataSources = useMemo(() => {
-		const loadedData = data || [];
-		const selectedData = selected || [];
-		return uniqBy([...loadedData, ...selectedData], "id");
-	}, [data, selected, selectedGroup]);
-
-	const onEndReached = () => {
-		if (loading) {
-			return;
-		}
-		nexPage();
-	};
-
-	const onSearchChange = debounce(search, 1000, { maxWait: 1500 });
-
-	const setSearchChange = (keyword: string) => {
-		setSearchKeyword(keyword);
-		onSearchChange(keyword);
-	};
-
+	onEndReached,
+	loading,
+	onChange,
+	selectedDataSourceType,
+	searchKeyword,
+	dataSources,
+	selectedIds,
+	setSearchChange,
+}: {
+	error?: FetchError;
+	maxSelections?: number | string;
+	dataSources: Array<{ label: string; value: string }>;
+	searchKeyword?: string;
+	loading: boolean;
+	onChange: (value: { id: string; type: string; label?: string }[]) => void;
+	selectedDataSourceType: any;
+	onEndReached: () => void;
+	selectedIds: Array<string>;
+	setSearchChange: (value: string) => void;
+}) {
 	return (
 		<Field error={!!error} validationText={error?.message}>
 			<Transfer
@@ -49,7 +39,7 @@ export default function DataSource({
 				}
 				onEndReached={onEndReached}
 				loading={loading}
-				onChange={(value: { selected: Array<any> }) => {
+				onChange={(value: { selected: Array<string> }) => {
 					onChange(
 						value.selected.map((id) => {
 							const selectedDataSource = find(dataSources, [
@@ -57,22 +47,15 @@ export default function DataSource({
 								id,
 							]);
 							return {
+								id,
 								...selectedDataSource,
 								type: selectedDataSourceType?.type,
 							};
 						}),
 					);
 				}}
-				selected={selected?.map(({ id }) => id)}
-				options={
-					dataSources?.map((source) => ({
-						label: source.displayName,
-						value: source.id,
-						disabled:
-							findIndex(disabled, (val) => val === source.id) >=
-							0,
-					})) || []
-				}
+				selected={selectedIds}
+				options={dataSources}
 				leftHeader={
 					<DataSourceSearch
 						setSearchKeyword={setSearchChange}
@@ -81,5 +64,67 @@ export default function DataSource({
 				}
 			/>
 		</Field>
+	);
+}
+
+const MemoDataSourceField = memo(DataSourceField);
+
+export default function DataSource({
+	selectedDataSourceType,
+	selectedGroup,
+	onChange,
+	selected,
+	disabled,
+	maxSelections,
+}: DataSourceProps) {
+	const [searchKeyword, setSearchKeyword] = useState<string | undefined>();
+	const { loading, data, error, nextPage, search } = useDataSources(
+		selectedDataSourceType,
+		selectedGroup,
+	);
+
+	const dataSources = useMemo(() => {
+		const loadedData = data ?? [];
+		const selectedData = selected ?? [];
+		return uniqBy([...loadedData, ...selectedData], "id")?.map(
+			(source) => ({
+				label: source.displayName,
+				value: source.id,
+				disabled: findIndex(disabled, (val) => val === source.id) >= 0,
+			}),
+		);
+	}, [data, selected, selectedGroup]);
+
+	const onEndReached = () => {
+		if (loading) {
+			return;
+		}
+		nextPage();
+	};
+
+	const onSearchChange = useRef(debounce(search, 1000, { maxWait: 1500 }));
+
+	const setSearchChange = (keyword: string) => {
+		setSearchKeyword(keyword);
+		onSearchChange.current(keyword);
+	};
+	const selectedIds = useMemo(
+		() => selected?.map(({ id }) => id),
+		[selected],
+	);
+
+	return (
+		<MemoDataSourceField
+			maxSelections={maxSelections}
+			searchKeyword={searchKeyword}
+			error={error}
+			dataSources={dataSources}
+			loading={loading}
+			onChange={onChange}
+			selectedDataSourceType={selectedDataSourceType}
+			onEndReached={onEndReached}
+			selectedIds={selectedIds}
+			setSearchChange={setSearchChange}
+		/>
 	);
 }

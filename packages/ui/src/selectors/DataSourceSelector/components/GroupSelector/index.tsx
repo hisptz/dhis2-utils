@@ -1,7 +1,7 @@
 import { SingleSelectField, SingleSelectOption } from "@dhis2/ui";
 import { find, isEmpty } from "lodash";
 import React, { useMemo } from "react";
-import { GroupSelectorProps } from "../../types/index.js";
+import { GroupSelectorProps } from "../../types";
 import useDataGroups from "./hooks/useDataGroups.js";
 
 export default function GroupSelector({
@@ -14,24 +14,23 @@ export default function GroupSelector({
 		() =>
 			isEmpty(selectedDataType) ||
 			(isEmpty(selectedDataType.groupResource) &&
-				selectedDataType.type !== "customFunction"),
+				selectedDataType.type !== "customFunction") ||
+			!selectedDataType.groupResource,
 		[selectedDataType.groupResource, groups, loading],
 	);
-
-	if (isEmpty(groups)) {
-		return null;
-	}
 
 	return (
 		<div className="pb-8 w-100">
 			<SingleSelectField
 				clearable
-				selected={selectedGroup?.id}
+				selected={
+					groups?.find(({ id }) => id === selectedGroup?.id)?.id
+				}
 				onChange={({ selected: newValue }: { selected: string }) => {
 					const selectedGroup = find(groups, ["id", newValue]);
 					onSelect(selectedGroup);
 				}}
-				error={error}
+				error={!!error}
 				validationText={error?.message}
 				loading={loading}
 				disabled={disabled}
@@ -41,23 +40,15 @@ export default function GroupSelector({
 						: "Select Group"
 				}
 			>
-				{groups?.map(
-					({
-						displayName,
-						id,
-					}: {
-						displayName: string;
-						id: string;
-					}) => {
-						return (
-							<SingleSelectOption
-								key={id}
-								value={id}
-								label={displayName}
-							/>
-						);
-					},
-				)}
+				{groups?.map(({ displayName, id }) => {
+					return (
+						<SingleSelectOption
+							key={id}
+							value={id}
+							label={displayName ?? ""}
+						/>
+					);
+				})}
 			</SingleSelectField>
 		</div>
 	);

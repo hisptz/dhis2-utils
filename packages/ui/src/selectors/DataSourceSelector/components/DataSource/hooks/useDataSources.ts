@@ -1,102 +1,109 @@
-import { useDataEngine } from "@dhis2/app-runtime";
-import { isArray } from "lodash";
-import { useCallback, useEffect, useState } from "react";
 import DataSource from "../../../models/dataSource.js";
-import { DataSourceResponse } from "../../../types/index.js";
+import { useDataQuery } from "@dhis2/app-runtime";
+import { useEffect, useMemo, useState } from "react";
+import type { Pager } from "../../../types";
+import { isEmpty } from "lodash";
+import { CustomDataSource } from "../../../models/customDataSource";
 
 export default function useDataSources(
 	selectedDataSourceType: DataSource,
 	selectedGroup?: { id: string },
 ) {
-	const [page, setPage] = useState(1);
-	const [totalPages, setTotalPages] = useState<number | undefined>();
-	const [data, setData] = useState<Array<any> | undefined>([]);
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState<Error | undefined>();
-	const engine = useDataEngine();
-
-	const fetchData = useCallback(
-		async (
-			currentPage: number,
-			searchKeyword?: string,
-		): Promise<DataSourceResponse> => {
-			if (searchKeyword || selectedGroup) {
-				return await selectedDataSourceType.filter(engine, {
-					page: currentPage,
-					searchKeyword: searchKeyword ?? "",
-					selectedGroup,
-				});
-			}
-			return await selectedDataSourceType.getDataSources(engine, {
-				page: currentPage,
-			});
-		},
-		[engine, selectedDataSourceType, selectedGroup],
+	const query = useMemo(
+		() => selectedDataSourceType.dataSourcesQuery,
+		[selectedDataSourceType],
 	);
-
-	const search = useCallback(
-		async (keyword: string) => {
-			setLoading(true);
-			try {
-				setPage(1);
-				setTotalPages(undefined);
-				setData([]);
-				const response = await fetchData(1, keyword);
-				if (isArray(response?.data)) {
-					setData([...(response?.data ?? [])]);
-				}
-				setTotalPages(response?.pager?.pageCount);
-				setError(undefined);
-			} catch (e: any) {
-				setLoading(false);
-				setError(e);
-			}
-			setLoading(false);
+	const [dataSources, setDataSources] = useState<
+		| Array<{
+				id: string;
+				displayName: string;
+		  }>
+		| undefined
+	>();
+	const { data, loading, error, refetch } = useDataQuery<{
+		sources: { pager: Pager; [key: string]: unknown };
+	}>(query, {
+		variables: {
+			page: 1,
+			...(selectedGroup
+				? {
+						filter: [
+							...(selectedDataSourceType.filter ?? []),
+							`${selectedDataSourceType.groupKey}:eq:${selectedGroup?.id}`,
+						],
+					}
+				: {
+						filter: [...(selectedDataSourceType.filter ?? [])],
+					}),
 		},
-		[fetchData],
-	);
+		lazy: true,
+	});
 
-	const nexPage = useCallback(async () => {
-		if (totalPages && page < totalPages) {
-			try {
-				setLoading(true);
-				setPage((prevPage) => prevPage + 1);
-				const response = await fetchData(page + 1);
-				setData((prevData) => [
-					...(prevData ?? []),
-					...(response?.data ?? []),
-				]);
-				setError(undefined);
-				setLoading(false);
-			} catch (e: any) {
-				setLoading(false);
-				setError(e);
+	const getSources = (data: {
+		sources: { pager: Pager; [key: string]: unknown };
+	}): Array<{ id: string; displayName: string }> => {
+		if (data) {
+			if (selectedDataSourceType instanceof CustomDataSource) {
+				return selectedDataSourceType.getSources(data);
 			}
+			return data?.sources?.[
+				selectedDataSourceType.resource as string
+			] as Array<{
+				id: string;
+				displayName: string;
+			}>;
 		}
-	}, [data, fetchData, page, totalPages]);
+		return [];
+	};
 
 	useEffect(() => {
-		async function fetch() {
-			if (selectedDataSourceType) {
-				setLoading(true);
-				try {
-					setPage(1);
-					setTotalPages(undefined);
-					setData([]);
-					const response = await fetchData(1);
-					setData(response?.data);
-					setTotalPages(response?.pager?.pageCount);
-					setError(undefined);
-				} catch (e: any) {
-					setLoading(false);
-					setError(e);
-				}
-				setLoading(false);
+		const get = async () => {
+			const data = (await refetch()) as {
+				sources: { pager: Pager; [key: string]: unknown };
+			};
+			setDataSources(getSources(data));
+		};
+		get();
+	}, [selectedDataSourceType, selectedGroup]);
+
+	const nextPage = async () => {
+		if (data) {
+			const pager = data.sources.pager;
+			const currentPage = pager.page;
+			const pageCount = pager.pageCount;
+			if (currentPage < pageCount) {
+				const nextPage = currentPage + 1;
+				const data = (await refetch({
+					page: nextPage,
+				})) as {
+					sources: { pager: Pager; [key: string]: unknown };
+				};
+				//We need to append the data to the existing data
+				setDataSources((prev) => {
+					return [...(prev ?? []), ...getSources(data)];
+				});
 			}
 		}
+	};
 
-		fetch();
-	}, [selectedGroup, selectedDataSourceType, fetchData]);
+	const search = async (keyword: string) => {
+		const filter = [...(selectedDataSourceType.filter ?? [])];
+		if (selectedGroup?.id) {
+			filter.push(
+				`${selectedDataSourceType.groupKey}:eq:${selectedGroup?.id}`,
+			);
+		}
+		if (!isEmpty(keyword)) {
+			filter.push(`identifiable:token:${keyword}`);
+		}
+		const data = (await refetch({
+			page: 1,
+			filter,
+		})) as {
+			sources: { pager: Pager; [key: string]: unknown };
+		};
+		setDataSources(getSources(data));
+	};
 
-	return { data, error, loading, nexPage, search };
+	return { data: dataSources, error, loading, nextPage, search };
 }

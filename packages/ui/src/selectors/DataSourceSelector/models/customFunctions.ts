@@ -5,8 +5,8 @@ import {
 	isArray,
 	isEmpty,
 } from "lodash";
-import { DATASTORE_FUNCTIONS_ENDPOINT } from "../constants/index.js";
-import { DataSourceResponse } from "../types/index.js";
+import { DATASTORE_FUNCTIONS_ENDPOINT } from "../constants";
+import { DataSourceResponse } from "../types";
 import DataSource from "./dataSource.js";
 
 const keysQuery = {
