@@ -1,38 +1,32 @@
-import { useDataEngine } from "@dhis2/app-runtime";
-import { useEffect, useState } from "react";
+import { useDataQuery } from "@dhis2/app-runtime";
 import DataSource from "../../../models/dataSource.js";
+import { useMemo } from "react";
 
 export default function useDataGroups(initialSelectedDataType: DataSource): {
-	groups: Array<any>;
+	groups: Array<{ id: string; displayName: string }>;
 	loading: boolean;
 	error: any;
 } {
-	const [data, setData] = useState<Array<any> | undefined>();
-	const [loading, setLoading] = useState<boolean>(false);
-	const [error, setError] = useState<Error | undefined>();
-	const engine = useDataEngine();
+	const { loading, data, error } = useDataQuery<{
+		groups: Record<string, unknown>;
+	}>(initialSelectedDataType.groupsQuery, {
+		lazy: !initialSelectedDataType.groupResource,
+	});
 
-	useEffect(() => {
-		async function fetch() {
-			if (initialSelectedDataType) {
-				setLoading(true);
-				try {
-					const response: any =
-						await initialSelectedDataType.getGroups(engine);
-					if (response) {
-						setData(response);
-					} else {
-						setData([]);
-					}
-				} catch (e: any) {
-					setError(e);
-				}
-				setLoading(false);
-			}
-		}
+	const groups = useMemo(() => {
+		return (
+			(data?.groups?.[
+				initialSelectedDataType.groupResource as string
+			] as Array<{
+				id: string;
+				displayName: string;
+			}>) ?? []
+		);
+	}, [initialSelectedDataType.groupResource, data]);
 
-		fetch();
-	}, [engine, initialSelectedDataType]);
-
-	return { loading, groups: data ?? [], error };
+	return {
+		loading,
+		groups,
+		error,
+	};
 }

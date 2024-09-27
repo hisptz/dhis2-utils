@@ -1,6 +1,4 @@
-import DataSource from "../models/dataSource.js";
-
-type dataSource =
+export type dataSource =
 	| "indicator"
 	| "programIndicator"
 	| "dataSet"
@@ -16,6 +14,7 @@ export type DataSourceType = {
 	groupKey?: string;
 	native?: boolean;
 	filterType?: string;
+	filter?: string[];
 };
 
 export type DataSourceSelectorProps = {
@@ -28,24 +27,24 @@ export type DataSourceSelectorProps = {
 
 export type Pager = {
 	pageCount: number;
+	page: number;
+	total: number;
+	pageSize: number;
 };
 
 export type DataSourceResponse = {
-	data: Array<any> | undefined;
+	data: Array<{ id: string; displayName?: string; name: string }> | undefined;
 	pager?: Pager;
 };
 
 export type DataSourceProps = {
-	selectedDataSourceType: DataSource;
 	selectedGroup?: { id: string };
 	onChange: (value: Array<any>) => void;
-	selected: Array<any>;
 	disabled?: Array<string>;
 	maxSelections?: number | string;
 };
 
 export type GroupSelectorProps = {
-	selectedDataType: DataSource;
 	onSelect: (value: any) => void;
 	selectedGroup?: { id: string };
 };

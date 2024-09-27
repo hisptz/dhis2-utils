@@ -1,4 +1,4 @@
-import { DataSourceType } from "../types/index.js";
+import { DataSourceType } from "../types";
 
 export const DATA_SOURCES: Array<DataSourceType> = [
 	{
@@ -35,7 +35,8 @@ export const DATA_SOURCES: Array<DataSourceType> = [
 		dimensionItemType: "DATA_ELEMENT",
 		groupKey: "dataElementGroups.id",
 		type: "dataElement",
-		native: false,
+		native: true,
+		filter: [`valueType:eq:NUMBER`],
 	},
 	{
 		label: "Data Sets",

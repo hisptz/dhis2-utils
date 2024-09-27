@@ -1,4 +1,4 @@
-import { type DataSourceResponse, DataSourceType } from "../types/index.js";
+import { DataSourceType } from "../types";
 import DataSource from "./dataSource.js";
 
 export default class NativeDataSource extends DataSource {
@@ -18,8 +18,9 @@ export default class NativeDataSource extends DataSource {
 		groupKey,
 		type,
 		filterType,
+		filter,
 	}: DataSourceType) {
-		super({ resource, label, type });
+		super({ resource, label, type, filter });
 		this.resource = resource;
 		this.groupResource = groupResource;
 		this.dimensionItemType = dimensionItemType;
@@ -32,6 +33,7 @@ export default class NativeDataSource extends DataSource {
 				params: {
 					fields: [
 						"displayName",
+						"name",
 						"id",
 						`${this?.resource}[displayName,id,shortName,description,name]`,
 					],
@@ -64,57 +66,5 @@ export default class NativeDataSource extends DataSource {
 				}),
 			},
 		};
-
-		this.getGroups = this.getGroups.bind(this);
-		this.getDataSources = this.getDataSources.bind(this);
-		this.filter = this.filter.bind(this);
-	}
-
-	async getGroups(engine: any) {
-		return (await engine.query(this.groupsQuery))?.groups?.[
-			`${this.groupResource}`
-		];
-	}
-
-	async getDataSources(
-		engine: any,
-		{
-			page,
-			filter,
-			programId,
-		}: { page: number; filter?: Array<string>; programId?: string },
-	) {
-		const response = await engine?.query(this.dataSourcesQuery, {
-			variables: {
-				page,
-				filter: filter ?? [],
-			},
-		});
-		return {
-			data: response?.sources?.[this.resource],
-			pager: response?.sources?.pager,
-		};
-	}
-
-	async filter(
-		engine: any,
-		{
-			page,
-			selectedGroup,
-			searchKeyword,
-		}: {
-			page: number;
-			selectedGroup: { id: string };
-			searchKeyword: string;
-		},
-	): Promise<DataSourceResponse> {
-		const filter = [];
-		if (selectedGroup?.id) {
-			filter.push(`${this.groupKey}:eq:${selectedGroup.id}`);
-		}
-		if (searchKeyword) {
-			filter.push(`identifiable:token:${searchKeyword}`);
-		}
-		return await this.getDataSources(engine, { page, filter });
 	}
 }
