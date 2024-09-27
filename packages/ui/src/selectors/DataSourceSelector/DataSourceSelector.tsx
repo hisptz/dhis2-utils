@@ -1,14 +1,7 @@
-import { Chip, CssReset } from "@dhis2/ui";
-import { head } from "lodash";
-import React, { useMemo, useState } from "react";
-import DataSource from "./components/DataSource/index.js";
-import GroupSelector from "./components/GroupSelector/index.js";
-import { DATA_SOURCES } from "./constants/index.js";
-import DataSourceModel from "./models/dataSource.js";
-import NativeDataSource from "./models/nativeDataSource.js";
-import { DataSourceSelectorProps, SelectedDataItem } from "./types/index.js";
-import { getDataSourcesList } from "./utils/index.js";
-import styled from "styled-components";
+import React from "react";
+import { DataSourceSelectorProps } from "./types";
+import { DataSourceSelectorProvider } from "./components/ConfigProvider";
+import { MemoSelector } from "./components/Selector";
 
 /**
  * The `DataSourceSelector` is a component that simplifies the selection of DHIS2 data dimensions.
@@ -37,74 +30,16 @@ export function DataSourceSelector({
 	maxSelections,
 	selected,
 }: DataSourceSelectorProps) {
-	const dataSourcesList = useMemo(
-		() => getDataSourcesList(dataSources),
-		[dataSources],
-	);
-	const [selectedDataSourceType, setSelectedDataSourceType] =
-		useState<DataSourceModel>(
-			head(dataSourcesList) ?? new NativeDataSource(DATA_SOURCES[0]),
-		);
-	const [selectedGroup, setSelectedGroup] = useState();
-	const onGroupChange = (group: React.SetStateAction<undefined>) => {
-		setSelectedGroup(group);
-	};
-
-	const onDataSourceSelect = (selected: Array<SelectedDataItem>) => {
-		onSelect(selected);
-	};
-
-	const onDataSourceTypeChange = (sourceType: DataSourceModel) => {
-		setSelectedGroup(undefined);
-		setSelectedDataSourceType(sourceType);
-	};
-
-	const BorderedContainer = styled.div`{
-        box-sizing: border-box;
-        border-radius: 4px;
-        border: 1px solid #A0ADBA;
-        display: flex;
-        flex-direction: column;
-        padding: 8px;
-    }`;
-
 	return (
-		<div className="start">
-			<CssReset />
-			<BorderedContainer>
-				<div className="row p-8 wrap">
-					{dataSourcesList.length > 1 &&
-						dataSourcesList?.map((source) => (
-							<Chip
-								onClick={() => onDataSourceTypeChange(source)}
-								selected={
-									selectedDataSourceType?.label ===
-									source.label
-								}
-								key={`chip-${source.label}`}
-							>
-								{source.label}
-							</Chip>
-						))}
-				</div>
-				<div style={{ display: "flex", flexDirection: "column" }}>
-					<GroupSelector
-						selectedGroup={selectedGroup}
-						onSelect={onGroupChange}
-						selectedDataType={selectedDataSourceType}
-					/>
-					<div style={{ paddingTop: 16 }}>
-						<DataSource
-							maxSelections={maxSelections}
-							disabled={disabled}
-							selected={selected ?? []}
-							onChange={onDataSourceSelect}
-							selectedGroup={selectedGroup}
-							selectedDataSourceType={selectedDataSourceType}
-						/>
-					</div>
-				</div>
-			</BorderedContainer>
-		</div>
+		<DataSourceSelectorProvider
+			selected={selected}
+			dataSources={dataSources}
+		>
+			<MemoSelector
+				onSelect={onSelect}
+				maxSelections={maxSelections}
+				disabled={disabled}
+			/>
+		</DataSourceSelectorProvider>
 	);
 }

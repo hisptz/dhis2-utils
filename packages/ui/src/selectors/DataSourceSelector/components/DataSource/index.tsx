@@ -5,6 +5,7 @@ import { DataSourceProps } from "../../types";
 import DataSourceSearch from "../Search/index.js";
 import useDataSources from "./hooks/useDataSources.js";
 import type { FetchError } from "@dhis2/app-runtime";
+import { useSelectedDataSource, useSelectedValue } from "../ConfigProvider";
 
 function DataSourceField({
 	error,
@@ -43,12 +44,13 @@ function DataSourceField({
 					onChange(
 						value.selected.map((id) => {
 							const selectedDataSource = find(dataSources, [
-								"id",
+								"value",
 								id,
 							]);
 							return {
 								id,
-								...selectedDataSource,
+								...(selectedDataSource ?? {}),
+								displayName: selectedDataSource?.label,
 								type: selectedDataSourceType?.type,
 							};
 						}),
@@ -70,13 +72,14 @@ function DataSourceField({
 const MemoDataSourceField = memo(DataSourceField);
 
 export default function DataSource({
-	selectedDataSourceType,
 	selectedGroup,
 	onChange,
-	selected,
 	disabled,
 	maxSelections,
 }: DataSourceProps) {
+	const selected = useSelectedValue();
+	const selectedDataSourceType = useSelectedDataSource();
+
 	const [searchKeyword, setSearchKeyword] = useState<string | undefined>();
 	const { loading, data, error, nextPage, search } = useDataSources(
 		selectedDataSourceType,
@@ -86,6 +89,8 @@ export default function DataSource({
 	const dataSources = useMemo(() => {
 		const loadedData = data ?? [];
 		const selectedData = selected ?? [];
+		console.log({ selectedData });
+		console.log({ loadedData });
 		return uniqBy([...loadedData, ...selectedData], "id")?.map(
 			(source) => ({
 				label: source.displayName,

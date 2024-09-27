@@ -1,6 +1,4 @@
-import DataSource from "../models/dataSource.js";
-
-type dataSource =
+export type dataSource =
 	| "indicator"
 	| "programIndicator"
 	| "dataSet"
@@ -40,16 +38,13 @@ export type DataSourceResponse = {
 };
 
 export type DataSourceProps = {
-	selectedDataSourceType: DataSource;
 	selectedGroup?: { id: string };
 	onChange: (value: Array<any>) => void;
-	selected: Array<any>;
 	disabled?: Array<string>;
 	maxSelections?: number | string;
 };
 
 export type GroupSelectorProps = {
-	selectedDataType: DataSource;
 	onSelect: (value: any) => void;
 	selectedGroup?: { id: string };
 };

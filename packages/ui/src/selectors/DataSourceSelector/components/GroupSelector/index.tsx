@@ -3,12 +3,13 @@ import { find, isEmpty } from "lodash";
 import React, { useMemo } from "react";
 import { GroupSelectorProps } from "../../types";
 import useDataGroups from "./hooks/useDataGroups.js";
+import { useSelectedDataSource } from "../ConfigProvider";
 
 export default function GroupSelector({
-	selectedDataType,
 	onSelect,
 	selectedGroup,
 }: GroupSelectorProps) {
+	const selectedDataType = useSelectedDataSource();
 	const { loading, groups, error } = useDataGroups(selectedDataType);
 	const disabled = useMemo(
 		() =>
