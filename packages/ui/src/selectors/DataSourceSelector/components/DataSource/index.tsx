@@ -89,8 +89,6 @@ export default function DataSource({
 	const dataSources = useMemo(() => {
 		const loadedData = data ?? [];
 		const selectedData = selected ?? [];
-		console.log({ selectedData });
-		console.log({ loadedData });
 		return uniqBy([...loadedData, ...selectedData], "id")?.map(
 			(source) => ({
 				label: source.displayName,
