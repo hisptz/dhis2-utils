@@ -1,18 +1,18 @@
-import DataSource from "../../../models/dataSource.js";
 import { useDataQuery } from "@dhis2/app-runtime";
 import { useEffect, useMemo, useState } from "react";
 import type { Pager } from "../../../types";
 import { isEmpty } from "lodash";
 import { CustomDataSource } from "../../../models/customDataSource";
+import { useSelectedDataSource } from "../../ConfigProvider";
 
-export default function useDataSources(
-	selectedDataSourceType: DataSource,
-	selectedGroup?: { id: string },
-) {
+export default function useDataSources(selectedGroup?: { id: string }) {
+	const selectedDataSourceType = useSelectedDataSource();
+
 	const query = useMemo(
 		() => selectedDataSourceType.dataSourcesQuery,
-		[selectedDataSourceType],
+		[selectedDataSourceType.dataSourcesQuery],
 	);
+
 	const [dataSources, setDataSources] = useState<
 		| Array<{
 				id: string;
@@ -64,7 +64,7 @@ export default function useDataSources(
 			setDataSources(getSources(data));
 		};
 		get();
-	}, [selectedDataSourceType, selectedGroup]);
+	}, [selectedDataSourceType.label, selectedGroup, refetch]);
 
 	const nextPage = async () => {
 		if (data) {

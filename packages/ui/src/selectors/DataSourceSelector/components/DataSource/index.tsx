@@ -13,7 +13,6 @@ function DataSourceField({
 	onEndReached,
 	loading,
 	onChange,
-	selectedDataSourceType,
 	searchKeyword,
 	dataSources,
 	selectedIds,
@@ -25,11 +24,12 @@ function DataSourceField({
 	searchKeyword?: string;
 	loading: boolean;
 	onChange: (value: { id: string; type: string; label?: string }[]) => void;
-	selectedDataSourceType: any;
 	onEndReached: () => void;
 	selectedIds: Array<string>;
 	setSearchChange: (value: string) => void;
 }) {
+	const selectedDataSourceType = useSelectedDataSource();
+
 	return (
 		<Field error={!!error} validationText={error?.message}>
 			<Transfer
@@ -78,13 +78,10 @@ export default function DataSource({
 	maxSelections,
 }: DataSourceProps) {
 	const selected = useSelectedValue();
-	const selectedDataSourceType = useSelectedDataSource();
 
 	const [searchKeyword, setSearchKeyword] = useState<string | undefined>();
-	const { loading, data, error, nextPage, search } = useDataSources(
-		selectedDataSourceType,
-		selectedGroup,
-	);
+	const { loading, data, error, nextPage, search } =
+		useDataSources(selectedGroup);
 
 	const dataSources = useMemo(() => {
 		const loadedData = data ?? [];
@@ -124,7 +121,6 @@ export default function DataSource({
 			dataSources={dataSources}
 			loading={loading}
 			onChange={onChange}
-			selectedDataSourceType={selectedDataSourceType}
 			onEndReached={onEndReached}
 			selectedIds={selectedIds}
 			setSearchChange={setSearchChange}

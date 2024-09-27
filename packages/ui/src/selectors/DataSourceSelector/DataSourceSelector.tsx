@@ -36,6 +36,7 @@ export function DataSourceSelector({
 			dataSources={dataSources}
 		>
 			<MemoSelector
+				dataSources={dataSources}
 				onSelect={onSelect}
 				maxSelections={maxSelections}
 				disabled={disabled}

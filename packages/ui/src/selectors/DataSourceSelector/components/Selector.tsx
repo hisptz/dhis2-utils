@@ -5,12 +5,17 @@ import React, { memo, useState } from "react";
 import styled from "styled-components";
 import { DataSourceList } from "./DataSourceList";
 import { type DataSourceSelectorProps, SelectedDataItem } from "../types";
+import { useSelectedDataSource } from "./ConfigProvider";
 
 function Selector({
 	maxSelections,
 	onSelect,
 	disabled,
-}: Pick<DataSourceSelectorProps, "maxSelections" | "onSelect" | "disabled">) {
+	dataSources,
+}: Pick<
+	DataSourceSelectorProps,
+	"maxSelections" | "onSelect" | "disabled" | "dataSources"
+>) {
 	const BorderedContainer = styled.div`{
         box-sizing: border-box;
         border-radius: 4px;
@@ -29,11 +34,13 @@ function Selector({
 		onSelect(selected);
 	};
 
+	useSelectedDataSource();
+
 	return (
 		<div className="start">
 			<CssReset />
 			<BorderedContainer>
-				<DataSourceList />
+				<DataSourceList dataSources={dataSources} />
 				<div
 					style={{
 						display: "flex",
