@@ -30,8 +30,9 @@ export class FixedPeriodType extends BasePeriodType {
 			calendar: this.preference?.calendar ?? "iso8601",
 			periodType: this.id as (typeof periodTypes)[number],
 			locale: this.preference?.locale,
-			yearsCount: this.preference?.yearsCount,
+			yearsCount: this.preference?.yearsCount ?? 10,
 		});
+
 		const periodObjects = compact(
 			periods.map((periodConfig) => {
 				return new FixedPeriod({
@@ -51,9 +52,9 @@ export class FixedPeriodType extends BasePeriodType {
 	}
 }
 
-function isPeriodInFuture(period: FixedPeriod) {
+export function isPeriodInFuture(period: FixedPeriod) {
 	return (
-		period.end.diffNow("days").days < 0 &&
+		period.start.diffNow("day").days > 0 &&
 		!period.interval.contains(DateTime.now())
 	);
 }

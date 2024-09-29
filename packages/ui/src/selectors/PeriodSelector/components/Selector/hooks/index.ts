@@ -34,16 +34,18 @@ export function usePeriodGenerator(
 		head(categories) ?? PeriodTypeCategory.RELATIVE,
 	);
 	const periodUtility = useMemo(() => {
-		return PeriodUtility.fromObject({
-			year,
-			preference,
-			category,
-		});
+		const periodUtility = new PeriodUtility();
+		periodUtility.setYear(year);
+		periodUtility.setPreference(preference);
+		periodUtility.setCategory(category);
+
+		return periodUtility;
 	}, [year, category]);
 	const periodTypes = useMemo(
 		() => periodUtility.periodTypes,
 		[periodUtility],
 	);
+
 	const filteredPeriodTypes = useMemo(() => {
 		if (!isEmpty(excludedPeriodTypes)) {
 			return filter(
