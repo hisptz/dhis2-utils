@@ -16,7 +16,7 @@ import { difference, isEmpty } from "lodash";
 import EmptyList from "../../shared/components/EmptyList.js";
 import classes from "./SimpleDataTable.module.css";
 import cx from "classnames";
-import { SimpleDataTableProps } from "./types/index.js";
+import { SimpleDataTableProps } from "./types";
 
 /**
  * SimpleDataTable is a simplified abstraction of the `DataTable` from `@dhis2/ui`
@@ -191,38 +191,48 @@ export const SimpleDataTable: React.FC<SimpleDataTableProps> = ({
 							</td>
 						</tr>
 					) : null}
-					{rows?.map((data, index) => (
-						<DataTableRow
-							selected={selectedRows?.includes(data.id)}
-							key={`${data.id}-${index}-row`}
-						>
-							{selectable && (
-								<DataTableCell
-									{...(data.cellsStyle ?? {})}
-									width="48px"
-								>
-									<Checkbox
-										checked={selectedRows?.includes(
-											data.id,
-										)}
-										onChange={handleRowSelect(data.id)}
-										value="id_1"
-									/>
-								</DataTableCell>
-							)}
-							{columns.map(({ key }) => {
-								return (
+					{rows?.map((data, index) => {
+						const selection = !(
+							data.cellsStyle?.disableSelection ?? false
+						);
+
+						return (
+							<DataTableRow
+								selected={selectedRows?.includes(data.id)}
+								key={`${data.id}-${index}-row`}
+							>
+								{selectable && (
 									<DataTableCell
 										{...(data.cellsStyle ?? {})}
-										onClick={handleRowClick(data.id)}
-										key={`${data.id}-${key}-cell`}
+										width="48px"
 									>
-										{data[key]}
+										{selection && (
+											<Checkbox
+												checked={selectedRows?.includes(
+													data.id,
+												)}
+												onChange={handleRowSelect(
+													data.id,
+												)}
+												value="id_1"
+											/>
+										)}
 									</DataTableCell>
-								);
-							})}
-						</DataTableRow>
-					))}
+								)}
+								{columns.map(({ key }) => {
+									return (
+										<DataTableCell
+											{...(data.cellsStyle ?? {})}
+											onClick={handleRowClick(data.id)}
+											key={`${data.id}-${key}-cell`}
+										>
+											{data[key]}
+										</DataTableCell>
+									);
+								})}
+							</DataTableRow>
+						);
+					})}
 				</DataTableBody>
 			</DataTable>
 			{pagination && (

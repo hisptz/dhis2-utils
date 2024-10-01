@@ -1,5 +1,11 @@
 # @hisptz/dhis2-utils
 
+## 2.0.8
+
+### Patch Changes
+
+- Fixed issues with period utilities future filter filtering all periods except one previous period
+
 ## 2.0.7
 
 ### Patch Changes

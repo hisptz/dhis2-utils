@@ -37,7 +37,17 @@ export interface SimpleDataTableRow {
 	 * ...
 	 * @property {any} [propertyN] - The value for propertyN.
 	 */
-	cellsStyle?: Record<string, any>;
+	cellsStyle?: {
+		tag?: string;
+		active?: boolean;
+		disableSelection?: boolean;
+		onClick?: () => void;
+		align?: "right" | "center" | "left";
+		error?: boolean;
+		valid?: boolean;
+		muted?: boolean;
+		backgroundColor?: string;
+	};
 
 	[key: string]: any;
 }

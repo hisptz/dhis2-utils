@@ -1,5 +1,14 @@
 # @hisptz/dhis2-analytics
 
+## 2.0.31
+
+### Patch Changes
+
+- Fixed issues with period utilities future filter filtering all periods except one previous period
+- Updated dependencies
+  - @hisptz/dhis2-utils@2.0.8
+  - @hisptz/dhis2-ui@2.0.24
+
 ## 2.0.30
 
 ### Patch Changes
