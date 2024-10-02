@@ -1,6 +1,6 @@
 import type { HeaderContext } from "@tanstack/react-table";
 import type {
-	ScorecardTableCellData,
+	ScorecardTableCellConfig,
 	ScorecardTableData,
 } from "../../../schemas/config";
 import { useAverage } from "../../../hooks/average";
@@ -11,8 +11,8 @@ export function LinkedDataFooterCell({
 	column,
 	header,
 	dataSources,
-}: HeaderContext<ScorecardTableData, ScorecardTableCellData> & {
-	dataSources: ScorecardTableCellData["dataSources"];
+}: HeaderContext<ScorecardTableData, ScorecardTableCellConfig> & {
+	dataSources: ScorecardTableCellConfig["dataSources"];
 }) {
 	const [top, bottom] = dataSources ?? [];
 

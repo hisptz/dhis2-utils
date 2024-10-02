@@ -38,7 +38,7 @@ export interface SimpleDataTableRow {
 	 * @property {any} [propertyN] - The value for propertyN.
 	 */
 	cellsStyle?: {
-		tag?: string;
+		tag?: "td" | "th";
 		active?: boolean;
 		disableSelection?: boolean;
 		onClick?: () => void;

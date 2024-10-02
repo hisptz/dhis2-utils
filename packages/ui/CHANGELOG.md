@@ -1,5 +1,11 @@
 # @hisptz/dhis2-ui
 
+## 2.0.25
+
+### Patch Changes
+
+- Fixes on SimpleDataTable
+
 ## 2.0.24
 
 ### Patch Changes

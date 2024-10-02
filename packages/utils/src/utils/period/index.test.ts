@@ -10,8 +10,18 @@ describe("Instantiate Period utility class for fixed periods", () => {
 		},
 		category: PeriodTypeCategory.FIXED,
 	});
-	it("should have 17 fixed periods", () => {
+	it("should have 17 fixed period types ", () => {
 		expect(periodUtility.periodTypes.length).toBe(17);
+	});
+	it("should have 12 fixed periods for monthly periods", () => {
+		const monthlyPeriodType = periodUtility.getPeriodType("MONTHLY");
+		expect(monthlyPeriodType.periods.length).toBe(12);
+	});
+	it("should have periods in the year 2021", () => {
+		const monthlyPeriodType = periodUtility.getPeriodType("MONTHLY");
+		for (const period of monthlyPeriodType.periods) {
+			expect(period.start.year).toBe(2021);
+		}
 	});
 });
 
@@ -27,6 +37,7 @@ describe("Instantiate Period utility class for relative periods", () => {
 		expect(periodUtility.periodTypes.length).toBe(9);
 	});
 });
+
 describe("Get Period by id", () => {
 	const fixedPeriod = PeriodUtility.getPeriodById("2022Q3");
 	const relativePeriod = PeriodUtility.getPeriodById("LAST_MONTH");
@@ -34,6 +45,7 @@ describe("Get Period by id", () => {
 	expect(fixedPeriod.type.type).toBe(PeriodTypeCategory.FIXED);
 	expect(relativePeriod.type.type).toBe(PeriodTypeCategory.RELATIVE);
 });
+
 describe("Get periods with allowing future periods", () => {
 	const utility = PeriodUtility.fromObject({
 		year: DateTime.now().year,

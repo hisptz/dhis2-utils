@@ -6,7 +6,7 @@ import {
 } from "../components";
 import { useMemo } from "react";
 import {
-	type ScorecardTableCellData,
+	type ScorecardTableCellConfig,
 	type ScorecardTableData,
 } from "../schemas/config";
 import {
@@ -120,7 +120,7 @@ export function useMetaColumns() {
 
 export function useTableColumns(): ColumnDef<
 	ScorecardTableData,
-	ScorecardTableCellData
+	ScorecardTableCellConfig
 >[] {
 	const config = useScorecardConfig();
 	const meta = useScorecardMeta();

@@ -1,4 +1,4 @@
-import type { ScorecardTableCellData } from "../schemas/config";
+import type { ScorecardTableCellConfig } from "../schemas/config";
 import { useScorecardConfig } from "../components/ConfigProvider";
 import { useScorecardMeta } from "../components/MetaProvider";
 import { useMemo } from "react";
@@ -10,7 +10,7 @@ export function useCellData({
 	orgUnit,
 	period,
 }: {
-	dataSource?: ScorecardTableCellData["dataSources"][number];
+	dataSource?: ScorecardTableCellConfig["dataSources"][number];
 	orgUnit: ItemMeta & { hierarchy: string };
 	period: string;
 }) {

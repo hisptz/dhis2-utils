@@ -4,10 +4,13 @@ import { TableBody } from "./components/TableBody";
 import { TableFoot } from "./components/TableFoot";
 import { DndContext } from "@dnd-kit/core";
 import { useScorecardSetState } from "../StateProvider";
+import { memo } from "react";
 
 export interface ScorecardTableProps extends Omit<DataTableProps, "children"> {}
 
-export function ScorecardTable(props: ScorecardTableProps) {
+export const ScorecardTable = memo(function TableComponent(
+	props: ScorecardTableProps,
+) {
 	const updateState = useScorecardSetState();
 	return (
 		<DndContext
@@ -35,4 +38,4 @@ export function ScorecardTable(props: ScorecardTableProps) {
 			</DataTable>
 		</DndContext>
 	);
-}
+});

@@ -1,13 +1,13 @@
 import { IconArrowDown16, IconArrowUp16 } from "@dhis2/ui";
-import { useMemo } from "react";
-import type { ScorecardTableCellData } from "../../../schemas/config";
+import { memo, useMemo } from "react";
+import type { ScorecardCellData } from "../../../schemas/config";
 import { useScorecardState } from "../../StateProvider";
 
-export function DataValue({
+export const DataValue = memo(function DataValue({
 	dataSource,
 	value,
 }: {
-	dataSource: ScorecardTableCellData["dataSources"][number];
+	dataSource: ScorecardCellData;
 	value?: number;
 }) {
 	const state = useScorecardState();
@@ -64,4 +64,4 @@ export function DataValue({
 			{currentValue?.toString() ?? ""}
 		</div>
 	);
-}
+});

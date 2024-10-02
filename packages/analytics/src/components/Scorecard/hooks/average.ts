@@ -3,7 +3,7 @@ import { useScorecardConfig } from "../components/ConfigProvider";
 import { useMemo } from "react";
 import { head, sum } from "lodash";
 import type {
-	ScorecardTableCellData,
+	ScorecardTableCellConfig,
 	ScorecardTableData,
 } from "../schemas/config";
 import { getLegend } from "../utils/legends";
@@ -13,8 +13,8 @@ export function useAverage({
 	dataSource,
 	table,
 	column,
-}: HeaderContext<ScorecardTableData, ScorecardTableCellData> & {
-	dataSource: ScorecardTableCellData["dataSources"][number];
+}: HeaderContext<ScorecardTableData, ScorecardTableCellConfig> & {
+	dataSource: ScorecardTableCellConfig["dataSources"][number];
 }) {
 	const meta = useScorecardMeta();
 	const config = useScorecardConfig();
@@ -25,7 +25,7 @@ export function useAverage({
 
 		const dataValue = head(table.getRowModel().rows)?.getValue(
 			column.id,
-		) as ScorecardTableCellData;
+		) as ScorecardTableCellConfig;
 
 		return getLegend({
 			dataSource,
@@ -40,7 +40,9 @@ export function useAverage({
 		const rowModel = table.getRowModel();
 		return rowModel.rows
 			.map((row) => {
-				const value = row.getValue(column.id) as ScorecardTableCellData;
+				const value = row.getValue(
+					column.id,
+				) as ScorecardTableCellConfig;
 				return head(value.dataSources)?.data.current ?? 0;
 			})
 			.flat();

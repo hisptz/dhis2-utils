@@ -38,7 +38,7 @@ export function DataHeaderCellComponent({
 
 	return (
 		<DataTableColumnHeader
-			fixed
+			key={`${label}`}
 			sortIconTitle={i18n.t("Sort {{nextSortType}}", { nextSortType })}
 			onSortIconClick={
 				header.column?.getCanSort() || column.getCanSort()

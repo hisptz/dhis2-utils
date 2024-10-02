@@ -9,13 +9,28 @@ import {
 } from "@tanstack/react-table";
 import { useTableColumns } from "./columns";
 import type { ScorecardTableData } from "../schemas/config";
-import { useScorecardData } from "../components/DataProvider";
-import { useState } from "react";
-import { useScorecardState } from "../components";
+import { useMemo, useState } from "react";
+import {
+	useScorecardConfig,
+	useScorecardMeta,
+	useScorecardState,
+} from "../components";
+import { getRowsFromMeta } from "../utils/data";
+
+function useTableRows(): ScorecardTableData[] {
+	const meta = useScorecardMeta();
+	const state = useScorecardState();
+	const config = useScorecardConfig();
+	if (meta == null) return [];
+
+	return useMemo(
+		() => getRowsFromMeta({ meta, state, config }),
+		[meta, state, config],
+	);
+}
 
 export function useTableSetup(): TableOptions<ScorecardTableData> {
 	const state = useScorecardState();
-
 	const showAverageColumn = state?.options?.averageColumn ?? false;
 	const showItemNumber = state?.options?.itemNumber ?? false;
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -26,7 +41,7 @@ export function useTableSetup(): TableOptions<ScorecardTableData> {
 
 	const [sorting, setSorting] = useState<SortingState>([]);
 	const columns = useTableColumns();
-	const { data } = useScorecardData();
+	const data = useTableRows();
 
 	return {
 		columns,

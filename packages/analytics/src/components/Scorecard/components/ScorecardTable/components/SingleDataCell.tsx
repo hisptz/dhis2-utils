@@ -1,4 +1,4 @@
-import { type ScorecardTableCellData } from "../../../schemas/config";
+import { type ScorecardCellData } from "../../../schemas/config";
 import { type ItemMeta } from "../../../hooks/metadata";
 import { memo, type ReactNode, useState } from "react";
 import { head } from "lodash";
@@ -13,7 +13,7 @@ import {
 } from "./FurtherAnalysisModal";
 
 export interface SingleDataCellProps {
-	dataSources: ScorecardTableCellData["dataSources"];
+	dataSources: ScorecardCellData[];
 	orgUnit: ItemMeta & { hierarchy: string };
 	period: string;
 }
@@ -25,7 +25,6 @@ function SingleDataCellComponent({
 }: SingleDataCellProps): ReactNode {
 	const [furtherAnalysisConfig, setFurtherAnalysisConfig] =
 		useState<FurtherAnalysisConfig | null>(null);
-
 	const dataSource = head(dataSources);
 	const [stateActionRef, setStateActionRef] = useState(undefined);
 
@@ -35,7 +34,7 @@ function SingleDataCellComponent({
 		orgUnit,
 	});
 
-	if (!dataSource) {
+	if (!dataSource || !dataSource.data) {
 		return <DataTableCell bordered />;
 	}
 
@@ -89,7 +88,7 @@ function SingleDataCellComponent({
 						: undefined,
 				}}
 			>
-				<DataValue dataSource={dataSource} />
+				{dataSource && <DataValue dataSource={dataSource} />}
 			</DataTableCell>
 
 			{stateActionRef && (

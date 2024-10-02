@@ -81,13 +81,12 @@ export function LinkedAverageCell({
 			top={{
 				dataSource: {
 					...top,
-					data: {},
 				},
 				legendDefinition: topLegendDefinition,
 				value: top.average,
 			}}
 			bottom={{
-				dataSource: { ...bottom, data: {} },
+				dataSource: { ...bottom },
 				legendDefinition: bottomLegendDefinition,
 				value: bottom.average,
 			}}

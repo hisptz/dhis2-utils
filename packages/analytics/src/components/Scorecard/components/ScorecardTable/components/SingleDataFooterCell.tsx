@@ -1,7 +1,7 @@
 import { DataTableCell } from "@dhis2/ui";
 import type { HeaderContext } from "@tanstack/react-table";
 import type {
-	ScorecardTableCellData,
+	ScorecardTableCellConfig,
 	ScorecardTableData,
 } from "../../../schemas/config";
 import { getTextColorFromBackgroundColor } from "../../../utils/legends";
@@ -12,8 +12,8 @@ export function SingleDataFooterCell({
 	table,
 	column,
 	header,
-}: HeaderContext<ScorecardTableData, ScorecardTableCellData> & {
-	dataSource: ScorecardTableCellData["dataSources"][number];
+}: HeaderContext<ScorecardTableData, ScorecardTableCellConfig> & {
+	dataSource: ScorecardTableCellConfig["dataSources"][number];
 }) {
 	const { legendDefinition, average } = useAverage({
 		dataSource,

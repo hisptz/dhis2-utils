@@ -1,6 +1,6 @@
 import type { HeaderContext } from "@tanstack/react-table";
 import type {
-	ScorecardTableCellData,
+	ScorecardTableCellConfig,
 	ScorecardTableData,
 } from "../../../schemas/config";
 import { useMemo } from "react";
@@ -14,12 +14,12 @@ export function DataFooterCell({
 	table,
 	column,
 	header,
-}: HeaderContext<ScorecardTableData, ScorecardTableCellData>) {
+}: HeaderContext<ScorecardTableData, ScorecardTableCellConfig>) {
 	const state = useScorecardState();
 	const dataSources = useMemo(() => {
 		const dataValue = head(table.getRowModel().rows)?.getValue(
 			column.id,
-		) as ScorecardTableCellData;
+		) as ScorecardTableCellConfig;
 
 		return dataValue.dataSources;
 	}, [state, table.getRowModel().rows]);

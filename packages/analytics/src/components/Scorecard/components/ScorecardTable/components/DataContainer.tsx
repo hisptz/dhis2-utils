@@ -1,5 +1,5 @@
 import type {
-	ScorecardTableCellData,
+	ScorecardTableCellConfig,
 	ScorecardTableData,
 } from "../../../schemas/config";
 import { useScorecardConfig } from "../../ConfigProvider";
@@ -7,24 +7,47 @@ import { useScorecardMeta } from "../../MetaProvider";
 import { SingleDataCell } from "./SingleDataCell";
 import { LinkedDataCell } from "./LinkedDataCell";
 import type { CellContext } from "@tanstack/react-table";
-import { DataTableCell } from "@dhis2/ui";
-import { memo } from "react";
+import { CircularLoader, DataTableCell } from "@dhis2/ui";
+import { memo, useMemo } from "react";
+import { useCellValue } from "../../../hooks/value";
 
 function DataContainerComponent(
-	props: CellContext<ScorecardTableData, ScorecardTableCellData>,
+	props: CellContext<ScorecardTableData, ScorecardTableCellConfig>,
 ) {
-	const data = props.getValue();
+	const dataConfig = useMemo(() => props.getValue(), [props.getValue()]);
 	const config = useScorecardConfig();
 	const meta = useScorecardMeta();
+	const { loading, cellData } = useCellValue(props.getValue());
 
 	if (!config || !meta) {
 		return <DataTableCell />;
 	}
-	if (data.dataSources.length === 1) {
-		return <SingleDataCell {...data} />;
+
+	if (loading) {
+		return (
+			<DataTableCell align="center" bordered>
+				<CircularLoader extrasmall />
+			</DataTableCell>
+		);
 	}
 
-	return <LinkedDataCell {...data} />;
+	if (cellData?.length === 1) {
+		return (
+			<SingleDataCell
+				{...dataConfig}
+				period={dataConfig.currentPeriod!}
+				dataSources={cellData}
+			/>
+		);
+	}
+
+	return (
+		<LinkedDataCell
+			{...dataConfig}
+			period={dataConfig.currentPeriod!}
+			dataSources={cellData}
+		/>
+	);
 }
 
 export const DataContainer = memo(DataContainerComponent);
