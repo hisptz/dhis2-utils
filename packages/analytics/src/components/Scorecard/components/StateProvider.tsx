@@ -3,12 +3,14 @@ import React, {
 	type Dispatch,
 	type SetStateAction,
 	useContext,
+	useMemo,
 	useState,
 } from "react";
 import type { ScorecardState } from "../schemas/config";
 import i18n from "@dhis2/d2-i18n";
 import { useScorecardConfig } from "./ConfigProvider";
 import { getInitialStateFromConfig } from "../utils/state";
+import { get } from "lodash";
 
 export type ScorecardSetState = Dispatch<SetStateAction<ScorecardState>>;
 const ScorecardStateContext = createContext<ScorecardState | null>(null);
@@ -24,6 +26,13 @@ export function useScorecardState() {
 		);
 	}
 	return state;
+}
+
+export function useScorecardStateSelector<Value>(path: string | string[]) {
+	const state = useScorecardState();
+	return useMemo(() => {
+		return get(state, path) as Value;
+	}, [get(state, path)]);
 }
 
 export function useScorecardSetState() {

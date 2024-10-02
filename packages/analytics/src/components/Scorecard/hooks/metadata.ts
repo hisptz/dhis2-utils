@@ -1,8 +1,9 @@
-import { useScorecardConfig, useScorecardState } from "../components";
+import { useScorecardConfig, useScorecardStateSelector } from "../components";
 import { useConfig, useDataQuery } from "@dhis2/app-runtime";
 import { useEffect, useMemo } from "react";
 import { getDimensions } from "../utils/analytics";
 import type { SupportedCalendar } from "@dhis2/multi-calendar-dates/build/types/types";
+import type { ScorecardState } from "../schemas/config";
 
 const query: any = {
 	meta: {
@@ -81,15 +82,24 @@ type MetaResponse = {
 
 export function useGetScorecardMeta() {
 	const config = useScorecardConfig();
-	const state = useScorecardState();
+
+	const orgUnitSelection =
+		useScorecardStateSelector<ScorecardState["orgUnitSelection"]>(
+			"orgUnitSelection",
+		);
+	const periodSelection =
+		useScorecardStateSelector<ScorecardState["periodSelection"]>(
+			"periodSelection",
+		);
 
 	const { dataItemsIds, orgUnitsIds, periodsIds } = useMemo(
 		() =>
 			getDimensions({
 				config,
-				state,
+				orgUnitSelection,
+				periodSelection,
 			}),
-		[state, config],
+		[config, orgUnitSelection, periodSelection],
 	);
 
 	const { loading, data, refetch } = useDataQuery<MetaResponse>(query, {
@@ -142,7 +152,7 @@ export function useGetScorecardMeta() {
 			orgUnits: orgUnitsIds,
 			dataItems: dataItemsIds,
 		});
-	}, [state.periodSelection, state.orgUnitSelection]);
+	}, [periodSelection, orgUnitSelection]);
 
 	return {
 		loading,

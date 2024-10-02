@@ -13,26 +13,38 @@ import { useMemo, useState } from "react";
 import {
 	useScorecardConfig,
 	useScorecardMeta,
-	useScorecardState,
+	useScorecardStateSelector,
 } from "../components";
 import { getRowsFromMeta } from "../utils/data";
 
 function useTableRows(): ScorecardTableData[] {
 	const meta = useScorecardMeta();
-	const state = useScorecardState();
+	const showDataInRows = useScorecardStateSelector<boolean>([
+		"options",
+		"showDataInRows",
+	]);
+	const showHierarchy = useScorecardStateSelector<boolean>([
+		"options",
+		"showHierarchy",
+	]);
 	const config = useScorecardConfig();
 	if (meta == null) return [];
 
 	return useMemo(
-		() => getRowsFromMeta({ meta, state, config }),
-		[meta, state, config],
+		() => getRowsFromMeta({ meta, showDataInRows, showHierarchy, config }),
+		[meta, showDataInRows, showHierarchy, config],
 	);
 }
 
 export function useTableSetup(): TableOptions<ScorecardTableData> {
-	const state = useScorecardState();
-	const showAverageColumn = state?.options?.averageColumn ?? false;
-	const showItemNumber = state?.options?.itemNumber ?? false;
+	const showAverageColumn = useScorecardStateSelector<boolean>([
+		"options",
+		"averageColumn",
+	]);
+	const showItemNumber = useScorecardStateSelector<boolean>([
+		"options",
+		"itemNumber",
+	]);
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
 		average: showAverageColumn,

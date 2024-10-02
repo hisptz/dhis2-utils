@@ -1,8 +1,4 @@
-import {
-	useScorecardConfig,
-	useScorecardMeta,
-	useScorecardState,
-} from "../components";
+import { useScorecardConfig, useScorecardMeta } from "../components";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { getDimensionsFromMeta } from "../utils/analytics";
 import { useDataQuery } from "@dhis2/app-runtime";
@@ -64,9 +60,8 @@ export function useGetScorecardData() {
 	const data = useRef<ScorecardDataEngine>(createScorecardDataEngine());
 	const config = useScorecardConfig();
 	const meta = useScorecardMeta();
-	const state = useScorecardState();
 	const calendar = useCalendar();
-	if (!config || !state || !meta) {
+	if (!config || !meta) {
 		throw new Error(
 			"Invalid scorecard setup. Make sure the valid config and state props are passed.",
 		);
@@ -118,6 +113,7 @@ export function useGetScorecardData() {
 	const initializeFetch = async () => {
 		//Here is where we need to paginate the requests.
 		//First, Are there any dimensions greater than 5? if not then we can just call all the data
+		data.current.clear();
 		if (
 			analyticsPeriod.length <= 5 &&
 			dataItemsIds.length <= 5 &&

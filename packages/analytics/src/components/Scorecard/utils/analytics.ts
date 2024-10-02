@@ -5,10 +5,12 @@ import type { ScorecardMeta } from "../components";
 
 export function getDimensions({
 	config,
-	state,
+	orgUnitSelection,
+	periodSelection,
 }: {
 	config: ScorecardConfig;
-	state: ScorecardState;
+	orgUnitSelection: ScorecardState["orgUnitSelection"];
+	periodSelection: ScorecardState["periodSelection"];
 }) {
 	const dataItemObjects = getDataSourcesFromGroups(
 		config?.dataSelection?.dataGroups ?? [],
@@ -16,9 +18,9 @@ export function getDimensions({
 
 	const dataItemsIds = dataItemObjects?.map((item) => item?.id);
 	const orgUnitsIds = getOrgUnitsForAnalytics(
-		state?.orgUnitSelection ?? config?.orgUnitSelection,
+		orgUnitSelection ?? config?.orgUnitSelection,
 	);
-	const periodsIds = state.periodSelection.periods.map((period) => period.id);
+	const periodsIds = periodSelection.periods.map((period) => period.id);
 
 	return {
 		dataItemsIds,

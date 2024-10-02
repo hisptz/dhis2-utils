@@ -1,9 +1,8 @@
 import type { ScorecardDataQueryResponse } from "../hooks/data";
-import type { ScorecardMeta } from "../components/MetaProvider";
+import type { ScorecardMeta } from "../components";
 import type {
 	ScorecardConfig,
 	ScorecardDataGroup,
-	ScorecardState,
 	ScorecardTableData,
 } from "../schemas/config";
 import { fromPairs, head } from "lodash";
@@ -30,19 +29,18 @@ export function sanitizeAnalyticsData(data: ScorecardDataQueryResponse) {
 
 export function getRowsFromMeta({
 	meta,
-	state,
 	config,
+	showHierarchy,
+	showDataInRows,
 }: {
 	meta: ScorecardMeta;
-	state: ScorecardState;
+	showDataInRows: boolean;
+	showHierarchy: boolean;
 	config: ScorecardConfig;
 }): ScorecardTableData[] {
-	const dataInRows = state.options.showDataInRows;
-	const showHierarchy = state.options.showHierarchy;
-
 	function getOrgUnitData() {
 		return meta.orgUnits
-			.map((orgUnit, i) => {
+			.map((orgUnit) => {
 				const label = showHierarchy
 					? orgUnit.hierarchy.replace("/", "") ?? ""
 					: orgUnit.name ?? "";
@@ -79,7 +77,7 @@ export function getRowsFromMeta({
 	}
 
 	//No need of computing the average of each row
-	if (dataInRows) {
+	if (showDataInRows) {
 		//Rows are derived from groups
 		const dataGroups = config.dataSelection.dataGroups;
 		return getDataGroupsData(dataGroups);

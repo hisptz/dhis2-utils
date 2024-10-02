@@ -25,5 +25,8 @@ export function createScorecardDataEngine() {
 				listener("done");
 			}
 		},
+		clear() {
+			this.data = [];
+		},
 	};
 }

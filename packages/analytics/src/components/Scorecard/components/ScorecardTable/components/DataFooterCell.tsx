@@ -5,7 +5,7 @@ import type {
 } from "../../../schemas/config";
 import { useMemo } from "react";
 import { head } from "lodash";
-import { useScorecardState } from "../../StateProvider";
+import { useScorecardStateSelector } from "../../StateProvider";
 import { SingleDataFooterCell } from "./SingleDataFooterCell";
 import { LinkedDataFooterCell } from "./LinkedDataFooterCell";
 import { DataTableCell } from "@dhis2/ui";
@@ -15,16 +15,19 @@ export function DataFooterCell({
 	column,
 	header,
 }: HeaderContext<ScorecardTableData, ScorecardTableCellConfig>) {
-	const state = useScorecardState();
+	const showDataInRows = useScorecardStateSelector<boolean>([
+		"options",
+		"showDataInRows",
+	]);
 	const dataSources = useMemo(() => {
 		const dataValue = head(table.getRowModel().rows)?.getValue(
 			column.id,
 		) as ScorecardTableCellConfig;
 
 		return dataValue.dataSources;
-	}, [state, table.getRowModel().rows]);
+	}, [table.getRowModel().rows]);
 
-	if (dataSources?.length === 1 || state?.options?.showDataInRows) {
+	if (dataSources?.length === 1 || showDataInRows) {
 		return (
 			<SingleDataFooterCell
 				header={header}

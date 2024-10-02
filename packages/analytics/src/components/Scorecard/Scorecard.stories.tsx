@@ -1016,6 +1016,7 @@ const meta: Meta<typeof Scorecard> = {
 		});
 		return (
 			<div style={{ maxWidth: 1400, overflowX: "auto" }}>
+				<div style={{ display: "flex", gap: 16 }}></div>
 				<ScorecardContext initialState={state} config={config}>
 					<Story args={{ ...context.args }} />
 				</ScorecardContext>

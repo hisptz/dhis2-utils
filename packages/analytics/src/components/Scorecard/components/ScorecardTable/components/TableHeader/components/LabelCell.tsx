@@ -6,15 +6,17 @@ import {
 import { DataTableCell } from "@dhis2/ui";
 import DroppableCell from "../../DroppableCell";
 import { DraggableCell } from "../../DraggableCell";
-import { useScorecardState } from "../../../../StateProvider";
+import { useScorecardStateSelector } from "../../../../StateProvider";
 import { memo } from "react";
 
 export function LabelCellComponent(
 	props: CellContext<ScorecardTableData, string | number>,
 ) {
 	const data = props.getValue().toString();
-	const state = useScorecardState();
-	const dataInRows = state?.options?.showDataInRows ?? false;
+	const dataInRows = useScorecardStateSelector<boolean>([
+		"options",
+		"showDataInRows",
+	]);
 
 	return (
 		<DataTableCell
