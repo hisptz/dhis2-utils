@@ -1,9 +1,5 @@
-import { CircularLoader, DataTableCell } from "@dhis2/ui";
+import { DataTableCell } from "@dhis2/ui";
 
 export function CellLoader() {
-	return (
-		<DataTableCell align="center" bordered>
-			<CircularLoader extrasmall />
-		</DataTableCell>
-	);
+	return <DataTableCell align="center" bordered />;
 }

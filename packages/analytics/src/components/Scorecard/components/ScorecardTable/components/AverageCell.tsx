@@ -4,7 +4,7 @@ import type {
 	ScorecardTableAverageCellConfig,
 	ScorecardTableData,
 } from "../../../schemas/config";
-import { CircularLoader, DataTableCell } from "@dhis2/ui";
+import { DataTableCell } from "@dhis2/ui";
 import { head, isEmpty } from "lodash";
 import { useScorecardConfig } from "../../ConfigProvider";
 import { useMemo } from "react";
@@ -142,11 +142,7 @@ function OrgUnitAverageCell(
 	const { loading, average } = useOrgUnitAverageCellValue(dataConfig);
 
 	if (loading) {
-		return (
-			<DataTableCell align="center" bordered>
-				<CircularLoader extrasmall />
-			</DataTableCell>
-		);
+		return <CellLoader />;
 	}
 
 	return (
