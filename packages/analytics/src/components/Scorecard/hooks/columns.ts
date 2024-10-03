@@ -23,6 +23,7 @@ import { useCalendar } from "./metadata";
 import { MetaFooterCell } from "../components/ScorecardTable/components/MetaFooterCell";
 import { getOrgUnitLevel } from "../utils/orgUnits";
 import { useLowestOrgUnitLevel } from "./orgUnit";
+import { useScorecardData } from "../components/DataProvider";
 
 const columnHelper = createColumnHelper<ScorecardTableData>();
 
@@ -133,6 +134,7 @@ export function useTableColumns(): ColumnDef<
 	ScorecardTableCellConfig
 >[] {
 	const config = useScorecardConfig();
+	const { data: dataEngine } = useScorecardData();
 	const meta = useScorecardMeta();
 	const metaColumns = useMetaColumns();
 	const calendar = useCalendar();
@@ -168,6 +170,7 @@ export function useTableColumns(): ColumnDef<
 				...getOrgUnitColumnHeaders({
 					meta,
 					calendar,
+					dataEngine,
 				}),
 			);
 		} else {
@@ -176,6 +179,7 @@ export function useTableColumns(): ColumnDef<
 					meta,
 					config,
 					calendar,
+					dataEngine,
 				}),
 			);
 		}

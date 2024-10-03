@@ -9,6 +9,13 @@ import { DraggableCell } from "../../DraggableCell";
 import DroppableCell from "../../DroppableCell";
 import { useScorecardStateSelector } from "../../../../StateProvider";
 
+export function EmptyDataHeaderCell({
+	header,
+}: HeaderContext<ScorecardTableData, any>) {
+	const colSpan = header.colSpan.toString();
+	return <DataTableColumnHeader colSpan={colSpan} />;
+}
+
 export function DataHeaderCellComponent({
 	column,
 	header,
