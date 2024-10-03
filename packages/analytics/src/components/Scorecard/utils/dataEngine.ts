@@ -7,6 +7,7 @@ export type ScorecardDataEngine = ReturnType<typeof createScorecardDataEngine>;
 export function createScorecardDataEngine() {
 	return {
 		data: [] as AnalyticsData[],
+		isDone: false,
 		listeners: [] as DataEngineListener[],
 		addListener(listener: DataEngineListener) {
 			this.listeners.push(listener);
@@ -22,11 +23,13 @@ export function createScorecardDataEngine() {
 		},
 		complete() {
 			for (const listener of this.listeners) {
+				this.isDone = true;
 				listener("done");
 			}
 		},
 		clear() {
 			this.data = [];
+			this.isDone = false;
 		},
 	};
 }

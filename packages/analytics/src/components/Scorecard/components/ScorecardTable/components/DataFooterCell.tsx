@@ -52,16 +52,26 @@ function OrgUnitFooterCell({
 		setLoading(true);
 		const listener = (data: AnalyticsData[] | "done") => {
 			if (data === "done") {
-				setLoading(false);
 				setAverageValues(
 					getOrgUnitAverage({
 						dataSourcesConfig,
 						data: scorecardEngine.data,
 					}),
 				);
+				setLoading(false);
 			}
 		};
-		scorecardEngine.addListener(listener);
+		if (scorecardEngine.isDone) {
+			setAverageValues(
+				getOrgUnitAverage({
+					dataSourcesConfig,
+					data: scorecardEngine.data,
+				}),
+			);
+			setLoading(false);
+		} else {
+			scorecardEngine.addListener(listener);
+		}
 
 		return () => {
 			scorecardEngine.removeListener(listener);
@@ -107,7 +117,19 @@ function DataHolderFooterCell({
 				setAverage(average);
 			}
 		};
-		scorecardEngine.addListener(listener);
+		if (scorecardEngine.isDone) {
+			const orgUnitId = head(dataSourcesConfig)!;
+			const dataValues = scorecardEngine.data.filter(
+				(datum) => datum.ou === orgUnitId.orgUnit.uid,
+			);
+			const average = meanBy(dataValues, (value) =>
+				parseFloat(value.value!),
+			);
+			setAverage(average);
+			setLoading(false);
+		} else {
+			scorecardEngine.addListener(listener);
+		}
 
 		return () => {
 			scorecardEngine.removeListener(listener);

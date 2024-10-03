@@ -5,6 +5,7 @@ import { ScorecardContext } from "./components";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { RHFCheckboxField } from "@hisptz/dhis2-ui";
 import i18n from "@dhis2/d2-i18n";
+import { PeriodTypeCategory, PeriodUtility } from "@hisptz/dhis2-utils/src";
 
 const config: ScorecardConfig = {
 	additionalLabels: ["Data label"],
@@ -1011,10 +1012,10 @@ const meta: Meta<typeof Scorecard> = {
 				orgUnitSelection: config.orgUnitSelection,
 				periodSelection: {
 					...config.periodSelection,
-					// periods: PeriodUtility.fromObject({
-					// 	year: 2018,
-					// 	category: PeriodTypeCategory.FIXED,
-					// }).getPeriodType("MONTHLY").periods,
+					periods: PeriodUtility.fromObject({
+						year: 2018,
+						category: PeriodTypeCategory.FIXED,
+					}).getPeriodType("MONTHLY").periods,
 				},
 			},
 		});

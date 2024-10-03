@@ -7,9 +7,10 @@ import { useScorecardMeta } from "../../MetaProvider";
 import { SingleDataCell } from "./SingleDataCell";
 import { LinkedDataCell } from "./LinkedDataCell";
 import type { CellContext } from "@tanstack/react-table";
-import { CircularLoader, DataTableCell } from "@dhis2/ui";
+import { DataTableCell } from "@dhis2/ui";
 import { memo, useMemo } from "react";
 import { useCellValue } from "../../../hooks/value";
+import { CellLoader } from "./CellLoader";
 
 function DataContainerComponent(
 	props: CellContext<ScorecardTableData, ScorecardTableCellConfig>,
@@ -24,11 +25,7 @@ function DataContainerComponent(
 	}
 
 	if (loading) {
-		return (
-			<DataTableCell align="center" bordered>
-				<CircularLoader extrasmall />
-			</DataTableCell>
-		);
+		return <CellLoader />;
 	}
 
 	if (cellData?.length === 1) {

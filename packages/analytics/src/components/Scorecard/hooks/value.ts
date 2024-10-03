@@ -28,6 +28,7 @@ function getDataValues({
 				)
 			);
 		});
+
 		const value = getValues({
 			currentPeriod: dataConfig.currentPeriod!,
 			previousPeriod: dataConfig.previousPeriod,
@@ -37,6 +38,10 @@ function getDataValues({
 		if (!value.current) {
 			return {
 				...dataSource,
+				data: {
+					current: undefined,
+					previous: undefined,
+				},
 			} as ScorecardCellData;
 		}
 
@@ -82,7 +87,16 @@ export function useCellValue(dataConfig: ScorecardTableCellConfig) {
 				}
 			}
 		};
-		scorecardEngine.addListener(listener);
+		if (scorecardEngine.isDone) {
+			const values = getDataValues({
+				data: scorecardEngine.data,
+				dataConfig,
+			});
+			setCellData(values);
+			setLoading(false);
+		} else {
+			scorecardEngine.addListener(listener);
+		}
 		return () => {
 			scorecardEngine.removeListener(listener);
 		};
@@ -141,7 +155,17 @@ export function useDataHolderAverageCellValue(
 			} else {
 			}
 		};
-		scorecardEngine.addListener(listener);
+		if (scorecardEngine.isDone) {
+			setLoading(false);
+			setCellData(
+				getDataHolderAverageValues({
+					data: scorecardEngine.data,
+					dataConfig,
+				}),
+			);
+		} else {
+			scorecardEngine.addListener(listener);
+		}
 		return () => {
 			scorecardEngine.removeListener(listener);
 		};
@@ -188,7 +212,17 @@ export function useOrgUnitAverageCellValue(
 			} else {
 			}
 		};
-		scorecardEngine.addListener(listener);
+		if (scorecardEngine.isDone) {
+			setLoading(false);
+			setAverage(
+				getOrgUnitAverageValues({
+					data: scorecardEngine.data,
+					dataConfig,
+				}),
+			);
+		} else {
+			scorecardEngine.addListener(listener);
+		}
 		return () => {
 			scorecardEngine.removeListener(listener);
 		};

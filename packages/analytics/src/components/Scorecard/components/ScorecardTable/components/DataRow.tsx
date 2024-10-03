@@ -23,18 +23,24 @@ function TableRowComponent({ row }: { row: Row<ScorecardTableData> }) {
 		return (expandCell?.getValue() as boolean) ?? false;
 	}, [row]);
 
+	const canExpand = orgUnit && shouldExpand;
+
 	return (
 		<DataTableRow
 			className={styles.expandCell}
-			onExpandToggle={({ expanded }) => {
-				row.toggleExpanded(expanded);
-			}}
+			onExpandToggle={
+				canExpand
+					? ({ expanded }) => {
+							row.toggleExpanded(expanded);
+						}
+					: undefined
+			}
 			expandableContent={
 				orgUnit && shouldExpand ? (
 					<ExpandedScorecardTable orgUnit={orgUnit} />
-				) : null
+				) : undefined
 			}
-			expanded={row.getIsExpanded()}
+			expanded={canExpand && row.getIsExpanded()}
 			key={row.id}
 		>
 			{row.getVisibleCells().map((cell) => {

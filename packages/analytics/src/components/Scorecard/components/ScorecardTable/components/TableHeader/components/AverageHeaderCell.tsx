@@ -25,8 +25,6 @@ export function AverageHeaderCell({
 		<DataTableColumnHeader
 			key={header.id}
 			align="right"
-			onFilterIconClick={() => {}}
-			fixed
 			colSpan={header.colSpan.toString()}
 			rowSpan={rowSpan}
 			className={styles.metaHeader}

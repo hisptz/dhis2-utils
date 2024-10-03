@@ -18,6 +18,7 @@ import {
 	useOrgUnitAverageCellValue,
 } from "../../../hooks/value";
 import { useScorecardStateSelector } from "../../StateProvider";
+import { CellLoader } from "./CellLoader";
 
 export function SingleAverageCell({
 	dataSource,
@@ -35,6 +36,10 @@ export function SingleAverageCell({
 			value: dataSource.data.average,
 		});
 	}, [dataSource]);
+
+	if (!dataSource.data.average || isNaN(dataSource.data.average)) {
+		return <DataTableCell bordered />;
+	}
 
 	return (
 		<DataTableCell
@@ -116,11 +121,7 @@ function DataSourceAverageCell(
 		useDataHolderAverageCellValue(dataConfig);
 
 	if (loading) {
-		return (
-			<DataTableCell align="center" bordered>
-				<CircularLoader extrasmall />
-			</DataTableCell>
-		);
+		return <CellLoader />;
 	}
 
 	if (!isEmpty(dataSources)) {

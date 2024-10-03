@@ -14,7 +14,7 @@ import {
 	type ScorecardDataEngine,
 } from "../utils/dataEngine";
 import { queue } from "async-es";
-import { asyncify } from "async";
+import { asyncify, type QueueObject } from "async";
 
 const query: any = {
 	data: {
@@ -81,7 +81,7 @@ export function useGetScorecardData() {
 		data.current.updateData(tableData);
 		setNoOfCompleteRequests((prev) => prev + 1);
 	};
-	const dataFetchQueue = useRef(queue(asyncify(fetchData)));
+	const dataFetchQueue = useRef<QueueObject<any>>(queue(asyncify(fetchData)));
 	const config = useScorecardConfig();
 	const meta = useScorecardMeta();
 	const calendar = useCalendar();
@@ -224,10 +224,8 @@ export function useGetScorecardData() {
 	};
 
 	useEffect(() => {
-		if (!called) {
-			initializeFetch();
-		}
-	}, [called]);
+		initializeFetch();
+	}, []);
 
 	return {
 		data: data.current,
