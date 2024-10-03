@@ -1,4 +1,4 @@
-import type { ScorecardTableCellData } from "../../../schemas/config";
+import type { ScorecardCellData } from "../../../schemas/config";
 import type { ItemMeta } from "../../../hooks/metadata";
 import { useCellData } from "../../../hooks/cellData";
 import { LinkedCell } from "./LinkedCell";
@@ -10,7 +10,7 @@ import {
 } from "./FurtherAnalysisModal";
 
 export interface LinkedDataCellProps {
-	dataSources: ScorecardTableCellData["dataSources"];
+	dataSources: ScorecardCellData[];
 	orgUnit: ItemMeta & { hierarchy: string };
 	period: string;
 }

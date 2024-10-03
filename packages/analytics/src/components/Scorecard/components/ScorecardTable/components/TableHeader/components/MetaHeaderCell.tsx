@@ -1,7 +1,7 @@
 import type { HeaderContext } from "@tanstack/react-table";
 import type { ScorecardTableData } from "../../../../../schemas/config";
 import { DataTableColumnHeader, type DataTableSortDirection } from "@dhis2/ui";
-import { useScorecardState } from "../../../../StateProvider";
+import { useScorecardStateSelector } from "../../../../StateProvider";
 import i18n from "@dhis2/d2-i18n";
 import styles from "../TableHeader.module.css";
 import { FilterArea } from "./FilterArea";
@@ -12,9 +12,12 @@ function MetaHeaderCellComponent({
 	header,
 }: HeaderContext<ScorecardTableData, any>) {
 	const randomId = useRef<string>(uid());
-	const state = useScorecardState();
-	const hasOnePeriod = state?.hasOnePeriod ?? false;
-	const dataInRows = state?.options?.showDataInRows ?? false;
+
+	const hasOnePeriod = useScorecardStateSelector(["hasOnePeriod"]);
+	const dataInRows = useScorecardStateSelector<boolean>([
+		"options",
+		"showDataInRows",
+	]);
 
 	const rowSpan = dataInRows
 		? hasOnePeriod
@@ -42,16 +45,14 @@ function MetaHeaderCellComponent({
 		<DataTableColumnHeader
 			key={`${header.id}-${randomId.current}`}
 			align="right"
-			onFilterIconClick={() => {}}
 			sortIconTitle={i18n.t("Sort {{nextSortType}}", { nextSortType })}
-			onSortIconClick={({ direction }, e) => {
+			onSortIconClick={(_, e) => {
 				const sort = filterColumn!.getToggleSortingHandler();
 				if (sort) {
 					sort(e);
 				}
 			}}
 			sortDirection={sortDirection}
-			fixed
 			colSpan={header.colSpan.toString()}
 			rowSpan={rowSpan}
 			className={styles.metaHeader}

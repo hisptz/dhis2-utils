@@ -1,15 +1,17 @@
 import { DataTableFoot, DataTableRow } from "@dhis2/ui";
 import { useTableState } from "../../TableStateProvider";
 import { flexRender } from "@tanstack/react-table";
-import { useScorecardState } from "../../StateProvider";
+import { useScorecardStateSelector } from "../../StateProvider";
+import { Fragment } from "react";
 
 export function TableFoot() {
 	const table = useTableState();
-	const state = useScorecardState();
+	const showAverageRow = useScorecardStateSelector<boolean>([
+		"options",
+		"averageRow",
+	]);
 
-	const hideAverage = !state?.options.averageRow;
-
-	if (hideAverage) {
+	if (!showAverageRow) {
 		return null;
 	}
 
@@ -19,12 +21,14 @@ export function TableFoot() {
 				return (
 					<DataTableRow key={footerGroup.id}>
 						{footerGroup.headers.map((footer) => {
-							return footer.isPlaceholder
-								? null
-								: flexRender(
+							return footer.isPlaceholder ? null : (
+								<Fragment key={footer.id}>
+									{flexRender(
 										footer.column.columnDef.footer,
 										footer.getContext(),
-									);
+									)}
+								</Fragment>
+							);
 						})}
 					</DataTableRow>
 				);

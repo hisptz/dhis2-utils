@@ -1,6 +1,7 @@
 import type { CellContext } from "@tanstack/react-table";
 import type {
-	ScorecardDataSource,
+	ScorecardAverageCellData,
+	ScorecardTableAverageCellConfig,
 	ScorecardTableData,
 } from "../../../schemas/config";
 import { DataTableCell } from "@dhis2/ui";
@@ -12,11 +13,17 @@ import {
 	getTextColorFromBackgroundColor,
 } from "../../../utils/legends";
 import { LinkedCell } from "./LinkedCell";
+import {
+	useDataHolderAverageCellValue,
+	useOrgUnitAverageCellValue,
+} from "../../../hooks/value";
+import { useScorecardStateSelector } from "../../StateProvider";
+import { CellLoader } from "./CellLoader";
 
 export function SingleAverageCell({
 	dataSource,
 }: {
-	dataSource: ScorecardDataSource & { average: number };
+	dataSource: ScorecardAverageCellData;
 }) {
 	const config = useScorecardConfig();
 	const legendDefinition = useMemo(() => {
@@ -26,9 +33,13 @@ export function SingleAverageCell({
 		return getLegend({
 			dataSource,
 			config: config!,
-			value: dataSource.average,
+			value: dataSource.data.average,
 		});
 	}, [dataSource]);
+
+	if (!dataSource.data.average || isNaN(dataSource.data.average)) {
+		return <DataTableCell bordered />;
+	}
 
 	return (
 		<DataTableCell
@@ -43,7 +54,7 @@ export function SingleAverageCell({
 			}}
 			align="center"
 		>
-			<b>{dataSource.average.toString()}</b>
+			<b>{dataSource.data.average?.toFixed(2).toString()}</b>
 		</DataTableCell>
 	);
 }
@@ -51,7 +62,7 @@ export function SingleAverageCell({
 export function LinkedAverageCell({
 	dataSources,
 }: {
-	dataSources: Array<ScorecardDataSource & { average: number }>;
+	dataSources: Array<ScorecardAverageCellData>;
 }) {
 	const [top, bottom] = dataSources ?? [];
 	const config = useScorecardConfig();
@@ -62,7 +73,7 @@ export function LinkedAverageCell({
 		return getLegend({
 			dataSource: top,
 			config: config!,
-			value: top.average,
+			value: top.data.average,
 		});
 	}, [top]);
 	const bottomLegendDefinition = useMemo(() => {
@@ -72,7 +83,7 @@ export function LinkedAverageCell({
 		return getLegend({
 			dataSource: bottom,
 			config: config!,
-			value: bottom.average,
+			value: bottom.data.average,
 		});
 	}, [bottom]);
 
@@ -81,44 +92,77 @@ export function LinkedAverageCell({
 			top={{
 				dataSource: {
 					...top,
-					data: {},
+					data: {
+						current: top.data.average,
+					},
 				},
 				legendDefinition: topLegendDefinition,
-				value: top.average,
+				value: top.data.average,
 			}}
 			bottom={{
-				dataSource: { ...bottom, data: {} },
+				dataSource: {
+					...bottom,
+					data: {
+						current: bottom.data.average,
+					},
+				},
 				legendDefinition: bottomLegendDefinition,
-				value: bottom.average,
+				value: bottom.data.average,
 			}}
 		/>
 	);
 }
 
-export function AverageCell(
-	props: CellContext<
-		ScorecardTableData,
-		ScorecardTableData & {
-			average: number;
-			dataSources?: Array<ScorecardDataSource & { average: number }>;
-		}
-	>,
+function DataSourceAverageCell(
+	props: CellContext<ScorecardTableData, ScorecardTableAverageCellConfig>,
 ) {
-	const value = props.getValue();
-	const average = value.average;
-	const dataSources = value?.dataSources;
+	const dataConfig = useMemo(() => props.getValue(), [props.getValue()]);
+	const { cellData: dataSources, loading } =
+		useDataHolderAverageCellValue(dataConfig);
+
+	if (loading) {
+		return <CellLoader />;
+	}
 
 	if (!isEmpty(dataSources)) {
-		if (dataSources!.length === 1) {
+		if (dataSources?.length === 1) {
 			return <SingleAverageCell dataSource={head(dataSources)!} />;
 		} else {
 			return <LinkedAverageCell dataSources={dataSources!} />;
 		}
 	}
 
+	return <DataTableCell />;
+}
+
+function OrgUnitAverageCell(
+	props: CellContext<ScorecardTableData, ScorecardTableAverageCellConfig>,
+) {
+	const dataConfig = useMemo(() => props.getValue(), [props.getValue()]);
+	const { loading, average } = useOrgUnitAverageCellValue(dataConfig);
+
+	if (loading) {
+		return <CellLoader />;
+	}
+
 	return (
 		<DataTableCell bordered align="center" key={props.row.id}>
-			<b>{average}</b>
+			<b>{average?.toFixed(2).toString()}</b>
 		</DataTableCell>
 	);
+}
+
+export function AverageCell(
+	props: CellContext<ScorecardTableData, ScorecardTableAverageCellConfig>,
+) {
+	const showDataInRows = useScorecardStateSelector<boolean>([
+		"options",
+		"showDataInRows",
+	]);
+
+	if (showDataInRows) {
+		return <DataSourceAverageCell {...props} />;
+	}
+
+	return <OrgUnitAverageCell {...props} />;
 }

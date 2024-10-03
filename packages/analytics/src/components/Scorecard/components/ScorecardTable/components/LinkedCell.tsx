@@ -5,17 +5,17 @@ import { useElementSize } from "usehooks-ts";
 import React, { useMemo } from "react";
 import type {
 	LegendDefinition,
-	ScorecardTableCellData,
+	ScorecardCellData,
 } from "../../../schemas/config";
 
 export interface LinkedCellProps {
 	top: {
-		dataSource: ScorecardTableCellData["dataSources"][number];
+		dataSource: ScorecardCellData;
 		legendDefinition?: LegendDefinition;
 		value?: number;
 	};
 	bottom: {
-		dataSource: ScorecardTableCellData["dataSources"][number];
+		dataSource: ScorecardCellData;
 		legendDefinition?: LegendDefinition;
 		value?: number;
 	};
@@ -82,7 +82,12 @@ function LinkedCellComponent({ top, bottom, ...props }: LinkedCellProps) {
 							: undefined,
 					}}
 				>
-					<DataValue value={topValue} dataSource={topDataSource} />
+					{topDataSource && (
+						<DataValue
+							value={topValue}
+							dataSource={topDataSource}
+						/>
+					)}
 				</div>
 				<div
 					style={{
@@ -98,10 +103,12 @@ function LinkedCellComponent({ top, bottom, ...props }: LinkedCellProps) {
 							: undefined,
 					}}
 				>
-					<DataValue
-						value={bottomValue}
-						dataSource={bottomDataSource}
-					/>
+					{bottomDataSource && (
+						<DataValue
+							value={bottomValue}
+							dataSource={bottomDataSource}
+						/>
+					)}
 				</div>
 			</div>
 		</DataTableCell>

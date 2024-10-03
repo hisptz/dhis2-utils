@@ -7,15 +7,23 @@ import { DataTableColumnHeader, type DataTableSortDirection } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
 import { DraggableCell } from "../../DraggableCell";
 import DroppableCell from "../../DroppableCell";
-import { useScorecardState } from "../../../../StateProvider";
+import { useScorecardStateSelector } from "../../../../StateProvider";
+
+export function EmptyDataHeaderCell({
+	header,
+}: HeaderContext<ScorecardTableData, any>) {
+	const colSpan = header.colSpan.toString();
+	return <DataTableColumnHeader colSpan={colSpan} />;
+}
 
 export function DataHeaderCellComponent({
 	column,
 	header,
 }: HeaderContext<ScorecardTableData, any>) {
-	const state = useScorecardState();
-
-	const dataInRows = state?.options?.showDataInRows ?? false;
+	const dataInRows = useScorecardStateSelector<boolean>([
+		"options",
+		"showDataInRows",
+	]);
 	const label =
 		(header.column.columnDef.meta as { label: string }).label ??
 		(column.columnDef.meta as { label: string }).label;
@@ -38,7 +46,7 @@ export function DataHeaderCellComponent({
 
 	return (
 		<DataTableColumnHeader
-			fixed
+			key={`${label}`}
 			sortIconTitle={i18n.t("Sort {{nextSortType}}", { nextSortType })}
 			onSortIconClick={
 				header.column?.getCanSort() || column.getCanSort()

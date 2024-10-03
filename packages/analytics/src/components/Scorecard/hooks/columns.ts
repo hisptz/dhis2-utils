@@ -2,11 +2,12 @@ import { type ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import {
 	useScorecardConfig,
 	useScorecardMeta,
-	useScorecardState,
+	useScorecardStateSelector,
 } from "../components";
 import { useMemo } from "react";
 import {
-	type ScorecardTableCellData,
+	type ScorecardState,
+	type ScorecardTableCellConfig,
 	type ScorecardTableData,
 } from "../schemas/config";
 import {
@@ -22,113 +23,136 @@ import { useCalendar } from "./metadata";
 import { MetaFooterCell } from "../components/ScorecardTable/components/MetaFooterCell";
 import { getOrgUnitLevel } from "../utils/orgUnits";
 import { useLowestOrgUnitLevel } from "./orgUnit";
+import { useScorecardData } from "../components/DataProvider";
 
 const columnHelper = createColumnHelper<ScorecardTableData>();
 
 export function useMetaColumns() {
-	const state = useScorecardState();
+	const showDataInRows = useScorecardStateSelector<boolean>([
+		"options",
+		"showDataInRows",
+	]);
+
+	const disableExpanding = useScorecardStateSelector<boolean>([
+		"options",
+		"disableExpanding",
+	]);
 
 	const lowestLevel = useLowestOrgUnitLevel();
 
-	const metaColumns: ColumnDef<ScorecardTableData, any>[] = [
-		columnHelper.accessor(
-			(rowData) => {
-				if (state?.options?.disableExpanding) {
-					return false;
-				}
+	return useMemo(() => {
+		const metaColumns: ColumnDef<ScorecardTableData, any>[] = [
+			columnHelper.accessor(
+				(rowData) => {
+					if (disableExpanding) {
+						return false;
+					}
 
-				const dataInRows = state?.options?.showDataInRows;
-				if (dataInRows) {
-					return false;
-				}
+					if (showDataInRows) {
+						return false;
+					}
 
-				if (!lowestLevel) {
-					return false;
-				}
+					if (!lowestLevel) {
+						return false;
+					}
 
-				const orgUnit = rowData.orgUnit;
-				if (!orgUnit) {
-					return false;
-				}
-				const ouLevel = getOrgUnitLevel(orgUnit);
+					const orgUnit = rowData.orgUnit;
+					if (!orgUnit) {
+						return false;
+					}
+					const ouLevel = getOrgUnitLevel(orgUnit);
 
-				return ouLevel !== lowestLevel.level;
-			},
-			{
-				id: "expand",
-				header: () => null,
-				meta: {
-					isMeta: true,
-					fixed: true,
-					label: "",
+					return ouLevel !== lowestLevel.level;
 				},
-				enableColumnFilter: false,
-				cell: ExpandCell,
-				footer: () => null,
-			},
-		),
-		columnHelper.accessor(
-			(_, index) => {
-				return index + 1;
-			},
-			{
-				id: "count",
-				header: () => null,
-				meta: {
-					isMeta: true,
-					fixed: true,
-					label: "",
+				{
+					id: "expand",
+					header: () => null,
+					meta: {
+						isMeta: true,
+						fixed: true,
+						label: "",
+					},
+					enableColumnFilter: false,
+					cell: ExpandCell,
+					footer: () => null,
 				},
-				enableColumnFilter: false,
-				cell: NumberCell,
-				footer: () => null,
-			},
-		),
-	];
+			),
+			columnHelper.accessor(
+				(_, index) => {
+					return index + 1;
+				},
+				{
+					id: "count",
+					header: () => null,
+					meta: {
+						isMeta: true,
+						fixed: true,
+						label: "",
+					},
+					enableColumnFilter: false,
+					cell: NumberCell,
+					footer: () => null,
+				},
+			),
+		];
 
-	if (state?.options?.showDataInRows) {
-		metaColumns.push(
-			columnHelper.accessor("label", {
-				header: () => null,
-				id: "dataItems",
-				meta: {
-					filterable: true,
-				},
-				enableColumnFilter: true,
-				cell: LabelCell,
-				footer: MetaFooterCell,
-			}),
-		);
-	} else {
-		metaColumns.push(
-			columnHelper.accessor("label", {
-				header: () => null,
-				id: "orgUnits",
-				enableColumnFilter: true,
-				meta: {
-					isMeta: true,
-					fixed: true,
-				},
-				cell: LabelCell,
-				footer: MetaFooterCell,
-			}),
-		);
-	}
+		if (showDataInRows) {
+			metaColumns.push(
+				columnHelper.accessor("label", {
+					header: () => null,
+					id: "dataItems",
+					meta: {
+						filterable: true,
+					},
+					enableColumnFilter: true,
+					cell: LabelCell,
+					footer: MetaFooterCell,
+				}),
+			);
+		} else {
+			metaColumns.push(
+				columnHelper.accessor("label", {
+					header: () => null,
+					id: "orgUnits",
+					enableColumnFilter: true,
+					meta: {
+						isMeta: true,
+						fixed: true,
+					},
+					cell: LabelCell,
+					footer: MetaFooterCell,
+				}),
+			);
+		}
 
-	return metaColumns;
+		return metaColumns;
+	}, [showDataInRows, disableExpanding]);
 }
 
 export function useTableColumns(): ColumnDef<
 	ScorecardTableData,
-	ScorecardTableCellData
+	ScorecardTableCellConfig
 >[] {
 	const config = useScorecardConfig();
+	const { data: dataEngine } = useScorecardData();
 	const meta = useScorecardMeta();
-	const state = useScorecardState();
 	const metaColumns = useMetaColumns();
 	const calendar = useCalendar();
+	const showDataInRows = useScorecardStateSelector<boolean>([
+		"options",
+		"showDataInRows",
+	]);
+	const periodSelection =
+		useScorecardStateSelector<ScorecardState["periodSelection"]>(
+			"periodSelection",
+		);
 
-	if (!config || !meta || !state) {
+	const orgUnitSelection =
+		useScorecardStateSelector<ScorecardState["orgUnitSelection"]>(
+			"orgUnitSelection",
+		);
+
+	if (!config || !meta) {
 		return [];
 	}
 	return useMemo(() => {
@@ -141,11 +165,12 @@ export function useTableColumns(): ColumnDef<
 			}),
 		];
 
-		if (state.options.showDataInRows) {
+		if (showDataInRows) {
 			columns.push(
 				...getOrgUnitColumnHeaders({
 					meta,
 					calendar,
+					dataEngine,
 				}),
 			);
 		} else {
@@ -154,6 +179,7 @@ export function useTableColumns(): ColumnDef<
 					meta,
 					config,
 					calendar,
+					dataEngine,
 				}),
 			);
 		}
@@ -166,9 +192,5 @@ export function useTableColumns(): ColumnDef<
 		);
 
 		return columns;
-	}, [
-		state.options.showDataInRows,
-		state.periodSelection,
-		state.orgUnitSelection,
-	]);
+	}, [showDataInRows, periodSelection, orgUnitSelection]);
 }

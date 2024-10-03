@@ -1,20 +1,23 @@
 import { IconArrowDown16, IconArrowUp16 } from "@dhis2/ui";
-import { useMemo } from "react";
-import type { ScorecardTableCellData } from "../../../schemas/config";
-import { useScorecardState } from "../../StateProvider";
+import { memo, useMemo } from "react";
+import type { ScorecardCellData } from "../../../schemas/config";
+import { useScorecardStateSelector } from "../../StateProvider";
 
-export function DataValue({
+export const DataValue = memo(function DataValue({
 	dataSource,
 	value,
 }: {
-	dataSource: ScorecardTableCellData["dataSources"][number];
+	dataSource: ScorecardCellData;
 	value?: number;
 }) {
-	const state = useScorecardState();
+	const showArrows = useScorecardStateSelector<boolean>([
+		"options",
+		"arrows",
+	]);
 	const currentValue = dataSource.data.current;
 	const previousValue = dataSource.data.previous;
 	const showArrow: "decreasing" | "increasing" | undefined = useMemo(() => {
-		if (!state?.options?.arrows) {
+		if (!showArrows) {
 			return;
 		}
 
@@ -33,7 +36,7 @@ export function DataValue({
 		}
 
 		return currentValue > previousValue ? "increasing" : "decreasing";
-	}, [currentValue, dataSource.effectiveGap, state?.options?.arrows]);
+	}, [currentValue, dataSource.effectiveGap, showArrows]);
 
 	if (value) {
 		return (
@@ -64,4 +67,4 @@ export function DataValue({
 			{currentValue?.toString() ?? ""}
 		</div>
 	);
-}
+});

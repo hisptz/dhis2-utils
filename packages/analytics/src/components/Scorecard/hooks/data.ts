@@ -1,21 +1,20 @@
-import {
-	useScorecardConfig,
-	useScorecardMeta,
-	useScorecardState,
-} from "../components";
-import { useMemo } from "react";
+import { useScorecardConfig, useScorecardMeta } from "../components";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { getDimensionsFromMeta } from "../utils/analytics";
 import { useDataQuery } from "@dhis2/app-runtime";
 import {
 	createFixedPeriodFromPeriodId,
 	getAdjacentFixedPeriods,
 } from "@dhis2/multi-calendar-dates";
-import { isEmpty, uniq } from "lodash";
-import {
-	getTableDataFromAnalytics,
-	sanitizeAnalyticsData,
-} from "../utils/data";
+import { chunk, maxBy, uniq } from "lodash";
+import { sanitizeAnalyticsData } from "../utils/data";
 import { useCalendar } from "./metadata";
+import {
+	createScorecardDataEngine,
+	type ScorecardDataEngine,
+} from "../utils/dataEngine";
+import { queue } from "async-es";
+import { asyncify, type QueueObject } from "async";
 
 const query: any = {
 	data: {
@@ -57,19 +56,47 @@ export interface ScorecardDataQueryResponse {
 	};
 }
 
+const chunkSize = 5;
+
 export function useGetScorecardData() {
+	const [totalRequests, setTotalRequests] = useState<number>(0);
+	const [noOfCompleteRequests, setNoOfCompleteRequests] = useState<number>(0);
+	const data = useRef<ScorecardDataEngine>(createScorecardDataEngine());
+	const fetchData = async ({
+		periods,
+		dataItems,
+		orgUnits,
+	}: {
+		periods: string[];
+		orgUnits: string[];
+		dataItems: string[];
+	}) => {
+		const rawAnalyticsData = (await refetch({
+			periods,
+			dataItems,
+			orgUnits,
+		})) as unknown as ScorecardDataQueryResponse;
+		if (!rawAnalyticsData) return [];
+		const tableData = getTableData(rawAnalyticsData);
+		data.current.updateData(tableData);
+		setNoOfCompleteRequests((prev) => prev + 1);
+	};
+	const dataFetchQueue = useRef<QueueObject<any>>(queue(asyncify(fetchData)));
 	const config = useScorecardConfig();
 	const meta = useScorecardMeta();
-	const state = useScorecardState();
 	const calendar = useCalendar();
-	if (!config || !state || !meta) {
+	if (!config || !meta) {
 		throw new Error(
 			"Invalid scorecard setup. Make sure the valid config and state props are passed.",
 		);
 	}
-	const { dataItemsIds, orgUnitsIds, periodsIds } = getDimensionsFromMeta({
-		meta,
-	});
+	const { dataItemsIds, orgUnitsIds, periodsIds } = useMemo(
+		() =>
+			getDimensionsFromMeta({
+				meta,
+			}),
+		[meta],
+	);
 
 	//We need to make sure each period has a past period
 	const analyticsPeriod = useMemo(() => {
@@ -90,39 +117,119 @@ export function useGetScorecardData() {
 		return uniq([...periodsIds, ...pastPeriods]);
 	}, [periodsIds]);
 
-	const { loading, data: rawAnalyticsData } =
-		useDataQuery<ScorecardDataQueryResponse>(query, {
+	const { refetch, called } = useDataQuery<ScorecardDataQueryResponse>(
+		query,
+		{
 			variables: {
 				periods: analyticsPeriod,
 				dataItems: dataItemsIds,
 				orgUnits: orgUnitsIds,
 			},
-		});
+			lazy: true,
+		},
+	);
 
-	const rawData = useMemo(() => {
-		if (!rawAnalyticsData) return [];
+	const progress = useMemo(() => {
+		return noOfCompleteRequests / totalRequests;
+	}, [totalRequests, noOfCompleteRequests]);
+
+	const getTableData = (rawAnalyticsData: ScorecardDataQueryResponse) => {
 		return sanitizeAnalyticsData(rawAnalyticsData);
-	}, [rawAnalyticsData]);
+	};
 
-	const data = useMemo(() => {
-		if (rawAnalyticsData) {
-			const data = getTableDataFromAnalytics(rawAnalyticsData, {
-				meta,
-				state,
-				config,
-			});
-			if (!!state.options.emptyRows) {
-				return data;
-			} else {
-				return data.filter(({ dataValues }) => !isEmpty(dataValues));
+	const initializeFetch = async () => {
+		const getTheLongestDimension = () => {
+			const dimensions = [
+				{
+					dimension: "pe",
+					length: analyticsPeriod.length,
+				},
+				{
+					dimension: "dx",
+					length: dataItemsIds.length,
+				},
+				{
+					dimension: "ou",
+					length: orgUnitsIds.length,
+				},
+			] as const;
+
+			return maxBy(dimensions, "length")!.dimension;
+		};
+
+		const getChunkedData = async (maxItem: "dx" | "pe" | "ou") => {
+			switch (maxItem) {
+				case "dx":
+					const dataItemChunks = chunk(dataItemsIds, chunkSize);
+					setTotalRequests(dataItemChunks.length);
+					for (const dataItemChunk of dataItemChunks) {
+						await dataFetchQueue.current.push({
+							periods: analyticsPeriod,
+							dataItems: dataItemChunk,
+							orgUnits: orgUnitsIds,
+						});
+					}
+					break;
+				case "pe":
+					const periodChunks = chunk(analyticsPeriod, chunkSize);
+					setTotalRequests(periodChunks.length);
+					for (const periodChunk of periodChunks) {
+						await dataFetchQueue.current.push({
+							periods: periodChunk,
+							dataItems: dataItemsIds,
+							orgUnits: orgUnitsIds,
+						});
+					}
+					break;
+				case "ou":
+					const orgUnitChunks = chunk(orgUnitsIds, chunkSize);
+					setTotalRequests(orgUnitChunks.length);
+					for (const orgUnitChunk of orgUnitChunks) {
+						await dataFetchQueue.current.push({
+							periods: analyticsPeriod,
+							dataItems: dataItemsIds,
+							orgUnits: orgUnitChunk,
+						});
+					}
+					break;
 			}
+		};
+		//Here is where we need to paginate the requests.
+		//First, Are there any dimensions greater than 5? if not then we can just call all the data
+		setTotalRequests(0);
+		setNoOfCompleteRequests(0);
+		dataFetchQueue.current.remove(() => true);
+		data.current.clear();
+		if (
+			analyticsPeriod.length <= 5 &&
+			dataItemsIds.length <= 5 &&
+			orgUnitsIds.length <= 5
+		) {
+			setTotalRequests(1);
+			setNoOfCompleteRequests(0);
+			await fetchData({
+				periods: analyticsPeriod,
+				dataItems: dataItemsIds,
+				orgUnits: orgUnitsIds,
+			});
+			setNoOfCompleteRequests(1);
+			data.current.complete();
+			return;
 		}
-		return [];
-	}, [rawAnalyticsData, meta]);
+		//If not then let's figure out how to paginate one of the
+		setNoOfCompleteRequests(0);
+		const dimensionWithMaxItems = getTheLongestDimension();
+		await getChunkedData(dimensionWithMaxItems);
+		data.current.complete();
+	};
+
+	useEffect(() => {
+		initializeFetch();
+	}, []);
 
 	return {
-		loading,
-		data,
-		rawData,
+		data: data.current,
+		rawData: [],
+		progress,
 	};
 }

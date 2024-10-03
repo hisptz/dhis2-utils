@@ -1,9 +1,11 @@
-import type { ScorecardMeta } from "../components/MetaProvider";
+import type { ScorecardMeta } from "../components";
 import type {
 	ScorecardAnalyticsData,
+	ScorecardCellData,
 	ScorecardConfig,
 	ScorecardDataHolder,
-	ScorecardTableCellData,
+	ScorecardTableAverageCellConfig,
+	ScorecardTableCellConfig,
 	ScorecardTableData,
 } from "../schemas/config";
 import {
@@ -14,7 +16,10 @@ import {
 import { head, sum } from "lodash";
 import type { ItemMeta } from "../hooks/metadata";
 import { DataContainer } from "../components/ScorecardTable/components/DataContainer";
-import { DataHeaderCell } from "../components/ScorecardTable/components/TableHeader/components/DataHeaderCell";
+import {
+	DataHeaderCell,
+	EmptyDataHeaderCell,
+} from "../components/ScorecardTable/components/TableHeader/components/DataHeaderCell";
 import {
 	createFixedPeriodFromPeriodId,
 	getAdjacentFixedPeriods,
@@ -24,25 +29,68 @@ import { AverageCell } from "../components/ScorecardTable/components/AverageCell
 import { AverageHeaderCell } from "../components/ScorecardTable/components/TableHeader/components/AverageHeaderCell";
 import { DataFooterCell } from "../components/ScorecardTable/components/DataFooterCell";
 import { AverageFooterCell } from "../components/ScorecardTable/components/AverageFooterCell";
+import type { ScorecardDataEngine } from "./dataEngine";
+import type { AnalyticsData } from "./data";
 
 const columnHelper = createColumnHelper<ScorecardTableData>();
 
-function sortingFunction(
-	rowA: Row<ScorecardTableData>,
-	rowB: Row<ScorecardTableData>,
-	columnId: string,
-) {
-	const dataA = rowA.getValue(columnId) as ScorecardTableCellData;
-	const dataB = rowB.getValue(columnId) as ScorecardTableCellData;
+function getValueFromConfig({
+	config,
+	data,
+}: {
+	config: ScorecardTableCellConfig;
+	data: AnalyticsData[];
+}): ScorecardCellData {
+	const dataValues = data.filter((datum) => {
+		return (
+			config.orgUnit.uid === datum.ou &&
+			config.currentPeriod === datum.pe &&
+			datum.dx === head(config.dataSources)!.id
+		);
+	});
 
-	const valueA = head(dataA.dataSources)?.data.current ?? 0;
-	const valueB = head(dataB.dataSources)?.data.current ?? 0;
+	return {
+		...head(config.dataSources)!,
+		data: getValues({
+			values: dataValues,
+			currentPeriod: config.currentPeriod!,
+			previousPeriod: config.previousPeriod,
+		}),
+	};
+}
 
-	if (valueA === valueB) {
-		return 0;
-	}
+function getSortingFunction(dataEngine: ScorecardDataEngine) {
+	return function sortingFunction(
+		rowA: Row<ScorecardTableData>,
+		rowB: Row<ScorecardTableData>,
+		columnId: string,
+	) {
+		if (!dataEngine.isDone) {
+			return 0;
+		}
 
-	return valueA > valueB ? 1 : -1;
+		const dataA = rowA.getValue(columnId) as ScorecardTableCellConfig;
+		const dataB = rowB.getValue(columnId) as ScorecardTableCellConfig;
+
+		const dataAValue = getValueFromConfig({
+			config: dataA,
+			data: dataEngine.data,
+		});
+
+		const dataBValue = getValueFromConfig({
+			config: dataB,
+			data: dataEngine.data,
+		});
+
+		const valueA = dataAValue.data.current ?? 0;
+		const valueB = dataBValue.data.current ?? 0;
+
+		if (valueA === valueB) {
+			return 0;
+		}
+
+		return valueA > valueB ? 1 : -1;
+	};
 }
 
 export function getAverageValue({
@@ -60,7 +108,7 @@ export function getAverageValue({
 	return Math.round((sum(values) / values.length) * 100) / 100;
 }
 
-function getValues({
+export function getValues({
 	values,
 	currentPeriod,
 	previousPeriod,
@@ -89,10 +137,12 @@ function getValues({
 export function getOrgUnitColumnHeaders({
 	meta,
 	calendar,
+	dataEngine,
 }: {
 	meta: ScorecardMeta;
 	calendar: SupportedCalendar;
-}): ColumnDef<ScorecardTableData, ScorecardTableCellData>[] {
+	dataEngine: ScorecardDataEngine;
+}): ColumnDef<ScorecardTableData, ScorecardTableCellConfig>[] {
 	const orgUnits = meta.orgUnits ?? [];
 	const periods = meta.periods ?? [];
 	return orgUnits.map((orgUnit) => {
@@ -116,39 +166,13 @@ export function getOrgUnitColumnHeaders({
 								steps: -1,
 							}),
 						)?.id;
-
-						const values = rowData.dataValues.filter(({ ou }) => {
-							return ou === orgUnit.uid;
-						});
-
-						const dataSources =
-							rowData.dataHolder?.dataSources?.map(
-								(dataSource) => {
-									const dataSourceValues = values.filter(
-										(value) => {
-											return value.dx === dataSource.id;
-										},
-									);
-
-									const data = getValues({
-										currentPeriod,
-										previousPeriod,
-										values: dataSourceValues,
-									});
-
-									return {
-										...dataSource,
-										data,
-									};
-								},
-							);
-
+						const dataSources = rowData.dataHolder?.dataSources;
 						return {
-							...rowData,
-							period: uid,
+							currentPeriod,
+							previousPeriod,
 							dataSources,
 							orgUnit: orgUnit,
-						} as ScorecardTableCellData;
+						} as ScorecardTableCellConfig;
 					},
 					{
 						header: DataHeaderCell,
@@ -158,7 +182,7 @@ export function getOrgUnitColumnHeaders({
 						cell: DataContainer,
 						id: `${orgUnit.uid}-${uid}`,
 						enableSorting: true,
-						sortingFn: sortingFunction,
+						sortingFn: getSortingFunction(dataEngine),
 						footer: DataFooterCell,
 					},
 				),
@@ -167,12 +191,10 @@ export function getOrgUnitColumnHeaders({
 	});
 }
 
-export function getAverageColumn({
-	meta,
-}: {
+export function getAverageColumn({}: {
 	meta: ScorecardMeta;
 	config: ScorecardConfig;
-}) {
+}): ColumnDef<ScorecardTableData, ScorecardTableAverageCellConfig> {
 	return columnHelper.group({
 		id: "average-header",
 		header: AverageHeaderCell,
@@ -181,24 +203,6 @@ export function getAverageColumn({
 				(rowData) => {
 					return {
 						...rowData,
-						dataSources: rowData.dataHolder?.dataSources?.map(
-							(dataSource) => {
-								const dataValues = rowData.dataValues.filter(
-									({ dx }) => dx === dataSource.id,
-								);
-								return {
-									...dataSource,
-									average: getAverageValue({
-										dataValues,
-										meta,
-									}),
-								};
-							},
-						),
-						average: getAverageValue({
-							dataValues: rowData.dataValues,
-							meta,
-						}),
 					};
 				},
 				{
@@ -218,21 +222,20 @@ function getDataHolderColumn({
 	dataHolder,
 	periods,
 	calendar,
+	dataEngine,
 }: {
 	hasOnePeriod: boolean;
 	dataHolder: ScorecardDataHolder;
 	periods: ItemMeta[];
 	calendar: SupportedCalendar;
+	dataEngine: ScorecardDataEngine;
 }) {
 	const { id, dataSources } = dataHolder;
 
 	const header =
 		dataSources.length === 1
 			? head(dataSources)?.label
-			: dataSources.reduce(
-					(acc, { label, id }) => `${acc} / ${label}`,
-					"",
-				);
+			: dataSources.reduce((acc, { label }) => `${acc} / ${label}`, "");
 
 	if (hasOnePeriod) {
 		return columnHelper.accessor(
@@ -249,27 +252,12 @@ function getDataHolderColumn({
 					}),
 				)?.id;
 
-				const dataSourceWithValues = dataSources.map((dataSource) => {
-					const values = rowData.dataValues.filter(({ dx }) => {
-						return dx === dataSource.id;
-					});
-
-					const data = getValues({
-						currentPeriod,
-						previousPeriod,
-						values,
-					});
-
-					return {
-						...dataSource,
-						data,
-					};
-				});
 				return {
 					...rowData,
-					dataSources: dataSourceWithValues,
-					period: head(periods)?.uid,
-				} as ScorecardTableCellData;
+					dataSources,
+					previousPeriod,
+					currentPeriod,
+				} as ScorecardTableCellConfig;
 			},
 			{
 				header: DataHeaderCell,
@@ -279,7 +267,7 @@ function getDataHolderColumn({
 				id: id.toString(),
 				cell: DataContainer,
 				enableSorting: true,
-				sortingFn: sortingFunction,
+				sortingFn: getSortingFunction(dataEngine),
 				footer: DataFooterCell,
 			},
 		);
@@ -301,31 +289,12 @@ function getDataHolderColumn({
 							steps: -1,
 						}),
 					)?.id;
-					const dataSourceWithValues = dataSources.map(
-						(dataSource) => {
-							const values = rowData.dataValues.filter(
-								({ dx }) => {
-									return dx === dataSource.id;
-								},
-							);
-
-							const data = getValues({
-								currentPeriod,
-								previousPeriod,
-								values,
-							});
-
-							return {
-								...dataSource,
-								data,
-							};
-						},
-					);
 					return {
 						...rowData,
-						dataSources: dataSourceWithValues,
-						period: uid,
-					} as ScorecardTableCellData;
+						dataSources,
+						currentPeriod,
+						previousPeriod,
+					} as ScorecardTableCellConfig;
 				},
 				{
 					header: DataHeaderCell,
@@ -335,7 +304,7 @@ function getDataHolderColumn({
 					cell: DataContainer,
 					id: `${id.toString()}-${uid}`,
 					enableSorting: true,
-					sortingFn: sortingFunction,
+					sortingFn: getSortingFunction(dataEngine),
 					footer: DataFooterCell,
 				},
 			),
@@ -345,7 +314,7 @@ function getDataHolderColumn({
 		},
 		header: DataHeaderCell,
 		enableSorting: true,
-		sortingFn: sortingFunction,
+		sortingFn: getSortingFunction(dataEngine),
 	});
 }
 
@@ -353,11 +322,13 @@ export function getDataColumnHeaders({
 	meta,
 	config,
 	calendar,
+	dataEngine,
 }: {
 	meta: ScorecardMeta;
 	config: ScorecardConfig;
 	calendar: SupportedCalendar;
-}): ColumnDef<ScorecardTableData, ScorecardTableCellData>[] {
+	dataEngine: ScorecardDataEngine;
+}): ColumnDef<ScorecardTableData, ScorecardTableCellConfig>[] {
 	const dataGroups = config.dataSelection.dataGroups ?? [];
 	const hasOneGroup = dataGroups.length === 1;
 	const periods = meta.periods ?? [];
@@ -367,7 +338,7 @@ export function getDataColumnHeaders({
 		return dataGroups.map(({ title, dataHolders, id }) => {
 			return columnHelper.group({
 				id: id.toString(),
-				header: DataHeaderCell,
+				header: EmptyDataHeaderCell,
 				meta: {
 					label: title,
 					bold: true,
@@ -378,8 +349,10 @@ export function getDataColumnHeaders({
 						dataHolder,
 						periods,
 						calendar,
+						dataEngine,
 					});
 				}),
+
 				enableSorting: false,
 				footer: () => null,
 			});
@@ -399,6 +372,7 @@ export function getDataColumnHeaders({
 						dataHolder,
 						periods,
 						calendar,
+						dataEngine,
 					});
 				}),
 				enableSorting: false,

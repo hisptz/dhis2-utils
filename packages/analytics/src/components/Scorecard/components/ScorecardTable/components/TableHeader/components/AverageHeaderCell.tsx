@@ -3,15 +3,16 @@ import type { ScorecardTableData } from "../../../../../schemas/config";
 import { DataTableColumnHeader } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
 import styles from "../TableHeader.module.css";
-import { useScorecardState } from "../../../../StateProvider";
+import { useScorecardStateSelector } from "../../../../StateProvider";
 
 export function AverageHeaderCell({
 	header,
-	column,
 }: HeaderContext<ScorecardTableData, any>) {
-	const state = useScorecardState();
-	const hasOnePeriod = state?.hasOnePeriod;
-	const dataInRows = state?.options?.showDataInRows;
+	const dataInRows = useScorecardStateSelector<boolean>([
+		"options",
+		"showDataInRows",
+	]);
+	const hasOnePeriod = useScorecardStateSelector<boolean>(["hasOnePeriod"]);
 	const rowSpan = dataInRows
 		? hasOnePeriod
 			? "2"
@@ -24,8 +25,6 @@ export function AverageHeaderCell({
 		<DataTableColumnHeader
 			key={header.id}
 			align="right"
-			onFilterIconClick={() => {}}
-			fixed
 			colSpan={header.colSpan.toString()}
 			rowSpan={rowSpan}
 			className={styles.metaHeader}

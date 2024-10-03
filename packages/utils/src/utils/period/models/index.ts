@@ -72,7 +72,12 @@ export class PeriodUtility {
 	};
 	category?: PeriodCategory;
 
-	constructor() {}
+	constructor() {
+		this.setCategory = this.setCategory.bind(this);
+		this.setPreference = this.setPreference.bind(this);
+		this.setYear = this.setYear.bind(this);
+		this.getPeriodType = this.getPeriodType.bind(this);
+	}
 
 	/**
 	 * Gets the all Period types within the specified category
@@ -96,10 +101,12 @@ export class PeriodUtility {
 		preference?: PeriodPreference;
 		category: PeriodTypeCategory;
 	}): PeriodUtility {
-		const utility = new PeriodUtility().setCategory(category).setYear(year);
+		const utility = new PeriodUtility();
+		utility.setYear(year);
 		if (preference) {
 			utility.setPreference(preference);
 		}
+		utility.setCategory(category);
 		return utility;
 	}
 

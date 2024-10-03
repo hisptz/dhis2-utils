@@ -6,11 +6,14 @@ import type { OrgUnitSelection } from "../../../schemas/config";
 import { Scorecard } from "../../../Scorecard";
 import { ScorecardContext } from "../../ScorecardContext";
 import { useScorecardState } from "../../StateProvider";
+import { CircularLoader } from "@dhis2/ui";
 
 export function ExpandedScorecardTable({
 	orgUnit,
+	pending,
 }: {
 	orgUnit: ItemMeta & { hierarchy: string };
+	pending: boolean;
 }) {
 	const config = useScorecardConfig();
 	const state = useScorecardState();
@@ -39,29 +42,42 @@ export function ExpandedScorecardTable({
 			style={{
 				height: "100%",
 				width: "100%",
-				minHeight: 400,
+				minHeight: 500,
 				padding: 32,
 			}}
 		>
-			<ScorecardContext
-				key={`${orgUnit.uid}-expanded`}
-				config={{
-					...config,
-					orgUnitSelection,
-				}}
-				initialState={{
-					...state,
-					orgUnitSelection,
-				}}
-			>
-				<Scorecard
-					tableProps={{
-						scrollWidth: "100%",
-						scrollHeight: "100%",
-						width: "auto",
+			{pending ? (
+				<div
+					style={{
+						height: "100%",
+						width: "100%",
+						minHeight: 500,
+						padding: 32,
 					}}
-				/>
-			</ScorecardContext>
+				>
+					<CircularLoader small />
+				</div>
+			) : (
+				<ScorecardContext
+					key={`${orgUnit.uid}-expanded`}
+					config={{
+						...config,
+						orgUnitSelection,
+					}}
+					initialState={{
+						...state,
+						orgUnitSelection,
+					}}
+				>
+					<Scorecard
+						tableProps={{
+							scrollWidth: "100%",
+							scrollHeight: "100%",
+							width: "auto",
+						}}
+					/>
+				</ScorecardContext>
+			)}
 		</div>
 	);
 }
