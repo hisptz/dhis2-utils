@@ -7,8 +7,6 @@ export function LoadingIndicator() {
 	const table = useTableState();
 	const colSpan = table.getVisibleFlatColumns().length;
 
-	console.log(progress);
-
 	if (progress === 1 || isNaN(progress!)) {
 		return null;
 	}
