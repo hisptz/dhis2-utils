@@ -1,34 +1,54 @@
-import { DataTable, type DataTableProps } from "@dhis2/ui";
+import { CircularLoader, DataTable, type DataTableProps } from "@dhis2/ui";
 import { TableHeader } from "./components/TableHeader";
 import { TableBody } from "./components/TableBody";
 import { TableFoot } from "./components/TableFoot";
 import { DndContext } from "@dnd-kit/core";
 import { useScorecardSetState } from "../StateProvider";
-import { memo } from "react";
+import { memo, useTransition } from "react";
 
 export interface ScorecardTableProps extends Omit<DataTableProps, "children"> {}
 
 export const ScorecardTable = memo(function TableComponent(
 	props: ScorecardTableProps,
 ) {
+	const [isPending, startTransition] = useTransition();
 	const updateState = useScorecardSetState();
+
+	if (isPending) {
+		return (
+			<div
+				style={{
+					height: "100%",
+					width: "100%",
+					display: "flex",
+					alignItems: "center",
+					justifyContent: "center",
+				}}
+			>
+				<CircularLoader small />
+			</div>
+		);
+	}
+
 	return (
 		<DndContext
 			onDragEnd={(event) => {
-				if (updateState) {
-					if (!event.over || event.over.id === event.active.id) {
-						updateState((prevState) => {
-							return {
-								...prevState,
-								options: {
-									...prevState.options,
-									showDataInRows:
-										!prevState.options.showDataInRows,
-								},
-							};
-						});
+				startTransition(() => {
+					if (updateState) {
+						if (!event.over || event.over.id === event.active.id) {
+							updateState((prevState) => {
+								return {
+									...prevState,
+									options: {
+										...prevState.options,
+										showDataInRows:
+											!prevState.options.showDataInRows,
+									},
+								};
+							});
+						}
 					}
-				}
+				});
 			}}
 		>
 			<DataTable {...props} layout="auto">

@@ -1,5 +1,4 @@
-import { useScorecardMeta } from "../components/MetaProvider";
-import { useScorecardConfig } from "../components/ConfigProvider";
+import { useScorecardConfig, useScorecardMeta } from "../components";
 import { useMemo } from "react";
 import { head, sum } from "lodash";
 import type {
@@ -30,9 +29,9 @@ export function useAverage({
 		return getLegend({
 			dataSource,
 			config: config!,
-			value: dataSource.data.current,
+			value: dataSource?.data?.current,
 			orgUnit: dataValue.orgUnit,
-			periodId: dataValue.period,
+			periodId: dataValue?.period,
 			orgUnitLevels: meta!.orgUnitLevels,
 		});
 	}, [table]);
@@ -43,7 +42,7 @@ export function useAverage({
 				const value = row.getValue(
 					column.id,
 				) as ScorecardTableCellConfig;
-				return head(value.dataSources)?.data.current ?? 0;
+				return head(value.dataSources)?.data?.current ?? 0;
 			})
 			.flat();
 	}, [table, column]);

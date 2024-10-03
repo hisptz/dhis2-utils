@@ -206,14 +206,36 @@ export const scorecardTableCellConfig = z.object({
 });
 export type ScorecardTableCellConfig = z.infer<typeof scorecardTableCellConfig>;
 
+export const scorecardTableAverageCellConfig = z.object({
+	dataHolder: dataHolderSchema.optional(),
+	orgUnit: z
+		.object({
+			uid: z.string(),
+			name: z.string(),
+			hierarchy: z.string(),
+		})
+		.optional(),
+});
+export type ScorecardTableAverageCellConfig = z.infer<
+	typeof scorecardTableAverageCellConfig
+>;
+
 export const scorecardCellDataSchema = dataSourceSchema.extend({
 	data: z.object({
 		previous: z.number().optional(),
 		current: z.number().optional(),
 	}),
 });
-
 export type ScorecardCellData = z.infer<typeof scorecardCellDataSchema>;
+
+export const scorecardAverageCellDataSchema = dataSourceSchema.extend({
+	data: z.object({
+		average: z.number().optional(),
+	}),
+});
+export type ScorecardAverageCellData = z.infer<
+	typeof scorecardAverageCellDataSchema
+>;
 
 export type SanitizedScorecardTableData = z.infer<typeof scorecardTableData>;
 

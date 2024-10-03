@@ -11,6 +11,7 @@ export interface AnalyticsData {
 	dx?: string;
 	pe?: string;
 	ou?: string;
+	value?: string;
 
 	[key: string]: string | undefined;
 }

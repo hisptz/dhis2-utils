@@ -1,10 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Scorecard } from "./Scorecard";
-import type { ScorecardConfig, ScorecardState } from "./schemas/config";
+import type { ScorecardConfig } from "./schemas/config";
 import { ScorecardContext } from "./components";
-import { Controller, FormProvider, useForm } from "react-hook-form";
-import { RHFCheckboxField } from "@hisptz/dhis2-ui";
-import i18n from "@dhis2/d2-i18n";
+import { Scorecard } from "./Scorecard";
 
 const config: ScorecardConfig = {
 	additionalLabels: ["Data label"],
@@ -997,51 +994,19 @@ const linkedConfig: ScorecardConfig = {
 	title: "RMNCAH Score Card Revised",
 };
 
-const meta: Meta<typeof Scorecard> = {
-	title: "Scorecard",
-	component: Scorecard,
+const meta: Meta<typeof ScorecardContext> = {
+	title: "Scorecard Context",
+	component: ScorecardContext,
 	decorators: (Story, context) => {
-		const form = useForm<ScorecardState>({
-			defaultValues: {
-				options: {
-					...config.options,
-					averageRow: true,
-					averageColumn: true,
-				},
-				orgUnitSelection: config.orgUnitSelection,
-				periodSelection: {
-					...config.periodSelection,
-					// periods: PeriodUtility.fromObject({
-					// 	year: 2018,
-					// 	category: PeriodTypeCategory.FIXED,
-					// }).getPeriodType("MONTHLY").periods,
-				},
-			},
-		});
 		return (
-			<FormProvider {...form}>
-				<div style={{ maxWidth: 1400, overflowX: "auto" }}>
-					<div style={{ display: "flex", gap: 16 }}>
-						<RHFCheckboxField
-							label={i18n.t("Show data in rows")}
-							name="options.showDataInRows"
-						/>
-					</div>
-					<Controller
-						render={({ field }) => {
-							return (
-								<ScorecardContext
-									initialState={form.getValues()}
-									config={config}
-								>
-									<Story args={{ ...context.args }} />
-								</ScorecardContext>
-							);
-						}}
-						name={"options"}
-					/>
-				</div>
-			</FormProvider>
+			<Story
+				args={{
+					initialState: context.args.initialState,
+					config: context.args.config,
+				}}
+			>
+				<Scorecard />
+			</Story>
 		);
 	},
 };
@@ -1056,7 +1021,6 @@ export const Default: Story = {
 		config,
 		initialState: {
 			...config,
-			periodSelection: {},
 		},
 	},
 };

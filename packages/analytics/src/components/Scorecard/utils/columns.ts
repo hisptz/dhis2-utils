@@ -3,6 +3,7 @@ import type {
 	ScorecardAnalyticsData,
 	ScorecardConfig,
 	ScorecardDataHolder,
+	ScorecardTableAverageCellConfig,
 	ScorecardTableCellConfig,
 	ScorecardTableData,
 } from "../schemas/config";
@@ -146,7 +147,7 @@ export function getAverageColumn({
 }: {
 	meta: ScorecardMeta;
 	config: ScorecardConfig;
-}) {
+}): ColumnDef<ScorecardTableData, ScorecardTableAverageCellConfig> {
 	return columnHelper.group({
 		id: "average-header",
 		header: AverageHeaderCell,
@@ -155,7 +156,6 @@ export function getAverageColumn({
 				(rowData) => {
 					return {
 						...rowData,
-						dataSources: rowData.dataHolder?.dataSources,
 					};
 				},
 				{
