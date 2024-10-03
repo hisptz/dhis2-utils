@@ -1,6 +1,7 @@
 import { createContext, type ReactNode, useContext } from "react";
 import { type ItemMeta, useGetScorecardMeta } from "../hooks/metadata";
 import { CircularLoader } from "@dhis2/ui";
+import i18n from "@dhis2/d2-i18n";
 
 export interface ScorecardMeta {
 	periods: Array<ItemMeta>;
@@ -24,9 +25,8 @@ export const ScorecardMetaProvider = ({
 }: {
 	children: ReactNode;
 }) => {
-	const { loading, ...meta } = useGetScorecardMeta();
-
-	if (loading) {
+	const { loading, called, ...meta } = useGetScorecardMeta();
+	if (loading || !called) {
 		return (
 			<div
 				style={{
@@ -40,6 +40,10 @@ export const ScorecardMetaProvider = ({
 				<CircularLoader small />
 			</div>
 		);
+	}
+
+	if (!meta.orgUnits && called) {
+		throw Error(i18n.t("Error getting metadata for the scorecard"));
 	}
 
 	return (

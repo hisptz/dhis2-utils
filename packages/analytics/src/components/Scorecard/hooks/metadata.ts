@@ -102,14 +102,17 @@ export function useGetScorecardMeta() {
 		[config, orgUnitSelection, periodSelection],
 	);
 
-	const { loading, data, refetch } = useDataQuery<MetaResponse>(query, {
-		variables: {
-			periods: periodsIds,
-			orgUnits: orgUnitsIds,
-			dataItems: dataItemsIds,
+	const { loading, data, refetch, called } = useDataQuery<MetaResponse>(
+		query,
+		{
+			variables: {
+				periods: periodsIds,
+				orgUnits: orgUnitsIds,
+				dataItems: dataItemsIds,
+			},
+			lazy: true,
 		},
-		lazy: true,
-	});
+	);
 
 	const orgUnits = useMemo(() => {
 		return (
@@ -160,6 +163,7 @@ export function useGetScorecardMeta() {
 		periods,
 		dataItems,
 		orgUnitLevels,
+		called,
 	};
 }
 
