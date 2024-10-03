@@ -1008,6 +1008,7 @@ const meta: Meta<typeof Scorecard> = {
 					averageRow: true,
 					averageColumn: true,
 					arrows: true,
+					averageDisplayType: "ALL",
 				},
 				orgUnitSelection: config.orgUnitSelection,
 				periodSelection: {

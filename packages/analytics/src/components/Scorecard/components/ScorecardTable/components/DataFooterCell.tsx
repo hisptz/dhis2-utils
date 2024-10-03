@@ -83,7 +83,7 @@ function OrgUnitFooterCell({
 	}
 
 	if (isEmpty(averageValues)) {
-		return <DataTableCell bordered>n/A</DataTableCell>;
+		return <DataTableCell bordered />;
 	}
 
 	if (averageValues?.length === 1) {
