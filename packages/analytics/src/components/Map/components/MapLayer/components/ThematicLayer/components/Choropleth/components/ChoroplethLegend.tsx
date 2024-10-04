@@ -6,7 +6,7 @@ import { getLegendCount } from "../../../../../../../utils/map.js";
 import {
 	ThematicLayerData,
 	ThematicLayerDataItem,
-} from "../../../../../interfaces/index.js";
+} from "../../../../../interfaces";
 import LegendCardHeader from "../../../../LegendArea/components/LegendCardHeader/index.js";
 
 export function LegendItem({
