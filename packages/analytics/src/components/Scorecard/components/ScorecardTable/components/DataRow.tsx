@@ -38,6 +38,8 @@ function TableRowComponent({
 	return (
 		<DataTableRow
 			data-index={virtualRow ? virtualRow.index : undefined}
+			/*
+      // @ts-ignore */
 			ref={
 				virtualizer
 					? (node: any) => virtualizer.measureElement(node)

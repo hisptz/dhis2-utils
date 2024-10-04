@@ -16,6 +16,8 @@ function NumberCellComponent(
 				maxWidth: 48,
 			}}
 			fixed
+			/*
+      // @ts-ignore */
 			left="48px"
 		>
 			{data}

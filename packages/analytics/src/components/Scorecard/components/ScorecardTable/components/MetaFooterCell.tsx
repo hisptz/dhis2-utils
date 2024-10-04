@@ -17,6 +17,8 @@ export function MetaFooterCell() {
 			align="center"
 			colSpan={itemNumber ? "3" : "2"}
 			fixed
+			/*
+      // @ts-ignore */
 			left="0"
 		>
 			<b style={{ padding: "8px 0" }}>{i18n.t("Average")}</b>

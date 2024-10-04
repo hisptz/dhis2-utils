@@ -11,6 +11,8 @@ export function ExpandCell(props: CellContext<ScorecardTableData, boolean>) {
 				style={{ width: 48, maxWidth: 48, minWidth: 48 }}
 				key={props.cell.id}
 				fixed
+				/*
+      // @ts-ignore */
 				left="0"
 			/>
 		);

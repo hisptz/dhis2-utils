@@ -44,6 +44,8 @@ export function LabelCellComponent(
 				minWidth: 300,
 			}}
 			fixed
+			/*
+      // @ts-ignore */
 			left={`${left}px`}
 			bordered
 		>

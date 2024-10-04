@@ -53,6 +53,8 @@ function MetaHeaderCellComponent({
 				}
 			}}
 			fixed
+			/*
+      // @ts-ignore */
 			left="0"
 			sortDirection={sortDirection}
 			colSpan={header.colSpan.toString()}

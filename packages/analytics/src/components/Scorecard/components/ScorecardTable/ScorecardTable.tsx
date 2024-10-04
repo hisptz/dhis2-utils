@@ -52,7 +52,12 @@ export const ScorecardTable = memo(function TableComponent(
 				});
 			}}
 		>
-			<DataTable layout="auto" {...props} ref={tableRef}>
+			<DataTable
+				layout="auto"
+				{...props} /*
+      // @ts-ignore */
+				ref={tableRef}
+			>
 				<TableHeader />
 				<TableBody tableRef={tableRef} />
 				<TableFoot />
