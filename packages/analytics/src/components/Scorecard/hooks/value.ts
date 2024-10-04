@@ -9,7 +9,7 @@ import { useScorecardData } from "../components/DataProvider";
 import type { DataEngineListener } from "../utils/dataEngine";
 import type { AnalyticsData } from "../utils/data";
 import { getValues } from "../utils/columns";
-import { every, meanBy } from "lodash";
+import { every, isEqual, meanBy } from "lodash";
 
 function getDataValues({
 	data,
@@ -80,7 +80,13 @@ export function useCellValue(dataConfig: ScorecardTableCellConfig) {
 			} else {
 				const values = getDataValues({ data, dataConfig });
 				const hasValues = every(values, (value) => !!value.data);
-				setCellData(values);
+				setCellData((prevState) => {
+					if (isEqual(prevState, values)) {
+						return prevState;
+					} else {
+						return values;
+					}
+				});
 				if (hasValues) {
 					scorecardEngine.removeListener(listener);
 					setLoading(false);

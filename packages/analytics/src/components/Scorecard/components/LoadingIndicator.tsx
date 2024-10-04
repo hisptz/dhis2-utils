@@ -1,9 +1,9 @@
-import { useScorecardData } from "./DataProvider";
+import { useScorecardDataFetchProgress } from "./DataProvider";
 import { DataTableRow, LinearLoader } from "@dhis2/ui";
 import { useTableState } from "./TableStateProvider";
 
 export function LoadingIndicator() {
-	const { progress } = useScorecardData();
+	const { progress } = useScorecardDataFetchProgress();
 	const table = useTableState();
 	const colSpan = table.getVisibleFlatColumns().length;
 

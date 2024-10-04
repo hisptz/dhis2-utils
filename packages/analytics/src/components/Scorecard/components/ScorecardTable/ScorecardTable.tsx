@@ -4,13 +4,14 @@ import { TableBody } from "./components/TableBody";
 import { TableFoot } from "./components/TableFoot";
 import { DndContext } from "@dnd-kit/core";
 import { useScorecardSetState } from "../StateProvider";
-import { memo, useTransition } from "react";
+import { memo, useRef, useTransition } from "react";
 
 export interface ScorecardTableProps extends Omit<DataTableProps, "children"> {}
 
 export const ScorecardTable = memo(function TableComponent(
 	props: ScorecardTableProps,
 ) {
+	const tableRef = useRef<HTMLTableElement>(null);
 	const [isPending, startTransition] = useTransition();
 	const updateState = useScorecardSetState();
 

@@ -1,5 +1,4 @@
-import { createContext, type ReactNode, useContext } from "react";
-import type { ScorecardAnalyticsData } from "../schemas/config";
+import { createContext, type ReactNode, useContext, useRef } from "react";
 import { useGetScorecardData } from "../hooks/data";
 import {
 	createScorecardDataEngine,
@@ -7,14 +6,14 @@ import {
 } from "../utils/dataEngine";
 
 export interface ScorecardData {
-	progress?: number;
 	data: ScorecardDataEngine;
-	rawData: ScorecardAnalyticsData[];
 }
 
 const ScorecardDataContext = createContext<ScorecardData>({
 	data: createScorecardDataEngine(),
-	rawData: [],
+});
+
+const ScorecardDataFetchProgress = createContext<{ progress: number }>({
 	progress: 0,
 });
 
@@ -22,10 +21,33 @@ export function useScorecardData() {
 	return useContext(ScorecardDataContext);
 }
 
-export function ScorecardDataProvider({ children }: { children: ReactNode }) {
-	const value = useGetScorecardData();
+export function useScorecardDataFetchProgress() {
+	return useContext(ScorecardDataFetchProgress);
+}
+
+export function ScorecardDataFetchProgressProvider({
+	children,
+}: {
+	children: ReactNode;
+}) {
+	const { data: dataEngine } = useScorecardData();
+	const value = useGetScorecardData(dataEngine);
+
 	return (
-		<ScorecardDataContext.Provider value={value}>
+		<ScorecardDataFetchProgress.Provider value={value}>
+			{children}
+		</ScorecardDataFetchProgress.Provider>
+	);
+}
+
+export function ScorecardDataProvider({ children }: { children: ReactNode }) {
+	const dataEngine = useRef<ScorecardDataEngine>(createScorecardDataEngine());
+	return (
+		<ScorecardDataContext.Provider
+			value={{
+				data: dataEngine.current,
+			}}
+		>
 			{children}
 		</ScorecardDataContext.Provider>
 	);

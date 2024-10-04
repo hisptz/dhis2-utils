@@ -1001,24 +1001,16 @@ const meta: Meta<typeof Scorecard> = {
 	title: "Scorecard",
 	component: Scorecard,
 	decorators: (Story, context) => {
-		const form = useForm<ScorecardState>({
-			defaultValues: {
-				options: {
-					...config.options,
-					averageRow: true,
-					averageColumn: true,
-					arrows: true,
-					averageDisplayType: "ALL",
-				},
-				orgUnitSelection: config.orgUnitSelection,
-				periodSelection: {
-					...config.periodSelection,
-				},
-			},
-		});
+		const form = useForm<ScorecardState>({});
 		return (
 			<FormProvider {...form}>
-				<div style={{ maxWidth: 1400, overflowX: "auto" }}>
+				<div
+					style={{
+						maxWidth: 1400,
+						maxHeight: "60vh",
+						overflowX: "auto",
+					}}
+				>
 					<div style={{ display: "flex", gap: 16 }}>
 						<RHFCheckboxField
 							label={i18n.t("Show data in rows")}
@@ -1029,7 +1021,28 @@ const meta: Meta<typeof Scorecard> = {
 						render={({ field }) => {
 							return (
 								<ScorecardContext
-									initialState={form.getValues()}
+									initialState={{
+										options: {
+											...config.options,
+											averageRow: true,
+											averageColumn: true,
+											arrows: true,
+											averageDisplayType: "ALL",
+										},
+										orgUnitSelection: {
+											orgUnits: [],
+											userOrgUnit: true,
+											userSubUnit: true,
+											userSubX2Unit: true,
+											levels: ["VJJOhuBJSJe"],
+										},
+										periodSelection: {
+											periods: [
+												{ id: "2018" },
+												{ id: "2019" },
+											],
+										},
+									}}
 									config={config}
 								>
 									<Story args={{ ...context.args }} />

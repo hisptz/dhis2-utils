@@ -9,12 +9,9 @@ import {
 import { chunk, maxBy, uniq } from "lodash";
 import { sanitizeAnalyticsData } from "../utils/data";
 import { useCalendar } from "./metadata";
-import {
-	createScorecardDataEngine,
-	type ScorecardDataEngine,
-} from "../utils/dataEngine";
 import { queue } from "async-es";
 import { asyncify, type QueueObject } from "async";
+import type { ScorecardDataEngine } from "../utils/dataEngine";
 
 const query: any = {
 	data: {
@@ -58,10 +55,9 @@ export interface ScorecardDataQueryResponse {
 
 const chunkSize = 5;
 
-export function useGetScorecardData() {
+export function useGetScorecardData(dataEngine: ScorecardDataEngine) {
 	const [totalRequests, setTotalRequests] = useState<number>(0);
 	const [noOfCompleteRequests, setNoOfCompleteRequests] = useState<number>(0);
-	const data = useRef<ScorecardDataEngine>(createScorecardDataEngine());
 	const fetchData = async ({
 		periods,
 		dataItems,
@@ -78,7 +74,7 @@ export function useGetScorecardData() {
 		})) as unknown as ScorecardDataQueryResponse;
 		if (!rawAnalyticsData) return [];
 		const tableData = getTableData(rawAnalyticsData);
-		data.current.updateData(tableData);
+		dataEngine.updateData(tableData);
 		setNoOfCompleteRequests((prev) => prev + 1);
 	};
 	const dataFetchQueue = useRef<QueueObject<any>>(queue(asyncify(fetchData)));
@@ -117,17 +113,14 @@ export function useGetScorecardData() {
 		return uniq([...periodsIds, ...pastPeriods]);
 	}, [periodsIds]);
 
-	const { refetch, called } = useDataQuery<ScorecardDataQueryResponse>(
-		query,
-		{
-			variables: {
-				periods: analyticsPeriod,
-				dataItems: dataItemsIds,
-				orgUnits: orgUnitsIds,
-			},
-			lazy: true,
+	const { refetch } = useDataQuery<ScorecardDataQueryResponse>(query, {
+		variables: {
+			periods: analyticsPeriod,
+			dataItems: dataItemsIds,
+			orgUnits: orgUnitsIds,
 		},
-	);
+		lazy: true,
+	});
 
 	const progress = useMemo(() => {
 		return noOfCompleteRequests / totalRequests;
@@ -200,10 +193,10 @@ export function useGetScorecardData() {
 		setNoOfCompleteRequests(0);
 		dataFetchQueue.current.remove(() => true);
 		dataFetchQueue.current.drain(() => {
-			data.current.complete();
+			dataEngine.complete();
 		});
 
-		data.current.clear();
+		dataEngine.clear();
 		if (
 			analyticsPeriod.length <= 5 &&
 			dataItemsIds.length <= 5 &&
@@ -217,7 +210,7 @@ export function useGetScorecardData() {
 				orgUnits: orgUnitsIds,
 			});
 			setNoOfCompleteRequests(1);
-			data.current.complete();
+			dataEngine.complete();
 			return;
 		}
 		//If not then let's figure out how to paginate one of the
@@ -231,7 +224,6 @@ export function useGetScorecardData() {
 	}, []);
 
 	return {
-		data: data.current,
 		rawData: [],
 		progress,
 	};
