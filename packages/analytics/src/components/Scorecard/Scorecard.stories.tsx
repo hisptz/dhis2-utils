@@ -1030,7 +1030,8 @@ const meta: Meta<typeof Scorecard> = {
 											itemNumber: false,
 										},
 										orgUnitSelection: {
-											...config.orgUnitSelection,
+											orgUnits: [],
+											levels: ["VJJOhuBJSJe"],
 										},
 										periodSelection: {
 											...config.periodSelection,

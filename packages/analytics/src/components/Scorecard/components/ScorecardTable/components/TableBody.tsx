@@ -17,7 +17,7 @@ export const TableBody = memo(function TableBody({
 		[table.getRowModel().rows],
 	);
 
-	const enabled = false;
+	const enabled = false; //TODO: Work for smooth scroll first
 
 	const virtualizer = useVirtualizer({
 		count: rows.length,
@@ -30,7 +30,7 @@ export const TableBody = memo(function TableBody({
 			navigator.userAgent.indexOf("Firefox") === -1
 				? (element) => element?.getBoundingClientRect().height
 				: undefined,
-		estimateSize: () => 120,
+		estimateSize: () => 60,
 	});
 
 	return (
