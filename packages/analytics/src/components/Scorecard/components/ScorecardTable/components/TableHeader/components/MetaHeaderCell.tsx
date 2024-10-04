@@ -44,7 +44,7 @@ function MetaHeaderCellComponent({
 	return (
 		<DataTableColumnHeader
 			key={`${header.id}-${randomId.current}`}
-			align="right"
+			align="center"
 			sortIconTitle={i18n.t("Sort {{nextSortType}}", { nextSortType })}
 			onSortIconClick={(_, e) => {
 				const sort = filterColumn!.getToggleSortingHandler();

@@ -1027,12 +1027,10 @@ const meta: Meta<typeof Scorecard> = {
 											averageColumn: true,
 											arrows: true,
 											averageDisplayType: "ALL",
+											itemNumber: false,
 										},
 										orgUnitSelection: {
-											orgUnits: [],
-											userOrgUnit: true,
-											userSubUnit: true,
-											userSubX2Unit: true,
+											...config.orgUnitSelection,
 										},
 										periodSelection: {
 											...config.periodSelection,

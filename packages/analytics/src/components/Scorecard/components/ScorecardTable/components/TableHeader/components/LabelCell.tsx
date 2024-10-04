@@ -30,10 +30,7 @@ export function LabelCellComponent(
 	}, []);
 
 	const left = useMemo(() => {
-		let left = 0;
-		if (canExpand) {
-			left++;
-		}
+		let left = 1;
 		if (itemNumber) {
 			left++;
 		}

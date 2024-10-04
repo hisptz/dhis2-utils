@@ -3,6 +3,7 @@ import type { Column } from "@tanstack/react-table";
 import i18n from "@dhis2/d2-i18n";
 import { useScorecardStateSelector } from "../../../../StateProvider";
 import { InputField } from "@dhis2/ui";
+import styles from "../TableHeader.module.css";
 import { useEffect, useState } from "react";
 
 export interface FilterAreaProps {
@@ -30,7 +31,7 @@ export function FilterArea({ column }: FilterAreaProps) {
 
 	return (
 		<InputField
-			fullWidth
+			className={styles["filter-input"]}
 			value={text}
 			onChange={({ value }) => setText(value)}
 			placeholder={searchPlaceholder}
