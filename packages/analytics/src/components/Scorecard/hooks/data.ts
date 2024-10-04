@@ -163,7 +163,7 @@ export function useGetScorecardData() {
 					const dataItemChunks = chunk(dataItemsIds, chunkSize);
 					setTotalRequests(dataItemChunks.length);
 					for (const dataItemChunk of dataItemChunks) {
-						await dataFetchQueue.current.push({
+						dataFetchQueue.current.push({
 							periods: analyticsPeriod,
 							dataItems: dataItemChunk,
 							orgUnits: orgUnitsIds,
@@ -174,7 +174,7 @@ export function useGetScorecardData() {
 					const periodChunks = chunk(analyticsPeriod, chunkSize);
 					setTotalRequests(periodChunks.length);
 					for (const periodChunk of periodChunks) {
-						await dataFetchQueue.current.push({
+						dataFetchQueue.current.push({
 							periods: periodChunk,
 							dataItems: dataItemsIds,
 							orgUnits: orgUnitsIds,
@@ -185,7 +185,7 @@ export function useGetScorecardData() {
 					const orgUnitChunks = chunk(orgUnitsIds, chunkSize);
 					setTotalRequests(orgUnitChunks.length);
 					for (const orgUnitChunk of orgUnitChunks) {
-						await dataFetchQueue.current.push({
+						dataFetchQueue.current.push({
 							periods: analyticsPeriod,
 							dataItems: dataItemsIds,
 							orgUnits: orgUnitChunk,
@@ -199,6 +199,10 @@ export function useGetScorecardData() {
 		setTotalRequests(0);
 		setNoOfCompleteRequests(0);
 		dataFetchQueue.current.remove(() => true);
+		dataFetchQueue.current.drain(() => {
+			data.current.complete();
+		});
+
 		data.current.clear();
 		if (
 			analyticsPeriod.length <= 5 &&
@@ -220,7 +224,6 @@ export function useGetScorecardData() {
 		setNoOfCompleteRequests(0);
 		const dimensionWithMaxItems = getTheLongestDimension();
 		await getChunkedData(dimensionWithMaxItems);
-		data.current.complete();
 	};
 
 	useEffect(() => {
