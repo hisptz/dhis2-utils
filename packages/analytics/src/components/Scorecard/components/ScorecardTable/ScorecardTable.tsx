@@ -52,9 +52,9 @@ export const ScorecardTable = memo(function TableComponent(
 				});
 			}}
 		>
-			<DataTable {...props} layout="auto">
+			<DataTable layout="auto" {...props} ref={tableRef}>
 				<TableHeader />
-				<TableBody />
+				<TableBody tableRef={tableRef} />
 				<TableFoot />
 			</DataTable>
 		</DndContext>

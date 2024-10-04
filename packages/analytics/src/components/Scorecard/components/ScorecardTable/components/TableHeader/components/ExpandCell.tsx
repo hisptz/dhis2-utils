@@ -6,7 +6,14 @@ export function ExpandCell(props: CellContext<ScorecardTableData, boolean>) {
 	const data = props.getValue();
 
 	if (!data) {
-		return <DataTableCell key={props.cell.id} fixed />;
+		return (
+			<DataTableCell
+				style={{ width: 48 }}
+				key={props.cell.id}
+				fixed
+				left="0"
+			/>
+		);
 	}
 
 	return null;

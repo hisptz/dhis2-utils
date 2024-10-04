@@ -1008,7 +1008,6 @@ const meta: Meta<typeof Scorecard> = {
 					style={{
 						maxWidth: 1400,
 						maxHeight: "60vh",
-						overflowX: "auto",
 					}}
 				>
 					<div style={{ display: "flex", gap: 16 }}>
@@ -1034,18 +1033,23 @@ const meta: Meta<typeof Scorecard> = {
 											userOrgUnit: true,
 											userSubUnit: true,
 											userSubX2Unit: true,
-											levels: ["VJJOhuBJSJe"],
 										},
 										periodSelection: {
-											periods: [
-												{ id: "2018" },
-												{ id: "2019" },
-											],
+											...config.periodSelection,
 										},
 									}}
 									config={config}
 								>
-									<Story args={{ ...context.args }} />
+									<Story
+										args={{
+											...context.args,
+											tableProps: {
+												scrollHeight: "800px",
+												scrollWidth: "1400px",
+												width: "800px",
+											},
+										}}
+									/>
 								</ScorecardContext>
 							);
 						}}

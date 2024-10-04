@@ -7,7 +7,8 @@ import { DataTableCell } from "@dhis2/ui";
 import DroppableCell from "../../DroppableCell";
 import { DraggableCell } from "../../DraggableCell";
 import { useScorecardStateSelector } from "../../../../StateProvider";
-import { memo } from "react";
+import { memo, useMemo } from "react";
+import { head } from "lodash";
 
 export function LabelCellComponent(
 	props: CellContext<ScorecardTableData, string | number>,
@@ -18,13 +19,35 @@ export function LabelCellComponent(
 		"showDataInRows",
 	]);
 
+	const itemNumber = useScorecardStateSelector<boolean>([
+		"options",
+		"itemNumber",
+	]);
+
+	const canExpand = useMemo(() => {
+		const expandCell = head(props.row.getVisibleCells());
+		return (expandCell?.getValue() as boolean) ?? false;
+	}, []);
+
+	const left = useMemo(() => {
+		let left = 0;
+		if (canExpand) {
+			left++;
+		}
+		if (itemNumber) {
+			left++;
+		}
+		return left * 48;
+	}, [canExpand, itemNumber]);
+
 	return (
 		<DataTableCell
 			style={{
 				width: "fit-content",
-				minWidth: 200,
+				minWidth: 300,
 			}}
 			fixed
+			left={`${left}px`}
 			bordered
 		>
 			<DroppableCell

@@ -52,6 +52,8 @@ function MetaHeaderCellComponent({
 					sort(e);
 				}
 			}}
+			fixed
+			left="0"
 			sortDirection={sortDirection}
 			colSpan={header.colSpan.toString()}
 			rowSpan={rowSpan}

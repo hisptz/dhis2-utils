@@ -210,7 +210,6 @@ export function useTableSetup(): TableOptions<ScorecardTableData> {
 			sorting,
 			columnVisibility,
 		},
-
 		onColumnFiltersChange: setColumnFilters,
 		onSortingChange: setSorting,
 		getCoreRowModel: getCoreRowModel(),

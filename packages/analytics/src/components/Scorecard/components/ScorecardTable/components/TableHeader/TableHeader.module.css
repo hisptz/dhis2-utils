@@ -12,3 +12,10 @@
 .iconButton:hover {
     opacity: 0.8;
 }
+
+.sticky-header {
+    position: sticky !important;
+    top: 0;
+    left: 0;
+    z-index: 2 !important;
+}

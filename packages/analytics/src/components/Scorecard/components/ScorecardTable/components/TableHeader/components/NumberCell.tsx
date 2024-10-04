@@ -11,9 +11,12 @@ function NumberCellComponent(
 	return (
 		<DataTableCell
 			style={{
-				width: "fit-content",
+				width: 48,
+				minWidth: 48,
+				maxWidth: 48,
 			}}
 			fixed
+			left="48px"
 		>
 			{data}
 		</DataTableCell>

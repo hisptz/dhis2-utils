@@ -30,6 +30,7 @@ export function FilterArea({ column }: FilterAreaProps) {
 
 	return (
 		<InputField
+			fullWidth
 			value={text}
 			onChange={({ value }) => setText(value)}
 			placeholder={searchPlaceholder}

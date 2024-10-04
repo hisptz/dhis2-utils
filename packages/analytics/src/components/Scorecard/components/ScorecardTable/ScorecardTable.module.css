@@ -1,11 +1,11 @@
 
 .expandCell > td:first-child {
-    left: auto;
+    left: 0;
     top: auto;
     text-align: left;
-    width: auto;
+    width: 40px !important;
     background-color: rgb(243, 245, 247);
-    position: sticky;
+    position: sticky !important;
     z-index: 1;
     padding: 10px 12px;
 }
@@ -23,6 +23,17 @@
 }
 
 @-webkit-keyframes moving-gradient {
-    0% { background-position: -250px 0; }
-    100% { background-position: 250px 0; }
+    0% {
+        background-position: -250px 0;
+    }
+    100% {
+        background-position: 250px 0;
+    }
 }
+
+.loader {
+    position: sticky !important;
+    left: 0;
+}
+
+

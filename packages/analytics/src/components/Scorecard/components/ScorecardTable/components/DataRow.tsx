@@ -8,8 +8,17 @@ import { DataTableRow } from "@dhis2/ui";
 import styles from "../ScorecardTable.module.css";
 import { ExpandedScorecardTable } from "./ExpandedScorecardTable";
 import { Fragment, useMemo, useTransition } from "react";
+import type { VirtualItem, Virtualizer } from "@tanstack/react-virtual";
 
-function TableRowComponent({ row }: { row: Row<ScorecardTableData> }) {
+function TableRowComponent({
+	row,
+	virtualRow,
+	virtualizer,
+}: {
+	row: Row<ScorecardTableData>;
+	virtualRow?: VirtualItem;
+	virtualizer?: Virtualizer<HTMLDivElement, any>;
+}) {
 	const [isPending, startTransition] = useTransition();
 	const orgUnit = useMemo(() => {
 		const dataCell = row.getVisibleCells().find((cell) => {
@@ -28,6 +37,12 @@ function TableRowComponent({ row }: { row: Row<ScorecardTableData> }) {
 
 	return (
 		<DataTableRow
+			data-index={virtualRow ? virtualRow.index : undefined}
+			ref={
+				virtualizer
+					? (node: any) => virtualizer.measureElement(node)
+					: undefined
+			}
 			className={styles.expandCell}
 			onExpandToggle={
 				canExpand

@@ -9,7 +9,16 @@ export function MetaFooterCell() {
 	]);
 
 	return (
-		<DataTableCell align="center" colSpan={itemNumber ? "3" : "2"} fixed>
+		<DataTableCell
+			style={{
+				width: "fit-content",
+				minWidth: 300,
+			}}
+			align="center"
+			colSpan={itemNumber ? "3" : "2"}
+			fixed
+			left="0"
+		>
 			<b style={{ padding: "8px 0" }}>{i18n.t("Average")}</b>
 		</DataTableCell>
 	);
