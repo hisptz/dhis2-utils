@@ -39,6 +39,7 @@ export function LabelCellComponent(
 
 	return (
 		<DataTableCell
+			width="300px"
 			style={{
 				width: "fit-content",
 				minWidth: 300,

@@ -62,21 +62,6 @@ export function useCellValue(dataConfig: ScorecardTableCellConfig) {
 		const listener: DataEngineListener = (data) => {
 			if (data === "done") {
 				setLoading(false);
-				setCellData((prevState) => {
-					return prevState.map((value) => {
-						if (!value.data) {
-							return {
-								...value,
-								data: {
-									current: undefined,
-									previous: undefined,
-								},
-							};
-						}
-
-						return value;
-					});
-				});
 			} else {
 				const values = getDataValues({ data, dataConfig });
 				const hasValues = every(values, (value) => !!value.data);

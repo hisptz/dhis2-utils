@@ -8,6 +8,7 @@ export function ExpandCell(props: CellContext<ScorecardTableData, boolean>) {
 	if (!data) {
 		return (
 			<DataTableCell
+				width={"48px"}
 				style={{ width: 48, maxWidth: 48, minWidth: 48 }}
 				key={props.cell.id}
 				fixed

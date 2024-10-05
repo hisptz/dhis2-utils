@@ -10,6 +10,7 @@ function NumberCellComponent(
 
 	return (
 		<DataTableCell
+			width={"48px"}
 			style={{
 				width: 48,
 				minWidth: 48,

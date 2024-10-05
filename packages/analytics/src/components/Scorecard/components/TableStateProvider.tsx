@@ -21,9 +21,6 @@ export function useTableState() {
 
 export function TableStateProvider({ children }: { children: ReactNode }) {
 	const options = useTableSetup();
-
-	console.log("Re-rendering table state");
-
 	return (
 		<TableStateContext.Provider value={options}>
 			{children}
