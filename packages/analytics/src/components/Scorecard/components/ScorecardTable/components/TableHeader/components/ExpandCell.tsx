@@ -4,12 +4,13 @@ import { DataTableCell } from "@dhis2/ui";
 
 export function ExpandCell(props: CellContext<ScorecardTableData, boolean>) {
 	const data = props.getValue();
+	const size = props.cell.column.getSize();
 
 	if (!data) {
 		return (
 			<DataTableCell
-				width={"48px"}
-				style={{ width: 48, maxWidth: 48, minWidth: 48 }}
+				width={`${size}px`}
+				style={{ width: size, minWidth: size }}
 				key={props.cell.id}
 				fixed
 				/*

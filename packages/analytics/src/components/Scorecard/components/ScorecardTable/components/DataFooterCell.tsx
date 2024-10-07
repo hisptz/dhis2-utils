@@ -40,8 +40,10 @@ function getOrgUnitAverage({
 
 function OrgUnitFooterCell({
 	dataSourcesConfig,
+	size,
 }: {
 	dataSourcesConfig: ScorecardTableCellConfig[];
+	size: number;
 }) {
 	const { data: scorecardEngine } = useScorecardData();
 	const [loading, setLoading] = useState<boolean>(false);
@@ -79,24 +81,28 @@ function OrgUnitFooterCell({
 	}, [dataSourcesConfig]);
 
 	if (loading) {
-		return <CellLoader />;
+		return <CellLoader size={size} />;
 	}
 
 	if (isEmpty(averageValues)) {
-		return <DataTableCell bordered />;
+		return <DataTableCell style={{ width: size }} bordered />;
 	}
 
 	if (averageValues?.length === 1) {
-		return <SingleAverageCell dataSource={head(averageValues)!} />;
+		return (
+			<SingleAverageCell size={size} dataSource={head(averageValues)!} />
+		);
 	} else {
-		return <LinkedAverageCell dataSources={averageValues!} />;
+		return <LinkedAverageCell size={size} dataSources={averageValues!} />;
 	}
 }
 
 function DataHolderFooterCell({
 	dataSourcesConfig,
+	size,
 }: {
 	dataSourcesConfig: ScorecardTableCellConfig[];
+	size: number;
 }) {
 	const { data: scorecardEngine } = useScorecardData();
 	const [loading, setLoading] = useState<boolean>(false);
@@ -137,10 +143,10 @@ function DataHolderFooterCell({
 	}, [dataSourcesConfig]);
 
 	if (loading) {
-		return <CellLoader />;
+		return <CellLoader size={size} />;
 	}
 	return (
-		<DataTableCell bordered align="center">
+		<DataTableCell style={{ width: size }} bordered align="center">
 			<b>{average?.toFixed(2).toString()}</b>
 		</DataTableCell>
 	);
@@ -150,6 +156,7 @@ export function DataFooterCell({
 	table,
 	column,
 }: HeaderContext<ScorecardTableData, ScorecardTableCellConfig>) {
+	const size = column.getSize();
 	const showDataInRows = useScorecardStateSelector<boolean>([
 		"options",
 		"showDataInRows",
@@ -163,8 +170,15 @@ export function DataFooterCell({
 	}, [table.getRowModel().rows]);
 
 	if (showDataInRows) {
-		return <DataHolderFooterCell dataSourcesConfig={dataSourceConfig} />;
+		return (
+			<DataHolderFooterCell
+				size={size}
+				dataSourcesConfig={dataSourceConfig}
+			/>
+		);
 	}
 
-	return <OrgUnitFooterCell dataSourcesConfig={dataSourceConfig} />;
+	return (
+		<OrgUnitFooterCell size={size} dataSourcesConfig={dataSourceConfig} />
+	);
 }

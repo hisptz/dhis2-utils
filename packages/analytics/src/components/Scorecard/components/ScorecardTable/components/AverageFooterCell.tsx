@@ -8,7 +8,10 @@ import type { AnalyticsData } from "../../../utils/data";
 import { getAverageValue } from "../../../utils/columns";
 import { CellLoader } from "./CellLoader";
 
-export function AverageFooterCell({}: HeaderContext<ScorecardTableData, any>) {
+export function AverageFooterCell({
+	column,
+}: HeaderContext<ScorecardTableData, any>) {
+	const size = column.getSize();
 	const meta = useScorecardMeta();
 	const [loading, setLoading] = useState<boolean>(false);
 	const [average, setAverage] = useState<number>();
@@ -44,15 +47,15 @@ export function AverageFooterCell({}: HeaderContext<ScorecardTableData, any>) {
 	}, []);
 
 	if (loading) {
-		return <CellLoader />;
+		return <CellLoader size={size} />;
 	}
 
 	if (!average || isNaN(average)) {
-		return <DataTableCell bordered />;
+		return <DataTableCell style={{ width: size }} bordered />;
 	}
 
 	return (
-		<DataTableCell bordered align="center">
+		<DataTableCell style={{ width: size }} bordered align="center">
 			<b>{average?.toFixed(2).toString()}</b>
 		</DataTableCell>
 	);

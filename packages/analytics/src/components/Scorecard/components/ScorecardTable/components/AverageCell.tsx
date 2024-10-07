@@ -22,8 +22,10 @@ import { CellLoader } from "./CellLoader";
 
 export function SingleAverageCell({
 	dataSource,
+	size,
 }: {
 	dataSource: ScorecardAverageCellData;
+	size: number;
 }) {
 	const config = useScorecardConfig();
 	const legendDefinition = useMemo(() => {
@@ -48,6 +50,8 @@ export function SingleAverageCell({
 				background: legendDefinition?.color,
 				textAlign: "center",
 				minWidth: 100,
+				width: size,
+				height: 48,
 				color: legendDefinition
 					? getTextColorFromBackgroundColor(legendDefinition?.color)
 					: undefined,
@@ -61,8 +65,10 @@ export function SingleAverageCell({
 
 export function LinkedAverageCell({
 	dataSources,
+	size,
 }: {
 	dataSources: Array<ScorecardAverageCellData>;
+	size: number;
 }) {
 	const [top, bottom] = dataSources ?? [];
 	const config = useScorecardConfig();
@@ -89,6 +95,7 @@ export function LinkedAverageCell({
 
 	return (
 		<LinkedCell
+			size={size}
 			top={{
 				dataSource: {
 					...top,
@@ -116,37 +123,49 @@ export function LinkedAverageCell({
 function DataSourceAverageCell(
 	props: CellContext<ScorecardTableData, ScorecardTableAverageCellConfig>,
 ) {
+	const size = props.cell.column.getSize();
 	const dataConfig = useMemo(() => props.getValue(), [props.getValue()]);
 	const { cellData: dataSources, loading } =
 		useDataHolderAverageCellValue(dataConfig);
 
 	if (loading) {
-		return <CellLoader />;
+		return <CellLoader size={size} />;
 	}
 
 	if (!isEmpty(dataSources)) {
 		if (dataSources?.length === 1) {
-			return <SingleAverageCell dataSource={head(dataSources)!} />;
+			return (
+				<SingleAverageCell
+					size={size}
+					dataSource={head(dataSources)!}
+				/>
+			);
 		} else {
-			return <LinkedAverageCell dataSources={dataSources!} />;
+			return <LinkedAverageCell size={size} dataSources={dataSources!} />;
 		}
 	}
 
-	return <DataTableCell />;
+	return <DataTableCell style={{ width: size }} />;
 }
 
 function OrgUnitAverageCell(
 	props: CellContext<ScorecardTableData, ScorecardTableAverageCellConfig>,
 ) {
+	const size = props.cell.column.getSize();
 	const dataConfig = useMemo(() => props.getValue(), [props.getValue()]);
 	const { loading, average } = useOrgUnitAverageCellValue(dataConfig);
 
 	if (loading) {
-		return <CellLoader />;
+		return <CellLoader size={size} />;
 	}
 
 	return (
-		<DataTableCell bordered align="center" key={props.row.id}>
+		<DataTableCell
+			style={{ width: size }}
+			bordered
+			align="center"
+			key={props.row.id}
+		>
 			<b>{average?.toFixed(2).toString()}</b>
 		</DataTableCell>
 	);

@@ -19,11 +19,12 @@ export interface LinkedCellProps {
 		legendDefinition?: LegendDefinition;
 		value?: number;
 	};
+	size: number;
 
 	[key: string]: unknown;
 }
 
-function LinkedCellComponent({ top, bottom, ...props }: LinkedCellProps) {
+function LinkedCellComponent({ top, bottom, size, ...props }: LinkedCellProps) {
 	const [ref, { height, width }] = useElementSize();
 
 	const {
@@ -49,6 +50,7 @@ function LinkedCellComponent({ top, bottom, ...props }: LinkedCellProps) {
 			ref={ref}
 			style={{
 				padding: 8,
+				width: size,
 				minWidth: 120,
 				background: `linear-gradient(-${angle}rad, ${
 					bottomLegendDefinition?.color ?? colors.white

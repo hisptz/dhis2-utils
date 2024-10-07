@@ -13,12 +13,14 @@ export interface LinkedDataCellProps {
 	dataSources: ScorecardCellData[];
 	orgUnit: ItemMeta & { hierarchy: string };
 	period: string;
+	size: number;
 }
 
 function LinkedDataCellComponent({
 	dataSources,
 	orgUnit,
 	period,
+	size,
 }: LinkedDataCellProps) {
 	const [furtherAnalysisConfig, setFurtherAnalysisConfig] =
 		useState<FurtherAnalysisConfig | null>(null);
@@ -48,6 +50,7 @@ function LinkedDataCellComponent({
 				/>
 			)}
 			<LinkedCell
+				size={size}
 				onContextMenu={(e: any) => {
 					e.preventDefault();
 					setStateActionRef(e.target);

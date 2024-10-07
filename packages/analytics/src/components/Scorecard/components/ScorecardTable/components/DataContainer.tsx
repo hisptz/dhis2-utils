@@ -15,17 +15,18 @@ import { CellLoader } from "./CellLoader";
 function DataContainerComponent(
 	props: CellContext<ScorecardTableData, ScorecardTableCellConfig>,
 ) {
+	const size = props.cell.column.getSize();
 	const dataConfig = props.getValue();
 	const config = useScorecardConfig();
 	const meta = useScorecardMeta();
 	const { loading, cellData } = useCellValue(props.getValue());
 
 	if (!config || !meta) {
-		return <DataTableCell bordered />;
+		return <DataTableCell style={{ width: size }} bordered />;
 	}
 
 	if (loading) {
-		return <CellLoader />;
+		return <CellLoader size={size} />;
 	}
 
 	if (!dataConfig) {
@@ -36,6 +37,7 @@ function DataContainerComponent(
 		return (
 			<SingleDataCell
 				{...dataConfig}
+				size={size}
 				period={dataConfig.currentPeriod!}
 				dataSources={cellData}
 			/>
@@ -45,6 +47,7 @@ function DataContainerComponent(
 	return (
 		<LinkedDataCell
 			{...dataConfig}
+			size={size}
 			period={dataConfig.currentPeriod!}
 			dataSources={cellData}
 		/>

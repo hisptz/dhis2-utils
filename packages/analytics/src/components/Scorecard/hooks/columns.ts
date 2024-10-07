@@ -74,6 +74,7 @@ export function useMetaColumns() {
 					},
 					enableColumnFilter: false,
 					cell: ExpandCell,
+					size: 48,
 					footer: () => null,
 				},
 			),
@@ -91,6 +92,7 @@ export function useMetaColumns() {
 					},
 					enableColumnFilter: false,
 					cell: NumberCell,
+					size: 48,
 					footer: () => null,
 				},
 			),
@@ -106,6 +108,7 @@ export function useMetaColumns() {
 					},
 					enableColumnFilter: true,
 					cell: LabelCell,
+					size: 300,
 					footer: MetaFooterCell,
 				}),
 			);
@@ -120,6 +123,7 @@ export function useMetaColumns() {
 						fixed: true,
 					},
 					cell: LabelCell,
+					size: 300,
 					footer: MetaFooterCell,
 				}),
 			);

@@ -7,14 +7,16 @@ function NumberCellComponent(
 	props: CellContext<ScorecardTableData, string | number>,
 ) {
 	const data = props.getValue().toString();
+	const size = props.cell.column.getSize();
 
 	return (
 		<DataTableCell
-			width={"48px"}
+			width={`${size}px`}
 			style={{
-				width: 48,
-				minWidth: 48,
+				width: size,
+				minWidth: size,
 				maxWidth: 48,
+				height: 48,
 			}}
 			fixed
 			/*

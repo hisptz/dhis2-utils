@@ -14,6 +14,7 @@ export function LabelCellComponent(
 	props: CellContext<ScorecardTableData, string | number>,
 ) {
 	const data = props.getValue().toString();
+	const size = props.cell.column.getSize();
 	const dataInRows = useScorecardStateSelector<boolean>([
 		"options",
 		"showDataInRows",
@@ -39,10 +40,9 @@ export function LabelCellComponent(
 
 	return (
 		<DataTableCell
-			width="300px"
+			width={`${size}px`}
 			style={{
-				width: "fit-content",
-				minWidth: 300,
+				width: size,
 			}}
 			fixed
 			/*

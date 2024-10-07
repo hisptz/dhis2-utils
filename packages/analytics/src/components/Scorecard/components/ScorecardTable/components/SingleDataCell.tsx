@@ -16,12 +16,14 @@ export interface SingleDataCellProps {
 	dataSources: ScorecardCellData[];
 	orgUnit: ItemMeta & { hierarchy: string };
 	period: string;
+	size: number;
 }
 
 function SingleDataCellComponent({
 	dataSources,
 	period,
 	orgUnit,
+	size,
 }: SingleDataCellProps): ReactNode {
 	const [furtherAnalysisConfig, setFurtherAnalysisConfig] =
 		useState<FurtherAnalysisConfig | null>(null);
@@ -80,7 +82,9 @@ function SingleDataCellComponent({
 				style={{
 					background: legendDefinition?.color,
 					textAlign: "center",
+					width: size,
 					minWidth: 100,
+					height: 48,
 					color: legendDefinition
 						? getTextColorFromBackgroundColor(
 								legendDefinition?.color,
