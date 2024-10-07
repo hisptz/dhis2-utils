@@ -140,7 +140,7 @@ export const dataGroupSchema = z.object({
 
 export type ScorecardDataGroup = z.infer<typeof dataGroupSchema>;
 
-const scorecardConfig = z.object({
+export const scorecardConfig = z.object({
 	id: z.string(),
 	title: z.string(),
 	subtitle: z.string().optional(),

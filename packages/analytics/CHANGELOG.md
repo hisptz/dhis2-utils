@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.0.36
+
+### Patch Changes
+
+- Fixed scorecard view
+
 ## 2.0.35
 
 ### Patch Changes
