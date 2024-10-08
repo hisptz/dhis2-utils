@@ -2,10 +2,10 @@ import { CircularLoader, DataTable, type DataTableProps } from "@dhis2/ui";
 import { TableHeader } from "./components/TableHeader";
 import { TableBody } from "./components/TableBody";
 import { TableFoot } from "./components/TableFoot";
-import { DndContext } from "@dnd-kit/core";
-import { useScorecardSetState } from "../StateProvider";
-import { memo, useRef, useTransition } from "react";
+import { memo, useEffect, useRef, useTransition } from "react";
 import { PaginatedToolbar } from "./components/PaginatedToolbar";
+import { useDragDropManager } from "react-dnd";
+import { useScorecardSetState } from "../StateProvider";
 
 export interface ScorecardTableProps extends Omit<DataTableProps, "children"> {}
 
@@ -13,8 +13,29 @@ export const ScorecardTable = memo(function TableComponent(
 	props: ScorecardTableProps,
 ) {
 	const tableRef = useRef<HTMLTableElement>(null);
+	const manager = useDragDropManager();
 	const [isPending, startTransition] = useTransition();
 	const updateState = useScorecardSetState();
+
+	useEffect(() => {
+		return manager.getMonitor().subscribeToStateChange(() => {
+			const dropResult = manager.getMonitor().getDropResult();
+			if (dropResult) {
+				startTransition(() => {
+					updateState((prevState) => {
+						return {
+							...prevState,
+							options: {
+								...prevState.options,
+								showDataInRows:
+									!prevState.options.showDataInRows,
+							},
+						};
+					});
+				});
+			}
+		});
+	}, [manager]);
 
 	if (isPending) {
 		return (
@@ -33,26 +54,7 @@ export const ScorecardTable = memo(function TableComponent(
 	}
 
 	return (
-		<DndContext
-			onDragEnd={(event) => {
-				startTransition(() => {
-					if (updateState) {
-						if (!event.over || event.over.id === event.active.id) {
-							updateState((prevState) => {
-								return {
-									...prevState,
-									options: {
-										...prevState.options,
-										showDataInRows:
-											!prevState.options.showDataInRows,
-									},
-								};
-							});
-						}
-					}
-				});
-			}}
-		>
+		<>
 			<DataTable
 				layout="auto"
 				{...props} /*
@@ -64,6 +66,6 @@ export const ScorecardTable = memo(function TableComponent(
 				<TableFoot />
 			</DataTable>
 			<PaginatedToolbar />
-		</DndContext>
+		</>
 	);
 });

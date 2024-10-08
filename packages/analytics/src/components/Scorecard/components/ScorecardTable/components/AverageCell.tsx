@@ -145,7 +145,7 @@ function DataSourceAverageCell(
 		}
 	}
 
-	return <DataTableCell style={{ width: size }} />;
+	return <DataTableCell bordered style={{ width: size }} />;
 }
 
 function OrgUnitAverageCell(

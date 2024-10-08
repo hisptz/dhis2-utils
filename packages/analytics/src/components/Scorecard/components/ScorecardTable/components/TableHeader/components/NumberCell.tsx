@@ -11,6 +11,7 @@ function NumberCellComponent(
 
 	return (
 		<DataTableCell
+			bordered
 			width={`${size}px`}
 			style={{
 				width: size,

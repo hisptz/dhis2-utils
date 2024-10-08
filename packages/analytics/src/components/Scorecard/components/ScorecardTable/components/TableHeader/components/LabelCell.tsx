@@ -58,6 +58,7 @@ export function LabelCellComponent(
 				}
 			>
 				<DraggableCell
+					id={data}
 					type={
 						dataInRows
 							? ScorecardDraggableItems.data

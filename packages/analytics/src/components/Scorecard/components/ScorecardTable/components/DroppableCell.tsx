@@ -1,8 +1,7 @@
 import { colors } from "@dhis2/ui";
-import React, { useMemo } from "react";
+import React from "react";
 import type { ScorecardDraggableItems } from "../../../schemas/config";
-import { useDroppable } from "@dnd-kit/core";
-import { head } from "lodash";
+import { useDrop } from "react-dnd";
 
 export default function DroppableCell({
 	accept,
@@ -11,24 +10,38 @@ export default function DroppableCell({
 	accept: ScorecardDraggableItems[];
 	children: React.ReactNode;
 }) {
-	const { setNodeRef, active } = useDroppable({
-		id: head(accept) as string,
+	const [collectedProps, drop] = useDrop(() => {
+		return {
+			accept,
+			collect: (monitor) => {
+				if (monitor.canDrop()) {
+					return {
+						style: {
+							border: `2px dashed ${colors.grey700}`,
+							background: `${colors.grey100}`,
+							width: "100%",
+						},
+					};
+				} else {
+					return {
+						style: {
+							width: "100%",
+							border: `2px solid transparent`,
+						},
+					};
+				}
+			},
+			drop: (results: { id: string }) => {
+				return results;
+			},
+		};
 	});
-
-	const canDrop = useMemo(() => {
-		if (!active) return false;
-		return accept.includes(active.id as ScorecardDraggableItems);
-	}, [accept, active]);
 
 	return (
 		<div
-			ref={setNodeRef}
+			ref={drop}
 			className="column center align-items-center"
-			style={{
-				border: canDrop ? `2px dashed ${colors.grey700}` : undefined,
-				background: canDrop ? `${colors.grey100}` : undefined,
-				width: "100%",
-			}}
+			{...collectedProps}
 		>
 			{children}
 		</div>

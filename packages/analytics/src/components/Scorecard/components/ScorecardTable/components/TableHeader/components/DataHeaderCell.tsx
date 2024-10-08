@@ -74,6 +74,7 @@ export function DataHeaderCellComponent({
 				}
 			>
 				<DraggableCell
+					id={label}
 					type={
 						dataInRows
 							? ScorecardDraggableItems.ou

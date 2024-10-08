@@ -10,6 +10,7 @@ export function MetaFooterCell() {
 
 	return (
 		<DataTableCell
+			bordered
 			width="300px"
 			style={{
 				width: "fit-content",
