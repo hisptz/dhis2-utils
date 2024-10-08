@@ -54,7 +54,12 @@ export const ScorecardTable = memo(function TableComponent(
 	}
 
 	return (
-		<>
+		<div
+			style={{
+				width: props.width ?? props.scrollWidth,
+				height: props.scrollHeight,
+			}}
+		>
 			<DataTable
 				layout="auto"
 				{...props} /*
@@ -66,6 +71,6 @@ export const ScorecardTable = memo(function TableComponent(
 				<TableFoot />
 			</DataTable>
 			<PaginatedToolbar />
-		</>
+		</div>
 	);
 });

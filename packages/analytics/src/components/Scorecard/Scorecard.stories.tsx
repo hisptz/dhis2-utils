@@ -1045,7 +1045,7 @@ const meta: Meta<typeof Scorecard> = {
 											tableProps: {
 												scrollHeight: "800px",
 												scrollWidth: "1400px",
-												width: "800px",
+												width: "1400px",
 											},
 										}}
 									/>
