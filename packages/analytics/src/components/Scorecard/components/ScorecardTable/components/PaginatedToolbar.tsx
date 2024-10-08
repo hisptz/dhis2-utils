@@ -35,7 +35,12 @@ export function PaginatedToolbar() {
 	}
 
 	return (
-		<DataTableToolbar position="bottom">
+		<DataTableToolbar
+			/*
+			// @ts-ignore */
+			style={{ position: "unset" }}
+			position="bottom"
+		>
 			<div style={{ width: "100%" }}>
 				<Pagination
 					total={rowCount}

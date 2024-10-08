@@ -139,7 +139,10 @@ export function useGetScorecardMeta() {
 		return (
 			data?.meta?.metaData.dimensions["dx"]
 				.map((dx) => {
-					return data?.meta?.metaData.items[dx];
+					return {
+						...data?.meta?.metaData.items[dx],
+						uid: dx,
+					};
 				})
 				.filter(Boolean) ?? []
 		);
