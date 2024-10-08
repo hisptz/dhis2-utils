@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.0.42
+
+### Patch Changes
+
+- Fixes on scorecard
+
 ## 2.0.41
 
 ### Patch Changes

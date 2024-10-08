@@ -1,7 +1,7 @@
 import { useScorecardConfig, useScorecardMeta } from "../components";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { getDimensionsFromMeta } from "../utils/analytics";
-import { useAlert, useDataQuery } from "@dhis2/app-runtime";
+import { FetchError, useAlert, useDataEngine } from "@dhis2/app-runtime";
 import {
 	createFixedPeriodFromPeriodId,
 	getAdjacentFixedPeriods,
@@ -58,7 +58,12 @@ const chunkSize = 5;
 
 export function useGetScorecardData(dataEngine: ScorecardDataEngine) {
 	const [totalRequests, setTotalRequests] = useState<number>(0);
+	const engine = useDataEngine();
 	const [noOfCompleteRequests, setNoOfCompleteRequests] = useState<number>(0);
+	const { show, hide: hideAlert } = useAlert(
+		({ message }) => message,
+		({ type, actions }) => ({ ...type, actions, duration: 3000 }),
+	);
 	const fetchData = async ({
 		periods,
 		dataItems,
@@ -68,21 +73,43 @@ export function useGetScorecardData(dataEngine: ScorecardDataEngine) {
 		orgUnits: string[];
 		dataItems: string[];
 	}) => {
-		const rawAnalyticsData = (await refetch({
-			periods,
-			dataItems,
-			orgUnits,
-		})) as unknown as ScorecardDataQueryResponse;
-		if (!rawAnalyticsData) return [];
-		const tableData = getTableData(rawAnalyticsData);
-		dataEngine.updateData(tableData);
-		setNoOfCompleteRequests((prev) => prev + 1);
+		try {
+			const rawAnalyticsData = (await engine.query(query, {
+				variables: {
+					periods,
+					dataItems,
+					orgUnits,
+				},
+			})) as unknown as ScorecardDataQueryResponse;
+			if (!rawAnalyticsData) return [];
+			const tableData = getTableData(rawAnalyticsData);
+			dataEngine.updateData(tableData);
+			setNoOfCompleteRequests((prev) => prev + 1);
+		} catch (error) {
+			if (error instanceof Error || error instanceof FetchError) {
+				setTotalRequests(0);
+				setNoOfCompleteRequests(0);
+				dataFetchQueue.current.remove(() => true);
+				show({
+					message: `${i18n.t("Error getting scorecard data")}: ${
+						error.message
+					}`,
+					type: { critical: true },
+					actions: [
+						{
+							label: i18n.t("Retry"),
+							onClick: () => {
+								hideAlert();
+								initializeFetch();
+							},
+						},
+					],
+				});
+			} else {
+				console.error(error);
+			}
+		}
 	};
-
-	const { show } = useAlert(
-		({ message }) => message,
-		({ type }) => ({ ...type, duration: 3000 }),
-	);
 	const dataFetchQueue = useRef<QueueObject<any>>(queue(asyncify(fetchData)));
 	const config = useScorecardConfig();
 	const meta = useScorecardMeta();
@@ -118,26 +145,6 @@ export function useGetScorecardData(dataEngine: ScorecardDataEngine) {
 
 		return uniq([...periodsIds, ...pastPeriods]);
 	}, [periodsIds]);
-
-	const { refetch } = useDataQuery<ScorecardDataQueryResponse>(query, {
-		variables: {
-			periods: analyticsPeriod,
-			dataItems: dataItemsIds,
-			orgUnits: orgUnitsIds,
-		},
-		lazy: true,
-		onError: (error) => {
-			setTotalRequests(0);
-			setNoOfCompleteRequests(0);
-			dataFetchQueue.current.remove(() => true);
-			show({
-				message: `${i18n.t("Error getting scorecard data")}: ${
-					error.message
-				}`,
-				type: { critical: true },
-			});
-		},
-	});
 
 	const progress = useMemo(() => {
 		return noOfCompleteRequests / totalRequests;
