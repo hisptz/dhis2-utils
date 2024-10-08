@@ -1,9 +1,10 @@
 import { useScorecardConfig, useScorecardStateSelector } from "../components";
-import { useConfig, useDataQuery } from "@dhis2/app-runtime";
+import { useAlert, useConfig, useDataQuery } from "@dhis2/app-runtime";
 import { useEffect, useMemo } from "react";
 import { getDimensions } from "../utils/analytics";
 import type { SupportedCalendar } from "@dhis2/multi-calendar-dates/build/types/types";
 import type { ScorecardState } from "../schemas/config";
+import i18n from "@dhis2/d2-i18n";
 
 const query: any = {
 	meta: {
@@ -83,6 +84,11 @@ type MetaResponse = {
 export function useGetScorecardMeta() {
 	const config = useScorecardConfig();
 
+	const { show } = useAlert(
+		({ message }) => message,
+		({ type }) => ({ ...type, duration: 3000 }),
+	);
+
 	const orgUnitSelection =
 		useScorecardStateSelector<ScorecardState["orgUnitSelection"]>(
 			"orgUnitSelection",
@@ -111,6 +117,14 @@ export function useGetScorecardMeta() {
 				dataItems: dataItemsIds,
 			},
 			lazy: true,
+			onError: (error) => {
+				show({
+					message: `${i18n.t("Error getting scorecard data")}: ${
+						error.message
+					}`,
+					type: { critical: true },
+				});
+			},
 		},
 	);
 

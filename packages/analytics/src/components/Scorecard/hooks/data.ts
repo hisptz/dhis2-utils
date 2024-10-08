@@ -1,7 +1,7 @@
 import { useScorecardConfig, useScorecardMeta } from "../components";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { getDimensionsFromMeta } from "../utils/analytics";
-import { useDataQuery } from "@dhis2/app-runtime";
+import { useAlert, useDataQuery } from "@dhis2/app-runtime";
 import {
 	createFixedPeriodFromPeriodId,
 	getAdjacentFixedPeriods,
@@ -12,6 +12,7 @@ import { useCalendar } from "./metadata";
 import { queue } from "async-es";
 import { asyncify, type QueueObject } from "async";
 import type { ScorecardDataEngine } from "../utils/dataEngine";
+import i18n from "@dhis2/d2-i18n";
 
 const query: any = {
 	data: {
@@ -77,6 +78,11 @@ export function useGetScorecardData(dataEngine: ScorecardDataEngine) {
 		dataEngine.updateData(tableData);
 		setNoOfCompleteRequests((prev) => prev + 1);
 	};
+
+	const { show } = useAlert(
+		({ message }) => message,
+		({ type }) => ({ ...type, duration: 3000 }),
+	);
 	const dataFetchQueue = useRef<QueueObject<any>>(queue(asyncify(fetchData)));
 	const config = useScorecardConfig();
 	const meta = useScorecardMeta();
@@ -120,6 +126,17 @@ export function useGetScorecardData(dataEngine: ScorecardDataEngine) {
 			orgUnits: orgUnitsIds,
 		},
 		lazy: true,
+		onError: (error) => {
+			setTotalRequests(0);
+			setNoOfCompleteRequests(0);
+			dataFetchQueue.current.remove(() => true);
+			show({
+				message: `${i18n.t("Error getting scorecard data")}: ${
+					error.message
+				}`,
+				type: { critical: true },
+			});
+		},
 	});
 
 	const progress = useMemo(() => {
