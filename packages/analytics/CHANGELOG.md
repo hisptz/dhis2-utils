@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.0.43
+
+### Patch Changes
+
+- Improvements of scoreard
+
 ## 2.0.42
 
 ### Patch Changes
