@@ -36,6 +36,7 @@ export function DraggableCell({
 				style={{
 					backgroundColor: colors.grey400,
 					opacity: 0.5,
+					cursor: "move",
 				}}
 			>
 				{children}
@@ -44,7 +45,7 @@ export function DraggableCell({
 	}
 
 	return (
-		<div id={type} ref={drag}>
+		<div style={{ cursor: "move" }} id={type} ref={drag}>
 			{children}
 		</div>
 	);
