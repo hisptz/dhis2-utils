@@ -30,7 +30,7 @@ export function PaginatedToolbar() {
 		toggleTableLoading();
 	}, [isPending]);
 
-	if (rowCount <= pageSize) {
+	if (rowCount <= 50) {
 		return null;
 	}
 
