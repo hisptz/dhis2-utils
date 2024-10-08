@@ -43,6 +43,7 @@ export function LabelCellComponent(
 			width={`${size}px`}
 			style={{
 				width: size,
+				minWidth: size,
 			}}
 			fixed
 			/*
