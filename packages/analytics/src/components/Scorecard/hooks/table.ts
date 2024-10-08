@@ -2,7 +2,9 @@ import {
 	type ColumnFiltersState,
 	getCoreRowModel,
 	getFilteredRowModel,
+	getPaginationRowModel,
 	getSortedRowModel,
+	type PaginationState,
 	type SortingState,
 	type TableOptions,
 	type VisibilityState,
@@ -197,6 +199,10 @@ export function useTableSetup(): TableOptions<ScorecardTableData> {
 		average: showAverageColumn,
 		count: showItemNumber,
 	});
+	const [pagination, setPagination] = useState<PaginationState>({
+		pageSize: 50,
+		pageIndex: 0,
+	});
 
 	const [sorting, setSorting] = useState<SortingState>([]);
 	const columns = useTableColumns();
@@ -209,12 +215,17 @@ export function useTableSetup(): TableOptions<ScorecardTableData> {
 			columnFilters,
 			sorting,
 			columnVisibility,
+			pagination,
 		},
+		autoResetPageIndex: true,
+		rowCount: data.length,
 		onColumnFiltersChange: setColumnFilters,
 		onSortingChange: setSorting,
 		getCoreRowModel: getCoreRowModel(),
 		getFilteredRowModel: getFilteredRowModel(),
+		getPaginationRowModel: getPaginationRowModel(),
 		getSortedRowModel: getSortedRowModel(),
 		onColumnVisibilityChange: setColumnVisibility,
+		onPaginationChange: setPagination,
 	};
 }

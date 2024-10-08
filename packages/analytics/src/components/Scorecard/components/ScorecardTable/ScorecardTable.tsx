@@ -5,6 +5,7 @@ import { TableFoot } from "./components/TableFoot";
 import { DndContext } from "@dnd-kit/core";
 import { useScorecardSetState } from "../StateProvider";
 import { memo, useRef, useTransition } from "react";
+import { PaginatedToolbar } from "./components/PaginatedToolbar";
 
 export interface ScorecardTableProps extends Omit<DataTableProps, "children"> {}
 
@@ -62,6 +63,7 @@ export const ScorecardTable = memo(function TableComponent(
 				<TableBody tableRef={tableRef} />
 				<TableFoot />
 			</DataTable>
+			<PaginatedToolbar />
 		</DndContext>
 	);
 });
