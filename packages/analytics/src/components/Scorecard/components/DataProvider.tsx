@@ -1,4 +1,4 @@
-import { createContext, type ReactNode, useContext, useRef } from "react";
+import { createContext, memo, type ReactNode, useContext, useRef } from "react";
 import { useGetScorecardData } from "../hooks/data";
 import {
 	createScorecardDataEngine,
@@ -25,23 +25,32 @@ export function useScorecardDataFetchProgress() {
 	return useContext(ScorecardDataFetchProgress);
 }
 
-export function ScorecardDataFetchProgressProvider({
+export const ScorecardDataFetchProgressProvider = memo(
+	function ScorecardDataFetchProgressProvider({
+		children,
+	}: {
+		children: ReactNode;
+	}) {
+		const { data: dataEngine } = useScorecardData();
+		const value = useGetScorecardData(dataEngine);
+
+		return (
+			<ScorecardDataFetchProgress.Provider value={value}>
+				{children}
+			</ScorecardDataFetchProgress.Provider>
+		);
+	},
+);
+
+export const ScorecardDataProvider = memo(function ScorecardDataProvider({
 	children,
 }: {
 	children: ReactNode;
 }) {
-	const { data: dataEngine } = useScorecardData();
-	const value = useGetScorecardData(dataEngine);
+	console.log("Re-rendering scorecard data provider");
 
-	return (
-		<ScorecardDataFetchProgress.Provider value={value}>
-			{children}
-		</ScorecardDataFetchProgress.Provider>
-	);
-}
-
-export function ScorecardDataProvider({ children }: { children: ReactNode }) {
 	const dataEngine = useRef<ScorecardDataEngine>(createScorecardDataEngine());
+
 	return (
 		<ScorecardDataContext.Provider
 			value={{
@@ -51,4 +60,4 @@ export function ScorecardDataProvider({ children }: { children: ReactNode }) {
 			{children}
 		</ScorecardDataContext.Provider>
 	);
-}
+});

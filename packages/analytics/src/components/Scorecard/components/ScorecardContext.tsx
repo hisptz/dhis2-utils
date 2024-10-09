@@ -1,8 +1,7 @@
 import { ScorecardConfigProvider } from "./ConfigProvider";
-import { ScorecardStateProvider } from "./StateProvider";
-import { ScorecardMetaProvider } from "./MetaProvider";
-import React, { type ReactNode } from "react";
-import type { ScorecardConfig, ScorecardState } from "../schemas/config";
+import { ScorecardMetaGetter } from "./MetaProvider";
+import React, { memo, type ReactNode } from "react";
+import type { ScorecardConfig } from "../schemas/config";
 import { ErrorBoundary, FallbackProps } from "react-error-boundary";
 import { Button, colors, IconError24 } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
@@ -10,7 +9,6 @@ import i18n from "@dhis2/d2-i18n";
 interface ScorecardContextProps {
 	children: ReactNode;
 	config: ScorecardConfig;
-	initialState?: ScorecardState;
 }
 
 function ErrorFallback({
@@ -51,21 +49,22 @@ function ErrorFallback({
 	);
 }
 
-export function ScorecardContext({
-	config,
-	children,
-	initialState,
-}: ScorecardContextProps) {
-	return (
-		<ErrorBoundary
-			resetKeys={[config, initialState]}
-			FallbackComponent={ErrorFallback}
-		>
-			<ScorecardConfigProvider config={config}>
-				<ScorecardStateProvider initialState={initialState}>
-					<ScorecardMetaProvider>{children}</ScorecardMetaProvider>
-				</ScorecardStateProvider>
-			</ScorecardConfigProvider>
-		</ErrorBoundary>
-	);
-}
+export const ScorecardContext = memo(
+	function ScorecardContext({ config, children }: ScorecardContextProps) {
+		console.log("Re-rendering scorecard context provider");
+
+		return (
+			<ErrorBoundary
+				resetKeys={[config]}
+				FallbackComponent={ErrorFallback}
+			>
+				<ScorecardConfigProvider config={config}>
+					<ScorecardMetaGetter>{children}</ScorecardMetaGetter>
+				</ScorecardConfigProvider>
+			</ErrorBoundary>
+		);
+	},
+	(prevProps, nextProps) => {
+		return prevProps.config === nextProps.config;
+	},
+);

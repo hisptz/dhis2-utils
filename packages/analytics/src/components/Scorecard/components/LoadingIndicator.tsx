@@ -1,10 +1,10 @@
 import { useScorecardDataFetchProgress } from "./DataProvider";
 import { DataTableRow, LinearLoader } from "@dhis2/ui";
 import { useTableState } from "./TableStateProvider";
-import type { RefObject } from "react";
+import { memo, type RefObject } from "react";
 import styles from "./ScorecardTable/ScorecardTable.module.css";
 
-export function LoadingIndicator({
+export const LoadingIndicator = memo(function LoadingIndicator({
 	tableRef,
 }: {
 	tableRef: RefObject<HTMLTableElement>;
@@ -19,7 +19,6 @@ export function LoadingIndicator({
 	if (progress === 1 || isNaN(progress!)) {
 		return null;
 	}
-
 	return (
 		<DataTableRow>
 			<td
@@ -35,4 +34,4 @@ export function LoadingIndicator({
 			</td>
 		</DataTableRow>
 	);
-}
+});

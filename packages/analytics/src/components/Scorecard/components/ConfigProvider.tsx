@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, memo, useContext } from "react";
 import type { ScorecardConfig } from "../schemas/config";
 import i18n from "@dhis2/d2-i18n";
 
@@ -19,10 +19,12 @@ export function useScorecardConfig() {
 export const ScorecardConfigProvider: React.FC<{
 	config: ScorecardConfig;
 	children: React.ReactNode;
-}> = ({ config, children }) => {
+}> = memo(({ config, children }) => {
+	console.log("Re-rendering scorecard config provider");
+
 	return (
 		<ScorecardConfigContext.Provider value={config}>
 			{children}
 		</ScorecardConfigContext.Provider>
 	);
-};
+});

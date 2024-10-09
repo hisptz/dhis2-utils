@@ -1,4 +1,4 @@
-import { createContext, type ReactNode, useContext } from "react";
+import { createContext, memo, type ReactNode, useContext } from "react";
 import {
 	getCoreRowModel,
 	type TableOptions,
@@ -47,11 +47,15 @@ export function TableLoadingStateProvider({
 	);
 }
 
-export function TableStateProvider({ children }: { children: ReactNode }) {
+export const TableStateProvider = memo(function TableStateProvider({
+	children,
+}: {
+	children: ReactNode;
+}) {
 	const options = useTableSetup();
 	return (
 		<TableStateContext.Provider value={options}>
 			<TableLoadingStateProvider>{children}</TableLoadingStateProvider>
 		</TableStateContext.Provider>
 	);
-}
+});

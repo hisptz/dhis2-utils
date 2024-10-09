@@ -1,7 +1,8 @@
-import { createContext, type ReactNode, useContext } from "react";
+import { createContext, memo, type ReactNode, useContext } from "react";
 import { type ItemMeta, useGetScorecardMeta } from "../hooks/metadata";
 import { CircularLoader } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
+import { isEqual } from "lodash";
 
 export interface ScorecardMeta {
 	periods: Array<ItemMeta>;
@@ -20,12 +21,13 @@ export function useScorecardMeta() {
 	return useContext(ScorecardMetaContext);
 }
 
-export const ScorecardMetaProvider = ({
+export const ScorecardMetaGetter = memo(function ScorecardMetaGetter({
 	children,
 }: {
 	children: ReactNode;
-}) => {
+}) {
 	const { loading, called, ...meta } = useGetScorecardMeta();
+	console.log("Re-rendering scorecard meta getter");
 	if (loading || !called) {
 		return (
 			<div
@@ -47,12 +49,23 @@ export const ScorecardMetaProvider = ({
 	}
 
 	return (
-		<ScorecardMetaContext.Provider
-			value={{
-				...meta,
-			}}
-		>
-			{children}
-		</ScorecardMetaContext.Provider>
+		<ScorecardMetaProvider meta={meta}>{children}</ScorecardMetaProvider>
 	);
-};
+});
+
+export const ScorecardMetaProvider = memo(
+	({ children, meta }: { children: ReactNode; meta: ScorecardMeta }) => {
+		console.log("Re-rendering scorecard meta provider");
+
+		return (
+			<ScorecardMetaContext.Provider
+				value={{
+					...meta,
+				}}
+			>
+				{children}
+			</ScorecardMetaContext.Provider>
+		);
+	},
+	(prevProps, nextProps) => isEqual(prevProps.meta, nextProps.meta),
+);

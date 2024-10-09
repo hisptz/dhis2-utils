@@ -50,6 +50,7 @@ export function LabelCellComponent(
       // @ts-ignore */
 			left={`${left}px`}
 			bordered
+			align="left"
 		>
 			<DroppableCell
 				accept={

@@ -172,7 +172,7 @@ export function useGetScorecardMeta() {
 			orgUnits: orgUnitsIds,
 			dataItems: dataItemsIds,
 		});
-	}, [periodSelection, orgUnitSelection]);
+	}, [periodsIds, orgUnitsIds, dataItemsIds]);
 
 	return {
 		loading,

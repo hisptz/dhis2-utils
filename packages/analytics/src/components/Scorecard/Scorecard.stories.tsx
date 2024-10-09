@@ -1,10 +1,481 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Scorecard } from "./Scorecard";
 import type { ScorecardConfig, ScorecardState } from "./schemas/config";
-import { ScorecardContext } from "./components";
-import { Controller, FormProvider, useForm } from "react-hook-form";
-import { RHFCheckboxField } from "@hisptz/dhis2-ui";
-import i18n from "@dhis2/d2-i18n";
+import { ScorecardContext, ScorecardStateProvider } from "./components";
+import { useState, useTransition } from "react";
+import { getInitialStateFromConfig } from "./utils";
+import { set } from "lodash";
+import { CheckboxField } from "@dhis2/ui";
+
+const playConfig: ScorecardConfig = {
+	id: "YyeJxCBJpcz",
+	title: "Test large scorecard",
+	options: {
+		title: true,
+		arrows: true,
+		legend: true,
+		emptyRows: true,
+		averageRow: false,
+		itemNumber: true,
+		averageColumn: false,
+		showHierarchy: false,
+		showDataInRows: false,
+		averageDisplayType: "ALL",
+		highlightedIndicators: false,
+	},
+	sharing: {
+		owner: "xE7jOejl9FI",
+		users: {},
+		public: "--------",
+		external: false,
+		userGroups: {},
+	},
+	subtitle: "Test large scorecard",
+	description: "Test large scorecard",
+	dataSelection: {
+		dataGroups: [
+			{
+				id: "VakhYjKAA5L",
+				style: {},
+				title: "ANC",
+				dataHolders: [
+					{
+						id: "sl3FPmEzlRQ",
+						dataSources: [
+							{
+								id: "Uvn6LCg7dVU",
+								name: "ANC 1 Coverage",
+								type: "indicator",
+								label: "ANC 1 Coverage",
+								weight: 100,
+								legends: [
+									{
+										id: "KBqf91u67Ro",
+										endValue: 33,
+										startValue: 0,
+										legendDefinitionId: "ieUZM8WK8cc",
+									},
+									{
+										id: "mpjr0KieTWq",
+										endValue: 66,
+										startValue: 33,
+										legendDefinitionId: "gbQ4Sz9lTmI",
+									},
+									{
+										id: "kAPjRBfoNHb",
+										endValue: 100,
+										startValue: 66,
+										legendDefinitionId: "w3pILkfnTvU",
+									},
+								],
+								highIsGood: true,
+								showColors: true,
+								effectiveGap: 5,
+								displayArrows: false,
+								specificTargets: [],
+								specificTargetsSet: false,
+							},
+						],
+					},
+					{
+						id: "MDGG5JZkC7Y",
+						dataSources: [
+							{
+								id: "ReUHfIn0pTQ",
+								name: "ANC 1-3 Dropout Rate",
+								type: "indicator",
+								label: "ANC 1-3 Dropout Rate",
+								weight: 100,
+								legends: [
+									{
+										id: "Prrlf0tASKb",
+										endValue: 33,
+										startValue: 0,
+										legendDefinitionId: "ieUZM8WK8cc",
+									},
+									{
+										id: "OoApWIGYDKH",
+										endValue: 66,
+										startValue: 33,
+										legendDefinitionId: "gbQ4Sz9lTmI",
+									},
+									{
+										id: "PMHXhSN0FTZ",
+										endValue: 100,
+										startValue: 66,
+										legendDefinitionId: "w3pILkfnTvU",
+									},
+								],
+								highIsGood: true,
+								showColors: true,
+								effectiveGap: 5,
+								displayArrows: false,
+								specificTargets: [],
+								specificTargetsSet: false,
+							},
+						],
+					},
+					{
+						id: "KqkECXxol62",
+						dataSources: [
+							{
+								id: "OdiHJayrsKo",
+								name: "ANC 2 Coverage",
+								type: "indicator",
+								label: "ANC 2 Coverage",
+								weight: 100,
+								legends: [
+									{
+										id: "BTPWwT1I403",
+										endValue: 33,
+										startValue: 0,
+										legendDefinitionId: "ieUZM8WK8cc",
+									},
+									{
+										id: "zUvpqVIgKZh",
+										endValue: 66,
+										startValue: 33,
+										legendDefinitionId: "gbQ4Sz9lTmI",
+									},
+									{
+										id: "GMDUUxd8oNp",
+										endValue: 100,
+										startValue: 66,
+										legendDefinitionId: "w3pILkfnTvU",
+									},
+								],
+								highIsGood: true,
+								showColors: true,
+								effectiveGap: 5,
+								displayArrows: false,
+								specificTargets: [],
+								specificTargetsSet: false,
+							},
+						],
+					},
+					{
+						id: "nAUoLvHygNy",
+						dataSources: [
+							{
+								id: "sB79w2hiLp8",
+								name: "ANC 3 Coverage",
+								type: "indicator",
+								label: "ANC 3 Coverage",
+								weight: 100,
+								legends: [
+									{
+										id: "Iv0KuN1QVOZ",
+										endValue: 33,
+										startValue: 0,
+										legendDefinitionId: "ieUZM8WK8cc",
+									},
+									{
+										id: "zJfB5tn6JJJ",
+										endValue: 66,
+										startValue: 33,
+										legendDefinitionId: "gbQ4Sz9lTmI",
+									},
+									{
+										id: "zArIepf6ZU8",
+										endValue: 100,
+										startValue: 66,
+										legendDefinitionId: "w3pILkfnTvU",
+									},
+								],
+								highIsGood: true,
+								showColors: true,
+								effectiveGap: 5,
+								displayArrows: false,
+								specificTargets: [],
+								specificTargetsSet: false,
+							},
+						],
+					},
+					{
+						id: "t3BzVoE76km",
+						dataSources: [
+							{
+								id: "AUqdhY4mpvp",
+								name: "ANC => 4 Coverage",
+								type: "indicator",
+								label: "ANC => 4 Coverage",
+								weight: 100,
+								legends: [
+									{
+										id: "dkCFTve9wTg",
+										endValue: 33,
+										startValue: 0,
+										legendDefinitionId: "ieUZM8WK8cc",
+									},
+									{
+										id: "rNiVyCpg3Ck",
+										endValue: 66,
+										startValue: 33,
+										legendDefinitionId: "gbQ4Sz9lTmI",
+									},
+									{
+										id: "mE4q4gjRZW1",
+										endValue: 100,
+										startValue: 66,
+										legendDefinitionId: "w3pILkfnTvU",
+									},
+								],
+								highIsGood: true,
+								showColors: true,
+								effectiveGap: 5,
+								displayArrows: false,
+								specificTargets: [],
+								specificTargetsSet: false,
+							},
+						],
+					},
+					{
+						id: "MBkuYQyjeb1",
+						dataSources: [
+							{
+								id: "dwEq7wi6nXV",
+								name: "ANC IPT 1 Coverage",
+								type: "indicator",
+								label: "ANC IPT 1 Coverage",
+								weight: 100,
+								legends: [
+									{
+										id: "rAyBjZPWD1E",
+										endValue: 33,
+										startValue: 0,
+										legendDefinitionId: "ieUZM8WK8cc",
+									},
+									{
+										id: "zl4jZMLZ0lk",
+										endValue: 66,
+										startValue: 33,
+										legendDefinitionId: "gbQ4Sz9lTmI",
+									},
+									{
+										id: "Tcsyb58pcgh",
+										endValue: 100,
+										startValue: 66,
+										legendDefinitionId: "w3pILkfnTvU",
+									},
+								],
+								highIsGood: true,
+								showColors: true,
+								effectiveGap: 5,
+								displayArrows: false,
+								specificTargets: [],
+								specificTargetsSet: false,
+							},
+						],
+					},
+					{
+						id: "VU3Y32VhgOd",
+						dataSources: [
+							{
+								id: "c8fABiNpT0B",
+								name: "ANC IPT 2 Coverage",
+								type: "indicator",
+								label: "ANC IPT 2 Coverage",
+								weight: 100,
+								legends: [
+									{
+										id: "remIGHppCft",
+										endValue: 33,
+										startValue: 0,
+										legendDefinitionId: "ieUZM8WK8cc",
+									},
+									{
+										id: "Xu1x3y97s4v",
+										endValue: 66,
+										startValue: 33,
+										legendDefinitionId: "gbQ4Sz9lTmI",
+									},
+									{
+										id: "rRmENa76Wt4",
+										endValue: 100,
+										startValue: 66,
+										legendDefinitionId: "w3pILkfnTvU",
+									},
+								],
+								highIsGood: true,
+								showColors: true,
+								effectiveGap: 5,
+								displayArrows: false,
+								specificTargets: [],
+								specificTargetsSet: false,
+							},
+						],
+					},
+					{
+						id: "UQjPFLfeMz3",
+						dataSources: [
+							{
+								id: "Tt5TAvdfdVK",
+								name: "ANC LLITN coverage",
+								type: "indicator",
+								label: "ANC LLITN coverage",
+								weight: 100,
+								legends: [
+									{
+										id: "hiVwKNC8KAO",
+										endValue: 33,
+										startValue: 0,
+										legendDefinitionId: "ieUZM8WK8cc",
+									},
+									{
+										id: "mwheQQolL37",
+										endValue: 66,
+										startValue: 33,
+										legendDefinitionId: "gbQ4Sz9lTmI",
+									},
+									{
+										id: "IrehypEPWN3",
+										endValue: 100,
+										startValue: 66,
+										legendDefinitionId: "w3pILkfnTvU",
+									},
+								],
+								highIsGood: true,
+								showColors: true,
+								effectiveGap: 5,
+								displayArrows: false,
+								specificTargets: [],
+								specificTargetsSet: false,
+							},
+						],
+					},
+					{
+						id: "MmT5zVXL2W5",
+						dataSources: [
+							{
+								id: "puykO1tbcdi",
+								name: "ANC TT2 coverage",
+								type: "indicator",
+								label: "ANC TT2 coverage",
+								weight: 100,
+								legends: [
+									{
+										id: "nxQuKBOX0qp",
+										endValue: 33,
+										startValue: 0,
+										legendDefinitionId: "ieUZM8WK8cc",
+									},
+									{
+										id: "oUDhvFmsaWJ",
+										endValue: 66,
+										startValue: 33,
+										legendDefinitionId: "gbQ4Sz9lTmI",
+									},
+									{
+										id: "iypIK6ubVEz",
+										endValue: 100,
+										startValue: 66,
+										legendDefinitionId: "w3pILkfnTvU",
+									},
+								],
+								highIsGood: true,
+								showColors: true,
+								effectiveGap: 5,
+								displayArrows: false,
+								specificTargets: [],
+								specificTargetsSet: false,
+							},
+						],
+					},
+					{
+						id: "O4npHQEsuFd",
+						dataSources: [
+							{
+								id: "Lzg9LtG1xg3",
+								name: "ANC visits per clinical professional",
+								type: "indicator",
+								label: "ANC visits per clinical professional",
+								weight: 100,
+								legends: [
+									{
+										id: "qTy67GvZmUq",
+										endValue: 33,
+										startValue: 0,
+										legendDefinitionId: "ieUZM8WK8cc",
+									},
+									{
+										id: "RtIRjuB8PXc",
+										endValue: 66,
+										startValue: 33,
+										legendDefinitionId: "gbQ4Sz9lTmI",
+									},
+									{
+										id: "vjbeOeOj2q3",
+										endValue: 100,
+										startValue: 66,
+										legendDefinitionId: "w3pILkfnTvU",
+									},
+								],
+								highIsGood: true,
+								showColors: true,
+								effectiveGap: 5,
+								displayArrows: false,
+								specificTargets: [],
+								specificTargetsSet: false,
+							},
+						],
+					},
+				],
+			},
+		],
+	},
+	periodSelection: {
+		periods: [
+			{
+				id: "202401",
+			},
+			{
+				id: "202402",
+			},
+			{
+				id: "202403",
+			},
+		],
+	},
+	additionalLabels: [],
+	orgUnitSelection: {
+		groups: [],
+		levels: [],
+		orgUnits: [],
+		userOrgUnit: true,
+		userSubUnit: true,
+		userSubX2Unit: false,
+	},
+	legendDefinitions: [
+		{
+			id: "N/A",
+			name: "N/A",
+			color: "#D3D3D3",
+			isDefault: true,
+		},
+		{
+			id: "No Data",
+			name: "No Data",
+			color: "#FFFFFF",
+			isDefault: true,
+		},
+		{
+			id: "w3pILkfnTvU",
+			name: "Target Reached/ On Track",
+			color: "#008000",
+		},
+		{
+			id: "gbQ4Sz9lTmI",
+			name: "Progress, but more effort required",
+			color: "#FFFF00",
+		},
+		{
+			id: "ieUZM8WK8cc",
+			name: "Not on track",
+			color: "#FF0000",
+		},
+	],
+	highlightedIndicators: [],
+};
 
 const config: ScorecardConfig = {
 	additionalLabels: ["Data label"],
@@ -1001,61 +1472,71 @@ const meta: Meta<typeof Scorecard> = {
 	title: "Scorecard",
 	component: Scorecard,
 	decorators: (Story, context) => {
-		const form = useForm<ScorecardState>({});
+		const [isPending, startTransition] = useTransition();
+		const [state, setState] = useState<ScorecardState>(
+			getInitialStateFromConfig(playConfig),
+		);
+
+		const onStateUpdate = (key: string | string[], value: unknown) => {
+			startTransition(() => {
+				setState((prevState) => {
+					const newState = {
+						...prevState,
+					};
+					set(newState, key, value);
+					console.log(newState);
+					return newState;
+				});
+			});
+		};
+
 		return (
-			<FormProvider {...form}>
-				<div
-					style={{
-						maxWidth: 1400,
-						maxHeight: "60vh",
-					}}
-				>
-					<div style={{ display: "flex", gap: 16 }}>
-						<RHFCheckboxField
-							label={i18n.t("Show data in rows")}
-							name="options.showDataInRows"
-						/>
-					</div>
-					<Controller
-						render={({ field }) => {
-							return (
-								<ScorecardContext
-									initialState={{
-										options: {
-											...config.options,
-											averageRow: true,
-											averageColumn: true,
-											arrows: true,
-											averageDisplayType: "ALL",
-											itemNumber: true,
-										},
-										orgUnitSelection: {
-											userOrgUnit: true,
-											levels: ["VJJOhuBJSJe"],
-										},
-										periodSelection: {
-											...config.periodSelection,
-										},
-									}}
-									config={config}
-								>
-									<Story
-										args={{
-											...context.args,
-											tableProps: {
-												scrollHeight: "800px",
-												scrollWidth: "1400px",
-												width: "1400px",
-											},
-										}}
-									/>
-								</ScorecardContext>
+			<div
+				style={{
+					maxWidth: 1600,
+					display: "flex",
+					flexDirection: "column",
+					gap: 32,
+					height: "60vh",
+					width: "100%",
+				}}
+			>
+				<div style={{ display: "flex", gap: 16 }}>
+					<CheckboxField
+						label={"Show arrows"}
+						value="showArrows"
+						onChange={({ checked }) => {
+							onStateUpdate(["options", "arrows"], checked);
+						}}
+						checked={state.options.arrows}
+					/>
+					<CheckboxField
+						label={"Show data in rows"}
+						value="showDataInRows"
+						onChange={({ checked }) => {
+							onStateUpdate(
+								["options", "showDataInRows"],
+								checked,
 							);
 						}}
-						name={"options"}
+						checked={state.options.showDataInRows}
 					/>
 				</div>
-			</FormProvider>
+				<ScorecardStateProvider state={state} setState={setState}>
+					<ScorecardContext config={playConfig}>
+						<Story
+							args={{
+								...context.args,
+								tableProps: {
+									scrollHeight: "800px",
+									scrollWidth: "1600px",
+									width: "1600px",
+								},
+							}}
+						/>
+					</ScorecardContext>
+				</ScorecardStateProvider>
+			</div>
 		);
 	},
 };

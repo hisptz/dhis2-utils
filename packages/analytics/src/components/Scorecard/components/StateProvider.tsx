@@ -1,18 +1,18 @@
 import React, {
 	createContext,
 	type Dispatch,
+	memo,
 	type SetStateAction,
 	useContext,
 	useMemo,
-	useState,
 } from "react";
 import type { ScorecardState } from "../schemas/config";
 import i18n from "@dhis2/d2-i18n";
-import { useScorecardConfig } from "./ConfigProvider";
-import { getInitialStateFromConfig } from "../utils/state";
 import { get } from "lodash";
 
-export type ScorecardSetState = Dispatch<SetStateAction<ScorecardState>>;
+export type ScorecardSetState = (
+	state: ScorecardState,
+) => void | Dispatch<SetStateAction<ScorecardState>>;
 const ScorecardStateContext = createContext<ScorecardState | null>(null);
 const ScorecardSetStateContext = createContext<ScorecardSetState | null>(null);
 
@@ -49,13 +49,11 @@ export function useScorecardSetState() {
 
 export const ScorecardStateProvider: React.FC<{
 	children: React.ReactNode;
-	initialState?: ScorecardState;
-}> = ({ children, initialState }) => {
-	const config = useScorecardConfig();
-	const [state, setState] = useState<ScorecardState>(
-		initialState ?? getInitialStateFromConfig(config),
-	);
-
+	state: ScorecardState;
+	setState: (
+		state: ScorecardState,
+	) => void | Dispatch<SetStateAction<ScorecardState>>;
+}> = memo(({ children, state, setState }) => {
 	return (
 		<ScorecardStateContext.Provider
 			value={{
@@ -68,4 +66,4 @@ export const ScorecardStateProvider: React.FC<{
 			</ScorecardSetStateContext.Provider>
 		</ScorecardStateContext.Provider>
 	);
-};
+});
