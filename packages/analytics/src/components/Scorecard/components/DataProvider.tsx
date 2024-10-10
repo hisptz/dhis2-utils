@@ -47,8 +47,6 @@ export const ScorecardDataProvider = memo(function ScorecardDataProvider({
 }: {
 	children: ReactNode;
 }) {
-	console.log("Re-rendering scorecard data provider");
-
 	const dataEngine = useRef<ScorecardDataEngine>(createScorecardDataEngine());
 
 	return (

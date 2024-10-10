@@ -51,8 +51,6 @@ function ErrorFallback({
 
 export const ScorecardContext = memo(
 	function ScorecardContext({ config, children }: ScorecardContextProps) {
-		console.log("Re-rendering scorecard context provider");
-
 		return (
 			<ErrorBoundary
 				resetKeys={[config]}

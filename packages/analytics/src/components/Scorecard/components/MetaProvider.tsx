@@ -27,7 +27,6 @@ export const ScorecardMetaGetter = memo(function ScorecardMetaGetter({
 	children: ReactNode;
 }) {
 	const { loading, called, ...meta } = useGetScorecardMeta();
-	console.log("Re-rendering scorecard meta getter");
 	if (loading || !called) {
 		return (
 			<div
@@ -55,8 +54,6 @@ export const ScorecardMetaGetter = memo(function ScorecardMetaGetter({
 
 export const ScorecardMetaProvider = memo(
 	({ children, meta }: { children: ReactNode; meta: ScorecardMeta }) => {
-		console.log("Re-rendering scorecard meta provider");
-
 		return (
 			<ScorecardMetaContext.Provider
 				value={{

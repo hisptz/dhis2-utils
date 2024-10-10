@@ -20,8 +20,6 @@ export const ScorecardConfigProvider: React.FC<{
 	config: ScorecardConfig;
 	children: React.ReactNode;
 }> = memo(({ config, children }) => {
-	console.log("Re-rendering scorecard config provider");
-
 	return (
 		<ScorecardConfigContext.Provider value={config}>
 			{children}

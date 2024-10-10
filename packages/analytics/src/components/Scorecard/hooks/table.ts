@@ -109,7 +109,6 @@ function filterRows({
 }
 
 function useTableRows(): ScorecardTableData[] {
-	console.debug(`Re-rendering use table rows`);
 	const meta = useScorecardMeta();
 	const { data: dataEngine } = useScorecardData();
 	const showDataInRows = useScorecardStateSelectorValue<boolean>([
@@ -220,12 +219,6 @@ export function useTableSetup(): TableOptions<ScorecardTableData> {
 	const [sorting, setSorting] = useState<SortingState>([]);
 	const columns = useTableColumns();
 	const data = useTableRows();
-
-	console.debug(`Re-rendering use table setup`);
-
-	console.log({
-		columns,
-	});
 
 	return useMemo(
 		() => ({

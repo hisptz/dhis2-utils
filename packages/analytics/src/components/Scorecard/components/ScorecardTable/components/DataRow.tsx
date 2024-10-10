@@ -19,8 +19,6 @@ function TableRowComponent({ row }: { row: Row<ScorecardTableData> }) {
 		return (dataCell?.getValue() as ScorecardTableCellConfig)?.orgUnit;
 	}, [row]);
 
-	console.log(row.getVisibleCells());
-
 	const shouldExpand = useMemo(() => {
 		const expandCell = head(row.getVisibleCells());
 		return (expandCell?.getValue() as boolean) ?? false;
