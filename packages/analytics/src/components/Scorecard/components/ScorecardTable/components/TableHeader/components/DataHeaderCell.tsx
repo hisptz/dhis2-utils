@@ -7,7 +7,7 @@ import { DataTableColumnHeader, type DataTableSortDirection } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
 import { DraggableCell } from "../../DraggableCell";
 import DroppableCell from "../../DroppableCell";
-import { useScorecardStateSelector } from "../../../../StateProvider";
+import { useScorecardStateSelectorValue } from "../../../../../state/scorecardState";
 
 export function EmptyDataHeaderCell({
 	header,
@@ -20,7 +20,7 @@ export function DataHeaderCellComponent({
 	column,
 	header,
 }: HeaderContext<ScorecardTableData, any>) {
-	const dataInRows = useScorecardStateSelector<boolean>([
+	const dataInRows = useScorecardStateSelectorValue<boolean>([
 		"options",
 		"showDataInRows",
 	]);

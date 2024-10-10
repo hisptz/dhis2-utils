@@ -1,12 +1,12 @@
 import { DataTableFoot, DataTableRow } from "@dhis2/ui";
 import { useTableState } from "../../TableStateProvider";
 import { flexRender } from "@tanstack/react-table";
-import { useScorecardStateSelector } from "../../StateProvider";
 import { Fragment } from "react";
+import { useScorecardStateSelectorValue } from "../../../state/scorecardState";
 
 export function TableFoot() {
 	const table = useTableState();
-	const showAverageRow = useScorecardStateSelector<boolean>([
+	const showAverageRow = useScorecardStateSelectorValue<boolean>([
 		"options",
 		"averageRow",
 	]);

@@ -1,7 +1,7 @@
 import { IconArrowDown16, IconArrowUp16 } from "@dhis2/ui";
 import { memo, useMemo } from "react";
 import type { ScorecardCellData } from "../../../schemas/config";
-import { useScorecardStateSelector } from "../../StateProvider";
+import { useScorecardStateSelectorValue } from "../../../state/scorecardState";
 
 export const DataValue = memo(function DataValue({
 	dataSource,
@@ -10,7 +10,7 @@ export const DataValue = memo(function DataValue({
 	dataSource: ScorecardCellData;
 	value?: number;
 }) {
-	const showArrows = useScorecardStateSelector<boolean>([
+	const showArrows = useScorecardStateSelectorValue<boolean>([
 		"options",
 		"arrows",
 	]);

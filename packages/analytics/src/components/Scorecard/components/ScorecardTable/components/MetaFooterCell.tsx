@@ -1,9 +1,9 @@
 import { DataTableCell } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
-import { useScorecardStateSelector } from "../../StateProvider";
+import { useScorecardStateSelectorValue } from "../../../state/scorecardState";
 
 export function MetaFooterCell() {
-	const itemNumber = useScorecardStateSelector<boolean>([
+	const itemNumber = useScorecardStateSelectorValue<boolean>([
 		"options",
 		"itemNumber",
 	]);

@@ -6,21 +6,30 @@ import {
 import { DataTableCell } from "@dhis2/ui";
 import DroppableCell from "../../DroppableCell";
 import { DraggableCell } from "../../DraggableCell";
-import { useScorecardStateSelector } from "../../../../StateProvider";
+import { useScorecardStateSelectorValue } from "../../../../../state/scorecardState";
 import { memo, useMemo } from "react";
-import { head } from "lodash";
+import { head, isEmpty } from "lodash";
 
 export function LabelCellComponent(
-	props: CellContext<ScorecardTableData, string | number>,
+	props: CellContext<
+		ScorecardTableData,
+		{
+			label: string;
+			orgUnit?: { uid: string; hierarchy: string; name: string };
+		}
+	>,
 ) {
-	const data = props.getValue().toString();
+	const data = props.getValue();
 	const size = props.cell.column.getSize();
-	const dataInRows = useScorecardStateSelector<boolean>([
+	const dataInRows = useScorecardStateSelectorValue<boolean>([
 		"options",
 		"showDataInRows",
 	]);
-
-	const itemNumber = useScorecardStateSelector<boolean>([
+	const showHierarchy = useScorecardStateSelectorValue<boolean>([
+		"options",
+		"showHierarchy",
+	]);
+	const itemNumber = useScorecardStateSelectorValue<boolean>([
 		"options",
 		"itemNumber",
 	]);
@@ -37,6 +46,21 @@ export function LabelCellComponent(
 		}
 		return left * 48;
 	}, [canExpand, itemNumber]);
+
+	const label = useMemo(() => {
+		if (dataInRows) {
+			return data.label ?? "";
+		}
+		if (showHierarchy) {
+			return (
+				data.orgUnit?.hierarchy
+					.split("/")
+					.filter((val) => !isEmpty(val))
+					.join(" / ") ?? ""
+			);
+		}
+		return data.label ?? "";
+	}, [data, showHierarchy, dataInRows]);
 
 	return (
 		<DataTableCell
@@ -60,14 +84,14 @@ export function LabelCellComponent(
 				}
 			>
 				<DraggableCell
-					id={data}
+					id={label}
 					type={
 						dataInRows
 							? ScorecardDraggableItems.data
 							: ScorecardDraggableItems.ou
 					}
 				>
-					{data}
+					{label}
 				</DraggableCell>
 			</DroppableCell>
 		</DataTableCell>

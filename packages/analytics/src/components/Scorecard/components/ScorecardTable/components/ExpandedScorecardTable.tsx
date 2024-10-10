@@ -5,8 +5,8 @@ import { getOrgUnitLevel } from "../../../utils/orgUnits";
 import type { OrgUnitSelection } from "../../../schemas/config";
 import { Scorecard } from "../../../Scorecard";
 import { ScorecardContext } from "../../ScorecardContext";
-import { useScorecardState } from "../../StateProvider";
 import { CircularLoader } from "@dhis2/ui";
+import { useScorecardStateValue } from "../../../state/scorecardState";
 
 export function ExpandedScorecardTable({
 	orgUnit,
@@ -16,7 +16,7 @@ export function ExpandedScorecardTable({
 	pending: boolean;
 }) {
 	const config = useScorecardConfig();
-	const state = useScorecardState();
+	const state = useScorecardStateValue();
 
 	const orgUnitSelection: OrgUnitSelection = useMemo(() => {
 		const orgUnitId = orgUnit.uid;
@@ -62,10 +62,6 @@ export function ExpandedScorecardTable({
 					key={`${orgUnit.uid}-expanded`}
 					config={{
 						...config,
-						orgUnitSelection,
-					}}
-					initialState={{
-						...state,
 						orgUnitSelection,
 					}}
 				>

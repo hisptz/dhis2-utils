@@ -31,21 +31,16 @@ export function sanitizeAnalyticsData(data: ScorecardDataQueryResponse) {
 export function getRowsFromMeta({
 	meta,
 	config,
-	showHierarchy,
 	showDataInRows,
 }: {
 	meta: ScorecardMeta;
 	showDataInRows: boolean;
-	showHierarchy: boolean;
 	config: ScorecardConfig;
 }): ScorecardTableData[] {
 	function getOrgUnitData() {
 		return meta.orgUnits
 			.map((orgUnit) => {
-				const label = showHierarchy
-					? orgUnit.hierarchy.replace("/", "") ?? ""
-					: orgUnit.name ?? "";
-
+				const label = orgUnit.name ?? "";
 				return {
 					label,
 					orgUnit,

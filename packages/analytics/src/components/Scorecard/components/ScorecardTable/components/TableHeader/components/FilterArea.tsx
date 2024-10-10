@@ -1,7 +1,7 @@
 import type { ScorecardTableData } from "../../../../../schemas/config";
 import type { Column } from "@tanstack/react-table";
 import i18n from "@dhis2/d2-i18n";
-import { useScorecardStateSelector } from "../../../../StateProvider";
+import { useScorecardStateSelectorValue } from "../../../../../state/scorecardState";
 import { InputField } from "@dhis2/ui";
 import styles from "../TableHeader.module.css";
 import { useEffect, useState } from "react";
@@ -13,7 +13,7 @@ export interface FilterAreaProps {
 export function FilterArea({ column }: FilterAreaProps) {
 	const defaultValue = column.getFilterValue() as string | undefined;
 	const [text, setText] = useState<string | undefined>(defaultValue);
-	const dataInRows = useScorecardStateSelector<boolean>([
+	const dataInRows = useScorecardStateSelectorValue<boolean>([
 		"options",
 		"showDataInRows",
 	]);

@@ -19,13 +19,13 @@ import {
 	type ScorecardMeta,
 	useScorecardConfig,
 	useScorecardMeta,
-	useScorecardStateSelector,
 } from "../components";
 import { type AnalyticsData, getRowsFromMeta } from "../utils/data";
 import { isEmpty, meanBy } from "lodash";
 import type { ScorecardDataEngine } from "../utils/dataEngine";
 import { getAverageValue } from "../utils/columns";
 import { useScorecardData } from "../components/DataProvider";
+import { useScorecardStateSelectorValue } from "../state/scorecardState";
 
 function getRowValues({
 	data,
@@ -112,19 +112,15 @@ function useTableRows(): ScorecardTableData[] {
 	console.debug(`Re-rendering use table rows`);
 	const meta = useScorecardMeta();
 	const { data: dataEngine } = useScorecardData();
-	const showDataInRows = useScorecardStateSelector<boolean>([
+	const showDataInRows = useScorecardStateSelectorValue<boolean>([
 		"options",
 		"showDataInRows",
 	]);
-	const showHierarchy = useScorecardStateSelector<boolean>([
-		"options",
-		"showHierarchy",
-	]);
-	const emptyRows = useScorecardStateSelector<boolean>([
+	const emptyRows = useScorecardStateSelectorValue<boolean>([
 		"options",
 		"emptyRows",
 	]);
-	const averageDisplayType = useScorecardStateSelector<
+	const averageDisplayType = useScorecardStateSelectorValue<
 		ScorecardViewOptions["averageDisplayType"]
 	>(["options", "averageDisplayType"]);
 
@@ -138,7 +134,6 @@ function useTableRows(): ScorecardTableData[] {
 		const rows = getRowsFromMeta({
 			meta,
 			showDataInRows,
-			showHierarchy,
 			config,
 		});
 
@@ -147,7 +142,7 @@ function useTableRows(): ScorecardTableData[] {
 		}
 
 		return rows.filter((_, index) => !hiddenRowIndexes.includes(index));
-	}, [meta, showDataInRows, showHierarchy, config, hiddenRowIndexes]);
+	}, [meta, showDataInRows, config, hiddenRowIndexes]);
 
 	useEffect(() => {
 		const listener = (data: AnalyticsData[] | "done") => {
@@ -186,24 +181,41 @@ function useTableRows(): ScorecardTableData[] {
 	return rows;
 }
 
-export function useTableSetup(): TableOptions<ScorecardTableData> {
-	const showAverageColumn = useScorecardStateSelector<boolean>([
+export function useColumnVisibility() {
+	const showAverageColumn = useScorecardStateSelectorValue<boolean>([
 		"options",
 		"averageColumn",
 	]);
-	const showItemNumber = useScorecardStateSelector<boolean>([
+	const showItemNumber = useScorecardStateSelectorValue<boolean>([
 		"options",
 		"itemNumber",
 	]);
-	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
 		average: showAverageColumn,
 		count: showItemNumber,
 	});
+
+	useEffect(() => {
+		setColumnVisibility({
+			average: showAverageColumn,
+			count: showItemNumber,
+		});
+	}, [showAverageColumn, showItemNumber]);
+
+	return {
+		columnVisibility,
+		setColumnVisibility,
+	};
+}
+
+export function useTableSetup(): TableOptions<ScorecardTableData> {
+	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 	const [pagination, setPagination] = useState<PaginationState>({
 		pageSize: 50,
 		pageIndex: 0,
 	});
+
+	const { columnVisibility, setColumnVisibility } = useColumnVisibility();
 
 	const [sorting, setSorting] = useState<SortingState>([]);
 	const columns = useTableColumns();
@@ -211,24 +223,27 @@ export function useTableSetup(): TableOptions<ScorecardTableData> {
 
 	console.debug(`Re-rendering use table setup`);
 
-	return {
-		columns,
-		data,
-		state: {
-			columnFilters,
-			sorting,
-			columnVisibility,
-			pagination,
-		},
-		autoResetPageIndex: true,
-		rowCount: data.length,
-		onColumnFiltersChange: setColumnFilters,
-		onSortingChange: setSorting,
-		getCoreRowModel: getCoreRowModel(),
-		getFilteredRowModel: getFilteredRowModel(),
-		getPaginationRowModel: getPaginationRowModel(),
-		getSortedRowModel: getSortedRowModel(),
-		onColumnVisibilityChange: setColumnVisibility,
-		onPaginationChange: setPagination,
-	};
+	return useMemo(
+		() => ({
+			columns,
+			data,
+			state: {
+				columnFilters,
+				sorting,
+				columnVisibility,
+				pagination,
+			},
+			autoResetPageIndex: true,
+			rowCount: data.length,
+			onColumnFiltersChange: setColumnFilters,
+			onSortingChange: setSorting,
+			getCoreRowModel: getCoreRowModel(),
+			getFilteredRowModel: getFilteredRowModel(),
+			getPaginationRowModel: getPaginationRowModel(),
+			getSortedRowModel: getSortedRowModel(),
+			onColumnVisibilityChange: setColumnVisibility,
+			onPaginationChange: setPagination,
+		}),
+		[columns, data, columnFilters, sorting, columnVisibility, pagination],
+	);
 }

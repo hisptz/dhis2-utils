@@ -5,13 +5,13 @@ import type {
 	ScorecardTableData,
 } from "../../../schemas/config";
 import { useEffect, useMemo, useState } from "react";
-import { useScorecardStateSelector } from "../../StateProvider";
 import { DataTableCell } from "@dhis2/ui";
 import type { AnalyticsData } from "../../../utils/data";
 import { useScorecardData } from "../../DataProvider";
 import { head, isEmpty, meanBy } from "lodash";
 import { CellLoader } from "./CellLoader";
 import { LinkedAverageCell, SingleAverageCell } from "./AverageCell";
+import { useScorecardStateSelectorValue } from "../../../state/scorecardState";
 
 function getOrgUnitAverage({
 	dataSourcesConfig,
@@ -157,7 +157,7 @@ export function DataFooterCell({
 	column,
 }: HeaderContext<ScorecardTableData, ScorecardTableCellConfig>) {
 	const size = column.getSize();
-	const showDataInRows = useScorecardStateSelector<boolean>([
+	const showDataInRows = useScorecardStateSelectorValue<boolean>([
 		"options",
 		"showDataInRows",
 	]);

@@ -1,20 +1,20 @@
 import type { HeaderContext } from "@tanstack/react-table";
 import type { ScorecardTableData } from "../../../../../schemas/config";
 import { DataTableColumnHeader, type DataTableSortDirection } from "@dhis2/ui";
-import { useScorecardStateSelector } from "../../../../StateProvider";
 import i18n from "@dhis2/d2-i18n";
 import styles from "../TableHeader.module.css";
 import { FilterArea } from "./FilterArea";
 import { uid } from "@hisptz/dhis2-utils";
 import { memo, useRef } from "react";
+import { useScorecardStateSelectorValue } from "../../../../../state/scorecardState";
 
 function MetaHeaderCellComponent({
 	header,
 }: HeaderContext<ScorecardTableData, any>) {
 	const randomId = useRef<string>(uid());
 
-	const hasOnePeriod = useScorecardStateSelector(["hasOnePeriod"]);
-	const dataInRows = useScorecardStateSelector<boolean>([
+	const hasOnePeriod = useScorecardStateSelectorValue(["hasOnePeriod"]);
+	const dataInRows = useScorecardStateSelectorValue<boolean>([
 		"options",
 		"showDataInRows",
 	]);

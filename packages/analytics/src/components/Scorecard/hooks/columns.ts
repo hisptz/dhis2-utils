@@ -1,9 +1,5 @@
 import { type ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import {
-	useScorecardConfig,
-	useScorecardMeta,
-	useScorecardStateSelector,
-} from "../components";
+import { useScorecardConfig, useScorecardMeta } from "../components";
 import { useMemo } from "react";
 import {
 	type ScorecardState,
@@ -24,16 +20,17 @@ import { MetaFooterCell } from "../components/ScorecardTable/components/MetaFoot
 import { getOrgUnitLevel } from "../utils/orgUnits";
 import { useLowestOrgUnitLevel } from "./orgUnit";
 import { useScorecardData } from "../components/DataProvider";
+import { useScorecardStateSelectorValue } from "../state/scorecardState";
 
 const columnHelper = createColumnHelper<ScorecardTableData>();
 
 export function useMetaColumns() {
-	const showDataInRows = useScorecardStateSelector<boolean>([
+	const showDataInRows = useScorecardStateSelectorValue<boolean>([
 		"options",
 		"showDataInRows",
 	]);
 
-	const disableExpanding = useScorecardStateSelector<boolean>([
+	const disableExpanding = useScorecardStateSelectorValue<boolean>([
 		"options",
 		"disableExpanding",
 	]);
@@ -90,6 +87,7 @@ export function useMetaColumns() {
 						fixed: true,
 						label: "",
 					},
+					enableHiding: true,
 					enableColumnFilter: false,
 					cell: NumberCell,
 					size: 48,
@@ -100,32 +98,42 @@ export function useMetaColumns() {
 
 		if (showDataInRows) {
 			metaColumns.push(
-				columnHelper.accessor("label", {
-					header: () => null,
-					id: "dataItems",
-					meta: {
-						filterable: true,
+				columnHelper.accessor(
+					(rowData) => {
+						return rowData;
 					},
-					enableColumnFilter: true,
-					cell: LabelCell,
-					size: 300,
-					footer: MetaFooterCell,
-				}),
+					{
+						header: () => null,
+						id: "dataItems",
+						meta: {
+							filterable: true,
+						},
+						enableColumnFilter: true,
+						cell: LabelCell,
+						size: 300,
+						footer: MetaFooterCell,
+					},
+				),
 			);
 		} else {
 			metaColumns.push(
-				columnHelper.accessor("label", {
-					header: () => null,
-					id: "orgUnits",
-					enableColumnFilter: true,
-					meta: {
-						isMeta: true,
-						fixed: true,
+				columnHelper.accessor(
+					(rowData) => {
+						return rowData;
 					},
-					cell: LabelCell,
-					size: 300,
-					footer: MetaFooterCell,
-				}),
+					{
+						header: () => null,
+						id: "orgUnits",
+						enableColumnFilter: true,
+						meta: {
+							isMeta: true,
+							fixed: true,
+						},
+						cell: LabelCell,
+						size: 300,
+						footer: MetaFooterCell,
+					},
+				),
 			);
 		}
 
@@ -142,17 +150,17 @@ export function useTableColumns(): ColumnDef<
 	const meta = useScorecardMeta();
 	const metaColumns = useMetaColumns();
 	const calendar = useCalendar();
-	const showDataInRows = useScorecardStateSelector<boolean>([
+	const showDataInRows = useScorecardStateSelectorValue<boolean>([
 		"options",
 		"showDataInRows",
 	]);
 	const periodSelection =
-		useScorecardStateSelector<ScorecardState["periodSelection"]>(
+		useScorecardStateSelectorValue<ScorecardState["periodSelection"]>(
 			"periodSelection",
 		);
 
 	const orgUnitSelection =
-		useScorecardStateSelector<ScorecardState["orgUnitSelection"]>(
+		useScorecardStateSelectorValue<ScorecardState["orgUnitSelection"]>(
 			"orgUnitSelection",
 		);
 

@@ -17,8 +17,8 @@ import {
 	useDataHolderAverageCellValue,
 	useOrgUnitAverageCellValue,
 } from "../../../hooks/value";
-import { useScorecardStateSelector } from "../../StateProvider";
 import { CellLoader } from "./CellLoader";
+import { useScorecardStateSelectorValue } from "../../../state/scorecardState";
 
 export function SingleAverageCell({
 	dataSource,
@@ -174,7 +174,7 @@ function OrgUnitAverageCell(
 export function AverageCell(
 	props: CellContext<ScorecardTableData, ScorecardTableAverageCellConfig>,
 ) {
-	const showDataInRows = useScorecardStateSelector<boolean>([
+	const showDataInRows = useScorecardStateSelectorValue<boolean>([
 		"options",
 		"showDataInRows",
 	]);

@@ -1,10 +1,11 @@
-import { useScorecardConfig, useScorecardStateSelector } from "../components";
+import { useScorecardConfig } from "../components";
 import { useAlert, useConfig, useDataQuery } from "@dhis2/app-runtime";
 import { useEffect, useMemo } from "react";
 import { getDimensions } from "../utils/analytics";
 import type { SupportedCalendar } from "@dhis2/multi-calendar-dates/build/types/types";
 import type { ScorecardState } from "../schemas/config";
 import i18n from "@dhis2/d2-i18n";
+import { useScorecardStateSelectorValue } from "../state/scorecardState";
 
 const query: any = {
 	meta: {
@@ -90,11 +91,11 @@ export function useGetScorecardMeta() {
 	);
 
 	const orgUnitSelection =
-		useScorecardStateSelector<ScorecardState["orgUnitSelection"]>(
+		useScorecardStateSelectorValue<ScorecardState["orgUnitSelection"]>(
 			"orgUnitSelection",
 		);
 	const periodSelection =
-		useScorecardStateSelector<ScorecardState["periodSelection"]>(
+		useScorecardStateSelectorValue<ScorecardState["periodSelection"]>(
 			"periodSelection",
 		);
 

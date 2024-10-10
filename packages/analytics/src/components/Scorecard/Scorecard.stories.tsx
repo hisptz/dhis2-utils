@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Scorecard } from "./Scorecard";
-import type { ScorecardConfig, ScorecardState } from "./schemas/config";
-import { ScorecardContext, ScorecardStateProvider } from "./components";
-import { useState, useTransition } from "react";
-import { getInitialStateFromConfig } from "./utils";
-import { set } from "lodash";
+import type { ScorecardConfig } from "./schemas/config";
+import { ScorecardContext } from "./components";
 import { CheckboxField } from "@dhis2/ui";
+import { ScorecardStateProvider } from "./components/StateProvider";
+import { getInitialStateFromConfig } from "./utils";
+import { useScorecardStateSelector } from "./state/scorecardState";
 
 const playConfig: ScorecardConfig = {
 	id: "YyeJxCBJpcz",
@@ -1468,61 +1468,64 @@ const linkedConfig: ScorecardConfig = {
 	title: "RMNCAH Score Card Revised",
 };
 
+function OptionsToggle({ name, label }: { name: string; label: string }) {
+	const [showDataInRows, setShowDataInRows] =
+		useScorecardStateSelector<boolean>(["options", name]);
+
+	return (
+		<CheckboxField
+			label={label}
+			value={name}
+			onChange={({ checked }) => {
+				setShowDataInRows(checked);
+			}}
+			checked={showDataInRows}
+		/>
+	);
+}
+
 const meta: Meta<typeof Scorecard> = {
 	title: "Scorecard",
 	component: Scorecard,
 	decorators: (Story, context) => {
-		const [isPending, startTransition] = useTransition();
-		const [state, setState] = useState<ScorecardState>(
-			getInitialStateFromConfig(playConfig),
-		);
-
-		const onStateUpdate = (key: string | string[], value: unknown) => {
-			startTransition(() => {
-				setState((prevState) => {
-					const newState = {
-						...prevState,
-					};
-					set(newState, key, value);
-					console.log(newState);
-					return newState;
-				});
-			});
-		};
-
 		return (
-			<div
-				style={{
-					maxWidth: 1600,
-					display: "flex",
-					flexDirection: "column",
-					gap: 32,
-					height: "60vh",
-					width: "100%",
-				}}
+			<ScorecardStateProvider
+				config={config}
+				initialState={getInitialStateFromConfig(playConfig)}
 			>
-				<div style={{ display: "flex", gap: 16 }}>
-					<CheckboxField
-						label={"Show arrows"}
-						value="showArrows"
-						onChange={({ checked }) => {
-							onStateUpdate(["options", "arrows"], checked);
-						}}
-						checked={state.options.arrows}
-					/>
-					<CheckboxField
-						label={"Show data in rows"}
-						value="showDataInRows"
-						onChange={({ checked }) => {
-							onStateUpdate(
-								["options", "showDataInRows"],
-								checked,
-							);
-						}}
-						checked={state.options.showDataInRows}
-					/>
-				</div>
-				<ScorecardStateProvider state={state} setState={setState}>
+				<div
+					style={{
+						maxWidth: 1600,
+						display: "flex",
+						flexDirection: "column",
+						gap: 32,
+						height: "60vh",
+						width: "100%",
+					}}
+				>
+					<div style={{ display: "flex", gap: 16 }}>
+						<OptionsToggle
+							name="showDataInRows"
+							label={"Show data in rows"}
+						/>
+						<OptionsToggle name="arrows" label={"Show arrows"} />
+						<OptionsToggle
+							name="showHierarchy"
+							label={"Show hierarchy"}
+						/>
+						<OptionsToggle
+							name="averageColumn"
+							label={"Show average column"}
+						/>
+						<OptionsToggle
+							name="averageRow"
+							label={"Show average row"}
+						/>
+						<OptionsToggle
+							name="itemNumber"
+							label={"Show item numbers"}
+						/>
+					</div>
 					<ScorecardContext config={playConfig}>
 						<Story
 							args={{
@@ -1535,8 +1538,8 @@ const meta: Meta<typeof Scorecard> = {
 							}}
 						/>
 					</ScorecardContext>
-				</ScorecardStateProvider>
-			</div>
+				</div>
+			</ScorecardStateProvider>
 		);
 	},
 };
@@ -1549,10 +1552,6 @@ export const Default: Story = {
 	name: "Default View",
 	args: {
 		config,
-		initialState: {
-			...config,
-			periodSelection: {},
-		},
 	},
 };
 // export const DataInRows: Story = {
