@@ -223,6 +223,10 @@ export function useTableSetup(): TableOptions<ScorecardTableData> {
 
 	console.debug(`Re-rendering use table setup`);
 
+	console.log({
+		columns,
+	});
+
 	return useMemo(
 		() => ({
 			columns,

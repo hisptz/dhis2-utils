@@ -7,7 +7,7 @@ import { head } from "lodash";
 import { DataTableRow } from "@dhis2/ui";
 import styles from "../ScorecardTable.module.css";
 import { ExpandedScorecardTable } from "./ExpandedScorecardTable";
-import { Fragment, memo, useMemo, useTransition } from "react";
+import { Fragment, useMemo, useTransition } from "react";
 
 function TableRowComponent({ row }: { row: Row<ScorecardTableData> }) {
 	const [isPending, startTransition] = useTransition();
@@ -18,6 +18,8 @@ function TableRowComponent({ row }: { row: Row<ScorecardTableData> }) {
 		});
 		return (dataCell?.getValue() as ScorecardTableCellConfig)?.orgUnit;
 	}, [row]);
+
+	console.log(row.getVisibleCells());
 
 	const shouldExpand = useMemo(() => {
 		const expandCell = head(row.getVisibleCells());
@@ -63,4 +65,4 @@ function TableRowComponent({ row }: { row: Row<ScorecardTableData> }) {
 	);
 }
 
-export const TableRow = memo(TableRowComponent);
+export const TableRow = TableRowComponent;

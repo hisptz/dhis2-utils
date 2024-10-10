@@ -2,11 +2,14 @@ import { useScorecardConfig } from "../../ConfigProvider";
 import type { ItemMeta } from "../../../hooks/metadata";
 import { useMemo } from "react";
 import { getOrgUnitLevel } from "../../../utils/orgUnits";
-import type { OrgUnitSelection } from "../../../schemas/config";
-import { Scorecard } from "../../../Scorecard";
+import type { OrgUnitSelection, ScorecardState } from "../../../schemas/config";
 import { ScorecardContext } from "../../ScorecardContext";
 import { CircularLoader } from "@dhis2/ui";
 import { useScorecardStateValue } from "../../../state/scorecardState";
+import { TableStateProvider } from "../../TableStateProvider";
+import { ScorecardTable } from "../ScorecardTable";
+import { ScorecardDataProvider } from "../../DataProvider";
+import { ScorecardStateProvider } from "../../StateProvider";
 
 export function ExpandedScorecardTable({
 	orgUnit,
@@ -58,21 +61,36 @@ export function ExpandedScorecardTable({
 					<CircularLoader small />
 				</div>
 			) : (
-				<ScorecardContext
-					key={`${orgUnit.uid}-expanded`}
+				<ScorecardStateProvider
 					config={{
 						...config,
 						orgUnitSelection,
 					}}
+					initialState={
+						{
+							...state,
+							orgUnitSelection,
+						} as ScorecardState
+					}
 				>
-					<Scorecard
-						tableProps={{
-							scrollWidth: "100%",
-							scrollHeight: "100%",
-							width: "auto",
+					<ScorecardContext
+						key={`${orgUnit.uid}-expanded`}
+						config={{
+							...config,
+							orgUnitSelection,
 						}}
-					/>
-				</ScorecardContext>
+					>
+						<ScorecardDataProvider>
+							<TableStateProvider>
+								<ScorecardTable
+									scrollHeight="100%"
+									scrollWidth="100%"
+									width="auto"
+								/>
+							</TableStateProvider>
+						</ScorecardDataProvider>
+					</ScorecardContext>
+				</ScorecardStateProvider>
 			)}
 		</div>
 	);
