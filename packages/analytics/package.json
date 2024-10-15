@@ -33,6 +33,7 @@
     "@types/async": "^3.2.24",
     "@types/d3-color": "^3.1.0",
     "@types/d3-scale": "^4.0.3",
+    "@types/file-saver": "^2.0.7",
     "@types/leaflet": "^1.9.0",
     "@types/lodash": "^4.14.202",
     "@types/luxon": "^3.4.0",
@@ -40,6 +41,7 @@
     "@types/react-beautiful-dnd": "^13.1.8",
     "@types/react-dom": "^18.2.18",
     "@types/react-helmet": "^6.1.6",
+    "@types/xlsx": "^0.0.36",
     "async-es": "^3.2.5",
     "classnames": "^2.5.1",
     "concurrently": "^8.2.2",
@@ -62,6 +64,7 @@
     "async-es": "^3.2.5",
     "d3-color": "^3.1.0",
     "d3-scale": "^4.0.2",
+    "file-saver": "^2.0.5",
     "highcharts": "^10.3.2",
     "highcharts-react-official": "^3.1.0",
     "jotai-devtools": "^0.10.1",
@@ -81,6 +84,7 @@
     "react-to-print": "^3.0.1",
     "recoil": "^0.7.7",
     "screenfull": "^6.0.2",
+    "xlsx": "^0.18.5",
     "zod": "^3.23.8"
   },
   "peerDependencies": {
