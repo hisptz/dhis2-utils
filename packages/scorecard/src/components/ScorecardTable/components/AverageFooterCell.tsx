@@ -4,7 +4,6 @@ import type { ScorecardTableData } from "../../../schemas/config";
 import { useScorecardMeta } from "../../MetaProvider";
 import { useScorecardData } from "../../DataProvider";
 import { useEffect, useState } from "react";
-import type { AnalyticsData } from "../../../utils/data";
 import { getAverageValue } from "../../../utils/columns";
 import { CellLoader } from "./CellLoader";
 
@@ -19,8 +18,8 @@ export function AverageFooterCell({
 
 	useEffect(() => {
 		setLoading(true);
-		const listener = (data: AnalyticsData[] | "done") => {
-			if (data === "done") {
+		const listener = (completed: boolean) => {
+			if (completed) {
 				setAverage(
 					getAverageValue({
 						dataValues: scorecardEngine.data,
@@ -39,11 +38,8 @@ export function AverageFooterCell({
 			);
 			setLoading(false);
 		} else {
-			scorecardEngine.addDataListener(listener);
+			return scorecardEngine.addOnCompleteListener(listener);
 		}
-		return () => {
-			scorecardEngine.removeListener(listener);
-		};
 	}, []);
 
 	if (loading) {

@@ -55,7 +55,9 @@ export function useOrgUnits(initialIds?: string[]) {
 	return {
 		loading,
 		orgUnits: data?.ou?.organisationUnits,
-		refetch,
+		refetch: refetch as unknown as (
+			variables: Record<string, any>,
+		) => OrgUnitResponse,
 	};
 }
 
@@ -90,6 +92,8 @@ export function useOrgUnitLevels(initialIds?: string[] | null) {
 	return {
 		loading,
 		levels: data?.level?.organisationUnitLevels,
-		refetch,
+		refetch: refetch as unknown as (variables: Record<string, any>) => {
+			level: { organisationUnitLevels: OrganisationUnitLevel[] };
+		},
 	};
 }

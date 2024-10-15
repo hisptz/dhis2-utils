@@ -1,14 +1,11 @@
 import type { OrgUnitSelection } from "@hisptz/dhis2-utils";
 import React from "react";
 import type { MapContainerProps } from "react-leaflet";
-import {
-	MapControls,
-	MapLegendConfig,
-} from "../components/MapArea/interfaces/index.js";
+import { MapControls, MapLegendConfig } from "../components/MapArea/interfaces";
 import {
 	EarthEngineLayerConfig,
 	ThematicLayerConfig,
-} from "../components/MapLayer/interfaces/index.js";
+} from "../components/MapLayer/interfaces";
 import {
 	type LeafletEventHandlerFnMap,
 	type LeafletMouseEvent,

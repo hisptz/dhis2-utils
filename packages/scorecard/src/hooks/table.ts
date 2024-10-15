@@ -147,8 +147,8 @@ export function useTableRows(): ScorecardTableData[] {
 	}, [meta, showDataInRows, config, hiddenRowIndexes]);
 
 	useEffect(() => {
-		const listener = (data: AnalyticsData[] | "done") => {
-			if (data === "done") {
+		const listener = (completed: boolean) => {
+			if (completed) {
 				setHiddenRowIndexes(
 					filterRows({
 						meta,
@@ -173,11 +173,8 @@ export function useTableRows(): ScorecardTableData[] {
 				}),
 			);
 		} else {
-			dataEngine.addDataListener(listener);
+			return dataEngine.addOnCompleteListener(listener);
 		}
-		return () => {
-			dataEngine.removeListener(listener);
-		};
 	}, [averageDisplayType, emptyRows, showDataInRows]);
 
 	return rows;

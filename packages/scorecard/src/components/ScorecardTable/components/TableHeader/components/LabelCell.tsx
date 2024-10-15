@@ -7,7 +7,7 @@ import { DataTableCell } from "@dhis2/ui";
 import DroppableCell from "../../DroppableCell";
 import { DraggableCell } from "../../DraggableCell";
 import { useScorecardStateSelectorValue } from "../../../../../state/scorecardState";
-import { memo, useMemo } from "react";
+import { useMemo } from "react";
 import { isEmpty } from "lodash";
 
 export function LabelCellComponent(
@@ -40,7 +40,7 @@ export function LabelCellComponent(
 			.getVisibleCells()
 			.findIndex(({ id }) => props.cell.id === id);
 		return index * 48;
-	}, [props.row, size]);
+	}, [props.row.getVisibleCells(), props.cell.id]);
 
 	const label = useMemo(() => {
 		if (dataInRows) {
@@ -94,4 +94,4 @@ export function LabelCellComponent(
 	);
 }
 
-export const LabelCell = memo(LabelCellComponent);
+export const LabelCell = LabelCellComponent;

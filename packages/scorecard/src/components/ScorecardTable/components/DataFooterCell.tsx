@@ -52,8 +52,8 @@ function OrgUnitFooterCell({
 
 	useEffect(() => {
 		setLoading(true);
-		const listener = (data: AnalyticsData[] | "done") => {
-			if (data === "done") {
+		const listener = (completed: boolean) => {
+			if (completed) {
 				setAverageValues(
 					getOrgUnitAverage({
 						dataSourcesConfig,
@@ -72,12 +72,8 @@ function OrgUnitFooterCell({
 			);
 			setLoading(false);
 		} else {
-			scorecardEngine.addDataListener(listener);
+			return scorecardEngine.addOnCompleteListener(listener);
 		}
-
-		return () => {
-			scorecardEngine.removeListener(listener);
-		};
 	}, [dataSourcesConfig]);
 
 	if (loading) {
@@ -110,8 +106,8 @@ function DataHolderFooterCell({
 
 	useEffect(() => {
 		setLoading(true);
-		const listener = (data: AnalyticsData[] | "done") => {
-			if (data === "done") {
+		const listener = (completed: boolean) => {
+			if (completed) {
 				setLoading(false);
 				const orgUnitId = head(dataSourcesConfig)!;
 				const dataValues = scorecardEngine.data.filter(
@@ -134,12 +130,8 @@ function DataHolderFooterCell({
 			setAverage(average);
 			setLoading(false);
 		} else {
-			scorecardEngine.addDataListener(listener);
+			return scorecardEngine.addOnCompleteListener(listener);
 		}
-
-		return () => {
-			scorecardEngine.removeListener(listener);
-		};
 	}, [dataSourcesConfig]);
 
 	if (loading) {

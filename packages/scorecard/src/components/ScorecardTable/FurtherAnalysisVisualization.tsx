@@ -1,7 +1,8 @@
-import { Visualization } from "../../../Visualization";
-import type { DataItemType } from "../../../Map/components/MapLayer/interfaces";
 import { getOrgUnitsForAnalytics } from "../../utils/orgUnits";
 import type { FurtherAnalysisConfig } from "./components/FurtherAnalysisModal";
+import { Visualization } from "@hisptz/dhis2-analytics";
+
+export type DataItemType = "dataElement" | "indicator" | "programIndicator";
 
 export interface FurtherAnalysisVisualizationProps {
 	config: FurtherAnalysisConfig;
