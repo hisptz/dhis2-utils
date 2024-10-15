@@ -5,7 +5,7 @@ import {
 	useRecoilValue,
 	useSetRecoilState,
 } from "recoil";
-import type { ScorecardState } from "../schemas/config";
+import type { ScorecardState, ScorecardViewOptions } from "../schemas/config";
 import { get as _get, set as _set } from "lodash";
 
 export const scorecardStateAtom = atom<ScorecardState | null>({
@@ -46,6 +46,13 @@ export function useScorecardStateSelectorValue<ConfigType>(
 	path: string | string[],
 ) {
 	return useRecoilValue<ConfigType>(scorecardStateSelector(path));
+}
+
+export function useScorecardViewOptionValue(key: keyof ScorecardViewOptions) {
+	return useScorecardStateSelectorValue([
+		"options",
+		key,
+	]) as ScorecardViewOptions[typeof key];
 }
 
 export function useScorecardStateSelector<ConfigType>(path: string | string[]) {

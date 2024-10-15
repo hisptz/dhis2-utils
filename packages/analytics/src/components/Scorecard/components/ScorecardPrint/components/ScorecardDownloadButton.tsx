@@ -1,21 +1,25 @@
 import { DropdownButton, FlyoutMenu, MenuItem } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
-import { useEffect, useRef, useState } from "react";
+import { type RefObject, useEffect, useRef, useState } from "react";
 import { useScorecardData } from "../../DataProvider";
-import type { AnalyticsData } from "../../../utils/data";
-import { ScorecardPreviewArea } from "./ScorecardPreviewArea";
 import { useReactToPrint } from "react-to-print";
+import { useScorecardConfig } from "../../ConfigProvider";
+import { ScorecardPreviewArea } from "./ScorecardPreviewArea";
 
-function DownloadMenu() {
-	const previewRef = useRef<HTMLDivElement | null>(null);
+function DownloadMenu({
+	previewRef,
+}: {
+	previewRef: RefObject<HTMLDivElement>;
+}) {
+	const config = useScorecardConfig();
 	const print = useReactToPrint({
 		contentRef: previewRef,
 		preserveAfterPrint: false,
+		documentTitle: config.title,
 	});
 
 	return (
 		<>
-			<ScorecardPreviewArea previewRef={previewRef} />
 			<FlyoutMenu>
 				<MenuItem label={i18n.t("Excel")} />
 				<MenuItem
@@ -35,24 +39,23 @@ function DownloadMenu() {
 }
 
 export function ScorecardDownloadButton() {
-	const [loading, setLoading] = useState<boolean>(false);
 	const { data: dataEngine } = useScorecardData();
+	const [completed, setCompleted] = useState<boolean>(dataEngine.isDone);
+	const previewRef = useRef<HTMLDivElement | null>(null);
 
 	useEffect(() => {
-		const listener = (data: AnalyticsData[] | "done") => {
-			if (data === "done") {
-				setLoading(false);
-			}
-		};
-		dataEngine.addDataListener(listener);
-		return () => {
-			dataEngine.removeListener(listener);
-		};
+		return dataEngine.addOnCompleteListener(setCompleted);
 	}, [dataEngine]);
 
 	return (
-		<DropdownButton disabled={loading} component={<DownloadMenu />}>
-			{i18n.t("Download")}
-		</DropdownButton>
+		<>
+			{completed && <ScorecardPreviewArea previewRef={previewRef} />}
+			<DropdownButton
+				disabled={!completed}
+				component={<DownloadMenu previewRef={previewRef} />}
+			>
+				{!completed ? i18n.t("Please wait...") : i18n.t("Download")}
+			</DropdownButton>
+		</>
 	);
 }

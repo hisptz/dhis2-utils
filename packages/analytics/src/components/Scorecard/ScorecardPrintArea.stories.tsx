@@ -3,10 +3,7 @@ import type { ScorecardConfig } from "./schemas/config";
 import { ScorecardContext, ScorecardPrint } from "./components";
 import { ScorecardStateProvider } from "./components/StateProvider";
 import { getInitialStateFromConfig } from "./utils";
-import {
-	ScorecardDataFetchProgressProvider,
-	ScorecardDataProvider,
-} from "./components/DataProvider";
+import { ScorecardDataProvider } from "./components/DataProvider";
 
 const playConfig: ScorecardConfig = {
 	id: "YyeJxCBJpcz",
@@ -1501,13 +1498,11 @@ const meta: Meta<typeof ScorecardPrint> = {
 				>
 					<ScorecardContext config={playConfig}>
 						<ScorecardDataProvider>
-							<ScorecardDataFetchProgressProvider>
-								<Story
-									args={{
-										...context.args,
-									}}
-								/>
-							</ScorecardDataFetchProgressProvider>
+							<Story
+								args={{
+									...context.args,
+								}}
+							/>
 						</ScorecardDataProvider>
 					</ScorecardContext>
 				</div>
