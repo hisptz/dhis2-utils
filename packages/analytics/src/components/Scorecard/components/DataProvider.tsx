@@ -13,34 +13,9 @@ const ScorecardDataContext = createContext<ScorecardData>({
 	data: createScorecardDataEngine(),
 });
 
-const ScorecardDataFetchProgress = createContext<{ progress: number }>({
-	progress: 0,
-});
-
 export function useScorecardData() {
 	return useContext(ScorecardDataContext);
 }
-
-export function useScorecardDataFetchProgress() {
-	return useContext(ScorecardDataFetchProgress);
-}
-
-export const ScorecardDataFetchProgressProvider = memo(
-	function ScorecardDataFetchProgressProvider({
-		children,
-	}: {
-		children: ReactNode;
-	}) {
-		const { data: dataEngine } = useScorecardData();
-		const value = useGetScorecardData(dataEngine);
-
-		return (
-			<ScorecardDataFetchProgress.Provider value={value}>
-				{children}
-			</ScorecardDataFetchProgress.Provider>
-		);
-	},
-);
 
 export const ScorecardDataProvider = memo(function ScorecardDataProvider({
 	children,
@@ -48,6 +23,7 @@ export const ScorecardDataProvider = memo(function ScorecardDataProvider({
 	children: ReactNode;
 }) {
 	const dataEngine = useRef<ScorecardDataEngine>(createScorecardDataEngine());
+	useGetScorecardData(dataEngine.current);
 
 	return (
 		<ScorecardDataContext.Provider

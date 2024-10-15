@@ -159,6 +159,17 @@ function OrgUnitAverageCell(
 		return <CellLoader size={size} />;
 	}
 
+	if (isNaN(average as number)) {
+		return (
+			<DataTableCell
+				style={{ width: size }}
+				bordered
+				align="center"
+				key={props.row.id}
+			/>
+		);
+	}
+
 	return (
 		<DataTableCell
 			style={{ width: size }}

@@ -12,7 +12,6 @@ import {
 	getOrgUnitColumnHeaders,
 } from "../utils/columns";
 import { LabelCell } from "../components/ScorecardTable/components/TableHeader/components/LabelCell";
-import { ExpandCell } from "../components/ScorecardTable/components/TableHeader/components/ExpandCell";
 import { NumberCell } from "../components/ScorecardTable/components/TableHeader/components/NumberCell";
 import { MetaHeaderCell } from "../components/ScorecardTable/components/TableHeader/components/MetaHeaderCell";
 import { useCalendar } from "./metadata";
@@ -21,6 +20,7 @@ import { getOrgUnitLevel } from "../utils/orgUnits";
 import { useLowestOrgUnitLevel } from "./orgUnit";
 import { useScorecardData } from "../components/DataProvider";
 import { useScorecardStateSelectorValue } from "../state/scorecardState";
+import { ExpandCell } from "../components/ScorecardTable/components/TableHeader/components/ExpandCell";
 
 const columnHelper = createColumnHelper<ScorecardTableData>();
 
@@ -69,6 +69,7 @@ export function useMetaColumns() {
 						fixed: true,
 						label: "",
 					},
+					enableHiding: true,
 					enableColumnFilter: false,
 					cell: ExpandCell,
 					size: 48,

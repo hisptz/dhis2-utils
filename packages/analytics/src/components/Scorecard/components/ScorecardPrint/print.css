@@ -1,0 +1,55 @@
+
+.print-preview > * {
+
+    padding: 32px;
+    border: 1px solid black;
+    font-size: 1em !important;
+
+    .print-hide {
+        display: none !important;
+    }
+
+    table {
+        border-color: #A0ADBA !important;
+        border-left: 1px solid black !important;
+        border-top: 1px solid black !important;
+        table-layout: fixed !important;
+    }
+
+
+    td {
+        border-color: black !important;
+    }
+
+    td > div * {
+        font-size: 1em !important;
+    }
+
+    th {
+        border-color: black !important;
+        border-right: 1px solid black !important;
+        background: transparent !important;
+    }
+
+    /*tr td:first-child > svg {*/
+    /*    display: none !important;*/
+    /*}*/
+
+    button {
+        display: none !important;
+    }
+
+    input {
+        display: none !important;
+    }
+
+    @page {
+        margin: 32px 16px 16px;
+    }
+
+    @media print {
+        border: unset;
+    }
+
+}
+

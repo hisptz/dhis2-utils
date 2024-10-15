@@ -8,7 +8,7 @@ import DroppableCell from "../../DroppableCell";
 import { DraggableCell } from "../../DraggableCell";
 import { useScorecardStateSelectorValue } from "../../../../../state/scorecardState";
 import { memo, useMemo } from "react";
-import { head, isEmpty } from "lodash";
+import { isEmpty } from "lodash";
 
 export function LabelCellComponent(
 	props: CellContext<
@@ -29,23 +29,18 @@ export function LabelCellComponent(
 		"options",
 		"showHierarchy",
 	]);
-	const itemNumber = useScorecardStateSelectorValue<boolean>([
+
+	const inPrintMode = useScorecardStateSelectorValue<boolean>([
 		"options",
-		"itemNumber",
+		"printMode",
 	]);
 
-	const canExpand = useMemo(() => {
-		const expandCell = head(props.row.getVisibleCells());
-		return (expandCell?.getValue() as boolean) ?? false;
-	}, []);
-
 	const left = useMemo(() => {
-		let left = 1;
-		if (itemNumber) {
-			left++;
-		}
-		return left * 48;
-	}, [canExpand, itemNumber]);
+		const index = props.row
+			.getVisibleCells()
+			.findIndex(({ id }) => props.cell.id === id);
+		return index * 48;
+	}, [props.row, size]);
 
 	const label = useMemo(() => {
 		if (dataInRows) {
@@ -64,12 +59,13 @@ export function LabelCellComponent(
 
 	return (
 		<DataTableCell
+			className="label-cell"
+			fixed
 			width={`${size}px`}
 			style={{
-				width: size,
-				minWidth: size,
+				width: inPrintMode ? "auto" : size,
+				minWidth: inPrintMode ? undefined : size,
 			}}
-			fixed
 			/*
       // @ts-ignore */
 			left={`${left}px`}

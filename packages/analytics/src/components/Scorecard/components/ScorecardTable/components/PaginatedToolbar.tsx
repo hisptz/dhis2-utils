@@ -30,7 +30,11 @@ export function PaginatedToolbar() {
 		toggleTableLoading();
 	}, [isPending]);
 
-	if (rowCount <= 50) {
+	if (
+		rowCount <= 50 ||
+		(table.options.meta as { disablePagination?: boolean })
+			?.disablePagination
+	) {
 		return null;
 	}
 

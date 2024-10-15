@@ -1,10 +1,13 @@
 import {
 	type ColumnFiltersState,
+	type ExpandedState,
 	getCoreRowModel,
+	getExpandedRowModel,
 	getFilteredRowModel,
 	getPaginationRowModel,
 	getSortedRowModel,
 	type PaginationState,
+	type Row,
 	type SortingState,
 	type TableOptions,
 	type VisibilityState,
@@ -14,7 +17,7 @@ import type {
 	ScorecardTableData,
 	ScorecardViewOptions,
 } from "../schemas/config";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
 	type ScorecardMeta,
 	useScorecardConfig,
@@ -27,7 +30,7 @@ import { getAverageValue } from "../utils/columns";
 import { useScorecardData } from "../components/DataProvider";
 import { useScorecardStateSelectorValue } from "../state/scorecardState";
 
-function getRowValues({
+export function getRowValues({
 	data,
 	showDataInRows,
 	row,
@@ -46,7 +49,7 @@ function getRowValues({
 	});
 }
 
-function filterRows({
+export function filterRows({
 	rows,
 	emptyRows,
 	dataEngine,
@@ -108,7 +111,7 @@ function filterRows({
 	return hiddenRows;
 }
 
-function useTableRows(): ScorecardTableData[] {
+export function useTableRows(): ScorecardTableData[] {
 	const meta = useScorecardMeta();
 	const { data: dataEngine } = useScorecardData();
 	const showDataInRows = useScorecardStateSelectorValue<boolean>([
@@ -170,7 +173,7 @@ function useTableRows(): ScorecardTableData[] {
 				}),
 			);
 		} else {
-			dataEngine.addListener(listener);
+			dataEngine.addDataListener(listener);
 		}
 		return () => {
 			dataEngine.removeListener(listener);
@@ -189,17 +192,30 @@ export function useColumnVisibility() {
 		"options",
 		"itemNumber",
 	]);
+	const showDataInRows = useScorecardStateSelectorValue<boolean>([
+		"options",
+		"showDataInRows",
+	]);
+
+	const disableExpanding =
+		useScorecardStateSelectorValue<boolean>([
+			"options",
+			"disableExpanding",
+		]) ?? false;
+
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
 		average: showAverageColumn,
 		count: showItemNumber,
+		expand: !disableExpanding,
 	});
 
 	useEffect(() => {
 		setColumnVisibility({
 			average: showAverageColumn,
 			count: showItemNumber,
+			expand: !disableExpanding && !showDataInRows,
 		});
-	}, [showAverageColumn, showItemNumber]);
+	}, [showAverageColumn, showItemNumber, disableExpanding, showDataInRows]);
 
 	return {
 		columnVisibility,
@@ -207,14 +223,43 @@ export function useColumnVisibility() {
 	};
 }
 
+export function useRowExpanding() {
+	const [expanded, setExpanded] = useState<ExpandedState>({});
+	const disableExpanding =
+		useScorecardStateSelectorValue<boolean>([
+			"options",
+			"disableExpanding",
+		]) ?? false;
+
+	const getRowCanExpand = useCallback((row: Row<ScorecardTableData>) => {
+		const expandCell = row
+			.getVisibleCells()
+			.find(({ id }) => id.includes("expand"));
+
+		if (!expandCell) return false;
+		return expandCell.getValue() as boolean;
+	}, []);
+
+	return {
+		expanded,
+		onExpandedChange: disableExpanding ? undefined : setExpanded,
+		getRowCanExpand,
+	};
+}
+
 export function useTableSetup(): TableOptions<ScorecardTableData> {
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+	const disablePagination = useScorecardStateSelectorValue<boolean>([
+		"options",
+		"disablePagination",
+	]);
 	const [pagination, setPagination] = useState<PaginationState>({
 		pageSize: 50,
 		pageIndex: 0,
 	});
 
 	const { columnVisibility, setColumnVisibility } = useColumnVisibility();
+	const { expanded, onExpandedChange, getRowCanExpand } = useRowExpanding();
 
 	const [sorting, setSorting] = useState<SortingState>([]);
 	const columns = useTableColumns();
@@ -228,19 +273,37 @@ export function useTableSetup(): TableOptions<ScorecardTableData> {
 				columnFilters,
 				sorting,
 				columnVisibility,
-				pagination,
+				expanded,
+				...(disablePagination ? {} : { pagination }),
+			},
+			meta: {
+				disablePagination,
 			},
 			autoResetPageIndex: true,
+			onExpandedChange: onExpandedChange,
 			rowCount: data.length,
+			getRowCanExpand,
 			onColumnFiltersChange: setColumnFilters,
 			onSortingChange: setSorting,
 			getCoreRowModel: getCoreRowModel(),
 			getFilteredRowModel: getFilteredRowModel(),
-			getPaginationRowModel: getPaginationRowModel(),
+			getExpandedRowModel: getExpandedRowModel(),
+			getPaginationRowModel: disablePagination
+				? undefined
+				: getPaginationRowModel(),
 			getSortedRowModel: getSortedRowModel(),
 			onColumnVisibilityChange: setColumnVisibility,
-			onPaginationChange: setPagination,
+			onPaginationChange: disablePagination ? undefined : setPagination,
 		}),
-		[columns, data, columnFilters, sorting, columnVisibility, pagination],
+		[
+			columns,
+			data,
+			columnFilters,
+			sorting,
+			columnVisibility,
+			pagination,
+			getRowCanExpand,
+			expanded,
+		],
 	);
 }

@@ -39,7 +39,7 @@ export function AverageFooterCell({
 			);
 			setLoading(false);
 		} else {
-			scorecardEngine.addListener(listener);
+			scorecardEngine.addDataListener(listener);
 		}
 		return () => {
 			scorecardEngine.removeListener(listener);

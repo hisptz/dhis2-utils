@@ -3,7 +3,6 @@ import { useTableLoadingState, useTableState } from "../../TableStateProvider";
 import { TableRow } from "./DataRow";
 import { memo, type RefObject, useMemo } from "react";
 import { LoadingIndicator } from "../../LoadingIndicator";
-import { ScorecardDataFetchProgressProvider } from "../../DataProvider";
 
 export const TableBody = memo(function TableBody({
 	tableRef,
@@ -21,9 +20,7 @@ export const TableBody = memo(function TableBody({
 	return (
 		<>
 			<thead>
-				<ScorecardDataFetchProgressProvider>
-					<LoadingIndicator tableRef={tableRef} />
-				</ScorecardDataFetchProgressProvider>
+				<LoadingIndicator tableRef={tableRef} />
 			</thead>
 			<DataTableBody loading={loading}>
 				{rows.map((row) => (

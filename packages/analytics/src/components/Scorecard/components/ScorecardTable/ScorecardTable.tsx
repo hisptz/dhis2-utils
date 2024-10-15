@@ -6,6 +6,7 @@ import { memo, useEffect, useRef, useTransition } from "react";
 import { PaginatedToolbar } from "./components/PaginatedToolbar";
 import { useDragDropManager } from "react-dnd";
 import { useSetScorecardStateSelector } from "../../state/scorecardState";
+import { ColGroup } from "../ColGroup";
 
 export interface ScorecardTableProps extends Omit<DataTableProps, "children"> {}
 
@@ -62,6 +63,7 @@ export const ScorecardTable = memo(function TableComponent(
       // @ts-ignore */
 				ref={tableRef}
 			>
+				<ColGroup />
 				<TableHeader />
 				<TableBody tableRef={tableRef} />
 				<TableFoot />

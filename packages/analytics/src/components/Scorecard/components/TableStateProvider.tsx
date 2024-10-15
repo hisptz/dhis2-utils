@@ -1,4 +1,10 @@
-import { createContext, memo, type ReactNode, useContext } from "react";
+import {
+	createContext,
+	memo,
+	type ReactNode,
+	useContext,
+	useDeferredValue,
+} from "react";
 import {
 	getCoreRowModel,
 	type TableOptions,
@@ -20,7 +26,8 @@ const TableLoadingStateToggleContext = createContext<() => void>(() => {});
 
 export function useTableState() {
 	const context = useContext(TableStateContext);
-	return useReactTable<ScorecardTableData>(context);
+	const deferredContext = useDeferredValue(context);
+	return useReactTable<ScorecardTableData>(deferredContext);
 }
 
 export function useToggleTableLoadingState() {

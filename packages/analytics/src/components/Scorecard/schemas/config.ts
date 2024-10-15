@@ -52,6 +52,8 @@ export const scorecardViewOptionsSchema = z.object({
 	arrows: z.boolean().optional(),
 	showDataInRows: z.boolean().optional(),
 	disableExpanding: z.boolean().optional(),
+	disablePagination: z.boolean().optional(),
+	printMode: z.boolean().optional(),
 });
 
 export type ScorecardViewOptions = z.infer<typeof scorecardViewOptionsSchema>;

@@ -3,7 +3,6 @@ import type {
 	ScorecardTableCellConfig,
 	ScorecardTableData,
 } from "../../../schemas/config";
-import { head } from "lodash";
 import { DataTableRow } from "@dhis2/ui";
 import styles from "../ScorecardTable.module.css";
 import { ExpandedScorecardTable } from "./ExpandedScorecardTable";
@@ -18,13 +17,9 @@ function TableRowComponent({ row }: { row: Row<ScorecardTableData> }) {
 		});
 		return (dataCell?.getValue() as ScorecardTableCellConfig)?.orgUnit;
 	}, [row]);
-
-	const shouldExpand = useMemo(() => {
-		const expandCell = head(row.getVisibleCells());
-		return (expandCell?.getValue() as boolean) ?? false;
+	const canExpand = useMemo(() => {
+		return row.getCanExpand();
 	}, [row]);
-
-	const canExpand = orgUnit && shouldExpand;
 
 	return (
 		<DataTableRow
@@ -39,14 +34,14 @@ function TableRowComponent({ row }: { row: Row<ScorecardTableData> }) {
 					: undefined
 			}
 			expandableContent={
-				orgUnit && shouldExpand ? (
+				canExpand ? (
 					<ExpandedScorecardTable
 						pending={isPending}
 						orgUnit={orgUnit}
 					/>
 				) : undefined
 			}
-			expanded={canExpand && row.getIsExpanded()}
+			expanded={row.getIsExpanded()}
 			key={row.id}
 		>
 			{row.getVisibleCells().map((cell) => {

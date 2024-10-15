@@ -72,7 +72,7 @@ function OrgUnitFooterCell({
 			);
 			setLoading(false);
 		} else {
-			scorecardEngine.addListener(listener);
+			scorecardEngine.addDataListener(listener);
 		}
 
 		return () => {
@@ -134,7 +134,7 @@ function DataHolderFooterCell({
 			setAverage(average);
 			setLoading(false);
 		} else {
-			scorecardEngine.addListener(listener);
+			scorecardEngine.addDataListener(listener);
 		}
 
 		return () => {

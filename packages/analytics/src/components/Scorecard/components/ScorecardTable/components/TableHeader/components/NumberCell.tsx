@@ -1,13 +1,20 @@
 import type { CellContext } from "@tanstack/react-table";
 import type { ScorecardTableData } from "../../../../../schemas/config";
 import { DataTableCell } from "@dhis2/ui";
-import { memo } from "react";
+import { memo, useMemo } from "react";
 
 function NumberCellComponent(
 	props: CellContext<ScorecardTableData, string | number>,
 ) {
 	const data = props.getValue().toString();
 	const size = props.cell.column.getSize();
+
+	const left = useMemo(() => {
+		const index = props.row
+			.getVisibleCells()
+			.findIndex(({ id }) => props.cell.id === id);
+		return index * size;
+	}, [props.row, size]);
 
 	return (
 		<DataTableCell
@@ -22,7 +29,7 @@ function NumberCellComponent(
 			fixed
 			/*
       // @ts-ignore */
-			left="48px"
+			left={`${left}px`}
 		>
 			{data}
 		</DataTableCell>

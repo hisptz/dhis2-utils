@@ -45,7 +45,7 @@ export function useSetScorecardStateSelector<ConfigType>(
 export function useScorecardStateSelectorValue<ConfigType>(
 	path: string | string[],
 ) {
-	return useRecoilValue(scorecardStateSelector(path));
+	return useRecoilValue<ConfigType>(scorecardStateSelector(path));
 }
 
 export function useScorecardStateSelector<ConfigType>(path: string | string[]) {

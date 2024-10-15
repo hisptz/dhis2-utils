@@ -6,7 +6,10 @@ import type {
 	ScorecardTableCellConfig,
 } from "../schemas/config";
 import { useScorecardData } from "../components/DataProvider";
-import type { DataEngineListener } from "../utils/dataEngine";
+import type {
+	DataEngineListener,
+	OnCompleteDataEngineListener,
+} from "../utils/dataEngine";
 import type { AnalyticsData } from "../utils/data";
 import { getValues } from "../utils/columns";
 import { every, isEqual, meanBy } from "lodash";
@@ -58,24 +61,28 @@ export function useCellValue(dataConfig: ScorecardTableCellConfig) {
 	const [cellData, setCellData] = useState<ScorecardCellData[]>([]);
 
 	useEffect(() => {
+		return scorecardEngine.addOnCompleteListener((completed) => {
+			if (completed) {
+				setLoading(false);
+			}
+		});
+	}, []);
+
+	useEffect(() => {
 		setLoading(true);
 		const listener: DataEngineListener = (data) => {
-			if (data === "done") {
-				setLoading(false);
-			} else {
-				const values = getDataValues({ data, dataConfig });
-				const hasValues = every(values, (value) => !!value.data);
-				setCellData((prevState) => {
-					if (isEqual(prevState, values)) {
-						return prevState;
-					} else {
-						return values;
-					}
-				});
-				if (hasValues) {
-					scorecardEngine.removeListener(listener);
-					setLoading(false);
+			const values = getDataValues({ data, dataConfig });
+			const hasValues = every(values, (value) => !!value.data);
+			setCellData((prevState) => {
+				if (isEqual(prevState, values)) {
+					return prevState;
+				} else {
+					return values;
 				}
+			});
+			if (hasValues) {
+				scorecardEngine.removeListener(listener);
+				setLoading(false);
 			}
 		};
 		if (scorecardEngine.isDone) {
@@ -86,11 +93,8 @@ export function useCellValue(dataConfig: ScorecardTableCellConfig) {
 			setCellData(values);
 			setLoading(false);
 		} else {
-			scorecardEngine.addListener(listener);
+			return scorecardEngine.addDataListener(listener);
 		}
-		return () => {
-			scorecardEngine.removeListener(listener);
-		};
 	}, [dataConfig]);
 
 	return {
@@ -134,8 +138,8 @@ export function useDataHolderAverageCellValue(
 
 	useEffect(() => {
 		setLoading(true);
-		const listener: DataEngineListener = (data) => {
-			if (data === "done") {
+		const listener: OnCompleteDataEngineListener = (completed) => {
+			if (completed) {
 				setLoading(false);
 				setCellData(
 					getDataHolderAverageValues({
@@ -143,7 +147,6 @@ export function useDataHolderAverageCellValue(
 						dataConfig,
 					}),
 				);
-			} else {
 			}
 		};
 		if (scorecardEngine.isDone) {
@@ -155,11 +158,8 @@ export function useDataHolderAverageCellValue(
 				}),
 			);
 		} else {
-			scorecardEngine.addListener(listener);
+			return scorecardEngine.addOnCompleteListener(listener);
 		}
-		return () => {
-			scorecardEngine.removeListener(listener);
-		};
 	}, [dataConfig]);
 
 	return {
@@ -191,8 +191,8 @@ export function useOrgUnitAverageCellValue(
 
 	useEffect(() => {
 		setLoading(true);
-		const listener: DataEngineListener = (data) => {
-			if (data === "done") {
+		const listener: OnCompleteDataEngineListener = (completed) => {
+			if (completed) {
 				setLoading(false);
 				setAverage(
 					getOrgUnitAverageValues({
@@ -212,11 +212,8 @@ export function useOrgUnitAverageCellValue(
 				}),
 			);
 		} else {
-			scorecardEngine.addListener(listener);
+			return scorecardEngine.addOnCompleteListener(listener);
 		}
-		return () => {
-			scorecardEngine.removeListener(listener);
-		};
 	}, [dataConfig]);
 
 	return {

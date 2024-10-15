@@ -1,7 +1,7 @@
-import { useScorecardDataFetchProgress } from "./DataProvider";
+import { useScorecardData } from "./DataProvider";
 import { DataTableRow, LinearLoader } from "@dhis2/ui";
 import { useTableState } from "./TableStateProvider";
-import { memo, type RefObject } from "react";
+import { memo, type RefObject, useEffect, useState } from "react";
 import styles from "./ScorecardTable/ScorecardTable.module.css";
 
 export const LoadingIndicator = memo(function LoadingIndicator({
@@ -9,14 +9,26 @@ export const LoadingIndicator = memo(function LoadingIndicator({
 }: {
 	tableRef: RefObject<HTMLTableElement>;
 }) {
-	const { progress } = useScorecardDataFetchProgress();
+	const { data: dataEngine } = useScorecardData();
+	const [progress, setProgress] = useState<number>(0);
+	const [completed, setCompleted] = useState<boolean>(dataEngine.isDone);
 	const table = useTableState();
 	const colSpan = table.getVisibleFlatColumns().length;
 
 	const width =
 		tableRef.current?.parentElement?.getBoundingClientRect().width;
 
-	if (progress === 1 || isNaN(progress!)) {
+	useEffect(() => {
+		return dataEngine.addOnCompleteListener(setCompleted);
+	}, [dataEngine]);
+
+	useEffect(() => {
+		return dataEngine.addProgressListener((value) => {
+			setProgress(value);
+		});
+	}, [dataEngine]);
+
+	if (progress === 1 || isNaN(progress!) || completed) {
 		return null;
 	}
 	return (
