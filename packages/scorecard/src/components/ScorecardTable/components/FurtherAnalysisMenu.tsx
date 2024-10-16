@@ -32,12 +32,11 @@ export function FurtherAnalysisMenu({
 	dataSources: ScorecardDataSource[];
 }) {
 	const lowestLevel = useLowestOrgUnitLevel();
-
 	const orgUnitInLowestLevel = useMemo(() => {
 		return getOrgUnitLevel(orgUnit) === lowestLevel?.level;
 	}, [lowestLevel, orgUnit]);
-
 	const [showSubMenu, setShowSubMenu] = useState(false);
+
 	return (
 		<>
 			<Popover
@@ -78,6 +77,32 @@ export function FurtherAnalysisMenu({
 							dense
 							onClick={() => {
 								setStateActionRef(undefined);
+								onSelect({
+									periodSelection: {
+										periods: [
+											{
+												id: periodId,
+											},
+										],
+									},
+									orgUnitSelection: {
+										levels: [
+											(
+												+(
+													getOrgUnitLevel(orgUnit) ??
+													0
+												) + 1
+											).toString(),
+										],
+										groups: [],
+										orgUnits: [
+											{
+												id: orgUnit.uid,
+											},
+										],
+									},
+									dataSources,
+								});
 							}}
 							label={i18n.t("Lower Organisation Unit Levels")}
 							icon={<IconDimensionOrgUnit16 />}
@@ -97,6 +122,25 @@ export function FurtherAnalysisMenu({
 							dense
 							onClick={() => {
 								setStateActionRef(undefined);
+								onSelect({
+									periodSelection: {
+										periods: [
+											{
+												id: "LAST_3_MONTHS",
+											},
+										],
+									},
+									orgUnitSelection: {
+										levels: [],
+										groups: [],
+										orgUnits: [
+											{
+												id: orgUnit.uid,
+											},
+										],
+									},
+									dataSources,
+								});
 							}}
 							label={i18n.t("Last 3 Months")}
 							icon={<IconVisualizationColumnStacked24 />}
@@ -105,6 +149,25 @@ export function FurtherAnalysisMenu({
 							dense
 							onClick={() => {
 								setStateActionRef(undefined);
+								onSelect({
+									periodSelection: {
+										periods: [
+											{
+												id: "LAST_6_MONTHS",
+											},
+										],
+									},
+									orgUnitSelection: {
+										levels: [],
+										groups: [],
+										orgUnits: [
+											{
+												id: orgUnit.uid,
+											},
+										],
+									},
+									dataSources,
+								});
 							}}
 							label={i18n.t("Last 6 Months")}
 							icon={<IconVisualizationColumnStacked24 />}
@@ -113,6 +176,25 @@ export function FurtherAnalysisMenu({
 							dense
 							onClick={() => {
 								setStateActionRef(undefined);
+								onSelect({
+									periodSelection: {
+										periods: [
+											{
+												id: "LAST_12_MONTHS",
+											},
+										],
+									},
+									orgUnitSelection: {
+										levels: [],
+										groups: [],
+										orgUnits: [
+											{
+												id: orgUnit.uid,
+											},
+										],
+									},
+									dataSources,
+								});
 							}}
 							label={i18n.t("Last 12 Months")}
 							icon={<IconVisualizationColumnStacked24 />}
@@ -121,6 +203,25 @@ export function FurtherAnalysisMenu({
 							dense
 							onClick={() => {
 								setStateActionRef(undefined);
+								onSelect({
+									periodSelection: {
+										periods: [
+											{
+												id: "LAST_4_QUARTERS",
+											},
+										],
+									},
+									orgUnitSelection: {
+										levels: [],
+										groups: [],
+										orgUnits: [
+											{
+												id: orgUnit.uid,
+											},
+										],
+									},
+									dataSources,
+								});
 							}}
 							label={i18n.t("Last 4 Quarters")}
 							icon={<IconVisualizationColumnStacked24 />}
@@ -129,6 +230,25 @@ export function FurtherAnalysisMenu({
 							dense
 							onClick={() => {
 								setStateActionRef(undefined);
+								onSelect({
+									periodSelection: {
+										periods: [
+											{
+												id: "LAST_5_YEARS",
+											},
+										],
+									},
+									orgUnitSelection: {
+										levels: [],
+										groups: [],
+										orgUnits: [
+											{
+												id: orgUnit.uid,
+											},
+										],
+									},
+									dataSources,
+								});
 							}}
 							label={i18n.t("Last 5 Years")}
 							icon={<IconVisualizationColumnStacked24 />}
