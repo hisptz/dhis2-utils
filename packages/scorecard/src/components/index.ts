@@ -4,3 +4,5 @@ export * from "./MetaProvider";
 export * from "./ScorecardPrint/ScorecardPrint";
 export * from "./ScorecardHeader";
 export * from "./ScorecardLegendsView";
+export * from "./StateProvider";
+export * from "./TableStateProvider";
