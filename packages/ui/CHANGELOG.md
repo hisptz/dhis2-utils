@@ -1,5 +1,11 @@
 # @hisptz/dhis2-ui
 
+## 2.0.27
+
+### Patch Changes
+
+- Fixed issues with missing require in package.json
+
 ## 2.0.26
 
 ### Patch Changes
