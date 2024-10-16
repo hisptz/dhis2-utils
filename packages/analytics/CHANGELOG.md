@@ -1,5 +1,13 @@
 # @hisptz/dhis2-analytics
 
+## 2.0.44
+
+### Patch Changes
+
+- Scorecard & analytics improvements
+- Updated dependencies
+  - @hisptz/dhis2-ui@2.0.26
+
 ## 2.0.43
 
 ### Patch Changes

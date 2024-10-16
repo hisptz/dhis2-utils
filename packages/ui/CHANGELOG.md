@@ -1,5 +1,11 @@
 # @hisptz/dhis2-ui
 
+## 2.0.26
+
+### Patch Changes
+
+- Scorecard & analytics improvements
+
 ## 2.0.25
 
 ### Patch Changes
