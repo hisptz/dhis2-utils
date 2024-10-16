@@ -28,7 +28,7 @@ import { isEmpty, meanBy } from "lodash";
 import type { ScorecardDataEngine } from "../utils/dataEngine";
 import { getAverageValue } from "../utils/columns";
 import { useScorecardData } from "../components/DataProvider";
-import { useScorecardStateSelectorValue } from "../state/scorecardState";
+import { useScorecardStateSelectorValue } from "../state";
 
 export function getRowValues({
 	data,

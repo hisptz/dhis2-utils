@@ -3,7 +3,7 @@ import type { ScorecardTableData } from "../../../../../schemas/config";
 import { DataTableColumnHeader } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
 import styles from "../TableHeader.module.css";
-import { useScorecardStateSelectorValue } from "../../../../../state/scorecardState";
+import { useScorecardStateSelectorValue } from "../../../../../state";
 
 export function AverageHeaderCell({
 	header,

@@ -1,7 +1,7 @@
 import { IconArrowDown16, IconArrowUp16 } from "@dhis2/ui";
 import { memo, useMemo } from "react";
 import type { ScorecardCellData } from "../../../schemas/config";
-import { useScorecardStateSelectorValue } from "../../../state/scorecardState";
+import { useScorecardStateSelectorValue } from "../../../state";
 
 export const DataValue = memo(function DataValue({
 	dataSource,

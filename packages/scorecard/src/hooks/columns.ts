@@ -19,7 +19,7 @@ import { MetaFooterCell } from "../components/ScorecardTable/components/MetaFoot
 import { getOrgUnitLevel } from "../utils/orgUnits";
 import { useLowestOrgUnitLevel } from "./orgUnit";
 import { useScorecardData } from "../components/DataProvider";
-import { useScorecardStateSelectorValue } from "../state/scorecardState";
+import { useScorecardStateSelectorValue } from "../state";
 import { ExpandCell } from "../components/ScorecardTable/components/TableHeader/components/ExpandCell";
 
 const columnHelper = createColumnHelper<ScorecardTableData>();

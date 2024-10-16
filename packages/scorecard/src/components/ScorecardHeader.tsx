@@ -1,6 +1,6 @@
 import { useScorecardConfig } from "./ConfigProvider";
 import { useMemo } from "react";
-import { useScorecardStateSelectorValue } from "../state/scorecardState";
+import { useScorecardStateSelectorValue } from "../state";
 import type { PeriodSelection } from "../schemas/config";
 import { PeriodUtility } from "@hisptz/dhis2-utils";
 import { head } from "lodash";

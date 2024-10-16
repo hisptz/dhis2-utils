@@ -7,7 +7,7 @@ import { DataTableColumnHeader, type DataTableSortDirection } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
 import { DraggableCell } from "../../DraggableCell";
 import DroppableCell from "../../DroppableCell";
-import { useScorecardStateSelectorValue } from "../../../../../state/scorecardState";
+import { useScorecardStateSelectorValue } from "../../../../../state";
 
 export function EmptyDataHeaderCell({
 	header,

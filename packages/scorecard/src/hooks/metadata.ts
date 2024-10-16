@@ -5,7 +5,7 @@ import { getDimensions } from "../utils/analytics";
 import type { SupportedCalendar } from "@dhis2/multi-calendar-dates/build/types/types";
 import type { ScorecardState } from "../schemas/config";
 import i18n from "@dhis2/d2-i18n";
-import { useScorecardStateSelectorValue } from "../state/scorecardState";
+import { useScorecardStateSelectorValue } from "../state";
 
 const query: any = {
 	meta: {

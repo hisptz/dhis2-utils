@@ -1,7 +1,7 @@
 import type { ScorecardTableData } from "../../../../../schemas/config";
 import type { Column } from "@tanstack/react-table";
 import i18n from "@dhis2/d2-i18n";
-import { useScorecardStateSelectorValue } from "../../../../../state/scorecardState";
+import { useScorecardStateSelectorValue } from "../../../../../state";
 import { InputField } from "@dhis2/ui";
 import styles from "../TableHeader.module.css";
 import { useEffect, useState } from "react";

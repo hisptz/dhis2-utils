@@ -5,7 +5,7 @@ import { ScorecardContext } from "./components";
 import { CheckboxField } from "@dhis2/ui";
 import { ScorecardStateProvider } from "./components/StateProvider";
 import { getInitialStateFromConfig } from "./utils";
-import { useScorecardStateSelector } from "./state/scorecardState";
+import { useScorecardStateSelector } from "./state";
 
 const playConfig: ScorecardConfig = {
 	id: "YyeJxCBJpcz",

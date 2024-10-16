@@ -2,7 +2,7 @@ import { DataTableFoot, DataTableRow } from "@dhis2/ui";
 import { useTableState } from "../../TableStateProvider";
 import { flexRender } from "@tanstack/react-table";
 import { Fragment } from "react";
-import { useScorecardStateSelectorValue } from "../../../state/scorecardState";
+import { useScorecardStateSelectorValue } from "../../../state";
 
 export function TableFoot() {
 	const table = useTableState();

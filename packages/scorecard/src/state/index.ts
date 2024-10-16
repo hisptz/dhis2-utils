@@ -5,7 +5,12 @@ import {
 	useRecoilValue,
 	useSetRecoilState,
 } from "recoil";
-import type { ScorecardState, ScorecardViewOptions } from "../schemas/config";
+import type {
+	OrgUnitSelection,
+	PeriodSelection,
+	ScorecardState,
+	ScorecardViewOptions,
+} from "../schemas/config";
 import { get as _get, set as _set } from "lodash";
 
 export const scorecardStateAtom = atom<ScorecardState | null>({
@@ -34,6 +39,18 @@ export const scorecardStateSelector = selectorFamily({
 
 export function useScorecardStateValue() {
 	return useRecoilValue(scorecardStateAtom);
+}
+
+export function useScorecardOrgUnitSelectionState() {
+	return useRecoilState<OrgUnitSelection>(
+		scorecardStateSelector("orgUnitSelection"),
+	);
+}
+
+export function useScorecardPeriodState() {
+	return useRecoilState<PeriodSelection>(
+		scorecardStateSelector("periodSelection"),
+	);
 }
 
 export function useSetScorecardStateSelector<ConfigType>(

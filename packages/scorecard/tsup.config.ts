@@ -14,7 +14,7 @@ export default defineConfig((options) => {
 			"src/**/*.css",
 		],
 		ignoreWatch: ["*/**.stories.*"],
-		splitting: false,
+		splitting: true,
 		sourcemap: true,
 		clean: true,
 		dts: false,

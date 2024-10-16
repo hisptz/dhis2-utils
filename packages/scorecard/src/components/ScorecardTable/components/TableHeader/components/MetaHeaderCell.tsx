@@ -6,7 +6,7 @@ import styles from "../TableHeader.module.css";
 import { FilterArea } from "./FilterArea";
 import { uid } from "@hisptz/dhis2-utils";
 import { memo, useRef } from "react";
-import { useScorecardStateSelectorValue } from "../../../../../state/scorecardState";
+import { useScorecardStateSelectorValue } from "../../../../../state";
 
 function MetaHeaderCellComponent({
 	header,

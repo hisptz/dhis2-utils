@@ -5,7 +5,7 @@ import { TableFoot } from "./components/TableFoot";
 import { memo, useEffect, useRef, useTransition } from "react";
 import { PaginatedToolbar } from "./components/PaginatedToolbar";
 import { useDragDropManager } from "react-dnd";
-import { useSetScorecardStateSelector } from "../../state/scorecardState";
+import { useSetScorecardStateSelector } from "../../state";
 import { ColGroup } from "../ColGroup";
 
 export interface ScorecardTableProps extends Omit<DataTableProps, "children"> {}

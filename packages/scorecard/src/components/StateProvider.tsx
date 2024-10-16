@@ -1,7 +1,7 @@
 import type { ScorecardConfig, ScorecardState } from "../schemas/config";
 import { type ReactNode, useCallback } from "react";
 import { MutableSnapshot, RecoilRoot } from "recoil";
-import { scorecardStateAtom } from "../state/scorecardState";
+import { scorecardStateAtom } from "../state";
 import { getInitialStateFromConfig } from "../utils";
 
 export interface ScorecardStateProviderProps {

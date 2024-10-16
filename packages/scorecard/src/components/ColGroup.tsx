@@ -1,4 +1,4 @@
-import { useScorecardStateSelectorValue } from "../state/scorecardState";
+import { useScorecardStateSelectorValue } from "../state";
 
 export function ColGroup() {
 	const inPrintMode = useScorecardStateSelectorValue<boolean>([

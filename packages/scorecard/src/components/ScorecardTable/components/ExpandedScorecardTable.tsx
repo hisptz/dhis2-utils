@@ -5,7 +5,7 @@ import { getOrgUnitLevel } from "../../../utils/orgUnits";
 import type { OrgUnitSelection, ScorecardState } from "../../../schemas/config";
 import { ScorecardContext } from "../../ScorecardContext";
 import { CircularLoader } from "@dhis2/ui";
-import { useScorecardStateValue } from "../../../state/scorecardState";
+import { useScorecardStateValue } from "../../../state";
 import { TableStateProvider } from "../../TableStateProvider";
 import { ScorecardTable } from "../ScorecardTable";
 import { ScorecardDataProvider } from "../../DataProvider";

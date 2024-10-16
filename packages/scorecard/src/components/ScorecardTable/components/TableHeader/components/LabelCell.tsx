@@ -6,7 +6,7 @@ import {
 import { DataTableCell } from "@dhis2/ui";
 import DroppableCell from "../../DroppableCell";
 import { DraggableCell } from "../../DraggableCell";
-import { useScorecardStateSelectorValue } from "../../../../../state/scorecardState";
+import { useScorecardStateSelectorValue } from "../../../../../state";
 import { useMemo } from "react";
 import { isEmpty } from "lodash";
 

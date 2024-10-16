@@ -11,7 +11,7 @@ import { useScorecardData } from "../../DataProvider";
 import { head, isEmpty, meanBy } from "lodash";
 import { CellLoader } from "./CellLoader";
 import { LinkedAverageCell, SingleAverageCell } from "./AverageCell";
-import { useScorecardStateSelectorValue } from "../../../state/scorecardState";
+import { useScorecardStateSelectorValue } from "../../../state";
 
 function getOrgUnitAverage({
 	dataSourcesConfig,
