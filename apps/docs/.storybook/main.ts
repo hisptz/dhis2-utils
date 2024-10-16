@@ -17,6 +17,11 @@ const config: StorybookConfig = {
 			files: "**/*.stories.tsx",
 			titlePrefix: "Analytics UI",
 		},
+		{
+			directory: resolve(__dirname, "../../../packages/scorecard/src"),
+			files: "**/*.stories.tsx",
+			titlePrefix: "Scorecard",
+		},
 	],
 	typescript: {
 		// Overrides the default Typescript configuration to allow multi-package components to be documented via Autodocs.
