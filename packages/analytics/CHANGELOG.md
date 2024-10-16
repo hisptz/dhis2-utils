@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.0.46
+
+### Patch Changes
+
+- Fixed some types not being exported
+
 ## 2.0.45
 
 ### Patch Changes
