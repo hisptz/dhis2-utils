@@ -137,6 +137,12 @@ function DataHolderFooterCell({
 	if (loading) {
 		return <CellLoader size={size} />;
 	}
+
+	if (isNaN(average as number)) {
+		return (
+			<DataTableCell style={{ width: size }} bordered align="center" />
+		);
+	}
 	return (
 		<DataTableCell style={{ width: size }} bordered align="center">
 			<b>{average?.toFixed(2).toString()}</b>
