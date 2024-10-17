@@ -95,6 +95,7 @@ export function LinkedAverageCell({
 
 	return (
 		<LinkedCell
+			bold
 			size={size}
 			top={{
 				dataSource: {

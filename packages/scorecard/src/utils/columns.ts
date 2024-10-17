@@ -237,7 +237,11 @@ function getDataHolderColumn({
 	const header =
 		dataSources.length === 1
 			? head(dataSources)?.label
-			: dataSources.reduce((acc, { label }) => `${acc} / ${label}`, "");
+			: dataSources.reduce(
+					(acc, { label }, index) =>
+						index === 0 ? `${label}` : `${acc} / ${label}`,
+					"",
+				);
 
 	if (hasOnePeriod) {
 		return columnHelper.accessor(

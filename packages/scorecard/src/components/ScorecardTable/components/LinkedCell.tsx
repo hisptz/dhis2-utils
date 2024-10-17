@@ -20,11 +20,18 @@ export interface LinkedCellProps {
 		value?: number;
 	};
 	size: number;
+	bold?: boolean;
 
 	[key: string]: unknown;
 }
 
-function LinkedCellComponent({ top, bottom, size, ...props }: LinkedCellProps) {
+function LinkedCellComponent({
+	top,
+	bottom,
+	size,
+	bold,
+	...props
+}: LinkedCellProps) {
 	const [ref, { height, width }] = useElementSize();
 
 	const {
@@ -86,6 +93,7 @@ function LinkedCellComponent({ top, bottom, size, ...props }: LinkedCellProps) {
 				>
 					{topDataSource && (
 						<DataValue
+							bold={bold}
 							value={topValue}
 							dataSource={topDataSource}
 						/>
@@ -107,6 +115,7 @@ function LinkedCellComponent({ top, bottom, size, ...props }: LinkedCellProps) {
 				>
 					{bottomDataSource && (
 						<DataValue
+							bold={bold}
 							value={bottomValue}
 							dataSource={bottomDataSource}
 						/>

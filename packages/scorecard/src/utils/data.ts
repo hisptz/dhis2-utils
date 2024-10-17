@@ -58,7 +58,10 @@ export function getRowsFromMeta({
 						(dataSources.length === 1
 							? head(dataSources)?.label
 							: dataSources.reduce(
-									(acc, { label }) => `${acc} / ${label}`,
+									(acc, { label }, index) =>
+										index === 0
+											? `${label}`
+											: `${acc} / ${label}`,
 									"",
 								)) ?? "";
 

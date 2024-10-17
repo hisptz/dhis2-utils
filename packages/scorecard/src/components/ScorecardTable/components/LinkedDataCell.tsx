@@ -8,6 +8,7 @@ import {
 	FurtherAnalysis,
 	type FurtherAnalysisConfig,
 } from "./FurtherAnalysisModal";
+import { isEqual } from "lodash";
 
 export interface LinkedDataCellProps {
 	dataSources: ScorecardCellData[];
@@ -36,6 +37,11 @@ function LinkedDataCellComponent({
 		dataSource: bottom,
 		orgUnit,
 		period,
+	});
+
+	console.log({
+		top,
+		bottom,
 	});
 
 	return (
@@ -80,10 +86,12 @@ function LinkedDataCellComponent({
 				top={{
 					legendDefinition: topLegendDefinition,
 					dataSource: top,
+					value: top?.data?.current,
 				}}
 				bottom={{
 					legendDefinition: bottomLegendDefinition,
 					dataSource: bottom,
+					value: bottom?.data?.current,
 				}}
 			/>
 			{stateActionRef && (
@@ -100,4 +108,9 @@ function LinkedDataCellComponent({
 	);
 }
 
-export const LinkedDataCell = memo(LinkedDataCellComponent);
+export const LinkedDataCell = memo(
+	LinkedDataCellComponent,
+	(prevProps, nowProps) => {
+		return isEqual(prevProps, nowProps);
+	},
+);

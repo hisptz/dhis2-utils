@@ -3,6 +3,7 @@ export * from "./ConfigProvider";
 export * from "./MetaProvider";
 export * from "./DataProvider";
 export * from "./ScorecardPrint/ScorecardPrint";
+export * from "./ScorecardPrint/components/ScorecardPreviewArea";
 export * from "./ScorecardHeader";
 export * from "./ScorecardLegendsView";
 export * from "./StateProvider";

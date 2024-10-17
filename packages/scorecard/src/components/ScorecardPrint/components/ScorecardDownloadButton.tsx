@@ -5,7 +5,13 @@ import {
 	MenuItem,
 } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
-import { type RefObject, useEffect, useRef, useState } from "react";
+import {
+	type RefObject,
+	useEffect,
+	useRef,
+	useState,
+	useTransition,
+} from "react";
 import { useScorecardData } from "../../DataProvider";
 import { useReactToPrint } from "react-to-print";
 import { useScorecardConfig } from "../../ConfigProvider";
@@ -13,6 +19,7 @@ import { ScorecardPreviewArea } from "./ScorecardPreviewArea";
 import * as xlsx from "xlsx";
 import { useScorecardMeta } from "../../MetaProvider";
 import { downloadALMAData, downloadALMAMeta } from "../utils/download";
+import { useAlert } from "@dhis2/app-runtime";
 
 function DownloadMenu({
 	previewRef,
@@ -22,12 +29,26 @@ function DownloadMenu({
 	onClose: () => void;
 }) {
 	const config = useScorecardConfig();
+	const { show } = useAlert(
+		({ message }) => message,
+		({ type }) => ({ ...type, duration: 3000 }),
+	);
 	const { data: dataEngine } = useScorecardData();
 	const meta = useScorecardMeta();
 	const print = useReactToPrint({
 		contentRef: previewRef,
 		preserveAfterPrint: false,
 		documentTitle: config.title,
+		onPrintError: (errorLocation, error) => {
+			console.error(`Error running ${errorLocation}`);
+			console.error(error);
+			show({
+				message: `${i18n.t("Could not open the print dialog")}: ${
+					error.message ?? i18n.t("Unknown error")
+				}`,
+				type: { info: true },
+			});
+		},
 	});
 
 	const onDownload =
@@ -60,7 +81,7 @@ function DownloadMenu({
 
 	return (
 		<>
-			<FlyoutMenu>
+			<FlyoutMenu closeMenu={onClose}>
 				<MenuItem
 					onClick={onDownload("excel")}
 					label={i18n.t("Excel")}
@@ -83,8 +104,9 @@ function DownloadMenu({
 }
 
 export function ScorecardDownloadButton() {
+	const [isPending, startTransition] = useTransition();
 	const { data: dataEngine } = useScorecardData();
-	const [menuRef, setMenuRef] = useState<boolean>(false);
+	const [openMenu, setOpenMenu] = useState<boolean>(false);
 	const [completed, setCompleted] = useState<boolean>(dataEngine.isDone);
 	const previewRef = useRef<HTMLDivElement | null>(null);
 
@@ -94,23 +116,34 @@ export function ScorecardDownloadButton() {
 
 	return (
 		<>
-			{completed && <ScorecardPreviewArea previewRef={previewRef} />}
+			{openMenu && <ScorecardPreviewArea previewRef={previewRef} />}
 			<DropdownButton
 				type="button"
+				value="scorecard-download-button"
 				disabled={!completed}
-				open={menuRef}
-				onClick={(_, e) => {
-					setMenuRef(true);
+				open={openMenu}
+				onClick={({ open }) => {
+					startTransition(() => {
+						setOpenMenu(open);
+					});
 				}}
 				icon={<IconDownload24 />}
 				component={
-					<DownloadMenu
-						onClose={() => setMenuRef(false)}
-						previewRef={previewRef}
-					/>
+					isPending ? (
+						<div>Loading</div>
+					) : (
+						<DownloadMenu
+							onClose={() => setOpenMenu(false)}
+							previewRef={previewRef}
+						/>
+					)
 				}
 			>
-				{!completed ? i18n.t("Please wait...") : i18n.t("Download")}
+				{!completed
+					? i18n.t("Please wait...")
+					: isPending
+						? i18n.t("Preparing...")
+						: i18n.t("Download")}
 			</DropdownButton>
 		</>
 	);

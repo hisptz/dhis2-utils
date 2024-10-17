@@ -6,9 +6,11 @@ import { useScorecardStateSelectorValue } from "../../../state";
 export const DataValue = memo(function DataValue({
 	dataSource,
 	value,
+	bold,
 }: {
 	dataSource: ScorecardCellData;
 	value?: number;
+	bold?: boolean;
 }) {
 	const showArrows = useScorecardStateSelectorValue<boolean>([
 		"options",
@@ -39,6 +41,9 @@ export const DataValue = memo(function DataValue({
 	}, [currentValue, dataSource.effectiveGap, showArrows]);
 
 	if (value) {
+		if (isNaN(value as number)) {
+			return "";
+		}
 		return (
 			<div
 				style={{
@@ -48,7 +53,11 @@ export const DataValue = memo(function DataValue({
 					gap: 4,
 				}}
 			>
-				<b>{value?.toString() ?? ""}</b>
+				{bold ? (
+					<b>{value?.toFixed(2).toString() ?? ""}</b>
+				) : (
+					value?.toFixed(2).toString() ?? ""
+				)}
 			</div>
 		);
 	}
@@ -59,12 +68,12 @@ export const DataValue = memo(function DataValue({
 				display: "flex",
 				alignItems: "center",
 				justifyContent: "center",
-				gap: 4,
+				gap: 2,
 			}}
 		>
 			{showArrow === "decreasing" && <IconArrowDown16 />}
 			{showArrow === "increasing" && <IconArrowUp16 />}
-			{currentValue?.toString() ?? ""}
+			{currentValue?.toFixed(2).toString() ?? ""}
 		</div>
 	);
 });

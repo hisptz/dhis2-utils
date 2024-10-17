@@ -10,6 +10,7 @@ import { useScorecardConfig } from "../../ConfigProvider";
 import { useRecoilValue } from "recoil";
 import { scorecardStateAtom } from "../../../state";
 import type { ScorecardState } from "../../../schemas/config";
+import "../print.css";
 
 export const ScorecardPreviewArea = memo(function ScorecardPreviewArea({
 	previewRef,

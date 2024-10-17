@@ -44,6 +44,11 @@ function DataContainerComponent(
 		);
 	}
 
+	console.log({
+		cellData,
+		dataConfig,
+	});
+
 	return (
 		<LinkedDataCell
 			{...dataConfig}

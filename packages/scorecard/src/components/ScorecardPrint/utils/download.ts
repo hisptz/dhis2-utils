@@ -164,7 +164,6 @@ export function downloadALMAMeta({
 				),
 			),
 		});
-		console.log(json);
 		const blob = new Blob([json], { type: "application/json" });
 		saveAs(blob, `${config.title}-metadata.json`);
 	} catch (e) {

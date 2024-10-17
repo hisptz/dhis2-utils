@@ -90,6 +90,7 @@ export function useCellValue(dataConfig: ScorecardTableCellConfig) {
 				data: scorecardEngine.data,
 				dataConfig,
 			});
+
 			setCellData(values);
 			setLoading(false);
 		} else {

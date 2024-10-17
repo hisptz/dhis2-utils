@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Scorecard } from "./Scorecard";
 import type { ScorecardConfig } from "./schemas/config";
-import { ScorecardContext } from "./components";
+import { ScorecardContext, ScorecardDataProvider } from "./components";
 import { CheckboxField } from "@dhis2/ui";
 import { ScorecardStateProvider } from "./components/StateProvider";
 import { getInitialStateFromConfig } from "./utils";
@@ -76,11 +76,6 @@ const playConfig: ScorecardConfig = {
 								specificTargets: [],
 								specificTargetsSet: false,
 							},
-						],
-					},
-					{
-						id: "MDGG5JZkC7Y",
-						dataSources: [
 							{
 								id: "ReUHfIn0pTQ",
 								name: "ANC 1-3 Dropout Rate",
@@ -1532,16 +1527,18 @@ const meta: Meta<typeof Scorecard> = {
 							/>
 						</div>
 						<ScorecardContext config={playConfig}>
-							<Story
-								args={{
-									...context.args,
-									tableProps: {
-										scrollHeight: "800px",
-										scrollWidth: "1600px",
-										width: "1600px",
-									},
-								}}
-							/>
+							<ScorecardDataProvider>
+								<Story
+									args={{
+										...context.args,
+										tableProps: {
+											scrollHeight: "800px",
+											scrollWidth: "1600px",
+											width: "1600px",
+										},
+									}}
+								/>
+							</ScorecardDataProvider>
 						</ScorecardContext>
 					</div>
 				</ScorecardStateProvider>
