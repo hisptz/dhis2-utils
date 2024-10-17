@@ -1,5 +1,11 @@
 # @hisptz/dhis2-scorecard
 
+## 1.0.8
+
+### Patch Changes
+
+- Exported required components and hooks
+
 ## 1.0.7
 
 ### Patch Changes

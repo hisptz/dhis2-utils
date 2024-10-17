@@ -5,6 +5,7 @@ import type { PeriodSelection } from "../schemas/config";
 import { PeriodUtility } from "@hisptz/dhis2-utils";
 import { head } from "lodash";
 import { colors } from "@dhis2/ui";
+import JsxParser from "react-jsx-parser";
 
 export function ScorecardHeader() {
 	const config = useScorecardConfig();
