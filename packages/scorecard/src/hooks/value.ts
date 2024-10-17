@@ -177,7 +177,7 @@ function getOrgUnitAverageValues({
 	data: AnalyticsData[];
 }): number {
 	const dataValues = data.filter((datum) => {
-		return datum.ou === dataConfig.orgUnit!.uid;
+		return datum.ou === dataConfig.orgUnit?.uid;
 	});
 
 	return meanBy(dataValues, (value) => parseFloat(value.value!));
