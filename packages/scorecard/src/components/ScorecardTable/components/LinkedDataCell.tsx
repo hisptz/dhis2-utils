@@ -39,11 +39,6 @@ function LinkedDataCellComponent({
 		period,
 	});
 
-	console.log({
-		top,
-		bottom,
-	});
-
 	return (
 		<>
 			{!!furtherAnalysisConfig && (

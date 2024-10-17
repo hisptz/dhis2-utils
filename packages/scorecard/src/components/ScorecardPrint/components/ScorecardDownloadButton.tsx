@@ -20,6 +20,7 @@ import * as xlsx from "xlsx";
 import { useScorecardMeta } from "../../MetaProvider";
 import { downloadALMAData, downloadALMAMeta } from "../utils/download";
 import { useAlert } from "@dhis2/app-runtime";
+import "../print.css";
 
 function DownloadMenu({
 	previewRef,
@@ -37,7 +38,6 @@ function DownloadMenu({
 	const meta = useScorecardMeta();
 	const print = useReactToPrint({
 		contentRef: previewRef,
-		preserveAfterPrint: false,
 		documentTitle: config.title,
 		onPrintError: (errorLocation, error) => {
 			console.error(`Error running ${errorLocation}`);

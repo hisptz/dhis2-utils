@@ -32,47 +32,41 @@ export function ScorecardHeader() {
 	}
 
 	return (
-		<div className="row space-between" id={"scorecard-header"}>
-			<div className="row">
-				{customHeader ? (
-					/*
-      // @ts-ignore */
-					<JsxParser
-						autoCloseVoidElements
-						className="w-100"
-						onError={console.error}
-						bindings={{
-							title,
-							subtitle,
-							period: periods.length === 1 ? period?.name : "",
-						}}
-						jsx={customHeader}
-					/>
-				) : (
-					<div
-						style={{
-							display: "flex",
-							flexDirection: "column",
-							alignItems: "center",
-							justifyContent: "center",
-							gap: 16,
-						}}
-					>
-						<h1
-							style={{ margin: 8 }}
-							id={"data-test-score-card-title"}
-						>
-							{title}{" "}
-							{`${
-								periods.length === 1 ? ` - ${period?.name}` : ""
-							}`}
-						</h1>
-						<h3 style={{ color: colors.grey600, margin: 0 }}>
-							{subtitle}
-						</h3>
-					</div>
-				)}
-			</div>
-		</div>
+		<>
+			{customHeader ? (
+				/*
+  // @ts-ignore */
+				<JsxParser
+					autoCloseVoidElements
+					className="w-100"
+					onError={console.error}
+					bindings={{
+						title,
+						subtitle,
+						period: periods.length === 1 ? period?.name : "",
+					}}
+					jsx={customHeader}
+				/>
+			) : (
+				<div
+					style={{
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
+						justifyContent: "center",
+						width: "100%",
+						gap: 16,
+					}}
+				>
+					<h1 style={{ margin: 8 }} id={"data-test-score-card-title"}>
+						{title}{" "}
+						{`${periods.length === 1 ? ` - ${period?.name}` : ""}`}
+					</h1>
+					<h3 style={{ color: colors.grey600, margin: 0 }}>
+						{subtitle}
+					</h3>
+				</div>
+			)}
+		</>
 	);
 }
