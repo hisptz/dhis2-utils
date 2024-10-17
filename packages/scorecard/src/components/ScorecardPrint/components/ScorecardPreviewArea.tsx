@@ -31,7 +31,11 @@ export const ScorecardPreviewArea = memo(function ScorecardPreviewArea({
 	} as ScorecardState;
 
 	return (
-		<ScorecardStateProvider initialState={updatedState} config={config}>
+		<ScorecardStateProvider
+			withRecoilRoot
+			initialState={updatedState}
+			config={config}
+		>
 			<div style={{ display: "none" }}>
 				<div
 					className="print-preview"
