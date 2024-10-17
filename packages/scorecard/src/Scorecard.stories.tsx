@@ -6,6 +6,7 @@ import { CheckboxField } from "@dhis2/ui";
 import { ScorecardStateProvider } from "./components/StateProvider";
 import { getInitialStateFromConfig } from "./utils";
 import { useScorecardStateSelector } from "./state";
+import { RecoilRoot } from "recoil";
 
 const playConfig: ScorecardConfig = {
 	id: "YyeJxCBJpcz",
@@ -1489,57 +1490,62 @@ const meta: Meta<typeof Scorecard> = {
 	component: Scorecard,
 	decorators: (Story, context) => {
 		return (
-			<ScorecardStateProvider
-				config={config}
-				initialState={getInitialStateFromConfig(playConfig)}
-			>
-				<div
-					style={{
-						maxWidth: 1600,
-						display: "flex",
-						flexDirection: "column",
-						gap: 32,
-						height: "60vh",
-						width: "100%",
-					}}
+			<RecoilRoot>
+				<ScorecardStateProvider
+					config={config}
+					initialState={getInitialStateFromConfig(playConfig)}
 				>
-					<div style={{ display: "flex", gap: 16 }}>
-						<OptionsToggle
-							name="showDataInRows"
-							label={"Show data in rows"}
-						/>
-						<OptionsToggle name="arrows" label={"Show arrows"} />
-						<OptionsToggle
-							name="showHierarchy"
-							label={"Show hierarchy"}
-						/>
-						<OptionsToggle
-							name="averageColumn"
-							label={"Show average column"}
-						/>
-						<OptionsToggle
-							name="averageRow"
-							label={"Show average row"}
-						/>
-						<OptionsToggle
-							name="itemNumber"
-							label={"Show item numbers"}
-						/>
+					<div
+						style={{
+							maxWidth: 1600,
+							display: "flex",
+							flexDirection: "column",
+							gap: 32,
+							height: "60vh",
+							width: "100%",
+						}}
+					>
+						<div style={{ display: "flex", gap: 16 }}>
+							<OptionsToggle
+								name="showDataInRows"
+								label={"Show data in rows"}
+							/>
+							<OptionsToggle
+								name="arrows"
+								label={"Show arrows"}
+							/>
+							<OptionsToggle
+								name="showHierarchy"
+								label={"Show hierarchy"}
+							/>
+							<OptionsToggle
+								name="averageColumn"
+								label={"Show average column"}
+							/>
+							<OptionsToggle
+								name="averageRow"
+								label={"Show average row"}
+							/>
+							<OptionsToggle
+								name="itemNumber"
+								label={"Show item numbers"}
+							/>
+						</div>
+						<ScorecardContext config={playConfig}>
+							<Story
+								args={{
+									...context.args,
+									tableProps: {
+										scrollHeight: "800px",
+										scrollWidth: "1600px",
+										width: "1600px",
+									},
+								}}
+							/>
+						</ScorecardContext>
 					</div>
-					<ScorecardContext config={playConfig}>
-						<Story
-							args={{
-								...context.args,
-								tableProps: {
-									scrollHeight: "800px",
-									scrollWidth: "1600px",
-									width: "1600px",
-								},
-							}}
-						/>
-					</ScorecardContext>
-				</div>
-			</ScorecardStateProvider>
+				</ScorecardStateProvider>
+			</RecoilRoot>
 		);
 	},
 };

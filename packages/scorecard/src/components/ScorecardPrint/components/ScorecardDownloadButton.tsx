@@ -3,7 +3,6 @@ import {
 	FlyoutMenu,
 	IconDownload24,
 	MenuItem,
-	MenuSectionHeader,
 } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
 import { type RefObject, useEffect, useRef, useState } from "react";
@@ -31,27 +30,33 @@ function DownloadMenu({
 		documentTitle: config.title,
 	});
 
-	const onDownload = (type: "excel" | "csv" | "alma" | "almaMeta") => () => {
-		onClose();
-		switch (type) {
-			case "csv":
-			case "excel":
-				const extension = type === "csv" ? "csv" : "xlsx";
-				const workbook = xlsx.utils.table_to_book(previewRef.current);
-				xlsx.writeFile(workbook, `${config.title}.${extension}`);
-				break;
-			case "almaMeta":
-				downloadALMAMeta({ config, meta: meta! });
-				break;
-			case "alma":
-				downloadALMAData({
-					config,
-					meta: meta!,
-					data: dataEngine.data,
-				});
-				break;
-		}
-	};
+	const onDownload =
+		(type: "excel" | "csv" | "alma" | "almaMeta" | "pdf") => () => {
+			onClose();
+			switch (type) {
+				case "pdf":
+					print();
+					break;
+				case "csv":
+				case "excel":
+					const extension = type === "csv" ? "csv" : "xlsx";
+					const workbook = xlsx.utils.table_to_book(
+						previewRef.current,
+					);
+					xlsx.writeFile(workbook, `${config.title}.${extension}`);
+					break;
+				case "almaMeta":
+					downloadALMAMeta({ config, meta: meta! });
+					break;
+				case "alma":
+					downloadALMAData({
+						config,
+						meta: meta!,
+						data: dataEngine.data,
+					});
+					break;
+			}
+		};
 
 	return (
 		<>
@@ -61,21 +66,17 @@ function DownloadMenu({
 					label={i18n.t("Excel")}
 				/>
 				<MenuItem onClick={onDownload("csv")} label={i18n.t("CSV")} />
-				<MenuItem
-					onClick={() => {
-						print();
-					}}
-					label={i18n.t("PDF")}
-				/>
-				<MenuSectionHeader label={i18n.t("ALMA")} />
-				<MenuItem
-					onClick={onDownload("alma")}
-					label={i18n.t("Data(JSON)")}
-				/>
-				<MenuItem
-					onClick={onDownload("almaMeta")}
-					label={i18n.t("Metadata")}
-				/>
+				<MenuItem onClick={onDownload("pdf")} label={i18n.t("PDF")} />
+				<MenuItem label={i18n.t("ALMA")}>
+					<MenuItem
+						onClick={onDownload("alma")}
+						label={i18n.t("Data(JSON)")}
+					/>
+					<MenuItem
+						onClick={onDownload("almaMeta")}
+						label={i18n.t("Metadata")}
+					/>
+				</MenuItem>
 			</FlyoutMenu>
 		</>
 	);

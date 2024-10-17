@@ -1,5 +1,11 @@
 # @hisptz/dhis2-scorecard
 
+## 1.0.9
+
+### Patch Changes
+
+- Fixes and improvements in the scorecard package
+
 ## 1.0.8
 
 ### Patch Changes

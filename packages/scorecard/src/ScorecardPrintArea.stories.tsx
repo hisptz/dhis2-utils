@@ -1478,7 +1478,7 @@ const meta: Meta<typeof ScorecardPrint> = {
 					orgUnitSelection: {
 						userOrgUnit: true,
 						userSubUnit: true,
-						userSubX2Unit: false,
+						userSubX2Unit: true,
 					},
 					options: {
 						...getInitialStateFromConfig(playConfig).options,
