@@ -36,6 +36,13 @@ export const ScorecardPreviewArea = memo(function ScorecardPreviewArea({
 			initialState={updatedState}
 			config={config}
 		>
+			<style type="text/css" media="print">
+				{
+					"\
+  @page { size: landscape; margin: 32px; }\
+"
+				}
+			</style>
 			<div style={{ display: "none" }}>
 				<div
 					className="print-preview"

@@ -111,12 +111,16 @@ export function ScorecardDownloadButton() {
 	const previewRef = useRef<HTMLDivElement | null>(null);
 
 	useEffect(() => {
-		return dataEngine.addOnCompleteListener(setCompleted);
+		return dataEngine.addOnCompleteListener((completed) => {
+			startTransition(() => {
+				setCompleted(completed);
+			});
+		});
 	}, [dataEngine]);
 
 	return (
 		<>
-			{openMenu && <ScorecardPreviewArea previewRef={previewRef} />}
+			{completed && <ScorecardPreviewArea previewRef={previewRef} />}
 			<DropdownButton
 				type="button"
 				value="scorecard-download-button"

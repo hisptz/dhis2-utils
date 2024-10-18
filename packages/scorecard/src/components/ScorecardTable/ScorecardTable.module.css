@@ -10,6 +10,10 @@
     padding: 10px 12px;
 }
 
+.expandCell {
+    page-break-inside: avoid !important;
+}
+
 
 .loading-cell {
     animation: shimmer 2s infinite linear;

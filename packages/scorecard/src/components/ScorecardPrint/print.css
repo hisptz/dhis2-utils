@@ -1,15 +1,6 @@
 
-body {
-    @media print {
-        @page {
-            margin: 32px !important;
-        }
-    }
-}
-
 .print-preview > * {
-    padding: 32px;
-    border: 1px solid black;
+    margin: 1px;
     font-size: 1em !important;
 
     .print-hide {
