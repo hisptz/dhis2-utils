@@ -66,6 +66,7 @@ export function ExpandedScorecardTable({
 						...config,
 						orgUnitSelection,
 					}}
+					withRecoilRoot
 					initialState={
 						{
 							...state,

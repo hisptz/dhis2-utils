@@ -21,6 +21,8 @@ function TableRowComponent({ row }: { row: Row<ScorecardTableData> }) {
 		return row.getCanExpand();
 	}, [row]);
 
+	const expanded = row.getIsExpanded();
+
 	return (
 		<DataTableRow
 			className={styles.expandCell}
@@ -41,7 +43,7 @@ function TableRowComponent({ row }: { row: Row<ScorecardTableData> }) {
 					/>
 				) : undefined
 			}
-			expanded={row.getIsExpanded()}
+			expanded={expanded}
 			key={row.id}
 		>
 			{row.getVisibleCells().map((cell) => {
