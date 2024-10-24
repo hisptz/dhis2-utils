@@ -6,6 +6,12 @@
 
 -   Fixes and improvements
 
+## 1.0.13
+
+### Patch Changes
+
+-   Fixes and improvements
+
 ## 1.0.12
 
 ### Patch Changes
