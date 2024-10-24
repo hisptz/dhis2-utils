@@ -1,8 +1,8 @@
 import { colors, DataTableCell } from "@dhis2/ui";
 import { getTextColorFromBackgroundColor } from "../../../utils/legends";
 import { DataValue } from "./DataValue";
-import { useElementSize } from "usehooks-ts";
-import React, { useMemo } from "react";
+import { useResizeObserver } from "usehooks-ts";
+import React, { useMemo, useRef } from "react";
 import type {
 	LegendDefinition,
 	ScorecardCellData,
@@ -32,7 +32,10 @@ function LinkedCellComponent({
 	bold,
 	...props
 }: LinkedCellProps) {
-	const [ref, { height, width }] = useElementSize();
+	const ref = useRef<HTMLDivElement>(null);
+	const { height, width } = useResizeObserver<HTMLDivElement>({
+		ref: ref,
+	});
 
 	const {
 		legendDefinition: topLegendDefinition,
@@ -46,6 +49,9 @@ function LinkedCellComponent({
 	} = bottom;
 
 	const angle = useMemo(() => {
+		if (!height || !width) {
+			return Math.tan(Math.PI / 2);
+		}
 		return Math.tan(height / width);
 	}, [height, width]);
 

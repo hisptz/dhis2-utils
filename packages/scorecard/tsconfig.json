@@ -16,8 +16,5 @@
     "emitDeclarationOnly": true,
     "resolveJsonModule": true,
     "allowUmdGlobalAccess": true,
-    "types": [
-      "cypress"
-    ]
   }
 }
