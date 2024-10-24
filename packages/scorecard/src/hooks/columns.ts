@@ -110,6 +110,12 @@ export function useMetaColumns() {
 							filterable: true,
 						},
 						enableColumnFilter: true,
+						filterFn: (row, columnId, filterValue) => {
+							return row
+								.getValue<{ label: string }>(columnId)
+								?.label.toLowerCase()
+								.includes(filterValue.toLowerCase());
+						},
 						cell: LabelCell,
 						size: 300,
 						footer: MetaFooterCell,
@@ -126,6 +132,12 @@ export function useMetaColumns() {
 						header: () => null,
 						id: "orgUnits",
 						enableColumnFilter: true,
+						filterFn: (row, columnId, filterValue) => {
+							return row
+								.getValue<{ label: string }>(columnId)
+								?.label.toLowerCase()
+								.includes(filterValue.toLowerCase());
+						},
 						meta: {
 							isMeta: true,
 							fixed: true,

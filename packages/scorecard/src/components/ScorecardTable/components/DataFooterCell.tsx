@@ -22,7 +22,7 @@ function getOrgUnitAverage({
 }): ScorecardAverageCellData[] {
 	const dataSourceConfig = head(dataSourcesConfig)!;
 
-	return dataSourceConfig.dataSources?.map((config) => {
+	return dataSourceConfig?.dataSources?.map((config) => {
 		const period = dataSourceConfig.currentPeriod!;
 		const dataValues = data.filter(
 			(datum) => datum.pe === period && datum.dx === config.id,
