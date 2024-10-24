@@ -41,12 +41,5 @@
         display: none !important;
     }
 
-
-    @media print {
-        border: unset;
-
-    }
-
-
 }
 

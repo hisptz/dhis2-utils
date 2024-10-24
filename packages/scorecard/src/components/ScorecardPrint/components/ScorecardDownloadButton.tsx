@@ -120,11 +120,13 @@ export function ScorecardDownloadButton() {
 
 	return (
 		<>
-			{completed && <ScorecardPreviewArea previewRef={previewRef} />}
+			{completed && openMenu ? (
+				<ScorecardPreviewArea previewRef={previewRef} />
+			) : null}
 			<DropdownButton
 				type="button"
 				value="scorecard-download-button"
-				disabled={!completed}
+				disabled={!completed || isPending}
 				open={openMenu}
 				onClick={({ open }) => {
 					startTransition(() => {

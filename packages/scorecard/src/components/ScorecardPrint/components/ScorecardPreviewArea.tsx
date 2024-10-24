@@ -36,13 +36,6 @@ export const ScorecardPreviewArea = memo(function ScorecardPreviewArea({
 			initialState={updatedState}
 			config={config}
 		>
-			<style type="text/css" media="print">
-				{
-					"\
-  @page { size: landscape; margin: 32px; }\
-"
-				}
-			</style>
 			<div style={{ display: "none" }}>
 				<div
 					className="print-preview"
@@ -59,6 +52,7 @@ export const ScorecardPreviewArea = memo(function ScorecardPreviewArea({
 					<TableStateProvider>
 						<DndProvider backend={HTML5Backend}>
 							<ScorecardTable
+								layout="fixed"
 								scrollHeight="100%"
 								scrollWidth="100%"
 								width="100%"
