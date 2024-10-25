@@ -1,7 +1,7 @@
 import { geoJSON, LatLngTuple } from "leaflet";
-import { useEffect, useMemo } from "react";
-import { useMapOrganisationUnit } from "../components/MapProvider/hooks/index.js";
-import { useElementSize, useMediaQuery } from "usehooks-ts";
+import { type RefObject, useMemo } from "react";
+import { useMapOrganisationUnit } from "../components/MapProvider/hooks";
+import { useMediaQuery, useResizeObserver } from "usehooks-ts";
 import { isEmpty } from "lodash";
 import { useMap } from "react-leaflet";
 
@@ -29,17 +29,22 @@ export function useMapBounds() {
 	};
 }
 
-export function useCenterMap({ bounds }: { bounds: LatLngTuple[] }) {
+export function useCenterMap({
+	bounds,
+	containerRef,
+}: {
+	bounds: LatLngTuple[];
+	containerRef: RefObject<HTMLDivElement>;
+}) {
 	const map = useMap();
-	const [ref, { width, height }] = useElementSize();
-
-	useEffect(() => {
-		if (!isEmpty(bounds)) {
-			map.fitBounds(bounds);
-		}
-	}, [width, height]);
-
-	return ref;
+	useResizeObserver({
+		ref: containerRef,
+		onResize: () => {
+			if (!isEmpty(bounds)) {
+				map.fitBounds(bounds);
+			}
+		},
+	});
 }
 
 export function usePrintMedia() {

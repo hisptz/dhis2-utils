@@ -83,9 +83,11 @@ const MapArea = (
 ) => {
 	const { center, bounds } = useMapBounds();
 	const { current: id } = useRef<string>(uid());
+	const containerRef = useRef<HTMLDivElement | null>(null);
 
 	return (
 		<div
+			ref={containerRef}
 			id={`${id}-"map-container`}
 			style={{ height: "100%", width: "100%" }}
 		>
@@ -101,7 +103,7 @@ const MapArea = (
 				trackResize
 				{...mapOptions}
 			>
-				<MapUpdater bounds={bounds} />
+				<MapUpdater containerRef={containerRef} bounds={bounds} />
 				<MapLayersProvider layers={layers}>
 					<MapLayerArea
 						base={base}
