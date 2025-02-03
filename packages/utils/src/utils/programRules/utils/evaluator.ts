@@ -1,7 +1,4 @@
-import type {
-	ProgramRule,
-	ProgramRuleAction,
-} from "../../../interfaces/index.js";
+import type { ProgramRule, ProgramRuleAction } from "../../../interfaces";
 import {
 	BuiltInVariable,
 	BuiltInVariableValueOptions,
@@ -13,10 +10,10 @@ import {
 	RuleConditionFunction,
 	RuleTarget,
 	RuleTrigger,
-} from "../interfaces/index.js";
+} from "../interfaces";
 import { compact, find, flatten, get, tail, uniq, uniqBy } from "lodash";
 import { evaluateFunction } from "./d2Functions.js";
-import { builtInVariables, RegularExpressions } from "../constants/index.js";
+import { builtInVariables, RegularExpressions } from "../constants";
 
 export function getRuleActions(
 	programRulesActions: ProgramRuleAction[],
@@ -95,7 +92,7 @@ function getTriggerFromVariable(
 		case "DATAELEMENT_CURRENT_EVENT":
 		case "DATAELEMENT_NEWEST_EVENT_PROGRAM":
 			return {
-				id: `${idPrefix ?? ""}${variable?.dataElement?.id}` ?? "",
+				id: `${idPrefix ?? ""}${variable?.dataElement?.id}`,
 				type: variable.programRuleVariableSourceType,
 				name: variable.name,
 			};
@@ -107,9 +104,7 @@ function getTriggerFromVariable(
 			};
 		case "TEI_ATTRIBUTE":
 			return {
-				id:
-					`${idPrefix ?? ""}${variable?.trackedEntityAttribute
-						?.id}` ?? "",
+				id: `${idPrefix ?? ""}${variable?.trackedEntityAttribute?.id}`,
 				type: variable.programRuleVariableSourceType,
 				name: variable.name,
 			};
