@@ -21,19 +21,10 @@ export type LegendMinMaxProps = FieldProps & {
 	max?: number;
 };
 
-export const LegendMinMax = React.forwardRef(
+export const LegendMinMax = React.forwardRef<HTMLDivElement, LegendMinMaxProps>(
 	(
-		{
-			name,
-			value,
-			onChange,
-			legendDefinition,
-			min,
-			max,
-			error,
-			...props
-		}: LegendMinMaxProps,
-		ref: React.Ref<any>,
+		{ name, value, onChange, legendDefinition, min, max, error, ...props },
+		ref,
 	) => {
 		const {
 			id,

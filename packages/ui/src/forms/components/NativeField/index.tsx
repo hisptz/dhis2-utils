@@ -22,19 +22,9 @@ export interface NativeFieldProps extends FieldProps {
 	max?: string | number;
 }
 
-export const NativeField = React.forwardRef(
+export const NativeField = React.forwardRef<HTMLInputElement, NativeFieldProps>(
 	(
-		{
-			onChange,
-			value,
-			type,
-			valueType,
-			name,
-			error,
-			min,
-			max,
-			...props
-		}: NativeFieldProps,
+		{ onChange, value, type, valueType, name, error, min, max, ...props },
 		ref,
 	) => {
 		const fieldType: string = useMemo(() => {
@@ -53,6 +43,9 @@ export const NativeField = React.forwardRef(
 
 		return (
 			<InputField
+				/*
+      // @ts-ignore */
+				ref={ref}
 				{...props}
 				warning={!!props.warning}
 				value={value}

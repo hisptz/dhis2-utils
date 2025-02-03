@@ -26,9 +26,9 @@ export interface AgeFieldProps extends FieldProps {
  * This is an input component that allows user to input the date of birth and then calculates the age.
  *
  * */
-export const AgeField = React.forwardRef(
+export const AgeField = React.forwardRef<any, AgeFieldProps>(
 	(
-		{ name, value = "", onChange, error, max, ...props }: AgeFieldProps,
+		{ name, value = "", onChange, error, max, ...props },
 		ref: React.Ref<any>,
 	) => {
 		const { years, months, days } = useMemo(

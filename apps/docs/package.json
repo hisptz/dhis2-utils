@@ -23,7 +23,7 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^1",
     "@dhis2/app-runtime": "^3.10.2",
-    "@dhis2/ui": "^9.1.1",
+    "@dhis2/ui": "^10.1.10",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@storybook/addon-a11y": "^8.3.4",

@@ -5,7 +5,7 @@ import {
 	FileListItem,
 } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
-import { FieldProps } from "../../interfaces/index.js";
+import { FieldProps } from "../../interfaces";
 
 export interface FileInputFieldProps extends FieldProps {
 	name: string;
@@ -14,17 +14,12 @@ export interface FileInputFieldProps extends FieldProps {
 	[key: string]: any;
 }
 
-export const FileUploadField = React.forwardRef(
+export const FileUploadField = React.forwardRef<
+	HTMLInputElement,
+	FileInputFieldProps
+>(
 	(
-		{
-			name,
-			value,
-			error,
-			onChange,
-			validations,
-			accept,
-			...props
-		}: FileInputFieldProps,
+		{ name, value, error, onChange, validations, accept, ...props },
 		ref,
 	): React.ReactElement => {
 		return (

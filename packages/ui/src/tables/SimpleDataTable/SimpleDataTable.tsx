@@ -198,6 +198,7 @@ export const SimpleDataTable: React.FC<SimpleDataTableProps> = ({
 
 						return (
 							<DataTableRow
+								expandableContent={data.expandableContent}
 								selected={selectedRows?.includes(data.id)}
 								key={`${data.id}-${index}-row`}
 							>
