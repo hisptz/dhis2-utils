@@ -1,4 +1,4 @@
-import { IconLaunch16 } from "@dhis2/ui";
+import { IconLaunch16, Tooltip } from "@dhis2/ui";
 import React from "react";
 import { truncate } from "lodash";
 
@@ -22,7 +22,9 @@ export default function LegendCardHeader({
 			}}
 		>
 			<h4 style={{ margin: 0 }} className="legend-header">
-				{truncate(title, { length: 50, omission: "..." })}
+				<Tooltip content={title}>
+					{truncate(title, { length: 20, omission: "..." })}
+				</Tooltip>
 			</h4>
 			{collapsible && (
 				<div onClick={onCollapse}>

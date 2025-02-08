@@ -3,7 +3,7 @@ import { ControlPosition } from "leaflet";
 import { compact, head } from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 import { MapLegendConfig } from "../../../MapArea/interfaces/index.js";
-import { CustomControl } from "../../../MapControls/components/CustomControl/index.js";
+import { CustomControl } from "../../../MapControls/components/CustomControl";
 import {
 	CustomBubbleLayer,
 	CustomGoogleEngineLayer,
@@ -218,6 +218,7 @@ export default function LegendArea({
 					flexDirection: "column",
 					gap: 16,
 					alignItems: "flex-end",
+					maxWidth: 200,
 				}}
 			>
 				{legends?.map((legend: any, index) => (
