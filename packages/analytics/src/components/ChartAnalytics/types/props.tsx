@@ -44,6 +44,7 @@ export type ChartConfig = {
 		category: Array<string>;
 		filter: Array<string>;
 	};
+	useShortNamesAsLabels?: boolean;
 	type?: ChartType;
 	height?: number;
 	colors?: Array<string>;

@@ -19,6 +19,13 @@ export interface MapProviderProps {
 		periods?: string[];
 		range?: { start: Date; end: Date };
 	};
+	analyticsOptions?: {
+		displayProperty?: "SHORTNAME" | "NAME";
+	};
+}
+
+export interface MapAnalyticsOptions {
+	displayProperty?: "SHORTNAME" | "NAME";
 }
 
 export interface MapProps {
@@ -57,6 +64,7 @@ export interface MapProps {
 		range?: { start: Date; end: Date };
 	};
 	mapOptions?: MapContainerProps;
+	analyticsOptions?: MapAnalyticsOptions;
 }
 
 export interface MapOrgUnit {

@@ -23,6 +23,7 @@ const MapComponent = ({
 	controls,
 	legends,
 	setRef,
+	analyticsOptions,
 }: MapProps) => {
 	const sanitizedPointLayers: CustomPointLayer[] = [
 		{
@@ -54,6 +55,7 @@ const MapComponent = ({
 						boundaryLayers: sanitizedBoundaryLayers,
 						pointLayers: sanitizedPointLayers,
 					}}
+					analyticsOptions={analyticsOptions}
 					legends={legends}
 					controls={controls}
 					key={key}

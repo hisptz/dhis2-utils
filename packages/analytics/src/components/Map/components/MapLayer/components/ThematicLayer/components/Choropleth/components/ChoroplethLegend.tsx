@@ -9,6 +9,10 @@ import {
 } from "../../../../../interfaces";
 import LegendCardHeader from "../../../../LegendArea/components/LegendCardHeader/index.js";
 
+const formatNumber = Intl.NumberFormat("en-GB", {
+	notation: "standard",
+}).format;
+
 export function LegendItem({
 	legend,
 	value,
@@ -22,8 +26,8 @@ export function LegendItem({
 				className="legend-item-color"
 				style={{ backgroundColor: legend.color }}
 			/>
-			<div className="legend-item-label">{`${legend.startValue} - ${legend.endValue}`}</div>
-			<div className="legend-item-value">{`(${value})`}</div>
+			<div className="legend-item-label">{`${formatNumber(legend.startValue ?? 1)} - ${formatNumber(legend.endValue ?? 1)}`}</div>
+			<div className="legend-item-value">{`(${formatNumber(value ?? 0)})`}</div>
 		</div>
 	);
 }
@@ -32,7 +36,6 @@ function ChoroplethLegend(
 	{
 		dataItem,
 		data,
-		name,
 		collapsible,
 		onCollapse,
 		legends,

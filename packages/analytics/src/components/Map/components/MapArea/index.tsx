@@ -78,7 +78,15 @@ function MapLayerArea({
 }
 
 const MapArea = (
-	{ base, controls, mapOptions, key, legends, layers }: MapAreaProps,
+	{
+		base,
+		controls,
+		mapOptions,
+		key,
+		legends,
+		layers,
+		analyticsOptions,
+	}: MapAreaProps,
 	ref: React.Ref<LeafletMap> | undefined,
 ) => {
 	const { center, bounds } = useMapBounds();
@@ -104,7 +112,10 @@ const MapArea = (
 				{...mapOptions}
 			>
 				<MapUpdater containerRef={containerRef} bounds={bounds} />
-				<MapLayersProvider layers={layers}>
+				<MapLayersProvider
+					analyticsOptions={analyticsOptions}
+					layers={layers}
+				>
 					<MapLayerArea
 						base={base}
 						id={id}

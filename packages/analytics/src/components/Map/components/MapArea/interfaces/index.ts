@@ -6,6 +6,7 @@ import {
 	EarthEngineLayerConfig,
 	ThematicLayerConfig,
 } from "../../MapLayer/interfaces";
+import type { MapAnalyticsOptions } from "../../../interfaces";
 
 export interface MapControls {
 	position: ControlPosition;
@@ -14,26 +15,27 @@ export interface MapControls {
 }
 
 export interface MapLegendConfig {
-  enabled: boolean;
-  position: ControlPosition;
-  collapsible: boolean;
+	enabled: boolean;
+	position: ControlPosition;
+	collapsible: boolean;
 }
 
 export interface MapLayerConfig {
-  thematicLayers?: ThematicLayerConfig[];
-  boundaryLayers?: CustomBoundaryLayer[];
-  pointLayers?: CustomPointLayer[];
-  earthEngineLayers?: EarthEngineLayerConfig[];
+	thematicLayers?: ThematicLayerConfig[];
+	boundaryLayers?: CustomBoundaryLayer[];
+	pointLayers?: CustomPointLayer[];
+	earthEngineLayers?: EarthEngineLayerConfig[];
 }
 
 export interface MapAreaProps {
-  base?: {
-    url: string;
-    attribution: string;
-  };
-  controls?: MapControls[];
-  mapOptions?: MapContainerProps;
-  legends?: MapLegendConfig;
-  layers: MapLayerConfig;
-  key?: string;
+	base?: {
+		url: string;
+		attribution: string;
+	};
+	analyticsOptions?: MapAnalyticsOptions;
+	controls?: MapControls[];
+	mapOptions?: MapContainerProps;
+	legends?: MapLegendConfig;
+	layers: MapLayerConfig;
+	key?: string;
 }

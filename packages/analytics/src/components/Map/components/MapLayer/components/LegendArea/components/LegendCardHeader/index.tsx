@@ -1,5 +1,6 @@
 import { IconLaunch16 } from "@dhis2/ui";
 import React from "react";
+import { truncate } from "lodash";
 
 export default function LegendCardHeader({
 	title,
@@ -21,7 +22,7 @@ export default function LegendCardHeader({
 			}}
 		>
 			<h4 style={{ margin: 0 }} className="legend-header">
-				{title}
+				{truncate(title, { length: 50, omission: "..." })}
 			</h4>
 			{collapsible && (
 				<div onClick={onCollapse}>
