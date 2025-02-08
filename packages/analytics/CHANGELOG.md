@@ -1,5 +1,14 @@
 # @hisptz/dhis2-analytics
 
+## 2.0.48
+
+### Patch Changes
+
+-   Fixes and improvements on map component
+-   Updated dependencies
+    -   @hisptz/dhis2-utils@2.0.10
+    -   @hisptz/dhis2-ui@2.0.29
+
 ## 2.0.47
 
 ### Patch Changes

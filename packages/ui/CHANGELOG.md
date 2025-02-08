@@ -1,5 +1,13 @@
 # @hisptz/dhis2-ui
 
+## 2.0.29
+
+### Patch Changes
+
+-   Fixes and improvements on map component
+-   Updated dependencies
+    -   @hisptz/dhis2-utils@2.0.10
+
 ## 2.0.28
 
 ### Patch Changes

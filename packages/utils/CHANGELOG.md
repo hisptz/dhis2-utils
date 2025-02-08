@@ -1,5 +1,11 @@
 # @hisptz/dhis2-utils
 
+## 2.0.10
+
+### Patch Changes
+
+-   Fixes and improvements on map component
+
 ## 2.0.9
 
 ### Patch Changes
