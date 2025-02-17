@@ -1,5 +1,11 @@
 # @hisptz/dhis2-ui
 
+## 2.0.30
+
+### Patch Changes
+
+-   Exported summary form
+
 ## 2.0.29
 
 ### Patch Changes

@@ -54,9 +54,11 @@ export abstract class DHIS2Chart {
 			series: this.getSeries(),
 			plotOptions: this.getPlotOptions(),
 			title: {
-				text: this.config.showFilterAsTitle
-					? this.getFilterLabel()
-					: "",
+				text: this.config.customTitle
+					? this.config.customTitle
+					: this.config.showFilterAsTitle
+						? this.getFilterLabel()
+						: "",
 			},
 			xAxis: this.getXAxis(),
 			exporting: this.getExporting(),
@@ -69,7 +71,7 @@ export abstract class DHIS2Chart {
 		if (this.config?.highChartOverrides) {
 			overrides = {
 				...(typeof this.config?.highChartOverrides === "object"
-					? this.config?.highChartOverrides ?? {}
+					? (this.config?.highChartOverrides ?? {})
 					: this.config?.highChartOverrides(options)),
 			};
 		}
