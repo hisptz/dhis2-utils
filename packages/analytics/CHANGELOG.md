@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.0.52
+
+### Patch Changes
+
+-   Improvements on chart renderer
+
 ## 2.0.51
 
 ### Patch Changes
