@@ -80,9 +80,10 @@ export function getColumnSeries(
 						);
 						return row?.[valueIndex ?? -1]
 							? parseFloat(row?.[valueIndex ?? -1])
-							: 0;
+							: null;
 					});
 					return {
+						id: seriesDimensionValue,
 						name: items?.[seriesDimensionValue as any]?.name,
 						data,
 						type: highchartsType,
