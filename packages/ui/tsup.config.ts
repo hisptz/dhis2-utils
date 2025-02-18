@@ -8,7 +8,7 @@ export default defineConfig((options) => {
 		entry: [
 			"src/**/*.{ts,tsx}",
 			"src/**/*.css",
-			"!src/**/*.stories.ts",
+			"!src/**/*.stories.{ts,tsx}",
 			"!src/**/*.test.ts",
 		],
 		ignoreWatch: ["*/**.stories.*"],
