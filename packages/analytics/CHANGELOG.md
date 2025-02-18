@@ -1,5 +1,15 @@
 # @hisptz/dhis2-analytics
 
+## 2.0.53
+
+### Patch Changes
+
+-   Improvements of chart component
+-   Improvements on build
+-   Updated dependencies
+    -   @hisptz/dhis2-utils@2.0.11
+    -   @hisptz/dhis2-ui@2.0.31
+
 ## 2.0.52
 
 ### Patch Changes

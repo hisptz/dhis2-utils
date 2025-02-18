@@ -1,5 +1,13 @@
 # @hisptz/dhis2-ui
 
+## 2.0.31
+
+### Patch Changes
+
+-   Improvements on build
+-   Updated dependencies
+    -   @hisptz/dhis2-utils@2.0.11
+
 ## 2.0.30
 
 ### Patch Changes

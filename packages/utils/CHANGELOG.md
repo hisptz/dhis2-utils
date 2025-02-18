@@ -1,5 +1,11 @@
 # @hisptz/dhis2-utils
 
+## 2.0.11
+
+### Patch Changes
+
+-   Improvements on build
+
 ## 2.0.10
 
 ### Patch Changes
