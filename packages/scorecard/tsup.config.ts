@@ -8,7 +8,7 @@ export default defineConfig((options) => {
 		entry: [
 			"src/**/*.{ts,tsx}",
 			"src/**/*.js",
-			"!src/**/*.stories.ts",
+			"!src/**/*.stories.{ts,tsx}",
 			"!src/**/*.test.ts",
 			"!src/**/*.test.ts",
 			"src/**/*.css",
