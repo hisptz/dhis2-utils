@@ -1,3 +1,5 @@
+import { describe, expect, it } from "vitest";
+
 import {
 	getRuleActions,
 	getRuleTargets,
@@ -832,7 +834,6 @@ describe("getVariablesFromCondition", () => {
 	it("should return an array", () => {
 		expect(getVariablesFromCondition("")).toStrictEqual([]);
 	});
-
 	forEach(getVariablesTest, (condition) => {
 		it(`it should return '${condition.value}' for the condition '${condition.test}'`, () => {
 			expect(getVariablesFromCondition(condition.test)).toStrictEqual(

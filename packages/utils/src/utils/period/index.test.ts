@@ -1,3 +1,5 @@
+import { describe, expect, it } from "vitest";
+
 import { PeriodTypeCategory, PeriodTypeEnum } from "./constants";
 import { DateTime } from "luxon";
 import { PeriodUtility } from "./models";
@@ -39,34 +41,38 @@ describe("Instantiate Period utility class for relative periods", () => {
 });
 
 describe("Get Period by id", () => {
-	const fixedPeriod = PeriodUtility.getPeriodById("2022Q3");
-	const relativePeriod = PeriodUtility.getPeriodById("LAST_MONTH");
+	it("Should return a valida period id", () => {
+		const fixedPeriod = PeriodUtility.getPeriodById("2022Q3");
+		const relativePeriod = PeriodUtility.getPeriodById("LAST_MONTH");
 
-	expect(fixedPeriod.type.type).toBe(PeriodTypeCategory.FIXED);
-	expect(relativePeriod.type.type).toBe(PeriodTypeCategory.RELATIVE);
+		expect(fixedPeriod.type.type).toBe(PeriodTypeCategory.FIXED);
+		expect(relativePeriod.type.type).toBe(PeriodTypeCategory.RELATIVE);
+	});
 });
 
 describe("Get periods with allowing future periods", () => {
-	const utility = PeriodUtility.fromObject({
-		year: DateTime.now().year,
-		category: PeriodTypeCategory.FIXED,
-		preference: {
-			allowFuturePeriods: true,
-		},
-	});
-	const monthlyPeriodType = utility.getPeriodType(PeriodTypeEnum.MONTHLY);
-	const allMonthlyPeriods = monthlyPeriodType.periods;
-
-	expect(allMonthlyPeriods.length).toBe(12);
-
-	const pastAndPresentMonths =
-		PeriodUtility.fromObject({
+	it("Should return future periods", () => {
+		const utility = PeriodUtility.fromObject({
 			year: DateTime.now().year,
 			category: PeriodTypeCategory.FIXED,
 			preference: {
-				allowFuturePeriods: false,
+				allowFuturePeriods: true,
 			},
-		})?.getPeriodType(PeriodTypeEnum.MONTHLY)?.periods ?? [];
+		});
+		const monthlyPeriodType = utility.getPeriodType(PeriodTypeEnum.MONTHLY);
+		const allMonthlyPeriods = monthlyPeriodType.periods;
 
-	expect(pastAndPresentMonths.length).toBe(DateTime.now().month);
+		expect(allMonthlyPeriods.length).toBe(12);
+
+		const pastAndPresentMonths =
+			PeriodUtility.fromObject({
+				year: DateTime.now().year,
+				category: PeriodTypeCategory.FIXED,
+				preference: {
+					allowFuturePeriods: false,
+				},
+			})?.getPeriodType(PeriodTypeEnum.MONTHLY)?.periods ?? [];
+
+		expect(pastAndPresentMonths.length).toBe(DateTime.now().month);
+	});
 });
