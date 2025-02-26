@@ -15,15 +15,15 @@ function hasValue(value: any) {
 }
 
 function yearsBetween(startDate: string, endDate: string) {
-	const start = DateTime.fromFormat(startDate, "yyyy-MM-dd");
-	const end = DateTime.fromFormat(endDate, "yyyy-MM-dd");
+	const start = DateTime.fromJSDate(new Date(startDate));
+	const end = DateTime.fromJSDate(new Date(endDate));
 	const value = Math.floor(end.diff(start, "years").years);
 	return isNaN(value) ? "" : `${value}`;
 }
 
 function daysBetween(startDate: string, endDate: string) {
-	const start = DateTime.fromFormat(startDate, "yyyy-MM-dd");
-	const end = DateTime.fromFormat(endDate, "yyyy-MM-dd");
+	const start = DateTime.fromJSDate(new Date(startDate));
+	const end = DateTime.fromJSDate(new Date(endDate));
 	const value = Math.floor(end.diff(start, "days").days);
 	return isNaN(value) ? "" : `${value}`;
 }
