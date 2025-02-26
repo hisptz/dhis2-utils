@@ -12,7 +12,7 @@ import {
 	RuleTrigger,
 } from "../interfaces";
 import { compact, find, flatten, get, tail, uniq, uniqBy } from "lodash";
-import { evaluateFunction } from "./d2Functions.js";
+import { evaluateFunction } from "./d2Functions";
 import { builtInVariables, RegularExpressions } from "../constants";
 
 export function getRuleActions(
@@ -262,10 +262,7 @@ export function replaceVariables(
 					? `${sanitizedValue}`
 					: `'${sanitizedValue ?? ""}'`,
 			)
-			.replaceAll(
-				RegularExpressions.FUNCTION_WITH_GROUPS,
-				`$2${sanitizedValue ?? ""}$4`,
-			);
+			.replaceAll(/(d2:)/g, ``);
 	}, condition);
 }
 
@@ -343,5 +340,5 @@ export function executeCondition(
 		conditionWithConstantsReplacement,
 	);
 
-	return JSON.parse(evaluateFunction(sanitizedCondition));
+	return Boolean(JSON.parse(evaluateFunction(sanitizedCondition)));
 }
