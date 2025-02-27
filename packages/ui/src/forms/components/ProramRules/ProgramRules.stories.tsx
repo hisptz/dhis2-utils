@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ProgramRuleProvider } from "./components/ProgramRuleProvider";
 import { FormProvider, useForm } from "react-hook-form";
 import { RecoilRoot } from "recoil";
-import { formSection, program, programRules, trackedEntity } from "./data";
+import { program, programRules, trackedEntity } from "./data.resource";
 
 const meta: Meta<typeof ProgramRuleProvider> = {
 	title: "Form/Program Rules",
@@ -18,7 +18,7 @@ function render(args: Story["args"]) {
 		<RecoilRoot>
 			<FormProvider {...form}>
 				<ProgramRuleProvider {...args}>
-					<FormSec showProgress sections={formSection} />
+					<div />
 				</ProgramRuleProvider>
 			</FormProvider>
 		</RecoilRoot>
@@ -30,8 +30,9 @@ export const Default: Story = {
 	render,
 	args: {
 		programRules,
-		program,
+		program: program,
 		trackedEntity,
+		isEventForm: true,
 	},
 };
 
