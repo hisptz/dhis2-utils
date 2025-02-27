@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.0.57
+
+### Patch Changes
+
+-   Fixes and improvement on map legend
+
 ## 2.0.56
 
 ### Patch Changes
