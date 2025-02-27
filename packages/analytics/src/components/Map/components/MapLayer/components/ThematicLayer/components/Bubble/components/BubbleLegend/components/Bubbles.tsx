@@ -13,7 +13,7 @@ const style = {
 	justifyContent: "center",
 };
 
-const legendWidth = 200;
+const legendWidth = 180;
 const digitWidth = 6.8;
 export const guideLength = 16;
 export const textPadding = 4;

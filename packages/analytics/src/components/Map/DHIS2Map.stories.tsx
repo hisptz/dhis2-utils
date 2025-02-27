@@ -116,7 +116,7 @@ ChoroplethThematicLayer.args = {
 		},
 	],
 	periodSelection: {
-		periods: ["2023"],
+		periods: ["LAST_QUARTER"],
 	},
 	legends: {
 		enabled: true,
