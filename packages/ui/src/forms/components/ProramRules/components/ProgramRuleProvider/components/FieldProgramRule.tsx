@@ -11,6 +11,8 @@ export interface FieldProgramRuleChildrenProps {
 	optionSet?: OptionSet;
 	loading?: boolean;
 	validations?: Record<string, any>;
+	disabled?: boolean;
+	mandatory?: boolean;
 }
 
 export const FieldProgramRule = React.memo(function FieldProgramRule({
