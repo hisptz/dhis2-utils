@@ -5,6 +5,10 @@ export const FieldVisibilityState = atomFamily({
 	key: "field-visibility-state",
 	default: false,
 });
+export const FieldMandatoryState = atomFamily({
+	key: "field-mandatory-state",
+	default: false,
+});
 
 export const FieldHiddenOptionsState = atomFamily<string[], string>({
 	key: "field-hidden-options-state",
@@ -53,12 +57,16 @@ export const FieldState = selectorFamily({
 							| "disabled"
 							| "minMax"
 							| "loading"
+							| "mandatory"
 							| "error",
 						value: any,
 					) => {
 						switch (type) {
 							case "hidden":
 								set(FieldVisibilityState(field), value);
+								break;
+							case "mandatory":
+								set(FieldMandatoryState(field), value);
 								break;
 							case "hiddenOptions":
 								set(FieldHiddenOptionsState(field), value);
@@ -85,6 +93,7 @@ export const FieldState = selectorFamily({
 			);
 			return {
 				hidden: get(FieldVisibilityState(field)),
+				mandatory: get(FieldMandatoryState(field)),
 				hiddenOptions: get(FieldHiddenOptionsState(field)),
 				warning: get(FieldWarningState(field)),
 				disabled: get(FieldDisabledState(field)),

@@ -4,15 +4,20 @@ import {
 	FieldErrorState,
 	FieldHiddenOptionsState,
 	FieldLoadingState,
+	FieldMandatoryState,
 	FieldMinMaxState,
 	FieldVisibilityState,
 	FieldWarningState,
-} from "../state/index.js";
+} from "../state";
 import { flatten, forEach, some, uniq } from "lodash";
 import { useDataFetch } from "../services/fetch.js";
-import { useFormContext } from "react-hook-form";
 import {
-	ActionCallbacks,
+	type FieldPath,
+	type FieldValues,
+	type KeepStateOptions,
+	useFormContext,
+} from "react-hook-form";
+import {
 	getNewestProgramEvent,
 	getNewestProgramStageEvent,
 	getPreviousEvent,
@@ -57,7 +62,45 @@ export function useHiddenFields(suspectedHiddenFields: string[]): string[] {
 	return getHiddenFields(suspectedHiddenFields);
 }
 
-export function useActionCallbacks(): ActionCallbacks {
+export function useActionCallbacks(): {
+	toggleFieldWarning: (fields: { field: string; warning: string }[]) => void;
+	getOptionGroups: (ids: string[]) => Promise<any>;
+	toggleLoading: (fields: { field: string; loading: boolean }[]) => void;
+	toggleOptionViews: (
+		fields: { field: string; options: string[]; hide: boolean }[],
+	) => void;
+	toggleFieldVisibility: (fields: { field: string; hide: boolean }[]) => void;
+	toggleFieldMandatory: (
+		fields: { field: string; mandatory?: boolean }[],
+	) => void;
+	setValue: (values: { field: string; value: any }[]) => void;
+	unregister: (
+		name?: FieldPath<FieldValues> | FieldPath<FieldValues>[],
+		options?: Omit<
+			KeepStateOptions,
+			| "keepIsSubmitted"
+			| "keepSubmitCount"
+			| "keepValues"
+			| "keepDefaultValues"
+			| "keepErrors"
+		> & {
+			keepValue?: boolean;
+			keepDefaultValue?: boolean;
+			keepError?: boolean;
+		},
+	) => void;
+	setError: (field: string, error: string | Error) => void;
+	setMinMax: (
+		fields: {
+			field: string;
+			min?: number | string;
+			max?: number | string;
+		}[],
+	) => void;
+	toggleFieldDisabled: (
+		fields: { field: string; disabled?: boolean }[],
+	) => void;
+} {
 	const {
 		setValue: formSetter,
 		unregister,
@@ -149,6 +192,16 @@ export function useActionCallbacks(): ActionCallbacks {
 		[],
 	);
 
+	const toggleFieldMandatory = useRecoilTransaction_UNSTABLE(
+		({ set }) =>
+			(fields: { field: string; mandatory?: boolean }[]) => {
+				forEach(fields, ({ field, mandatory }) =>
+					set(FieldMandatoryState(`${field}`), mandatory ?? false),
+				);
+			},
+		[],
+	);
+
 	const setMinMax = useRecoilTransaction_UNSTABLE(
 		({ set }) =>
 			(
@@ -194,6 +247,7 @@ export function useActionCallbacks(): ActionCallbacks {
 		toggleLoading,
 		toggleOptionViews,
 		toggleFieldVisibility,
+		toggleFieldMandatory,
 		setValue,
 		unregister,
 		setError,
@@ -202,15 +256,10 @@ export function useActionCallbacks(): ActionCallbacks {
 	};
 }
 
-export function useTriggers(
-	rules: Rule[],
-	dataItems: string[],
-	formOptions: { isEventForm?: boolean; isEnrollmentForm: boolean },
-): {
+export function useTriggers(rules: Rule[]): {
 	initialRunRules: Rule[];
 	runTriggers: string[];
 } {
-	const { isEnrollmentForm, isEventForm } = formOptions;
 	const runTriggers = useMemo(
 		() => flatten(rules.map((rule) => rule.triggers)),
 		[rules],

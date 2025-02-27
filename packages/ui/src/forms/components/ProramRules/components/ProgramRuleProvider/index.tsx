@@ -42,35 +42,21 @@ export function ProgramRuleProvider({
 	customRules,
 	isEnrollmentForm,
 	isEventForm,
-	dataElements,
-	attributes,
 	children,
 	includeRoot,
 }: ProgramRuleProviderProps) {
 	const rules = useMemo(() => {
 		return [
-			...(programRules
-				?.filter(
-					({ programStage: ruleStage }) =>
-						programStage === ruleStage?.id,
-				)
-				?.map((programRule) =>
-					translateProgramRule(
-						programRule,
-						program.programRuleVariables,
-						idPrefix,
-					),
-				) ?? []),
+			...(programRules.map((programRule) =>
+				translateProgramRule(
+					programRule,
+					program.programRuleVariables,
+					idPrefix,
+				),
+			) ?? []),
 			...(customRules ?? []),
 		];
-	}, [
-		programRules,
-		customRules,
-		isEnrollmentForm,
-		isEventForm,
-		program.programRuleVariables,
-		idPrefix,
-	]);
+	}, [programRules, customRules, program.programRuleVariables, idPrefix]);
 
 	const executionVariables = useVariableValues({
 		program,
@@ -83,7 +69,6 @@ export function ProgramRuleProvider({
 		<FieldStateProvider includeRoot={includeRoot}>
 			<RuleComponent
 				variables={executionVariables}
-				dataItems={[...(dataElements ?? []), ...(attributes ?? [])]}
 				formOptions={{
 					isEnrollmentForm: isEnrollmentForm ?? false,
 					isEventForm: isEventForm ?? false,

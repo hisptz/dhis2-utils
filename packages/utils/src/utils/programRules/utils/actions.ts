@@ -16,15 +16,49 @@ import {
 	RuleAction,
 	RuleExecutionOptions,
 	RunnableAction,
-} from "../interfaces/index.js";
+} from "../interfaces";
 import { evaluateFromDataExpression } from "./evaluator.js";
-import type { OptionGroup } from "../../../interfaces/index.js";
+import type { OptionGroup } from "../../../interfaces";
+
+export enum ProgramRuleActionType {
+	HIDEFIELD = "HIDEFIELD",
+	ASSIGN = "ASSIGN",
+	HIDEOPTION = "HIDEOPTION",
+	SHOWOPTION = "SHOWOPTION",
+	HIDEOPTIONGROUP = "HIDEOPTIONGROUP",
+	SHOWOPTIONGROUP = "SHOWOPTIONGROUP",
+	SHOWWARNING = "SHOWWARNING",
+	SHOWERROR = "SHOWERROR",
+	DISABLEFIELD = "DISABLEFIELD",
+	SETMINMAXVALUE = "SETMINMAXVALUE",
+	SETMANDATORYFIELD = "SETMANDATORYFIELD",
+}
 
 function joinHideFieldActions(
 	actions: RunnableAction[],
 ): RunnableAction | undefined {
 	const hideFieldActions = actions.filter(
 		(action) => action.type === "HIDEFIELD",
+	);
+	if (!isEmpty(hideFieldActions)) {
+		const fieldHidden = reduce(
+			hideFieldActions,
+			(acc, { hide }) => acc || Boolean(hide),
+			false,
+		);
+
+		return {
+			...(head(hideFieldActions) as RunnableAction),
+			hide: fieldHidden,
+		};
+	}
+}
+
+function joinMandatoryFieldActions(
+	actions: RunnableAction[],
+): RunnableAction | undefined {
+	const hideFieldActions = actions.filter(
+		(action) => action.type === ProgramRuleActionType.SETMANDATORYFIELD,
 	);
 	if (!isEmpty(hideFieldActions)) {
 		const fieldHidden = reduce(
@@ -204,6 +238,8 @@ export function sanitizeActions(actions: RunnableAction[]): RunnableAction[] {
 			joinHideOptionActions(actions),
 			joinShowOptionActions(actions),
 			joinHideFieldActions(actions),
+			joinMandatoryFieldActions(actions),
+			joinHideFieldActions(actions),
 			joinAssignActions(actions),
 			joinShowWarningActions(actions),
 			joinShowErrorActions(actions),
@@ -225,6 +261,8 @@ export function getAction(
 	switch (action.type) {
 		case "HIDEFIELD":
 			return getHideFieldAction(action, shouldRunActions);
+		case "SETMANDATORYFIELD":
+			return getMandatoryFieldAction(action, shouldRunActions);
 		case "ASSIGN":
 			return getAssignAction(action, shouldRunActions, options);
 		case "HIDEOPTION":
@@ -274,6 +312,17 @@ function getSetMinMaxValueAction(
 }
 
 function getHideFieldAction(action: RuleAction, shouldRunActions: boolean) {
+	return {
+		field: action.target.id,
+		type: action.type,
+		hide: shouldRunActions,
+	};
+}
+
+function getMandatoryFieldAction(
+	action: RuleAction,
+	shouldRunActions: boolean,
+) {
 	return {
 		field: action.target.id,
 		type: action.type,
@@ -383,7 +432,7 @@ function getShowWarningAction(action: RuleAction, shouldRunActions: boolean) {
 	return {
 		field: action.target.id,
 		type: action.type,
-		warning: shouldRunActions ? action.content ?? "" : "",
+		warning: shouldRunActions ? (action.content ?? "") : "",
 	};
 }
 
@@ -394,7 +443,7 @@ function getShowErrorAction(
 	return {
 		field: action.target.id,
 		type: action.type,
-		error: shouldRunActions ? action.content ?? "" : "",
+		error: shouldRunActions ? (action.content ?? "") : "",
 	};
 }
 
@@ -410,6 +459,9 @@ export function runActions(
 				break;
 			case "ASSIGN":
 				assignValues(actions, callbacks);
+				break;
+			case "SETMANDATORYFIELD":
+				makeMandatory(actions, callbacks);
 				break;
 			case "HIDEOPTION":
 			case "SHOWOPTION":
@@ -451,6 +503,19 @@ export function hideFields(
 	{ toggleFieldVisibility, setValue }: ActionCallbacks,
 ): void {
 	toggleFieldVisibility(fields as any);
+	const fieldsToHide = compact(
+		fields.map((field) => (field.hide ? field.field : undefined)),
+	);
+	if (!isEmpty(fieldsToHide)) {
+		setValue(fieldsToHide.map((field) => ({ field, value: undefined })));
+	}
+}
+
+export function makeMandatory(
+	fields: RunnableAction[],
+	{ toggleMandatoryField, setValue }: ActionCallbacks,
+): void {
+	toggleMandatoryField(fields);
 	const fieldsToHide = compact(
 		fields.map((field) => (field.hide ? field.field : undefined)),
 	);

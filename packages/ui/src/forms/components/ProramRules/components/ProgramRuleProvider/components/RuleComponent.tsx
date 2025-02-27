@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useMemo } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
-import { useActionCallbacks, useTriggers } from "../hooks/index.js";
+import { useActionCallbacks, useTriggers } from "../hooks";
 import { mapValues } from "lodash";
 import {
 	evaluateRules,
@@ -88,20 +88,14 @@ export const RuleComponent = memo(
 	({
 		rules,
 		formOptions,
-		dataItems,
 		variables,
 	}: {
 		rules: Rule[];
 		formOptions: { isEventForm?: boolean; isEnrollmentForm: boolean };
 		variables: ProgramRuleExecutionVariables;
-		dataItems: string[];
 	}) => {
 		const callbacks = useActionCallbacks();
-		const { runTriggers, initialRunRules } = useTriggers(
-			rules,
-			dataItems,
-			formOptions,
-		);
+		const { runTriggers, initialRunRules } = useTriggers(rules);
 		useEffect(() => {
 			const actions = sanitizeActions(
 				evaluateRules(

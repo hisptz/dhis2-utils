@@ -2,7 +2,8 @@ import type {
 	Event,
 	Program,
 	TrackedEntityInstance,
-} from "../../../interfaces/index.js";
+} from "../../../interfaces";
+import { ProgramRuleActionType } from "../utils";
 
 export interface RuleExecutionOptions {
 	triggers: RuleTrigger[];
@@ -23,6 +24,9 @@ export interface ActionCallbacks {
 	toggleLoading: (field: { field: string; loading: boolean }[]) => void;
 	getOptionGroups: (ids: string[]) => any;
 	toggleFieldDisabled: (
+		field: { field: string; disabled?: boolean }[],
+	) => void;
+	toggleMandatoryField: (
 		field: { field: string; disabled?: boolean }[],
 	) => void;
 	setMinMax: (
@@ -114,20 +118,7 @@ export interface RuleAction {
 	option?: { id: string; code: string };
 	optionGroup?: { id: string };
 	content?: string;
-	type:
-		| "ASSIGN"
-		| "HIDEFIELD"
-		| "HIDEOPTION"
-		| "HIDEOPTIONGROUP"
-		| "DISPLAYTEXT"
-		| "SHOWOPTION"
-		| "SHOWOPTIONGROUP"
-		| "SHOWWARNING"
-		| "SHOWERROR"
-		| "DISPLAYKEYVALUEPAIR"
-		| "SETMINMAXVALUE"
-		| "DISABLEFIELD"
-		| "NONE";
+	type: keyof typeof ProgramRuleActionType;
 }
 
 export type RuleConditionFunction = (values: {
