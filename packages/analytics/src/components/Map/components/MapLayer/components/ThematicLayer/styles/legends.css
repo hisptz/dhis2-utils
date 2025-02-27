@@ -26,8 +26,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: start;
-    padding: 0 1rem;
-    gap: 16px;
+    gap: 8px;
     width: 100%;
 }
 

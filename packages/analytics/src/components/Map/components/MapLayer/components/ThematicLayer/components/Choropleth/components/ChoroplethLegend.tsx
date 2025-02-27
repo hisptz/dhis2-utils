@@ -8,6 +8,7 @@ import {
 	ThematicLayerDataItem,
 } from "../../../../../interfaces";
 import LegendCardHeader from "../../../../LegendArea/components/LegendCardHeader/index.js";
+import { sortBy } from "lodash";
 
 const formatNumber = Intl.NumberFormat("en-GB", {
 	notation: "standard",
@@ -57,8 +58,8 @@ function ChoroplethLegend(
 				onCollapse={onCollapse}
 			/>
 			<Divider margin={"0"} />
-			<div style={{ paddingTop: 8 }} className="legend-list">
-				{legends?.map((legend: any) => (
+			<div style={{ paddingTop: 4 }} className="legend-list">
+				{sortBy(legends, "startValue").map((legend) => (
 					<LegendItem
 						key={`${legend?.color}-legend-list`}
 						legend={legend}
