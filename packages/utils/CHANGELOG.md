@@ -1,5 +1,11 @@
 # @hisptz/dhis2-utils
 
+## 2.0.14
+
+### Patch Changes
+
+-   Program rules improvements
+
 ## 2.0.13
 
 ### Patch Changes
