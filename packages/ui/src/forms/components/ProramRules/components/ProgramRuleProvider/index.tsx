@@ -8,8 +8,8 @@ import {
 	translateProgramRule,
 } from "@hisptz/dhis2-utils";
 import { RuleComponent } from "./components/RuleComponent.js";
-import { useVariableValues } from "./hooks/index.js";
-import { FieldStateProvider } from "./state/index.js";
+import { useVariableValues } from "./hooks";
+import { FieldStateProvider } from "./state";
 
 export * from "./components/RuleComponent.js";
 export * from "./components/FieldProgramRule.js";
@@ -26,8 +26,6 @@ export interface ProgramRuleProviderProps {
 	programRules: ProgramRule[];
 	programStage?: string;
 	customRules?: Rule[];
-	attributes?: string[];
-	dataElements?: string[];
 	children: React.ReactNode;
 	includeRoot?: boolean;
 }

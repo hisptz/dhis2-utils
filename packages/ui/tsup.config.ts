@@ -10,6 +10,7 @@ export default defineConfig((options) => {
 			"src/**/*.css",
 			"!src/**/*.stories.{ts,tsx}",
 			"!src/**/*.test.ts",
+			"!src/**/*.resource.{ts,tsx}",
 		],
 		ignoreWatch: ["*/**.stories.*"],
 		splitting: false,

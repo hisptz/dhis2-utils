@@ -9,7 +9,7 @@ import {
 	FieldVisibilityState,
 	FieldWarningState,
 } from "../state";
-import { flatten, forEach, some, uniq } from "lodash";
+import { flatten, forEach, uniq } from "lodash";
 import { useDataFetch } from "../services/fetch.js";
 import {
 	type FieldPath,
@@ -70,7 +70,7 @@ export function useActionCallbacks(): {
 		fields: { field: string; options: string[]; hide: boolean }[],
 	) => void;
 	toggleFieldVisibility: (fields: { field: string; hide: boolean }[]) => void;
-	toggleFieldMandatory: (
+	toggleMandatoryField: (
 		fields: { field: string; mandatory?: boolean }[],
 	) => void;
 	setValue: (values: { field: string; value: any }[]) => void;
@@ -247,7 +247,7 @@ export function useActionCallbacks(): {
 		toggleLoading,
 		toggleOptionViews,
 		toggleFieldVisibility,
-		toggleFieldMandatory,
+		toggleMandatoryField: toggleFieldMandatory,
 		setValue,
 		unregister,
 		setError,
@@ -267,15 +267,9 @@ export function useTriggers(rules: Rule[]): {
 
 	const initialRunRules = useMemo(
 		() =>
-			rules.filter(
-				(rule) =>
-					!some(
-						rule.triggers,
-						(trigger) =>
-							trigger.type === "DATAELEMENT_CURRENT_EVENT" ||
-							trigger.type === "TEI_ATTRIBUTE",
-					),
-			),
+			rules.filter((rule) => {
+				return rules;
+			}),
 		[rules],
 	);
 
