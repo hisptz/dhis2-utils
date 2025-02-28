@@ -104,6 +104,7 @@ export const RuleComponent = memo(
 					{ variableValues: variables, options: formOptions },
 				),
 			);
+			console.log(actions);
 			setTimeout(() => runActions(actions, { ...callbacks }), 1);
 		}, []);
 

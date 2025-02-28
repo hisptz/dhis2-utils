@@ -102,7 +102,12 @@ export interface BuiltInVariable {
 
 export interface RuleTarget {
 	id: string;
-	type: "DATA_ELEMENT" | "ATTRIBUTE" | "VARIABLE";
+	type:
+		| "DATA_ELEMENT"
+		| "ATTRIBUTE"
+		| "VARIABLE"
+		| "PROGRAM_STAGE_SECTION"
+		| "PROGRAM_SECTION";
 }
 
 export type ActionData =

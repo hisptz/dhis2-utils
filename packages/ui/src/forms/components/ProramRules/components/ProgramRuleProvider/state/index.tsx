@@ -109,11 +109,12 @@ export const FieldState = selectorFamily({
 		},
 });
 export const SectionState = selectorFamily({
-	key: "field-state",
+	key: "section-state",
 	get:
 		(section: string) =>
 		({ get, getCallback }) => {
-			const setFieldState = getCallback(
+			console.log({ section });
+			const setSectionState = getCallback(
 				({ set }) =>
 					(type: "hidden", value: any) => {
 						switch (type) {
@@ -127,6 +128,7 @@ export const SectionState = selectorFamily({
 			);
 			return {
 				hidden: get(FieldVisibilityState(section)),
+				setSectionState,
 			};
 		},
 });

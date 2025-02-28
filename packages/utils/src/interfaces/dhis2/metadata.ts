@@ -5,6 +5,7 @@ import {
 	DHIS2ValueType,
 } from "./base.js";
 import { TrackedEntityAttribute, TrackedEntityType } from "./tracker.js";
+import { ProgramRuleActionType } from "../../utils";
 
 export interface DataElement extends DHIS2Resource {
 	valueType: DHIS2ValueType;
@@ -96,10 +97,13 @@ export interface ProgramTrackedEntityAttribute extends DHIS2Resource {
 export interface ProgramRuleAction extends DHIS2Resource {
 	content?: string;
 	displayContent?: string;
-	programRuleActionType?: string;
+	programRuleActionType?: ProgramRuleActionType;
 	evaluationTime?: string;
 	programRule: ProgramRule;
 	evaluationEnvironments: string[];
+	programStage?: { id: string };
+	programSection?: { id: string };
+	programStageSection?: { id: string };
 }
 
 export interface ProgramRule extends DHIS2Resource {

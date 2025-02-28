@@ -124,19 +124,14 @@ export function useActionCallbacks(): ActionCallbacks {
 	const toggleSectionVisibility = useRecoilTransaction_UNSTABLE(
 		({ set }) =>
 			(fields: { field: string; hide: boolean }[]) => {
+				console.log({
+					fields,
+				});
 				forEach(fields, ({ field, hide }) =>
 					set(SectionVisibilityState(`${field}`), () => {
+						console.log(`Setting state ${field}`);
 						return hide;
 					}),
-				);
-				//Remove the field values from form state
-				setValue(
-					fields
-						.filter(({ hide }) => hide)
-						.map((field) => ({
-							field: field.field,
-							value: undefined,
-						})),
 				);
 			},
 		[setValue],

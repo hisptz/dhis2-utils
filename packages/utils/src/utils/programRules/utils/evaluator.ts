@@ -14,6 +14,35 @@ import {
 import { compact, find, flatten, get, tail, uniq, uniqBy } from "lodash";
 import { evaluateFunction } from "./d2Functions";
 import { builtInVariables, RegularExpressions } from "../constants";
+import { ProgramRuleActionType } from "./actions";
+
+function getActionTarget(
+	programRuleAction: ProgramRuleAction,
+	{ idPrefix }: { idPrefix?: string },
+): RuleTarget {
+	switch (programRuleAction.programRuleActionType) {
+		case ProgramRuleActionType.HIDESECTION:
+			return {
+				id: (programRuleAction.programSection?.id ??
+					programRuleAction?.programStageSection?.id) as string,
+				type: programRuleAction.programSection
+					? "PROGRAM_SECTION"
+					: "PROGRAM_STAGE_SECTION",
+			};
+		default:
+			return {
+				id: `${idPrefix ?? ""}${
+					(programRuleAction.dataElement?.id ??
+						programRuleAction.trackedEntityAttribute?.id) as string
+				}`,
+				type: programRuleAction.dataElement
+					? "DATA_ELEMENT"
+					: programRuleAction.trackedEntityAttribute
+						? "ATTRIBUTE"
+						: "VARIABLE",
+			};
+	}
+}
 
 export function getRuleActions(
 	programRulesActions: ProgramRuleAction[],
@@ -21,47 +50,20 @@ export function getRuleActions(
 ): RuleAction[] {
 	return programRulesActions.map((programRuleAction) => {
 		return {
-			type: (programRuleAction.programRuleActionType as any) ?? "NONE",
+			type: programRuleAction.programRuleActionType!,
 			id: programRuleAction.id ?? "",
 			data: programRuleAction.data ?? "",
 			option: programRuleAction?.option,
 			optionGroup: programRuleAction?.optionGroup,
 			content: programRuleAction.content ?? "",
-			target: {
-				id: `${idPrefix ?? ""}${
-					programRuleAction.dataElement?.id ??
-					programRuleAction.trackedEntityAttribute?.id ??
-					""
-				}`,
-				type: programRuleAction.dataElement
-					? "DATA_ELEMENT"
-					: "ATTRIBUTE",
-			},
+			target: getActionTarget(programRuleAction, { idPrefix }),
 		};
 	});
 }
 
-export function getRuleTargets(
-	programRuleActions: ProgramRuleAction[],
-	idPrefix?: string,
-): RuleTarget[] {
+export function getRuleTargets(ruleActions: RuleAction[]): RuleTarget[] {
 	return uniqBy(
-		compact(
-			programRuleActions?.map((action: ProgramRuleAction) => {
-				return {
-					id: `${idPrefix ?? ""}${
-						action.dataElement?.id ??
-						action.trackedEntityAttribute?.id ??
-						""
-					}`,
-					type: action.dataElement
-						? "DATA_ELEMENT"
-						: action.trackedEntityAttribute
-							? "ATTRIBUTE"
-							: "VARIABLE",
-				};
-			}),
-		),
+		compact(flatten(ruleActions.map(({ target }) => target))),
 		"id",
 	);
 }
@@ -134,10 +136,14 @@ export function translateProgramRule(
 	programRuleVariables: any[],
 	idPrefix = "",
 ): Rule {
+	const ruleActions = getRuleActions(
+		programRule.programRuleActions ?? [],
+		idPrefix,
+	);
 	return {
-		actions: getRuleActions(programRule.programRuleActions ?? [], idPrefix),
+		actions: ruleActions,
 		condition: programRule.condition ?? "",
-		targets: getRuleTargets(programRule.programRuleActions ?? [], idPrefix),
+		targets: getRuleTargets(ruleActions),
 		triggers:
 			getRuleTriggers(
 				programRule.condition ?? "",
@@ -226,7 +232,6 @@ function getTriggerValue(
 				);
 			}
 			return get(triggerValues, trigger.id);
-			break;
 		default:
 			return get(triggerValues, trigger.id);
 	}
