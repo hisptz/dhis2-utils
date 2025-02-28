@@ -1,6 +1,6 @@
 import { filter, find, head, last, sortBy } from "lodash";
-import { MetaValues } from "../interfaces/index.js";
-import { Enrollment, Event } from "../../../interfaces/index.js";
+import { MetaValues } from "../interfaces";
+import { Enrollment, Event } from "../../../interfaces";
 
 export function getPreviousEvent(meta: MetaValues): Event | undefined {
 	const { event, trackedEntityInstance, program } = meta;

@@ -32,6 +32,7 @@ export enum ProgramRuleActionType {
 	DISABLEFIELD = "DISABLEFIELD",
 	SETMINMAXVALUE = "SETMINMAXVALUE",
 	SETMANDATORYFIELD = "SETMANDATORYFIELD",
+	HIDESECTION = "HIDESECTION",
 }
 
 function joinHideFieldActions(
@@ -39,6 +40,26 @@ function joinHideFieldActions(
 ): RunnableAction | undefined {
 	const hideFieldActions = actions.filter(
 		(action) => action.type === "HIDEFIELD",
+	);
+	if (!isEmpty(hideFieldActions)) {
+		const fieldHidden = reduce(
+			hideFieldActions,
+			(acc, { hide }) => acc || Boolean(hide),
+			false,
+		);
+
+		return {
+			...(head(hideFieldActions) as RunnableAction),
+			hide: fieldHidden,
+		};
+	}
+}
+
+function joinHideSectionActions(
+	actions: RunnableAction[],
+): RunnableAction | undefined {
+	const hideFieldActions = actions.filter(
+		(action) => action.type === ProgramRuleActionType.HIDESECTION,
 	);
 	if (!isEmpty(hideFieldActions)) {
 		const fieldHidden = reduce(
@@ -236,6 +257,7 @@ export function sanitizeActions(actions: RunnableAction[]): RunnableAction[] {
 	const groupedActions = mapValues(groupedByField, (actions) => {
 		return compact([
 			joinHideOptionActions(actions),
+			joinHideSectionActions(actions),
 			joinShowOptionActions(actions),
 			joinHideFieldActions(actions),
 			joinMandatoryFieldActions(actions),
@@ -261,6 +283,8 @@ export function getAction(
 	switch (action.type) {
 		case "HIDEFIELD":
 			return getHideFieldAction(action, shouldRunActions);
+		case "HIDESECTION":
+			return getHideSectionAction(action, shouldRunActions);
 		case "SETMANDATORYFIELD":
 			return getMandatoryFieldAction(action, shouldRunActions);
 		case "ASSIGN":
@@ -314,6 +338,15 @@ function getSetMinMaxValueAction(
 function getHideFieldAction(action: RuleAction, shouldRunActions: boolean) {
 	return {
 		field: action.target.id,
+		type: action.type,
+		hide: shouldRunActions,
+	};
+}
+
+function getHideSectionAction(action: RuleAction, shouldRunActions: boolean) {
+	return {
+		field: (action.programSection?.id ??
+			action?.programStageSection?.id) as string,
 		type: action.type,
 		hide: shouldRunActions,
 	};
@@ -457,6 +490,9 @@ export function runActions(
 			case "HIDEFIELD":
 				hideFields(actions, callbacks);
 				break;
+			case "HIDESECTION":
+				hideSections(actions, callbacks);
+				break;
 			case "ASSIGN":
 				assignValues(actions, callbacks);
 				break;
@@ -503,6 +539,19 @@ export function hideFields(
 	{ toggleFieldVisibility, setValue }: ActionCallbacks,
 ): void {
 	toggleFieldVisibility(fields as any);
+	const fieldsToHide = compact(
+		fields.map((field) => (field.hide ? field.field : undefined)),
+	);
+	if (!isEmpty(fieldsToHide)) {
+		setValue(fieldsToHide.map((field) => ({ field, value: undefined })));
+	}
+}
+
+export function hideSections(
+	fields: RunnableAction[],
+	{ toggleSectionVisibility, setValue }: ActionCallbacks,
+): void {
+	toggleSectionVisibility(fields as any);
 	const fieldsToHide = compact(
 		fields.map((field) => (field.hide ? field.field : undefined)),
 	);
