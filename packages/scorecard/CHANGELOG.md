@@ -1,5 +1,15 @@
 # @hisptz/dhis2-scorecard
 
+## 1.0.27
+
+### Patch Changes
+
+-   Program rules improvements
+-   Updated dependencies
+    -   @hisptz/dhis2-analytics@2.0.59
+    -   @hisptz/dhis2-utils@2.0.16
+    -   @hisptz/dhis2-ui@2.0.36
+
 ## 1.0.26
 
 ### Patch Changes
