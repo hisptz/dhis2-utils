@@ -1,5 +1,13 @@
 # @hisptz/dhis2-ui
 
+## 2.0.35
+
+### Patch Changes
+
+-   Fixes and improvements on program rules
+-   Updated dependencies
+    -   @hisptz/dhis2-utils@2.0.15
+
 ## 2.0.34
 
 ### Patch Changes
