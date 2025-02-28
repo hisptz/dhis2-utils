@@ -13,6 +13,7 @@ import { FieldStateProvider } from "./state";
 
 export * from "./components/RuleComponent.js";
 export * from "./components/FieldProgramRule.js";
+export * from "./components/SectionProgramRule.js";
 export * from "./hooks/index.js";
 export * from "./state/index.js";
 

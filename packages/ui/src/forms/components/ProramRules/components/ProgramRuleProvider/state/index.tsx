@@ -5,6 +5,10 @@ export const FieldVisibilityState = atomFamily({
 	key: "field-visibility-state",
 	default: false,
 });
+export const SectionVisibilityState = atomFamily({
+	key: "section-visibility-state",
+	default: false,
+});
 export const FieldMandatoryState = atomFamily({
 	key: "field-mandatory-state",
 	default: false,
@@ -101,6 +105,28 @@ export const FieldState = selectorFamily({
 				loading: get(FieldLoadingState(field)),
 				error: get(FieldErrorState(field)),
 				setFieldState: setFieldState,
+			};
+		},
+});
+export const SectionState = selectorFamily({
+	key: "field-state",
+	get:
+		(section: string) =>
+		({ get, getCallback }) => {
+			const setFieldState = getCallback(
+				({ set }) =>
+					(type: "hidden", value: any) => {
+						switch (type) {
+							case "hidden":
+								set(SectionVisibilityState(section), value);
+								break;
+							default:
+								break;
+						}
+					},
+			);
+			return {
+				hidden: get(FieldVisibilityState(section)),
 			};
 		},
 });
