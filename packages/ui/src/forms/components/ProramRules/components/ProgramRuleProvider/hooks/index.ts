@@ -8,15 +8,11 @@ import {
 	FieldMinMaxState,
 	FieldVisibilityState,
 	FieldWarningState,
+	SectionVisibilityState,
 } from "../state";
 import { flatten, forEach, uniq } from "lodash";
 import { useDataFetch } from "../services/fetch.js";
-import {
-	type FieldPath,
-	type FieldValues,
-	type KeepStateOptions,
-	useFormContext,
-} from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import {
 	getNewestProgramEvent,
 	getNewestProgramStageEvent,
@@ -26,6 +22,7 @@ import {
 	Rule,
 } from "@hisptz/dhis2-utils";
 import { useRecoilTransaction_UNSTABLE } from "recoil";
+import type { ActionCallbacks } from "@hisptz/dhis2-utils/src";
 
 const optionGroupsQuery = {
 	groups: {
@@ -62,45 +59,7 @@ export function useHiddenFields(suspectedHiddenFields: string[]): string[] {
 	return getHiddenFields(suspectedHiddenFields);
 }
 
-export function useActionCallbacks(): {
-	toggleFieldWarning: (fields: { field: string; warning: string }[]) => void;
-	getOptionGroups: (ids: string[]) => Promise<any>;
-	toggleLoading: (fields: { field: string; loading: boolean }[]) => void;
-	toggleOptionViews: (
-		fields: { field: string; options: string[]; hide: boolean }[],
-	) => void;
-	toggleFieldVisibility: (fields: { field: string; hide: boolean }[]) => void;
-	toggleMandatoryField: (
-		fields: { field: string; mandatory?: boolean }[],
-	) => void;
-	setValue: (values: { field: string; value: any }[]) => void;
-	unregister: (
-		name?: FieldPath<FieldValues> | FieldPath<FieldValues>[],
-		options?: Omit<
-			KeepStateOptions,
-			| "keepIsSubmitted"
-			| "keepSubmitCount"
-			| "keepValues"
-			| "keepDefaultValues"
-			| "keepErrors"
-		> & {
-			keepValue?: boolean;
-			keepDefaultValue?: boolean;
-			keepError?: boolean;
-		},
-	) => void;
-	setError: (field: string, error: string | Error) => void;
-	setMinMax: (
-		fields: {
-			field: string;
-			min?: number | string;
-			max?: number | string;
-		}[],
-	) => void;
-	toggleFieldDisabled: (
-		fields: { field: string; disabled?: boolean }[],
-	) => void;
-} {
+export function useActionCallbacks(): ActionCallbacks {
 	const {
 		setValue: formSetter,
 		unregister,
@@ -146,6 +105,27 @@ export function useActionCallbacks(): {
 			(fields: { field: string; hide: boolean }[]) => {
 				forEach(fields, ({ field, hide }) =>
 					set(FieldVisibilityState(`${field}`), () => {
+						return hide;
+					}),
+				);
+				//Remove the field values from form state
+				setValue(
+					fields
+						.filter(({ hide }) => hide)
+						.map((field) => ({
+							field: field.field,
+							value: undefined,
+						})),
+				);
+			},
+		[setValue],
+	);
+
+	const toggleSectionVisibility = useRecoilTransaction_UNSTABLE(
+		({ set }) =>
+			(fields: { field: string; hide: boolean }[]) => {
+				forEach(fields, ({ field, hide }) =>
+					set(SectionVisibilityState(`${field}`), () => {
 						return hide;
 					}),
 				);
@@ -248,6 +228,7 @@ export function useActionCallbacks(): {
 		toggleOptionViews,
 		toggleFieldVisibility,
 		toggleMandatoryField: toggleFieldMandatory,
+		toggleSectionVisibility,
 		setValue,
 		unregister,
 		setError,

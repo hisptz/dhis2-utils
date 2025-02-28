@@ -20,6 +20,9 @@ export interface ActionCallbacks {
 		options: { field: string; options: string[]; hide: boolean }[],
 	) => void;
 	toggleFieldVisibility: (field: { field: string; hide: boolean }[]) => void;
+	toggleSectionVisibility: (
+		field: { field: string; hide: boolean }[],
+	) => void;
 	toggleFieldWarning: (field: { field: string; warning: string }[]) => void;
 	toggleLoading: (field: { field: string; loading: boolean }[]) => void;
 	getOptionGroups: (ids: string[]) => any;
@@ -118,6 +121,9 @@ export interface RuleAction {
 	option?: { id: string; code: string };
 	optionGroup?: { id: string };
 	content?: string;
+	programStage?: { id: string };
+	programStageSection?: { id: string };
+	programSection?: { id: string };
 	type: keyof typeof ProgramRuleActionType;
 }
 
