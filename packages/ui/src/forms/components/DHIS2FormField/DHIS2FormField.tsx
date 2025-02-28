@@ -16,6 +16,7 @@ import { LegendDefinitionsFormField } from "../LegendDefinitions";
 import { LegendMinMaxGroup } from "../LegendMinMaxGroup";
 import { RichTextEditor } from "../RichTextEditor";
 import { isEmpty } from "lodash";
+import { MultiTextInputField } from "../MultiTextInputField";
 
 export interface DHIS2FormFieldProps extends FieldProps {
 	optionSet?: OptionSet;
@@ -27,6 +28,9 @@ export interface DHIS2FormFieldProps extends FieldProps {
 
 function getField(valueType: VALUE_TYPE, optionSet?: OptionSet) {
 	if (!isEmpty(optionSet)) {
+		if (valueType === "MULTI_TEXT") {
+			return MultiTextInputField;
+		}
 		return CustomSelectField;
 	}
 	switch (valueType) {
