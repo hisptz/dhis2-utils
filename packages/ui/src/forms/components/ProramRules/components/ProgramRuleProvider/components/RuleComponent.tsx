@@ -16,17 +16,25 @@ export const ActionComponent = memo(
 		rules,
 		variableValues,
 		formOptions,
+		programStageId,
+		program,
 	}: {
 		field: string;
 		rules: Rule[];
 		variableValues: any;
-		formOptions: any;
+		programStageId?: string;
+		program?: any;
+		formOptions: { isEventForm?: boolean; isEnrollmentForm: boolean };
 	}) => {
 		const value = useWatch({ name: field });
 		const { getValues } = useFormContext();
 		const values = getValues();
 
-		const callbacks = useActionCallbacks();
+		const callbacks = useActionCallbacks({
+			...formOptions,
+			program,
+			programStageId,
+		});
 
 		const rulesToRun = useMemo(() => {
 			return rules.filter(({ triggers }) =>
@@ -89,12 +97,20 @@ export const RuleComponent = memo(
 		rules,
 		formOptions,
 		variables,
+		program,
+		programStageId,
 	}: {
 		rules: Rule[];
 		formOptions: { isEventForm?: boolean; isEnrollmentForm: boolean };
 		variables: ProgramRuleExecutionVariables;
+		program: any;
+		programStageId?: string;
 	}) => {
-		const callbacks = useActionCallbacks();
+		const callbacks = useActionCallbacks({
+			...formOptions,
+			program,
+			programStageId,
+		});
 		const { runTriggers, initialRunRules } = useTriggers(rules);
 		useEffect(() => {
 			const actions = sanitizeActions(
@@ -104,7 +120,6 @@ export const RuleComponent = memo(
 					{ variableValues: variables, options: formOptions },
 				),
 			);
-			console.log(actions);
 			setTimeout(() => runActions(actions, { ...callbacks }), 1);
 		}, []);
 

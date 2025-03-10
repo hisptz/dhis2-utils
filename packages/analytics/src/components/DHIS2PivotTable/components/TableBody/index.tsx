@@ -2,11 +2,11 @@ import { Header } from "../../services/engine";
 import { isEmpty, slice } from "lodash";
 import { useCustomPivotTableEngine } from "../../state/engine.js";
 import { DataTableCell, DataTableRow, TableBody } from "@dhis2/ui";
-import React, { Fragment, ReactNode } from "react";
+import React, { Fragment, ReactNode, useRef } from "react";
 import { AnalyticsItem } from "@hisptz/dhis2-utils";
 import classes from "./TableBody.module.css";
-import { useElementSize } from "usehooks-ts";
 import { DHIS2Dimension } from "../../interfaces/index.js";
+import { useResizeObserver } from "usehooks-ts";
 
 function DataRowRenderer({
 	mapper,
@@ -55,7 +55,10 @@ function RowRenderer({
 		fixRowHeaders?: boolean;
 	};
 }): React.ReactElement | null {
-	const [cellRef, { width }] = useElementSize();
+	const cellRef = useRef<HTMLElement | null>(null);
+	const { width } = useResizeObserver({
+		ref: cellRef,
+	});
 
 	const rowSpan = slice(rows, index + 1).reduce((acc, column) => {
 		return acc * (column.items?.length ?? 1);

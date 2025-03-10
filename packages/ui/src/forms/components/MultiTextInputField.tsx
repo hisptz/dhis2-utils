@@ -102,8 +102,6 @@ export function MultiTextInputField({
 		onChange(selected.join(","));
 	};
 
-	console.log(renderOptionAsRadio);
-
 	if (renderOptionAsRadio) {
 		return (
 			<CheckboxMultiInputField

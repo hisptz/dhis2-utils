@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useCustomPivotTableEngine } from "../../state/engine.js";
 import { DataTableColumnHeader, DataTableRow, TableHead } from "@dhis2/ui";
 import { isEmpty, slice, times } from "lodash";
 import { DHIS2PivotTableEngine, Header } from "../../services/engine.js";
 import classes from "./TableHeaders.module.css";
-import { useElementSize } from "usehooks-ts";
+import { useResizeObserver } from "usehooks-ts";
 
 function ColumnRenderer({
 	column,
@@ -21,7 +21,10 @@ function ColumnRenderer({
 		engine: DHIS2PivotTableEngine;
 	};
 }): React.ReactElement | null {
-	const [columnHeaderRef, { height }] = useElementSize();
+	const ref = useRef<HTMLElement | null>(null);
+	const { height } = useResizeObserver({
+		ref,
+	});
 
 	if (!column) {
 		return null;
@@ -76,7 +79,7 @@ function ColumnRenderer({
 							/*
       // @ts-ignore */
 							top={`${prevHeight.toString()}px`}
-							ref={index === 0 ? columnHeaderRef : undefined}
+							ref={index === 0 ? ref : undefined}
 							className={classes["table-header"]}
 							align="center"
 							colSpan={colSpan.toString()}

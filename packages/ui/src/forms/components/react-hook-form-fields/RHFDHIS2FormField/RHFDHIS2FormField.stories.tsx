@@ -6,7 +6,9 @@ const meta: Meta<typeof RHFDHIS2FormField> = {
 	title: "Form/Fields/RHF DHIS2 Form Field",
 	component: RHFDHIS2FormField,
 	decorators: (Story) => {
-		const form = useForm();
+		const form = useForm({
+			mode: "onBlur",
+		});
 		return (
 			<FormProvider {...form}>
 				<Story />
@@ -24,6 +26,13 @@ export const Default: Story = {
 	args: {
 		valueType: "TEXT",
 		name: "text",
+		required: true,
+		validations: {
+			required: {
+				value: true,
+				message: "This field is required",
+			},
+		},
 	},
 };
 

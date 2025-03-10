@@ -53,7 +53,7 @@
     "styled-jsx": "^5.1.2",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3",
-    "usehooks-ts": "^2.9.2"
+    "usehooks-ts": "^2.16.0"
   },
   "dependencies": {
     "@hisptz/dhis2-ui": "workspace:*",

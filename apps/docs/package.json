@@ -25,8 +25,8 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.5",
-    "@dhis2/app-runtime": "^3.10.2",
-    "@dhis2/ui": "^10.1.10",
+    "@dhis2/app-runtime": "^3.14.0",
+    "@dhis2/ui": "^10.3.0",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@storybook/addon-a11y": "^8.6.0",

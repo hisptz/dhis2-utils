@@ -59,7 +59,25 @@ export function useHiddenFields(suspectedHiddenFields: string[]): string[] {
 	return getHiddenFields(suspectedHiddenFields);
 }
 
-export function useActionCallbacks(): ActionCallbacks {
+export function useActionCallbacks(options: {
+	program: {
+		id: string;
+		programSections: Array<{
+			id: string;
+			trackedEntityAttributes: { id: string }[];
+		}>;
+		programStages: Array<{
+			id: string;
+			programStageSections: Array<{
+				id: string;
+				dataElements: { id: string }[];
+			}>;
+		}>;
+	};
+	programStageId?: string;
+	isEventForm?: boolean;
+	isEnrollmentForm: boolean;
+}): ActionCallbacks {
 	const {
 		setValue: formSetter,
 		unregister,
@@ -93,11 +111,24 @@ export function useActionCallbacks(): ActionCallbacks {
 		[],
 	);
 
+	const toggleFieldDisabled = useRecoilTransaction_UNSTABLE(
+		({ set }) =>
+			(fields: { field: string; disabled?: boolean }[]) => {
+				forEach(fields, ({ field, disabled }) =>
+					set(FieldDisabledState(`${field}`), disabled ?? false),
+				);
+			},
+		[],
+	);
+
 	const setValue = useCallback(
 		(values: { field: string; value: any }[]) => {
 			values.forEach(({ value, field }) => formSetter(`${field}`, value));
+			toggleFieldDisabled(
+				values.map((value) => ({ field: value.field, disabled: true })),
+			);
 		},
-		[formSetter],
+		[formSetter, toggleFieldDisabled],
 	);
 
 	const toggleFieldVisibility = useRecoilTransaction_UNSTABLE(
@@ -124,14 +155,44 @@ export function useActionCallbacks(): ActionCallbacks {
 	const toggleSectionVisibility = useRecoilTransaction_UNSTABLE(
 		({ set }) =>
 			(fields: { field: string; hide: boolean }[]) => {
-				console.log({
+				forEach(
 					fields,
-				});
-				forEach(fields, ({ field, hide }) =>
-					set(SectionVisibilityState(`${field}`), () => {
-						console.log(`Setting state ${field}`);
-						return hide;
-					}),
+					({ field, hide }) => {
+						set(SectionVisibilityState(`${field}`), () => {
+							return hide;
+						});
+						if (options?.isEnrollmentForm) {
+							const attributesToClear =
+								options?.program?.programSections
+									?.find(({ id }) => id === field)
+									?.trackedEntityAttributes?.map(
+										({ id }) => id,
+									) ?? [];
+							setValue(
+								attributesToClear.map((attribute) => ({
+									field: attribute,
+									value: undefined,
+								})),
+							);
+						}
+						if (options?.isEventForm) {
+							const programStage =
+								options.program.programStages.find(
+									({ id }) => id === options.programStageId,
+								);
+							const dataElementsToClear =
+								programStage?.programStageSections
+									?.find(({ id }) => id === field)
+									?.dataElements?.map(({ id }) => id) ?? [];
+							setValue(
+								dataElementsToClear.map((dataElement) => ({
+									field: dataElement,
+									value: undefined,
+								})),
+							);
+						}
+					},
+					// We need to clear out all fields within this section, never mind, we have limitations now here, not really, we can do it
 				);
 			},
 		[setValue],
@@ -152,16 +213,6 @@ export function useActionCallbacks(): ActionCallbacks {
 			(fields: { field: string; warning: string }[]) => {
 				forEach(fields, ({ field, warning }) =>
 					set(FieldWarningState(`${field}`), warning),
-				);
-			},
-		[],
-	);
-
-	const toggleFieldDisabled = useRecoilTransaction_UNSTABLE(
-		({ set }) =>
-			(fields: { field: string; disabled?: boolean }[]) => {
-				forEach(fields, ({ field, disabled }) =>
-					set(FieldDisabledState(`${field}`), disabled ?? false),
 				);
 			},
 		[],

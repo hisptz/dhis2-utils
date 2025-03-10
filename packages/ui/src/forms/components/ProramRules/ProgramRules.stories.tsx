@@ -65,7 +65,6 @@ export const Default: Story = {
 					},
 				],
 				condition: ({ triggerValues }) => {
-					console.log(triggerValues);
 					return !triggerValues["showSection"];
 				},
 				targets: [

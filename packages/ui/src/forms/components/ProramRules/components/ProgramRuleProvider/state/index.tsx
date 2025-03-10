@@ -113,7 +113,6 @@ export const SectionState = selectorFamily({
 	get:
 		(section: string) =>
 		({ get, getCallback }) => {
-			console.log({ section });
 			const setSectionState = getCallback(
 				({ set }) =>
 					(type: "hidden", value: any) => {

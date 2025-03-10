@@ -67,6 +67,8 @@ export function ProgramRuleProvider({
 	return (
 		<FieldStateProvider includeRoot={includeRoot}>
 			<RuleComponent
+				program={program}
+				programStageId={programStage}
 				variables={executionVariables}
 				formOptions={{
 					isEnrollmentForm: isEnrollmentForm ?? false,
