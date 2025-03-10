@@ -1,5 +1,11 @@
 # @hisptz/dhis2-ui
 
+## 2.0.40
+
+### Patch Changes
+
+-   Fixes and improvements
+
 ## 2.0.39
 
 ### Patch Changes
