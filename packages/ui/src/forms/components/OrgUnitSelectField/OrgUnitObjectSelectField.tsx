@@ -1,29 +1,32 @@
 import { FieldProps } from "../../interfaces";
 import React, { useCallback, useEffect } from "react";
-import { Button, colors, Field, IconDimensionOrgUnit16 } from "@dhis2/ui";
+import {
+	Button,
+	colors,
+	Field,
+	IconDimensionOrgUnit16,
+	Tooltip,
+} from "@dhis2/ui";
 import { useDataQuery } from "@dhis2/app-runtime";
 import {
 	CustomOrgUnitProvider,
 	OrgUnitSelectorModal,
 } from "../../../selectors";
-import { OrganisationUnit, OrgUnitSelection } from "@hisptz/dhis2-utils";
-import { compact, head } from "lodash";
+import { OrgUnitSelection } from "@hisptz/dhis2-utils";
 import { useBoolean } from "usehooks-ts";
 import i18n from "@dhis2/d2-i18n";
 import { OrgUnitSelectorProps } from "../../../selectors/OrgUnitSelector";
-
-export * from "./OrgUnitObjectSelectField";
+import { truncate } from "lodash";
 
 export interface OrgUnitSelectFieldProps extends FieldProps {
 	/**
 	 * Selected organisation unit id
 	 * */
-	value?: string;
+	value?: OrgUnitSelection;
 	/**
 	 *  Label for the select button
 	 * */
 	buttonLabel?: string;
-
 	/**
 	 * Used to override `OrgUnitSelector` component props
 	 * */
@@ -31,17 +34,67 @@ export interface OrgUnitSelectFieldProps extends FieldProps {
 	customIcon?: React.FC<any>;
 }
 
-const orgUnitQuery = {
+const orgUnitQuery: any = {
 	ou: {
-		resource: "organisationUnits",
-		id: ({ id }: any) => id,
-		params: {
-			fields: ["id", "displayName", "path"],
+		resource: "analytics",
+		params: ({ ous }: { ous: string[] }) => {
+			return {
+				dimension: [`ou:${ous.join(";")}`, `pe:TODAY`],
+				skipData: true,
+			};
 		},
 	},
 };
 
-export const OrgUnitSelectField = ({
+type QueryResponse = {
+	ou: {
+		metaData: {
+			items: {
+				[key: string]: { name: string };
+			};
+			dimensions: {
+				ou: string[];
+			};
+		};
+	};
+};
+
+export function getOrgUnitsForAnalytics(
+	orgUnitSelection: OrgUnitSelection,
+): string[] {
+	const {
+		userOrgUnit,
+		orgUnits,
+		userSubUnit,
+		userSubX2Unit,
+		levels,
+		groups,
+	} = orgUnitSelection ?? {};
+	const results = [];
+
+	if (userOrgUnit) {
+		results.push("USER_ORGUNIT");
+	}
+	if (userSubUnit) {
+		results.push("USER_ORGUNIT_CHILDREN");
+	}
+	if (userSubX2Unit) {
+		results.push("USER_ORGUNIT_GRANDCHILDREN");
+	}
+
+	if (orgUnits) {
+		results.push(...orgUnits.map((orgUnit) => orgUnit.id));
+	}
+	if (groups) {
+		results.push(...groups.map((group) => `OU_GROUP-${group}`));
+	}
+	if (levels) {
+		results.push(...levels.map((level) => `LEVEL-${level}`));
+	}
+	return results;
+}
+
+export const OrgUnitObjectSelectField = ({
 	value,
 	onChange,
 	label,
@@ -63,7 +116,7 @@ export const OrgUnitSelectField = ({
 		loading,
 		error: fetchError,
 		refetch,
-	} = useDataQuery(orgUnitQuery, {
+	} = useDataQuery<QueryResponse>(orgUnitQuery, {
 		lazy: true,
 		variables: {
 			id: value,
@@ -73,17 +126,16 @@ export const OrgUnitSelectField = ({
 	useEffect(() => {
 		if (value) {
 			refetch({
-				id: value,
+				ous: getOrgUnitsForAnalytics(value),
 			});
 		}
 	}, []);
 
 	const onUpdate = (orgUnit: OrgUnitSelection) => {
 		closeModal();
-		const orgUnitId = head(orgUnit?.orgUnits)?.id;
-		onChange(orgUnitId);
+		onChange(orgUnit);
 		refetch({
-			id: orgUnitId,
+			ous: getOrgUnitsForAnalytics(orgUnit),
 		});
 	};
 
@@ -91,12 +143,15 @@ export const OrgUnitSelectField = ({
 		onChange(undefined);
 	}, [onChange]);
 
-	const displayName = (data?.ou as any)?.displayName;
+	const displayName = data?.ou?.metaData?.dimensions?.ou
+		?.map((ou) => data.ou.metaData.items[ou].name)
+		.join(", ");
 
 	const Icon = customIcon ?? IconDimensionOrgUnit16;
 
 	return (
 		<Field
+			{...props}
 			required={required}
 			error={fetchError !== undefined ? !!fetchError : !!error}
 			warning={Boolean(warning)}
@@ -137,14 +192,22 @@ export const OrgUnitSelectField = ({
 							fontSize: 12,
 						}}
 					>
-						<div
-							style={{
-								display: "flex",
-								gap: 4,
-							}}
-						>
-							{i18n.t("Selected")}:<span>{displayName}</span>
-						</div>
+						<Tooltip content={displayName}>
+							<div
+								style={{
+									display: "flex",
+									gap: 4,
+								}}
+							>
+								{i18n.t("Selected")}:
+								<span>
+									{truncate(displayName, {
+										length: 30,
+										omission: "...",
+									})}
+								</span>
+							</div>
+						</Tooltip>
 						<a
 							role="button"
 							onClick={onClear}
@@ -169,11 +232,7 @@ export const OrgUnitSelectField = ({
 							onUpdate(data);
 							closeModal();
 						}}
-						value={{
-							orgUnits: value
-								? compact([data?.ou as OrganisationUnit])
-								: [],
-						}}
+						value={value}
 						onClose={closeModal}
 						hide={hidden}
 					/>
