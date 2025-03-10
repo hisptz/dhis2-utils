@@ -1,5 +1,11 @@
 # @hisptz/dhis2-ui
 
+## 2.0.39
+
+### Patch Changes
+
+-   OrgUnitSelector improvements
+
 ## 2.0.38
 
 ### Patch Changes
