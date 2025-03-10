@@ -16,7 +16,7 @@ import { OrgUnitSelection } from "@hisptz/dhis2-utils";
 import { useBoolean } from "usehooks-ts";
 import i18n from "@dhis2/d2-i18n";
 import { OrgUnitSelectorProps } from "../../../selectors/OrgUnitSelector";
-import { truncate } from "lodash";
+import { forEach, set, truncate } from "lodash";
 
 export interface OrgUnitSelectFieldProps extends FieldProps {
 	/**
@@ -92,6 +92,30 @@ export function getOrgUnitsForAnalytics(
 		results.push(...levels.map((level) => `LEVEL-${level}`));
 	}
 	return results;
+}
+
+export function getOrgUnitSelectionFromIds(ous: string[]) {
+	const orgUnitSelection: OrgUnitSelection = {
+		orgUnits: [],
+	};
+	forEach(ous, (ou) => {
+		if (ou === "USER_ORGUNIT") {
+			set(orgUnitSelection, ["userOrgUnit"], true);
+		} else if (ou === "USER_ORGUNIT_CHILDREN") {
+			set(orgUnitSelection, ["userSubUnit"], true);
+		} else if (ou === "USER_ORGUNIT_GRANDCHILDREN") {
+			set(orgUnitSelection, ["userSubX2Unit"], true);
+		} else {
+			const orgUnits = [...(orgUnitSelection.orgUnits ?? [])];
+			orgUnits.push({
+				id: ou,
+				children: [],
+				path: "",
+			});
+			set(orgUnitSelection, ["orgUnits"], orgUnits);
+		}
+	});
+	return orgUnitSelection;
 }
 
 export const OrgUnitObjectSelectField = ({
