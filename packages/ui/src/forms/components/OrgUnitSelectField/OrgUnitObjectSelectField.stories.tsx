@@ -1,16 +1,16 @@
-import { OrgUnitSelector } from "./OrgUnitSelector";
 import { type ArgTypes, Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
-import type { OrgUnitSelection } from "./types";
+import type { OrgUnitSelection } from "../../../selectors/OrgUnitSelector";
+import { OrgUnitObjectSelectField } from "./OrgUnitObjectSelectField";
 
-const meta: Meta<typeof OrgUnitSelector> = {
-	component: OrgUnitSelector,
-	title: "Selectors/Org Unit Selector",
+const meta: Meta<typeof OrgUnitObjectSelectField> = {
+	component: OrgUnitObjectSelectField,
+	title: "Form/Fields/Organisation Unit Object Field",
 };
 
 export default meta;
 
-type Story = StoryObj<typeof OrgUnitSelector>;
+type Story = StoryObj<typeof OrgUnitObjectSelectField>;
 
 function render(props: Story["args"]) {
 	const [orgUnitSelection, setOrgUnitSelection] = useState<OrgUnitSelection>({
@@ -23,15 +23,16 @@ function render(props: Story["args"]) {
 	});
 
 	return (
-		<OrgUnitSelector
-			{...props}
-			onUpdate={setOrgUnitSelection}
+		<OrgUnitObjectSelectField
+			name="orgUnit"
+			onChange={setOrgUnitSelection}
 			value={orgUnitSelection}
+			{...props}
 		/>
 	);
 }
 
-const argTypes: ArgTypes<typeof OrgUnitSelector> = {
+const argTypes: ArgTypes<typeof OrgUnitObjectSelectField> = {
 	searchable: {
 		type: "boolean",
 	},
@@ -41,9 +42,8 @@ const argTypes: ArgTypes<typeof OrgUnitSelector> = {
 };
 
 /**
- * The Organisation unit selector shows the `OrgUnitTree` component with a pre-defined root.
+ * The Organisation unit object input shows the `OrgUnitTree` component with a pre-defined root.
  * The root is obtained by getting the organisation units assigned to the current user.
- *
  * */
 export const Default: Story = {
 	name: "Default",

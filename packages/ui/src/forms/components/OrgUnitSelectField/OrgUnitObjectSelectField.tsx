@@ -1,5 +1,5 @@
 import { FieldProps } from "../../interfaces";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import {
 	Button,
 	colors,
@@ -16,13 +16,15 @@ import { OrgUnitSelection } from "@hisptz/dhis2-utils";
 import { useBoolean } from "usehooks-ts";
 import i18n from "@dhis2/d2-i18n";
 import { OrgUnitSelectorProps } from "../../../selectors/OrgUnitSelector";
-import { forEach, set, truncate } from "lodash";
+import { forEach, isEmpty, set, truncate } from "lodash";
 
 export interface OrgUnitSelectFieldProps extends FieldProps {
 	/**
 	 * Selected organisation unit id
 	 * */
 	value?: OrgUnitSelection;
+	onChange: (value: OrgUnitSelection | undefined) => void;
+	cached?: boolean;
 	/**
 	 *  Label for the select button
 	 * */
@@ -128,6 +130,7 @@ export const OrgUnitObjectSelectField = ({
 	required,
 	orgUnitProps,
 	customIcon,
+	cached,
 	...props
 }: OrgUnitSelectFieldProps) => {
 	const {
@@ -147,10 +150,19 @@ export const OrgUnitObjectSelectField = ({
 		},
 	});
 
-	useEffect(() => {
+	const flattenedValue = useMemo(() => {
 		if (value) {
+			return getOrgUnitsForAnalytics(value);
+		}
+		return null;
+	}, [value]);
+
+	const hasValue = useMemo(() => !isEmpty(flattenedValue), [flattenedValue]);
+
+	useEffect(() => {
+		if (!isEmpty(flattenedValue)) {
 			refetch({
-				ous: getOrgUnitsForAnalytics(value),
+				ous: flattenedValue,
 			});
 		}
 	}, []);
@@ -201,11 +213,11 @@ export const OrgUnitObjectSelectField = ({
 			>
 				<Button loading={loading} onClick={openModal} icon={<Icon />}>
 					{buttonLabel ??
-						(value
+						(hasValue
 							? i18n.t("Change organisation unit")
 							: i18n.t("Select organisation unit"))}
 				</Button>
-				{Boolean(value) && (
+				{Boolean(hasValue) && (
 					<div
 						style={{
 							display: "flex",
@@ -245,23 +257,40 @@ export const OrgUnitObjectSelectField = ({
 					</div>
 				)}
 			</div>
-			<CustomOrgUnitProvider>
-				{!hidden && (
-					<OrgUnitSelectorModal
-						position="middle"
-						singleSelection
-						searchable
-						{...orgUnitProps}
-						onUpdate={(data: OrgUnitSelection) => {
-							onUpdate(data);
-							closeModal();
-						}}
-						value={value}
-						onClose={closeModal}
-						hide={hidden}
-					/>
-				)}
-			</CustomOrgUnitProvider>
+			{cached && (
+				<CustomOrgUnitProvider>
+					{!hidden && (
+						<OrgUnitSelectorModal
+							position="middle"
+							singleSelection
+							searchable
+							{...orgUnitProps}
+							onUpdate={(data: OrgUnitSelection) => {
+								onUpdate(data);
+								closeModal();
+							}}
+							value={value}
+							onClose={closeModal}
+							hide={hidden}
+						/>
+					)}
+				</CustomOrgUnitProvider>
+			)}
+			{!cached && !hidden && (
+				<OrgUnitSelectorModal
+					position="middle"
+					singleSelection
+					searchable
+					{...orgUnitProps}
+					onUpdate={(data: OrgUnitSelection) => {
+						onUpdate(data);
+						closeModal();
+					}}
+					value={value}
+					onClose={closeModal}
+					hide={hidden}
+				/>
+			)}
 		</Field>
 	);
 };

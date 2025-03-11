@@ -12,6 +12,8 @@
     "lint": "eslint ./stories/*.stories.tsx --max-warnings 0"
   },
   "dependencies": {
+    "@dhis2/app-runtime": "^3.14.0",
+    "@dhis2/ui": "^10.3.1",
     "@hisptz/dhis2-analytics": "workspace:*",
     "@hisptz/dhis2-scorecard": "workspace:*",
     "@hisptz/dhis2-ui": "workspace:*",
@@ -25,8 +27,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.5",
-    "@dhis2/app-runtime": "^3.14.0",
-    "@dhis2/ui": "^10.3.0",
+
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@storybook/addon-a11y": "^8.6.0",
@@ -41,6 +42,7 @@
     "@storybook/test-runner": "^0.21.3",
     "@types/http-proxy": "^1.17.16",
     "@types/node": "^20.10.8",
+    "@types/react": "^18.3.18",
     "@vitejs/plugin-react": "^4.2.1",
     "concurrently": "^8.2.2",
     "eslint": "^8.56.0",
@@ -48,6 +50,7 @@
     "playwright": "^1.40.1",
     "serve": "^14.2.1",
     "storybook": "^8.6.0",
+    "tsup": "^8.0.1",
     "typescript": "^5.3.3",
     "vite": "^5.0.10",
     "wait-on": "^7.2.0"
