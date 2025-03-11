@@ -1,5 +1,11 @@
 # @hisptz/dhis2-ui
 
+## 2.0.41
+
+### Patch Changes
+
+-   Fixes and improvements on org unit field input
+
 ## 2.0.40
 
 ### Patch Changes
