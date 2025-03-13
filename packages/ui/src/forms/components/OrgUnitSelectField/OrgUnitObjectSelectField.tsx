@@ -165,7 +165,7 @@ export const OrgUnitObjectSelectField = ({
 				ous: flattenedValue,
 			});
 		}
-	}, []);
+	}, [flattenedValue]);
 
 	const onUpdate = (orgUnit: OrgUnitSelection) => {
 		closeModal();
@@ -286,7 +286,11 @@ export const OrgUnitObjectSelectField = ({
 						onUpdate(data);
 						closeModal();
 					}}
-					value={value}
+					value={
+						flattenedValue
+							? getOrgUnitSelectionFromIds(flattenedValue)
+							: undefined
+					}
 					onClose={closeModal}
 					hide={hidden}
 				/>
