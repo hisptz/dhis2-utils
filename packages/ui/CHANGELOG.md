@@ -1,5 +1,11 @@
 # @hisptz/dhis2-ui
 
+## 2.0.42
+
+### Patch Changes
+
+-   Fixes on Org unit field
+
 ## 2.0.41
 
 ### Patch Changes
