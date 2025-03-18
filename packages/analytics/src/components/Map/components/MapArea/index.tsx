@@ -36,7 +36,7 @@ function MapLayerArea({
 
 	return (
 		<>
-			{!base?.enabled && (
+			{base?.enabled && (
 				<TileLayer
 					id={id}
 					attribution={
