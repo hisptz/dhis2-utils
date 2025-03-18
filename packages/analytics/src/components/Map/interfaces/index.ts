@@ -31,6 +31,7 @@ export interface MapAnalyticsOptions {
 export interface MapProps {
 	key?: string;
 	setRef?: (ref: LeafletMap) => void;
+	showBaseLayer?: boolean;
 	orgUnitSelection: OrgUnitSelection; //Organisation unit selection
 	pointLayer?: {
 		enabled: boolean;
@@ -65,6 +66,11 @@ export interface MapProps {
 	};
 	mapOptions?: MapContainerProps;
 	analyticsOptions?: MapAnalyticsOptions;
+	base?: {
+		url?: string;
+		attribution?: string;
+		enabled?: boolean;
+	};
 }
 
 export interface MapOrgUnit {

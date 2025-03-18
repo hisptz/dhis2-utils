@@ -19,14 +19,15 @@ import MapUpdater from "../MapUpdater/index.js";
 
 function MapLayerArea({
 	id,
-	base,
+	base = { enabled: true },
 	controls,
 	legends,
 }: {
 	id: string;
 	base?: {
-		url: string;
-		attribution: string;
+		url?: string;
+		attribution?: string;
+		enabled?: boolean;
 	};
 	controls?: MapControls[];
 	legends?: MapLegendConfig;
@@ -35,17 +36,19 @@ function MapLayerArea({
 
 	return (
 		<>
-			<TileLayer
-				id={id}
-				attribution={
-					base?.attribution ??
-					'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> | &copy; <a href="https://carto.com/attribution">CARTO</a>'
-				}
-				url={
-					base?.url ??
-					"https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
-				}
-			/>
+			{!base?.enabled && (
+				<TileLayer
+					id={id}
+					attribution={
+						base?.attribution ??
+						'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> | &copy; <a href="https://carto.com/attribution">CARTO</a>'
+					}
+					url={
+						base?.url ??
+						"https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
+					}
+				/>
+			)}
 			{controls?.map((control) => (
 				<MapControl
 					mapId={id}

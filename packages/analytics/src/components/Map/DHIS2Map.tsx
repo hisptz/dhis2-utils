@@ -24,6 +24,7 @@ const MapComponent = ({
 	legends,
 	setRef,
 	analyticsOptions,
+	base,
 }: MapProps) => {
 	const sanitizedPointLayers: CustomPointLayer[] = [
 		{
@@ -49,6 +50,9 @@ const MapComponent = ({
 				orgUnitSelection={orgUnitSelection}
 			>
 				<MapArea
+					base={{
+						...base,
+					}}
 					layers={{
 						thematicLayers,
 						earthEngineLayers,

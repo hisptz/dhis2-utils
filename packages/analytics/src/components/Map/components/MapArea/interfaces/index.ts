@@ -29,8 +29,9 @@ export interface MapLayerConfig {
 
 export interface MapAreaProps {
 	base?: {
-		url: string;
-		attribution: string;
+		url?: string;
+		attribution?: string;
+		enabled?: boolean;
 	};
 	analyticsOptions?: MapAnalyticsOptions;
 	controls?: MapControls[];
