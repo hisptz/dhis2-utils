@@ -1,6 +1,7 @@
 import type { Analytics, LegendSet } from "@hisptz/dhis2-utils";
-import HighCharts, {
+import {
 	DashStyleValue,
+	Options,
 	YAxisOptions,
 	YAxisPlotLinesLabelOptions,
 } from "highcharts";
@@ -14,7 +15,8 @@ export type ChartType =
 	| "multi-series"
 	| "bar"
 	| "stacked-bar"
-	| "gauge";
+	| "gauge"
+	| "area";
 
 export interface MultiSeriesConfig {
 	series?: Array<{
@@ -54,8 +56,8 @@ export type ChartConfig = {
 	name?: string;
 	allowChartTypeChange?: boolean;
 	highChartOverrides?:
-		| Partial<HighCharts.Options>
-		| ((config: HighCharts.Options) => Partial<HighCharts.Options>);
+		| Partial<Options>
+		| ((config: Options) => Partial<Options>);
 	multiSeries?: MultiSeriesConfig;
 	legendSet?: LegendSet;
 };

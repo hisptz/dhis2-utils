@@ -1,7 +1,16 @@
 import type { Analytics } from "@hisptz/dhis2-utils";
-import HighCharts from "highcharts";
 import { ChartConfig } from "../types/props.js";
 import { compact } from "lodash";
+import {
+	ChartOptions,
+	ExportingOptions,
+	Options,
+	PaneOptions,
+	PlotOptions,
+	SeriesOptionsType,
+	XAxisOptions,
+	YAxisOptions,
+} from "highcharts";
 
 export abstract class DHIS2Chart {
 	id: string;
@@ -16,7 +25,7 @@ export abstract class DHIS2Chart {
 
 	abstract getHighchartsType(): string;
 
-	getChartConfig(): HighCharts.ChartOptions & any {
+	getChartConfig(): ChartOptions & any {
 		return {
 			renderTo: this.id,
 			zoomType: "xy",
@@ -26,11 +35,11 @@ export abstract class DHIS2Chart {
 		};
 	}
 
-	getPane(): HighCharts.PaneOptions | undefined {
+	getPane(): PaneOptions | undefined {
 		return undefined;
 	}
 
-	getOptions(): HighCharts.Options {
+	getOptions(): Options {
 		const options = {
 			yAxis: this.getYAxis(),
 			chart: this.getChartConfig(),
@@ -87,13 +96,13 @@ export abstract class DHIS2Chart {
 		};
 	}
 
-	abstract getSeries(): HighCharts.SeriesOptionsType[];
+	abstract getSeries(): SeriesOptionsType[];
 
-	abstract getPlotOptions(): HighCharts.PlotOptions;
+	abstract getPlotOptions(): PlotOptions;
 
-	abstract getXAxis(): HighCharts.XAxisOptions | undefined;
+	abstract getXAxis(): XAxisOptions | undefined;
 
-	getYAxis(): HighCharts.YAxisOptions[] {
+	getYAxis(): YAxisOptions[] {
 		return [
 			{
 				title: {
@@ -132,7 +141,7 @@ export abstract class DHIS2Chart {
 		];
 	}
 
-	getExporting(): HighCharts.ExportingOptions {
+	getExporting(): ExportingOptions {
 		const name = this.config?.name ?? "chart";
 		return {
 			filename: `${name}`,

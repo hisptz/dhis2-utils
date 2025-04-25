@@ -1,7 +1,7 @@
 import type { Analytics } from "@hisptz/dhis2-utils";
-import HighCharts from "highcharts";
+import { Options } from "highcharts";
 import { useCallback, useEffect, useState } from "react";
-import { DHIS2Chart } from "../models/index.js";
+import { DHIS2Chart } from "../models";
 import { ChartConfig, ChartType } from "../types/props.js";
 import { getChartInstance, updateLayout } from "../utils/chart.js";
 
@@ -14,10 +14,10 @@ export function useChart({
 	analytics: Analytics;
 	config: ChartConfig;
 }): {
-	chart?: HighCharts.Options;
+	chart?: Options;
 	changeChartType: (type: ChartType) => void;
 } {
-	const [chart, setChart] = useState<HighCharts.Options | undefined>(
+	const [chart, setChart] = useState<Options | undefined>(
 		getChartInstance(id, analytics, config).getOptions(),
 	);
 

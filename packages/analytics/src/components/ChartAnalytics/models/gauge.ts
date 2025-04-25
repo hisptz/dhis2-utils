@@ -1,5 +1,8 @@
-import Highcharts, {
+import {
+	type PaneBackgroundOptions,
+	type PaneOptions,
 	PlotOptions,
+	SeriesGaugeOptions,
 	SeriesOptionsType,
 	XAxisOptions,
 	type YAxisOptions,
@@ -7,6 +10,10 @@ import Highcharts, {
 import { get, head } from "lodash";
 import { DHIS2Chart } from "./index.js";
 import { getColorFromLegendSet } from "../../Map/utils/map";
+import { colors } from "@dhis2/ui";
+
+const DEFAULT_PANE_SIZE = "100%";
+const DEFAULT_FONT_SIZE = "28px";
 
 export class DHIS2GaugeChart extends DHIS2Chart {
 	getHighchartsType(): string {
@@ -31,11 +38,28 @@ export class DHIS2GaugeChart extends DHIS2Chart {
 	}
 
 	getValue(): number | undefined {
-		const { rows, headers, metaData } = this.analytics;
+		const { rows, headers } = this.analytics;
 		const valueHeaderIndex = headers!.findIndex(
 			({ name }) => name === "value",
 		);
 		return parseFloat(get(head(rows), [valueHeaderIndex]) ?? "");
+	}
+
+	getPane(): PaneOptions | undefined {
+		return {
+			center: ["50%", "85%"],
+			size: DEFAULT_PANE_SIZE,
+			startAngle: -90,
+			endAngle: 90,
+			background: [
+				{
+					backgroundColor: "transparent",
+					innerRadius: "60%",
+					outerRadius: "100%",
+					shape: "arc",
+				} as PaneBackgroundOptions,
+			],
+		};
 	}
 
 	getSeries(): SeriesOptionsType[] {
@@ -45,21 +69,22 @@ export class DHIS2GaugeChart extends DHIS2Chart {
 				name: this.id,
 				data: [Math.round(value ?? 0)],
 				color: "white",
+				enableMouseTracking: false,
 				dataLabels: {
-					y: -70,
+					y: 0,
+					borderWidth: 0,
+					verticalAlign: "bottom",
 					style: {
-						fontSize: "48px",
+						fontSize: DEFAULT_FONT_SIZE,
+						color: colors.grey900,
 					},
-					align: "center",
-					verticalAlign: "end",
-					format: "{y}%",
 				},
 				compare: "percent",
 				tooltip: {
 					valueSuffix: "%",
 				},
 			},
-		] as Highcharts.SeriesGaugeOptions[];
+		] as unknown as SeriesGaugeOptions[];
 	}
 
 	getYAxis(): YAxisOptions[] {
@@ -89,7 +114,7 @@ export class DHIS2GaugeChart extends DHIS2Chart {
 				minColor: legendColor ?? head(chartColors),
 				maxColor: legendColor ?? head(chartColors),
 				margin: 0,
-			} as Highcharts.YAxisOptions,
+			} as YAxisOptions,
 		];
 	}
 

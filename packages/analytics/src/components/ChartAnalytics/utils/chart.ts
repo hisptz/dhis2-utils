@@ -4,7 +4,7 @@ import type {
 	AnalyticsMetadata,
 } from "@hisptz/dhis2-utils";
 import { compact, find, findIndex, head, isEmpty, set } from "lodash";
-import { DHIS2Chart } from "../models/index.js";
+import { DHIS2Chart } from "../models";
 import { DHIS2ColumnChart, DHIS2StackedColumnChart } from "../models/column.js";
 import { DHIS2LineChart } from "../models/line.js";
 import { DHIS2MultiSeriesChart } from "../models/multi-series.js";
@@ -12,6 +12,7 @@ import { DHIS2PieChart } from "../models/pie.js";
 import { ChartConfig, ChartType } from "../types/props.js";
 import { DHIS2BarChart, DHIS2StackedBarChart } from "../models/bar.js";
 import { DHIS2GaugeChart } from "../models/gauge";
+import { DHIS2AreaChart } from "../models/area";
 
 export function getDimensionHeaderIndex(
 	headers: AnalyticsHeader[],
@@ -178,6 +179,8 @@ export function getChartInstance(
 			return new DHIS2PieChart(id, analytics, config);
 		case "line":
 			return new DHIS2LineChart(id, analytics, config);
+		case "area":
+			return new DHIS2AreaChart(id, analytics, config);
 		case "multi-series":
 			return new DHIS2MultiSeriesChart(id, analytics, config);
 		case "gauge":

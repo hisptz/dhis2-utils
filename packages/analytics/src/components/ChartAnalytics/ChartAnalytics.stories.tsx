@@ -1,14 +1,12 @@
-import { DHIS2Chart, setupHighchartsModules } from ".";
+import { DHIS2Chart } from ".";
 import { Meta, StoryObj } from "@storybook/react";
 import columnData from "../../shared/resources/column-data.json";
 import multiSeriesData from "../../shared/resources/multi-series-data.json";
 import stackedChartData from "../../shared/resources/stacked-chart-data.json";
 import pieData from "../../shared/resources/pie-data.json";
+import gaugeData from "../../shared/resources/gauge-data.json";
 import complexMultiSeriesData from "../../shared/resources/complex-multi-series-data.json";
 import { Analytics } from "@hisptz/dhis2-utils";
-import HighCharts from "highcharts";
-
-setupHighchartsModules(HighCharts);
 
 const meta: Meta<typeof DHIS2Chart> = {
 	component: DHIS2Chart,
@@ -127,6 +125,21 @@ export const MultipleLines: Story = {
 		},
 	},
 };
+export const Area: Story = {
+	name: "Area",
+	args: {
+		analytics: multiSeriesData as any,
+		config: {
+			layout: {
+				series: ["ou"],
+				category: ["pe"],
+				filter: ["dx"],
+			},
+			showFilterAsTitle: true,
+			type: "area",
+		},
+	},
+};
 
 export const PieChart: Story = {
 	name: "Pie chart",
@@ -140,6 +153,22 @@ export const PieChart: Story = {
 			},
 			showFilterAsTitle: true,
 			type: "pie",
+		},
+	},
+};
+
+export const Gauge: Story = {
+	name: "Gauge chart",
+	args: {
+		analytics: gaugeData as any,
+		config: {
+			layout: {
+				series: ["dx"],
+				category: [],
+				filter: ["pe", "ou"],
+			},
+			showFilterAsTitle: true,
+			type: "gauge",
 		},
 	},
 };
