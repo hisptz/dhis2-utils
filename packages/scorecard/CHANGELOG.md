@@ -1,5 +1,16 @@
 # @hisptz/dhis2-scorecard
 
+## 1.1.0
+
+### Minor Changes
+
+-   Updates on highcharts and supported charts
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @hisptz/dhis2-analytics@2.1.0
+
 ## 1.0.35
 
 ### Patch Changes
