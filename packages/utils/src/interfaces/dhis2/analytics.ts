@@ -31,7 +31,7 @@ export interface AnalyticsMetadata {
 export interface Analytics {
 	headers?: AnalyticsHeader[];
 	metaData?: AnalyticsMetadata;
-	rows?: string[];
+	rows?: string[][];
 	height?: number;
 	headerWidth?: number;
 	width?: number;

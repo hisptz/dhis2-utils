@@ -11,6 +11,7 @@ import { DHIS2MultiSeriesChart } from "../models/multi-series.js";
 import { DHIS2PieChart } from "../models/pie.js";
 import { ChartConfig, ChartType } from "../types/props.js";
 import { DHIS2BarChart, DHIS2StackedBarChart } from "../models/bar.js";
+import { DHIS2GaugeChart } from "../models/gauge";
 
 export function getDimensionHeaderIndex(
 	headers: AnalyticsHeader[],
@@ -179,6 +180,8 @@ export function getChartInstance(
 			return new DHIS2LineChart(id, analytics, config);
 		case "multi-series":
 			return new DHIS2MultiSeriesChart(id, analytics, config);
+		case "gauge":
+			return new DHIS2GaugeChart(id, analytics, config);
 		default:
 			throw new Error(`Unsupported chart type: ${config.type}`);
 	}

@@ -26,10 +26,15 @@ export abstract class DHIS2Chart {
 		};
 	}
 
+	getPane(): HighCharts.PaneOptions | undefined {
+		return undefined;
+	}
+
 	getOptions(): HighCharts.Options {
 		const options = {
 			yAxis: this.getYAxis(),
 			chart: this.getChartConfig(),
+			pane: this.getPane(),
 			colors: this.config?.colors ?? [
 				"#a8bf24",
 				"#518cc3",

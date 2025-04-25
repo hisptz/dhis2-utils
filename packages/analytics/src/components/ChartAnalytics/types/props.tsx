@@ -1,4 +1,4 @@
-import type { Analytics } from "@hisptz/dhis2-utils";
+import type { Analytics, LegendSet } from "@hisptz/dhis2-utils";
 import HighCharts, {
 	DashStyleValue,
 	YAxisOptions,
@@ -13,7 +13,8 @@ export type ChartType =
 	| "line"
 	| "multi-series"
 	| "bar"
-	| "stacked-bar";
+	| "stacked-bar"
+	| "gauge";
 
 export interface MultiSeriesConfig {
 	series?: Array<{
@@ -56,6 +57,7 @@ export type ChartConfig = {
 		| Partial<HighCharts.Options>
 		| ((config: HighCharts.Options) => Partial<HighCharts.Options>);
 	multiSeries?: MultiSeriesConfig;
+	legendSet?: LegendSet;
 };
 
 export type ChartAnalyticsProps = {
