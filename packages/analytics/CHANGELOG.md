@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.1.0
+
+### Minor Changes
+
+-   Updates on highcharts and supported charts
+
 ## 2.0.67
 
 ### Patch Changes
