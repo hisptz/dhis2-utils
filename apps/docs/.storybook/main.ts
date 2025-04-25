@@ -49,6 +49,11 @@ const config: StorybookConfig = {
 		return {
 			...config,
 			define: { "process.env": {} },
+			build: {
+				commonjsOptions: {
+					transformMixedEsModules: true,
+				},
+			},
 			resolve: {
 				alias: [
 					{

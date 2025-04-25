@@ -1,9 +1,15 @@
 import { uid } from "@hisptz/dhis2-utils";
-import HighCharts from "highcharts";
+import * as Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import React, { forwardRef, useRef } from "react";
 import { useChart } from "./hooks/useChart.js";
 import "./styles/custom-highchart.css";
+import "highcharts/modules/exporting";
+import "highcharts/modules/export-data";
+import "highcharts/modules/full-screen";
+import "highcharts/highcharts-more";
+import "highcharts/modules/solid-gauge";
+import "highcharts/modules/accessibility";
 import { ChartAnalyticsProps } from "./types/props.js";
 
 export * from "./services/export.js";
@@ -26,8 +32,12 @@ function ChartAnalyticsComponent({
 		<HighchartsReact
 			immutable
 			ref={setRef}
-			containerProps={{ id: id.current, ...(containerProps ?? {}) }}
-			highcharts={HighCharts}
+			containerProps={{
+				id: id.current,
+				style: { width: "100%", height: "100%" },
+				...(containerProps ?? {}),
+			}}
+			highcharts={Highcharts}
 			options={{ ...chart }}
 		/>
 	);

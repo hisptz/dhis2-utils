@@ -1,6 +1,6 @@
 {
   "name": "@hisptz/dhis2-analytics",
-  "version": "2.0.66",
+  "version": "2.0.67",
   "main": "./dist/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/types/index.d.ts",
@@ -65,8 +65,8 @@
     "d3-color": "^3.1.0",
     "d3-scale": "^4.0.2",
     "file-saver": "^2.0.5",
-    "highcharts": "^10.3.2",
-    "highcharts-react-official": "^3.1.0",
+    "highcharts": "^12.2.0",
+    "highcharts-react-official": "^3.2.1",
     "jotai-devtools": "^0.10.1",
     "leaflet": "^1.9.3",
     "leaflet-easyprint": "^2.1.9",

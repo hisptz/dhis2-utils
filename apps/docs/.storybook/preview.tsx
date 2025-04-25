@@ -51,8 +51,8 @@ export const decorators = [
 				<div
 					style={{
 						width: "100%",
-						minHeight: 800,
-						minWidth: 500,
+						minHeight: 1000,
+						minWidth: 800,
 						height: "100%",
 						display: "flex",
 						flexDirection: "column",
