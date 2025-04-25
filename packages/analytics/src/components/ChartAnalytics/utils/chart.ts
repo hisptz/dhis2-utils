@@ -13,6 +13,8 @@ import { ChartConfig, ChartType } from "../types/props.js";
 import { DHIS2BarChart, DHIS2StackedBarChart } from "../models/bar.js";
 import { DHIS2GaugeChart } from "../models/gauge";
 import { DHIS2AreaChart, DHISStackedAreaChart } from "../models/area";
+import { DHIS2RadarChart } from "../models/radar";
+import { DHIS2ScatterChart } from "../models/scatter";
 
 export function getDimensionHeaderIndex(
 	headers: AnalyticsHeader[],
@@ -187,6 +189,10 @@ export function getChartInstance(
 			return new DHIS2MultiSeriesChart(id, analytics, config);
 		case "gauge":
 			return new DHIS2GaugeChart(id, analytics, config);
+		case "radar":
+			return new DHIS2RadarChart(id, analytics, config);
+		case "scatter":
+			return new DHIS2ScatterChart(id, analytics, config);
 		default:
 			throw new Error(`Unsupported chart type: ${config.type}`);
 	}

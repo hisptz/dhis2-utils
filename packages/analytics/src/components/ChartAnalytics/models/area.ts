@@ -1,8 +1,8 @@
-import { PlotOptions, SeriesOptionsType, XAxisOptions } from "highcharts";
-import { getAllCategories, getPointSeries } from "../utils/chart.js";
-import { DHIS2Chart } from "./index.js";
+import { PlotOptions, SeriesOptionsType } from "highcharts";
+import { getPointSeries } from "../utils/chart.js";
+import { DHIS2LineChart } from "./line";
 
-export class DHIS2AreaChart extends DHIS2Chart {
+export class DHIS2AreaChart extends DHIS2LineChart {
 	getHighchartsType(): string {
 		return "area";
 	}
@@ -15,18 +15,6 @@ export class DHIS2AreaChart extends DHIS2Chart {
 
 	getSeries(): SeriesOptionsType[] {
 		return getPointSeries(this.analytics, this.config, "area");
-	}
-
-	getXAxis(): XAxisOptions | undefined {
-		return {
-			type: "category",
-			categories: getAllCategories(this.analytics, this.config),
-			crosshair: true,
-			labels: {
-				enabled: true,
-			},
-			title: { text: "" },
-		};
 	}
 }
 

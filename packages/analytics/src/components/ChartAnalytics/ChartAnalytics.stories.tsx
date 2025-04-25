@@ -156,6 +156,49 @@ export const StackedArea: Story = {
 	},
 };
 
+export const Radar: Story = {
+	name: "Radar",
+	args: {
+		analytics: multiSeriesData as any,
+		containerProps: {
+			style: {
+				width: "100%",
+				height: "100%",
+			},
+		},
+		config: {
+			layout: {
+				series: ["ou"],
+				category: ["pe"],
+				filter: ["dx"],
+			},
+			showFilterAsTitle: true,
+			type: "radar",
+		},
+	},
+};
+export const Scatter: Story = {
+	name: "Scatter",
+	args: {
+		analytics: multiSeriesData as any,
+		containerProps: {
+			style: {
+				width: "100%",
+				height: "100%",
+			},
+		},
+		config: {
+			layout: {
+				series: ["ou"],
+				category: ["pe"],
+				filter: ["dx"],
+			},
+			showFilterAsTitle: true,
+			type: "scatter",
+		},
+	},
+};
+
 export const PieChart: Story = {
 	name: "Pie chart",
 	args: {

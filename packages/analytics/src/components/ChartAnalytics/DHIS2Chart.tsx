@@ -32,7 +32,11 @@ function ChartAnalyticsComponent({
 		<HighchartsReact
 			immutable
 			ref={setRef}
-			containerProps={{ id: id.current, ...(containerProps ?? {}) }}
+			containerProps={{
+				id: id.current,
+				style: { width: "100%", height: "100%" },
+				...(containerProps ?? {}),
+			}}
 			highcharts={Highcharts}
 			options={{ ...chart }}
 		/>
