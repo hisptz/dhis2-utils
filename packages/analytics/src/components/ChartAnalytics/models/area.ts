@@ -29,3 +29,14 @@ export class DHIS2AreaChart extends DHIS2Chart {
 		};
 	}
 }
+
+export class DHISStackedAreaChart extends DHIS2AreaChart {
+	getPlotOptions(): PlotOptions {
+		return {
+			area: {
+				stacking: "normal",
+				...super.getPlotOptions().area,
+			},
+		};
+	}
+}

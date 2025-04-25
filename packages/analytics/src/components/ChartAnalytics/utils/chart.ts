@@ -12,7 +12,7 @@ import { DHIS2PieChart } from "../models/pie.js";
 import { ChartConfig, ChartType } from "../types/props.js";
 import { DHIS2BarChart, DHIS2StackedBarChart } from "../models/bar.js";
 import { DHIS2GaugeChart } from "../models/gauge";
-import { DHIS2AreaChart } from "../models/area";
+import { DHIS2AreaChart, DHISStackedAreaChart } from "../models/area";
 
 export function getDimensionHeaderIndex(
 	headers: AnalyticsHeader[],
@@ -181,6 +181,8 @@ export function getChartInstance(
 			return new DHIS2LineChart(id, analytics, config);
 		case "area":
 			return new DHIS2AreaChart(id, analytics, config);
+		case "stacked-area":
+			return new DHISStackedAreaChart(id, analytics, config);
 		case "multi-series":
 			return new DHIS2MultiSeriesChart(id, analytics, config);
 		case "gauge":

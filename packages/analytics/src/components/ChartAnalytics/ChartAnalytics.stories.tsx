@@ -140,6 +140,21 @@ export const Area: Story = {
 		},
 	},
 };
+export const StackedArea: Story = {
+	name: "Stacked Area",
+	args: {
+		analytics: multiSeriesData as any,
+		config: {
+			layout: {
+				series: ["ou"],
+				category: ["pe"],
+				filter: ["dx"],
+			},
+			showFilterAsTitle: true,
+			type: "stacked-area",
+		},
+	},
+};
 
 export const PieChart: Story = {
 	name: "Pie chart",

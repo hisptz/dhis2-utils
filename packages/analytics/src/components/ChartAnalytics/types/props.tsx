@@ -16,7 +16,8 @@ export type ChartType =
 	| "bar"
 	| "stacked-bar"
 	| "gauge"
-	| "area";
+	| "area"
+	| "stacked-area";
 
 export interface MultiSeriesConfig {
 	series?: Array<{
