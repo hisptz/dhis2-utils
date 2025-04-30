@@ -14,17 +14,10 @@ httpProxy
 		headers: {
 			Authorization: `ApiToken ${process.env.STORYBOOK_DHIS2_API_TOKEN}`,
 		},
-		secure: false,
 		preserveHeaderKeyCase: true,
+		secure: false,
 	})
 	.on("start", (req) => {
 		console.log("Proxying", req.url);
-	})
-	.on("proxyReq", (proxyReq, req) => {
-		console.log(proxyReq.path);
-		console.log(proxyReq.headersSent);
-	})
-	.on("proxyRes", (proxyRes, req, res) => {
-		console.log(proxyRes.statusCode);
 	})
 	.listen(8080);
