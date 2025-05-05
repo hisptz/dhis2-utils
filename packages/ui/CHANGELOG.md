@@ -1,5 +1,11 @@
 # @hisptz/dhis2-ui
 
+## 2.0.44
+
+### Patch Changes
+
+-   Upgraded react hook form version
+
 ## 2.0.43
 
 ### Patch Changes
