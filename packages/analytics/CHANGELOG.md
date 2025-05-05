@@ -1,5 +1,14 @@
 # @hisptz/dhis2-analytics
 
+## 2.1.1
+
+### Patch Changes
+
+-   Leaflet updates
+-   Updated dependencies
+    -   @hisptz/dhis2-utils@2.0.18
+    -   @hisptz/dhis2-ui@2.0.43
+
 ## 2.1.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @hisptz/dhis2-utils
 
+## 2.0.18
+
+### Patch Changes
+
+-   Leaflet updates
+
 ## 2.0.17
 
 ### Patch Changes

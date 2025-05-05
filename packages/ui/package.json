@@ -1,6 +1,6 @@
 {
   "name": "@hisptz/dhis2-ui",
-  "version": "2.0.42",
+  "version": "2.0.43",
   "main": "./dist/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/types/index.d.ts",
@@ -33,7 +33,7 @@
     "react-circular-progressbar": "^2.1.0",
     "react-collapsible": "^2.10.0",
     "react-color": "^2.19.3",
-    "react-hook-form": "^7.53.0",
+    "react-hook-form": "^7.56.2",
     "recoil": "^0.7.7",
     "styled-components": "^6.1.8",
     "usehooks-ts": "^2.9.2"
