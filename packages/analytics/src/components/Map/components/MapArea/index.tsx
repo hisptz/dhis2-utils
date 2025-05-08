@@ -114,18 +114,20 @@ const MapArea = (
 				trackResize
 				{...mapOptions}
 			>
-				<MapUpdater containerRef={containerRef} bounds={bounds} />
-				<MapLayersProvider
-					analyticsOptions={analyticsOptions}
-					layers={layers}
-				>
-					<MapLayerArea
-						base={base}
-						id={id}
-						controls={controls}
-						legends={legends}
-					/>
-				</MapLayersProvider>
+				<>
+					<MapUpdater containerRef={containerRef} bounds={bounds} />
+					<MapLayersProvider
+						analyticsOptions={analyticsOptions}
+						layers={layers}
+					>
+						<MapLayerArea
+							base={base}
+							id={id}
+							controls={controls}
+							legends={legends}
+						/>
+					</MapLayersProvider>
+				</>
 			</MapContainer>
 		</div>
 	);
