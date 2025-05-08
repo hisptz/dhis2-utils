@@ -97,6 +97,7 @@ export const OrgUnitSelectField = ({
 
 	return (
 		<Field
+			{...props}
 			required={required}
 			error={fetchError !== undefined ? !!fetchError : !!error}
 			warning={Boolean(warning)}
