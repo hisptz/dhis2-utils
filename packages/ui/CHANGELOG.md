@@ -1,5 +1,11 @@
 # @hisptz/dhis2-ui
 
+## 2.0.45
+
+### Patch Changes
+
+-   Jodit editor updates
+
 ## 2.0.44
 
 ### Patch Changes
