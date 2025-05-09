@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.1.4
+
+### Patch Changes
+
+-   Downgraded react-leaflet for react 18 compatibility
+
 ## 2.1.3
 
 ### Patch Changes
