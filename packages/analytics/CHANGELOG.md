@@ -1,469 +1,477 @@
 # @hisptz/dhis2-analytics
 
+## 2.1.6
+
+### Patch Changes
+
+- Fixes on org unit selector
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.47
+
 ## 2.1.5
 
 ### Patch Changes
 
--   DHIS2 runtime version update
--   Updated dependencies
-    -   @hisptz/dhis2-ui@2.0.46
+- DHIS2 runtime version update
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.46
 
 ## 2.1.4
 
 ### Patch Changes
 
--   Downgraded react-leaflet for react 18 compatibility
+- Downgraded react-leaflet for react 18 compatibility
 
 ## 2.1.3
 
 ### Patch Changes
 
--   Updated dependencies
-    -   @hisptz/dhis2-ui@2.0.45
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.45
 
 ## 2.1.2
 
 ### Patch Changes
 
--   Updated dependencies
-    -   @hisptz/dhis2-ui@2.0.44
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.44
 
 ## 2.1.1
 
 ### Patch Changes
 
--   Leaflet updates
--   Updated dependencies
-    -   @hisptz/dhis2-utils@2.0.18
-    -   @hisptz/dhis2-ui@2.0.43
+- Leaflet updates
+- Updated dependencies
+    - @hisptz/dhis2-utils@2.0.18
+    - @hisptz/dhis2-ui@2.0.43
 
 ## 2.1.0
 
 ### Minor Changes
 
--   Updates on highcharts and supported charts
+- Updates on highcharts and supported charts
 
 ## 2.0.67
 
 ### Patch Changes
 
--   Fixes on DHIS2Map
+- Fixes on DHIS2Map
 
 ## 2.0.66
 
 ### Patch Changes
 
--   Improvements on DHIS2Map
+- Improvements on DHIS2Map
 
 ## 2.0.65
 
 ### Patch Changes
 
--   Updated dependencies
-    -   @hisptz/dhis2-ui@2.0.42
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.42
 
 ## 2.0.64
 
 ### Patch Changes
 
--   Updated dependencies
-    -   @hisptz/dhis2-ui@2.0.41
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.41
 
 ## 2.0.63
 
 ### Patch Changes
 
--   Updated dependencies
-    -   @hisptz/dhis2-ui@2.0.40
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.40
 
 ## 2.0.62
 
 ### Patch Changes
 
--   Updated dependencies
-    -   @hisptz/dhis2-ui@2.0.39
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.39
 
 ## 2.0.61
 
 ### Patch Changes
 
--   Fixes and improvements
--   Updated dependencies
-    -   @hisptz/dhis2-ui@2.0.38
+- Fixes and improvements
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.38
 
 ## 2.0.60
 
 ### Patch Changes
 
--   Updated dependencies
-    -   @hisptz/dhis2-utils@2.0.17
-    -   @hisptz/dhis2-ui@2.0.37
+- Updated dependencies
+    - @hisptz/dhis2-utils@2.0.17
+    - @hisptz/dhis2-ui@2.0.37
 
 ## 2.0.59
 
 ### Patch Changes
 
--   Program rules improvements
--   Updated dependencies
-    -   @hisptz/dhis2-utils@2.0.16
-    -   @hisptz/dhis2-ui@2.0.36
+- Program rules improvements
+- Updated dependencies
+    - @hisptz/dhis2-utils@2.0.16
+    - @hisptz/dhis2-ui@2.0.36
 
 ## 2.0.58
 
 ### Patch Changes
 
--   Updated dependencies
-    -   @hisptz/dhis2-utils@2.0.15
-    -   @hisptz/dhis2-ui@2.0.35
+- Updated dependencies
+    - @hisptz/dhis2-utils@2.0.15
+    - @hisptz/dhis2-ui@2.0.35
 
 ## 2.0.57
 
 ### Patch Changes
 
--   Fixes and improvement on map legend
+- Fixes and improvement on map legend
 
 ## 2.0.56
 
 ### Patch Changes
 
--   Program rules improvements
--   Updated dependencies
-    -   @hisptz/dhis2-utils@2.0.14
-    -   @hisptz/dhis2-ui@2.0.34
+- Program rules improvements
+- Updated dependencies
+    - @hisptz/dhis2-utils@2.0.14
+    - @hisptz/dhis2-ui@2.0.34
 
 ## 2.0.55
 
 ### Patch Changes
 
--   Updated dependencies
-    -   @hisptz/dhis2-utils@2.0.13
-    -   @hisptz/dhis2-ui@2.0.33
+- Updated dependencies
+    - @hisptz/dhis2-utils@2.0.13
+    - @hisptz/dhis2-ui@2.0.33
 
 ## 2.0.54
 
 ### Patch Changes
 
--   Updated dependencies
-    -   @hisptz/dhis2-utils@2.0.12
-    -   @hisptz/dhis2-ui@2.0.32
+- Updated dependencies
+    - @hisptz/dhis2-utils@2.0.12
+    - @hisptz/dhis2-ui@2.0.32
 
 ## 2.0.53
 
 ### Patch Changes
 
--   Improvements of chart component
--   Improvements on build
--   Updated dependencies
-    -   @hisptz/dhis2-utils@2.0.11
-    -   @hisptz/dhis2-ui@2.0.31
+- Improvements of chart component
+- Improvements on build
+- Updated dependencies
+    - @hisptz/dhis2-utils@2.0.11
+    - @hisptz/dhis2-ui@2.0.31
 
 ## 2.0.52
 
 ### Patch Changes
 
--   Improvements on chart renderer
+- Improvements on chart renderer
 
 ## 2.0.51
 
 ### Patch Changes
 
--   Chart improvements
+- Chart improvements
 
 ## 2.0.50
 
 ### Patch Changes
 
--   Exported summary form
--   Updated dependencies
-    -   @hisptz/dhis2-ui@2.0.30
+- Exported summary form
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.30
 
 ## 2.0.49
 
 ### Patch Changes
 
--   Improvements on map legend title
+- Improvements on map legend title
 
 ## 2.0.48
 
 ### Patch Changes
 
--   Fixes and improvements on map component
--   Updated dependencies
-    -   @hisptz/dhis2-utils@2.0.10
-    -   @hisptz/dhis2-ui@2.0.29
+- Fixes and improvements on map component
+- Updated dependencies
+    - @hisptz/dhis2-utils@2.0.10
+    - @hisptz/dhis2-ui@2.0.29
 
 ## 2.0.47
 
 ### Patch Changes
 
--   Deps upgrade and cleanup
--   Updated dependencies
-    -   @hisptz/dhis2-utils@2.0.9
-    -   @hisptz/dhis2-ui@2.0.28
+- Deps upgrade and cleanup
+- Updated dependencies
+    - @hisptz/dhis2-utils@2.0.9
+    - @hisptz/dhis2-ui@2.0.28
 
 ## 2.0.46
 
 ### Patch Changes
 
--   Fixed some types not being exported
+- Fixed some types not being exported
 
 ## 2.0.45
 
 ### Patch Changes
 
--   Updated dependencies
-    -   @hisptz/dhis2-ui@2.0.27
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.27
 
 ## 2.0.44
 
 ### Patch Changes
 
--   Scorecard & analytics improvements
--   Updated dependencies
-    -   @hisptz/dhis2-ui@2.0.26
+- Scorecard & analytics improvements
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.26
 
 ## 2.0.43
 
 ### Patch Changes
 
--   Improvements of scoreard
+- Improvements of scoreard
 
 ## 2.0.42
 
 ### Patch Changes
 
--   Fixes on scorecard
+- Fixes on scorecard
 
 ## 2.0.41
 
 ### Patch Changes
 
--   Improvements of scorecards
+- Improvements of scorecards
 
 ## 2.0.40
 
 ### Patch Changes
 
--   Scorecard fixes
+- Scorecard fixes
 
 ## 2.0.39
 
 ### Patch Changes
 
--   Improvements on the scorecard component
+- Improvements on the scorecard component
 
 ## 2.0.38
 
 ### Patch Changes
 
--   Improvements of scorecard view
+- Improvements of scorecard view
 
 ## 2.0.37
 
 ### Patch Changes
 
--   Exported scorecard schema
+- Exported scorecard schema
 
 ## 2.0.36
 
 ### Patch Changes
 
--   Fixed scorecard view
+- Fixed scorecard view
 
 ## 2.0.35
 
 ### Patch Changes
 
--   Scorecard view improvements
+- Scorecard view improvements
 
 ## 2.0.34
 
 ### Patch Changes
 
--   Improvements on scorecard
+- Improvements on scorecard
 
 ## 2.0.33
 
 ### Patch Changes
 
--   Scorecard improvements
+- Scorecard improvements
 
 ## 2.0.32
 
 ### Patch Changes
 
--   Updated dependencies
-    -   @hisptz/dhis2-ui@2.0.25
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.25
 
 ## 2.0.31
 
 ### Patch Changes
 
--   Fixed issues with period utilities future filter filtering all periods except one previous period
--   Updated dependencies
-    -   @hisptz/dhis2-utils@2.0.8
-    -   @hisptz/dhis2-ui@2.0.24
+- Fixed issues with period utilities future filter filtering all periods except one previous period
+- Updated dependencies
+    - @hisptz/dhis2-utils@2.0.8
+    - @hisptz/dhis2-ui@2.0.24
 
 ## 2.0.30
 
 ### Patch Changes
 
--   Updated dependencies
-    -   @hisptz/dhis2-ui@2.0.23
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.23
 
 ## 2.0.29
 
 ### Patch Changes
 
--   Updated dependencies
-    -   @hisptz/dhis2-ui@2.0.22
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.22
 
 ## 2.0.28
 
 ### Patch Changes
 
--   Fixes on the scorecard config
+- Fixes on the scorecard config
 
 ## 2.0.27
 
 ### Patch Changes
 
--   Updated dependencies
-    -   @hisptz/dhis2-ui@2.0.21
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.21
 
 ## 2.0.26
 
 ### Patch Changes
 
--   Updated scorecard config
+- Updated scorecard config
 
 ## 2.0.25
 
 ### Patch Changes
 
--   Updated dependencies
-    -   @hisptz/dhis2-ui@2.0.20
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.20
 
 ## 2.0.24
 
 ### Patch Changes
 
--   Fixes and improvements on scorecard component
+- Fixes and improvements on scorecard component
 
 ## 2.0.23
 
 ### Patch Changes
 
--   Updated dependencies
-    -   @hisptz/dhis2-utils@2.0.7
-    -   @hisptz/dhis2-ui@2.0.19
+- Updated dependencies
+    - @hisptz/dhis2-utils@2.0.7
+    - @hisptz/dhis2-ui@2.0.19
 
 ## 2.0.22
 
 ### Patch Changes
 
--   Updated dependencies
-    -   @hisptz/dhis2-ui@2.0.18
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.18
 
 ## 2.0.21
 
 ### Patch Changes
 
--   Updated dependencies
-    -   @hisptz/dhis2-ui@2.0.17
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.17
 
 ## 2.0.20
 
 ### Patch Changes
 
--   Updated dependencies
-    -   @hisptz/dhis2-ui@2.0.16
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.16
 
 ## 2.0.19
 
 ### Patch Changes
 
--   03350ee: Fixes on scorecard view
--   Updated dependencies [03350ee]
-    -   @hisptz/dhis2-utils@2.0.6
-    -   @hisptz/dhis2-ui@2.0.15
+- 03350ee: Fixes on scorecard view
+- Updated dependencies [03350ee]
+    - @hisptz/dhis2-utils@2.0.6
+    - @hisptz/dhis2-ui@2.0.15
 
 ## 2.0.18
 
 ### Patch Changes
 
--   Fixed on multi calendar package
+- Fixed on multi calendar package
 
 ## 2.0.17
 
 ### Patch Changes
 
--   Updated dependencies
-    -   @hisptz/dhis2-ui@2.0.14
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.14
 
 ## 2.0.16
 
 ### Patch Changes
 
--   Fixes
+- Fixes
 
 ## 2.0.15
 
 ### Patch Changes
 
--   Implementation of scorecard as a reusable component
+- Implementation of scorecard as a reusable component
 
 ## 2.0.14
 
 ### Patch Changes
 
--   Fixes and improvements
+- Fixes and improvements
 
 ## 2.0.13
 
 ### Patch Changes
 
--   Removed @dhis2/multi-calendar-dates dependency
--   Updated dependencies
-    -   @hisptz/dhis2-utils@2.0.5
-    -   @hisptz/dhis2-ui@2.0.13
+- Removed @dhis2/multi-calendar-dates dependency
+- Updated dependencies
+    - @hisptz/dhis2-utils@2.0.5
+    - @hisptz/dhis2-ui@2.0.13
 
 ## 2.0.12
 
 ### Patch Changes
 
--   Removed @dhis2/multi-calendar-dates deps
--   Updated dependencies
-    -   @hisptz/dhis2-ui@2.0.12
+- Removed @dhis2/multi-calendar-dates deps
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.12
 
 ## 2.0.11
 
 ### Patch Changes
 
--   66cfd02: Fixed issues with import in package.json having extra slash, causing errors when imported from an app
--   Updated dependencies [66cfd02]
-    -   @hisptz/dhis2-ui@2.0.11
+- 66cfd02: Fixed issues with import in package.json having extra slash, causing errors when imported from an app
+- Updated dependencies [66cfd02]
+    - @hisptz/dhis2-ui@2.0.11
 
 ## 2.0.10
 
 ### Patch Changes
 
--   6f3ce3c: Fixed issues with missing types
--   Updated dependencies [6f3ce3c]
-    -   @hisptz/dhis2-ui@2.0.10
+- 6f3ce3c: Fixed issues with missing types
+- Updated dependencies [6f3ce3c]
+    - @hisptz/dhis2-ui@2.0.10
 
 ## 2.0.9
 
 ### Patch Changes
 
--   Fixed missing types issues
--   Updated dependencies
-    -   @hisptz/dhis2-ui@2.0.9
+- Fixed missing types issues
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.9
 
 ## 2.0.8
 
 ### Patch Changes
 
--   Fixes and improvements
--   Updated dependencies
-    -   @hisptz/dhis2-ui@2.0.8
+- Fixes and improvements
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.8
