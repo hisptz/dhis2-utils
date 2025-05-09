@@ -16,8 +16,6 @@ httpProxy
 		},
 		preserveHeaderKeyCase: true,
 		secure: false,
-	})
-	.on("start", (req) => {
-		console.log("Proxying", req.url);
+		changeOrigin: true,
 	})
 	.listen(8080);

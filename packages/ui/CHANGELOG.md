@@ -1,5 +1,11 @@
 # @hisptz/dhis2-ui
 
+## 2.0.46
+
+### Patch Changes
+
+-   DHIS2 runtime version update
+
 ## 2.0.45
 
 ### Patch Changes

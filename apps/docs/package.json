@@ -12,8 +12,8 @@
     "lint": "eslint ./stories/*.stories.tsx --max-warnings 0"
   },
   "dependencies": {
-    "@dhis2/app-runtime": "^3.14.0",
-    "@dhis2/ui": "^10.3.1",
+    "@dhis2/app-runtime": "^3.14.1",
+    "@dhis2/ui": "^10.6.0",
     "@hisptz/dhis2-analytics": "workspace:*",
     "@hisptz/dhis2-scorecard": "workspace:*",
     "@hisptz/dhis2-ui": "workspace:*",

@@ -37,8 +37,6 @@ export function LevelAndGroupSelector({
 		(groupId, group) => groupId === group.id,
 	);
 
-	console.log({ sanitizedSelectedLevels, levels, value });
-
 	return (
 		<div
 			style={{
