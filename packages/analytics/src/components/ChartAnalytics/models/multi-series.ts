@@ -16,8 +16,21 @@ export class DHIS2MultiSeriesChart extends DHIS2Chart {
 
 	getPlotOptions(): PlotOptions {
 		return {
-			column: {},
-			line: {},
+			column: {
+				dataLabels: {
+					enabled: true,
+				},
+			},
+			line: {
+				dataLabels: {
+					enabled: true,
+				},
+			},
+			bar: {
+				dataLabels: {
+					enabled: true,
+				},
+			},
 		};
 	}
 
