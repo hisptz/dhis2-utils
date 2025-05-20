@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.1.7
+
+### Patch Changes
+
+- Fixed issues with multi-charts not showing data labels
+
 ## 2.1.6
 
 ### Patch Changes
