@@ -1,5 +1,11 @@
 # @hisptz/dhis2-ui
 
+## 2.0.48
+
+### Patch Changes
+
+- Removed react-hook-form as a direct dependency to fix issues with incompatible versions
+
 ## 2.0.47
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @hisptz/dhis2-analytics
 
+## 2.1.8
+
+### Patch Changes
+
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.48
+
 ## 2.1.7
 
 ### Patch Changes
