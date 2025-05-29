@@ -9,7 +9,11 @@ export class DHIS2LineChart extends DHIS2Chart {
 
 	getPlotOptions(): PlotOptions {
 		return {
-			line: {},
+			line: {
+				dataLabels: {
+					enabled: true,
+				},
+			},
 		};
 	}
 

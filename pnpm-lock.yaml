@@ -528,7 +528,7 @@ importers:
         specifier: ^2.19.3
         version: 2.19.3(react@18.3.1)
       react-hook-form:
-        specifier: ^7.56.2
+        specifier: ^7
         version: 7.56.3(react@18.3.1)
       recoil:
         specifier: ^0.7.7
@@ -537,7 +537,7 @@ importers:
         specifier: ^6.1.8
         version: 6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       usehooks-ts:
-        specifier: ^2.9.2
+        specifier: ^2
         version: 2.16.0(react@18.3.1)
     devDependencies:
       '@repo/eslint-config':
