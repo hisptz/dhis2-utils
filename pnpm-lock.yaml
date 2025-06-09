@@ -254,7 +254,7 @@ importers:
         specifier: ^0.18.5
         version: 0.18.5
       zod:
-        specifier: ^3.23.8
+        specifier: ^3
         version: 3.24.4
     devDependencies:
       '@repo/eslint-config':
@@ -405,7 +405,7 @@ importers:
         specifier: ^0.18.5
         version: 0.18.5
       zod:
-        specifier: ^3.23.8
+        specifier: ^3
         version: 3.24.4
     devDependencies:
       '@repo/eslint-config':
