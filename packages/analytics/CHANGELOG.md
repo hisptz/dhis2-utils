@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.1.9
+
+### Patch Changes
+
+- removed zod from dependencies and placed it on peer deps
+
 ## 2.1.8
 
 ### Patch Changes

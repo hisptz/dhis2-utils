@@ -1,5 +1,13 @@
 # @hisptz/dhis2-scorecard
 
+## 1.1.9
+
+### Patch Changes
+
+- removed zod from dependencies and placed it on peer deps
+- Updated dependencies
+    - @hisptz/dhis2-analytics@2.1.9
+
 ## 1.1.8
 
 ### Patch Changes
