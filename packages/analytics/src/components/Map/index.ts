@@ -6,3 +6,4 @@ export * from "./components/ThematicLayerConfiguration/types";
 export * from "./constants/colors.js";
 export * from "./components/MapArea/interfaces";
 export * from "./components/MapLayer/interfaces";
+export * from "./utils";
