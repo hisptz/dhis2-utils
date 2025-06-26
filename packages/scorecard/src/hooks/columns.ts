@@ -1,8 +1,11 @@
 import { type ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { useScorecardConfig, useScorecardMeta } from "../components";
+import {
+	useScorecardConfig,
+	useScorecardData,
+	useScorecardMeta,
+} from "../components";
 import { useMemo } from "react";
 import {
-	type ScorecardState,
 	type ScorecardTableCellConfig,
 	type ScorecardTableData,
 } from "../schemas/config";
@@ -18,22 +21,21 @@ import { useCalendar } from "./metadata";
 import { MetaFooterCell } from "../components/ScorecardTable/components/MetaFooterCell";
 import { getOrgUnitLevel } from "../utils/orgUnits";
 import { useLowestOrgUnitLevel } from "./orgUnit";
-import { useScorecardData } from "../components/DataProvider";
-import { useScorecardStateSelectorValue } from "../state";
 import { ExpandCell } from "../components/ScorecardTable/components/TableHeader/components/ExpandCell";
+import { useScorecardViewStateValue } from "../utils/viewState";
+import {
+	useOrgUnitSelectionValue,
+	usePeriodSelectionValue,
+} from "../utils/dimensionState";
 
 const columnHelper = createColumnHelper<ScorecardTableData>();
 
 export function useMetaColumns() {
-	const showDataInRows = useScorecardStateSelectorValue<boolean>([
-		"options",
-		"showDataInRows",
-	]);
+	const showDataInRows =
+		useScorecardViewStateValue<boolean>("showDataInRows");
 
-	const disableExpanding = useScorecardStateSelectorValue<boolean>([
-		"options",
-		"disableExpanding",
-	]);
+	const disableExpanding =
+		useScorecardViewStateValue<boolean>("disableExpanding");
 
 	const lowestLevel = useLowestOrgUnitLevel();
 
@@ -163,19 +165,10 @@ export function useTableColumns(): ColumnDef<
 	const meta = useScorecardMeta();
 	const metaColumns = useMetaColumns();
 	const calendar = useCalendar();
-	const showDataInRows = useScorecardStateSelectorValue<boolean>([
-		"options",
-		"showDataInRows",
-	]);
-	const periodSelection =
-		useScorecardStateSelectorValue<ScorecardState["periodSelection"]>(
-			"periodSelection",
-		);
-
-	const orgUnitSelection =
-		useScorecardStateSelectorValue<ScorecardState["orgUnitSelection"]>(
-			"orgUnitSelection",
-		);
+	const showDataInRows =
+		useScorecardViewStateValue<boolean>("showDataInRows");
+	const periodSelection = usePeriodSelectionValue();
+	const orgUnitSelection = useOrgUnitSelectionValue();
 
 	if (!config || !meta) {
 		return [];

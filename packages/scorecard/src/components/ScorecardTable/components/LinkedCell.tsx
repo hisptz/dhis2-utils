@@ -99,8 +99,8 @@ function LinkedCellComponent({
 				>
 					{topDataSource && (
 						<DataValue
-							bold={bold}
 							value={topValue}
+							bold={bold}
 							dataSource={topDataSource}
 						/>
 					)}
@@ -121,8 +121,8 @@ function LinkedCellComponent({
 				>
 					{bottomDataSource && (
 						<DataValue
-							bold={bold}
 							value={bottomValue}
+							bold={bold}
 							dataSource={bottomDataSource}
 						/>
 					)}

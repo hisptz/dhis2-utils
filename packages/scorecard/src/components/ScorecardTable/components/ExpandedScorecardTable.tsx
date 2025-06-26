@@ -5,11 +5,12 @@ import { getOrgUnitLevel } from "../../../utils/orgUnits";
 import type { OrgUnitSelection, ScorecardState } from "../../../schemas/config";
 import { ScorecardContext } from "../../ScorecardContext";
 import { CircularLoader } from "@dhis2/ui";
-import { useScorecardStateValue } from "../../../state";
 import { TableStateProvider } from "../../TableStateProvider";
 import { ScorecardTable } from "../ScorecardTable";
 import { ScorecardDataProvider } from "../../DataProvider";
 import { ScorecardStateProvider } from "../../StateProvider";
+import { usePeriodSelectionValue } from "../../../utils/dimensionState";
+import { useScorecardViewOptions } from "../../../utils/viewState";
 
 export function ExpandedScorecardTable({
 	orgUnit,
@@ -19,8 +20,8 @@ export function ExpandedScorecardTable({
 	pending: boolean;
 }) {
 	const config = useScorecardConfig();
-	const state = useScorecardStateValue();
-
+	const periodSelection = usePeriodSelectionValue();
+	const options = useScorecardViewOptions();
 	const orgUnitSelection: OrgUnitSelection = useMemo(() => {
 		const orgUnitId = orgUnit.uid;
 		const level = getOrgUnitLevel(orgUnit) + 1;
@@ -66,10 +67,10 @@ export function ExpandedScorecardTable({
 						...config,
 						orgUnitSelection,
 					}}
-					withRecoilRoot
 					initialState={
 						{
-							...state,
+							...options,
+							periodSelection,
 							orgUnitSelection,
 						} as ScorecardState
 					}

@@ -3,9 +3,11 @@ import { useAlert, useConfig, useDataQuery } from "@dhis2/app-runtime";
 import { useEffect, useMemo } from "react";
 import { getDimensions } from "../utils/analytics";
 import type { SupportedCalendar } from "@dhis2/multi-calendar-dates/build/types/types";
-import type { ScorecardState } from "../schemas/config";
 import i18n from "@dhis2/d2-i18n";
-import { useScorecardStateSelectorValue } from "../state";
+import {
+	useOrgUnitSelectionValue,
+	usePeriodSelectionValue,
+} from "../utils/dimensionState";
 
 const query: any = {
 	meta: {
@@ -90,14 +92,8 @@ export function useGetScorecardMeta() {
 		({ type }) => ({ ...type, duration: 3000 }),
 	);
 
-	const orgUnitSelection =
-		useScorecardStateSelectorValue<ScorecardState["orgUnitSelection"]>(
-			"orgUnitSelection",
-		);
-	const periodSelection =
-		useScorecardStateSelectorValue<ScorecardState["periodSelection"]>(
-			"periodSelection",
-		);
+	const orgUnitSelection = useOrgUnitSelectionValue();
+	const periodSelection = usePeriodSelectionValue();
 
 	const { dataItemsIds, orgUnitsIds, periodsIds } = useMemo(
 		() =>

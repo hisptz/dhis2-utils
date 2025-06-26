@@ -1,15 +1,8 @@
-import { useScorecardStateSelectorValue } from "../state";
+import { useScorecardViewStateValue } from "../utils/viewState";
 
 export function ColGroup() {
-	const inPrintMode = useScorecardStateSelectorValue<boolean>([
-		"options",
-		"printMode",
-	]);
-
-	const itemNumber = useScorecardStateSelectorValue<boolean>([
-		"options",
-		"itemNumber",
-	]);
+	const inPrintMode = useScorecardViewStateValue<boolean>("printMode");
+	const itemNumber = useScorecardViewStateValue<boolean>("itemNumber");
 
 	if (!inPrintMode) {
 		return null;

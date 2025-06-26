@@ -372,7 +372,7 @@ importers:
         specifier: workspace:*
         version: link:../utils
       '@tanstack/react-table':
-        specifier: ^8.19.3
+        specifier: ^8.21.3
         version: 8.21.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       async-es:
         specifier: ^3.2.5
@@ -394,13 +394,10 @@ importers:
         version: 4.1.2(react@18.3.1)
       react-jsx-parser:
         specifier: ^2.2.0
-        version: 2.4.0(react@18.3.1)
+        version: 2.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-to-print:
         specifier: ^3.0.1
         version: 3.1.0(react@18.3.1)
-      recoil:
-        specifier: ^0.7.7
-        version: 0.7.7(react-dom@18.3.1(react@18.3.1))(react-native@0.79.2(@babel/core@7.27.1)(@types/react@18.3.21)(react@18.3.1))(react@18.3.1)
       xlsx:
         specifier: ^0.18.5
         version: 0.18.5
@@ -6579,7 +6576,6 @@ packages:
     resolution: {integrity: sha512-Quz3MvAwHxVYNXsOByL7xI5EB2WYOeFswqaHIA3qOK3isRWTxiplBEocmmru6XmxDB2L7jDNYtYA4FyimoAFEw==}
     engines: {node: '>=8.17.0'}
     hasBin: true
-    bundledDependencies: []
 
   jsonfile@4.0.0:
     resolution: {integrity: sha512-m6F1R3z8jjlf2imQHS2Qez5sjKWQzbuuhuJ/FKYFRZvPE3PuHcSMVZzfsLhGVOkfd20obL5SWEBew5ShlquNxg==}
@@ -18110,11 +18106,12 @@ snapshots:
       react: 18.3.1
       react-base16-styling: 0.9.1
 
-  react-jsx-parser@2.4.0(react@18.3.1):
+  react-jsx-parser@2.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       acorn: 8.14.1
       acorn-jsx: 5.3.2(acorn@8.14.1)
       react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
     optionalDependencies:
       '@types/react': 18.3.21
       '@types/react-dom': 18.3.7(@types/react@18.3.21)

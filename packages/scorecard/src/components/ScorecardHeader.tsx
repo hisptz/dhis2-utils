@@ -1,24 +1,23 @@
 import { useScorecardConfig } from "./ConfigProvider";
 import { useMemo } from "react";
-import { useScorecardStateSelectorValue } from "../state";
-import type { PeriodSelection } from "../schemas/config";
 import { PeriodUtility } from "@hisptz/dhis2-utils";
 import { head } from "lodash";
 import { colors } from "@dhis2/ui";
 import JsxParser from "react-jsx-parser";
+import { useScorecardViewStateValue } from "../utils/viewState";
+import { usePeriodSelectionValue } from "../utils/dimensionState";
 
 export function ScorecardHeader() {
 	const config = useScorecardConfig();
 	const { customHeader, title, subtitle } = config ?? {};
 
-	const periodSelection =
-		useScorecardStateSelectorValue<PeriodSelection>("periodSelection");
-	const showTitle = useScorecardStateSelectorValue<boolean>([
-		"options",
-		"title",
-	]);
+	const periodSelection = usePeriodSelectionValue();
+	const showTitle = useScorecardViewStateValue<boolean>("title");
 
-	const periods = useMemo(() => periodSelection.periods, [periodSelection]);
+	const periods = useMemo(
+		() => periodSelection.periods,
+		[periodSelection.periods],
+	);
 
 	const period = useMemo(() => {
 		if (periods.length > 1) {

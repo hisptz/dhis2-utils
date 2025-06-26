@@ -28,7 +28,7 @@ import { type AnalyticsData, getRowsFromMeta } from "../utils/data";
 import { isEmpty, meanBy } from "lodash";
 import type { ScorecardDataEngine } from "../utils/dataEngine";
 import { getAverageValue } from "../utils/columns";
-import { useScorecardStateSelectorValue } from "../state";
+import { useScorecardViewStateValue } from "../utils/viewState";
 
 export function getRowValues({
 	data,
@@ -114,17 +114,13 @@ export function filterRows({
 export function useTableRows(): ScorecardTableData[] {
 	const meta = useScorecardMeta();
 	const { data: dataEngine } = useScorecardData();
-	const showDataInRows = useScorecardStateSelectorValue<boolean>([
-		"options",
-		"showDataInRows",
-	]);
-	const emptyRows = useScorecardStateSelectorValue<boolean>([
-		"options",
-		"emptyRows",
-	]);
-	const averageDisplayType = useScorecardStateSelectorValue<
-		ScorecardViewOptions["averageDisplayType"]
-	>(["options", "averageDisplayType"]);
+	const showDataInRows =
+		useScorecardViewStateValue<boolean>("showDataInRows") ?? false;
+	const emptyRows = useScorecardViewStateValue<boolean>("emptyRows");
+	const averageDisplayType =
+		useScorecardViewStateValue<ScorecardViewOptions["averageDisplayType"]>(
+			"averageDisplayType",
+		);
 
 	const config = useScorecardConfig();
 
@@ -181,24 +177,15 @@ export function useTableRows(): ScorecardTableData[] {
 }
 
 export function useColumnVisibility() {
-	const showAverageColumn = useScorecardStateSelectorValue<boolean>([
-		"options",
-		"averageColumn",
-	]);
-	const showItemNumber = useScorecardStateSelectorValue<boolean>([
-		"options",
-		"itemNumber",
-	]);
-	const showDataInRows = useScorecardStateSelectorValue<boolean>([
-		"options",
-		"showDataInRows",
-	]);
+	const showAverageColumn =
+		useScorecardViewStateValue<boolean>("averageColumn") ?? false;
+	const showItemNumber =
+		useScorecardViewStateValue<boolean>("itemNumber") ?? false;
+	const showDataInRows =
+		useScorecardViewStateValue<boolean>("showDataInRows");
 
 	const disableExpanding =
-		useScorecardStateSelectorValue<boolean>([
-			"options",
-			"disableExpanding",
-		]) ?? false;
+		useScorecardViewStateValue<boolean>("disableExpanding") ?? false;
 
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
 		average: showAverageColumn,
@@ -223,10 +210,7 @@ export function useColumnVisibility() {
 export function useRowExpanding() {
 	const [expanded, setExpanded] = useState<ExpandedState>({});
 	const disableExpanding =
-		useScorecardStateSelectorValue<boolean>([
-			"options",
-			"disableExpanding",
-		]) ?? false;
+		useScorecardViewStateValue<boolean>("disableExpanding") ?? false;
 
 	const getRowCanExpand = useCallback((row: Row<ScorecardTableData>) => {
 		const expandCell = row
@@ -246,10 +230,8 @@ export function useRowExpanding() {
 
 export function useTableSetup(): TableOptions<ScorecardTableData> {
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-	const disablePagination = useScorecardStateSelectorValue<boolean>([
-		"options",
-		"disablePagination",
-	]);
+	const disablePagination =
+		useScorecardViewStateValue<boolean>("disablePagination");
 	const [pagination, setPagination] = useState<PaginationState>({
 		pageSize: 50,
 		pageIndex: 0,

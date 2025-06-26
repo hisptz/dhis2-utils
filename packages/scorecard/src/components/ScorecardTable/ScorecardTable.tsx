@@ -5,8 +5,8 @@ import { TableFoot } from "./components/TableFoot";
 import { memo, useEffect, useRef, useTransition } from "react";
 import { PaginatedToolbar } from "./components/PaginatedToolbar";
 import { useDragDropManager } from "react-dnd";
-import { useSetScorecardStateSelector } from "../../state";
 import { ColGroup } from "../ColGroup";
+import { useScorecardViewStateEngine } from "../StateProvider";
 
 export interface ScorecardTableProps extends Omit<DataTableProps, "children"> {}
 
@@ -16,19 +16,17 @@ export const ScorecardTable = memo(function TableComponent(
 	const tableRef = useRef<HTMLTableElement>(null);
 	const manager = useDragDropManager();
 	const [isPending, startTransition] = useTransition();
-	const setState = useSetScorecardStateSelector([
-		"options",
-		"showDataInRows",
-	]);
+	const viewStateEngine = useScorecardViewStateEngine();
 
 	useEffect(() => {
 		return manager.getMonitor().subscribeToStateChange(() => {
 			const dropResult = manager.getMonitor().getDropResult();
 			if (dropResult) {
 				startTransition(() => {
-					setState((prevState: boolean) => {
-						return !prevState;
-					});
+					viewStateEngine.updateOption(
+						"showDataInRows",
+						!viewStateEngine.options.showDataInRows,
+					);
 				});
 			}
 		});

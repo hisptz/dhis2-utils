@@ -1,5 +1,5 @@
 import React from "react";
-import { TableStateProvider } from "./components/TableStateProvider";
+import { TableStateProvider } from "./components";
 import {
 	ScorecardTable,
 	type ScorecardTableProps,

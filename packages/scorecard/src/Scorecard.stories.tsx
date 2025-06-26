@@ -1,12 +1,24 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Scorecard } from "./Scorecard";
-import type { ScorecardConfig } from "./schemas/config";
-import { ScorecardContext, ScorecardDataProvider } from "./components";
-import { CheckboxField } from "@dhis2/ui";
-import { ScorecardStateProvider } from "./components/StateProvider";
-import { getInitialStateFromConfig } from "./utils";
-import { useScorecardStateSelector } from "./state";
-import { RecoilRoot } from "recoil";
+import type { ScorecardConfig, ScorecardViewOptions } from "./schemas/config";
+import {
+	ScorecardContext,
+	ScorecardDataProvider,
+	ScorecardStateProvider,
+} from "./components";
+import { Button, ButtonStrip, CheckboxField } from "@dhis2/ui";
+import {
+	useScorecardViewStateValue,
+	useUpdateScorecardViewState,
+} from "./utils/viewState";
+import {
+	useOrgUnitSelectionValue,
+	usePeriodSelectionValue,
+	useUpdateDimensionState,
+} from "./utils/dimensionState";
+import { useState } from "react";
+import { OrgUnitSelectorModal, PeriodSelectorModal } from "@hisptz/dhis2-ui";
+import i18n from "@dhis2/d2-i18n";
 
 const playConfig: ScorecardConfig = {
 	id: "YyeJxCBJpcz",
@@ -820,13 +832,14 @@ const config: ScorecardConfig = {
 		legend: true,
 		showHierarchy: false,
 		title: true,
+		disablePagination: false,
 	},
 	orgUnitSelection: {
 		groups: [],
-		levels: ["P0QFTFfTl2X"],
+		levels: ["wjP19dkFeIk"],
 		orgUnits: [
 			{
-				id: "GD7TowwI46c",
+				id: "H1KlN4QIauv",
 			},
 		],
 		userOrgUnit: false,
@@ -836,7 +849,7 @@ const config: ScorecardConfig = {
 	periodSelection: {
 		periods: [
 			{
-				id: "2018Q2",
+				id: "2024Q2",
 			},
 		],
 		type: "Quarterly",
@@ -1443,10 +1456,10 @@ const linkedConfig: ScorecardConfig = {
 	},
 	orgUnitSelection: {
 		groups: [],
-		levels: ["P0QFTFfTl2X"],
+		levels: ["wjP19dkFeIk"],
 		orgUnits: [
 			{
-				id: "GD7TowwI46c",
+				id: "H1KlN4QIauv",
 			},
 		],
 		userOrgUnit: false,
@@ -1464,19 +1477,86 @@ const linkedConfig: ScorecardConfig = {
 	title: "RMNCAH Score Card Revised",
 };
 
-function OptionsToggle({ name, label }: { name: string; label: string }) {
-	const [showDataInRows, setShowDataInRows] =
-		useScorecardStateSelector<boolean>(["options", name]);
+function OptionsToggle({
+	name,
+	label,
+}: {
+	name: keyof ScorecardViewOptions;
+	label: string;
+}) {
+	const updateOption = useUpdateScorecardViewState(name);
+	const value = useScorecardViewStateValue<boolean>(name);
 
 	return (
 		<CheckboxField
 			label={label}
 			value={name}
 			onChange={({ checked }) => {
-				setShowDataInRows(checked);
+				updateOption(checked);
 			}}
-			checked={showDataInRows}
+			checked={value}
 		/>
+	);
+}
+
+function PeriodSelector() {
+	const periodSelection = usePeriodSelectionValue();
+	const updatePeriodSelection = useUpdateDimensionState("period");
+	const [open, setOpen] = useState<boolean>(false);
+
+	return (
+		<>
+			{open && (
+				<PeriodSelectorModal
+					hide={!open}
+					onUpdate={(value: string[]) => {
+						updatePeriodSelection({
+							periods: value.map((id) => ({ id })),
+						});
+						setOpen(false);
+					}}
+					position="middle"
+					defaultInputType="period"
+					enablePeriodSelector
+					selectedPeriods={periodSelection.periods.map(
+						({ id }) => id,
+					)}
+					onClose={() => setOpen(false)}
+				/>
+			)}
+			<Button onClick={() => setOpen(true)}>
+				{i18n.t("Update period")}
+			</Button>
+		</>
+	);
+}
+
+function OrgUnitSelector() {
+	const orgUnitSelection = useOrgUnitSelectionValue();
+	const updateOrgUnitSelection = useUpdateDimensionState("orgUnit");
+	const [open, setOpen] = useState<boolean>(false);
+
+	return (
+		<>
+			{open && (
+				<OrgUnitSelectorModal
+					hide={!open}
+					onUpdate={(value) => {
+						updateOrgUnitSelection(value);
+						setOpen(false);
+					}}
+					position="middle"
+					showGroups
+					showLevels
+					showUserOptions
+					value={orgUnitSelection}
+					onClose={() => setOpen(false)}
+				/>
+			)}
+			<Button onClick={() => setOpen(true)}>
+				{i18n.t("Update org unit")}
+			</Button>
+		</>
 	);
 }
 
@@ -1485,64 +1565,68 @@ const meta: Meta<typeof Scorecard> = {
 	component: Scorecard,
 	decorators: (Story, context) => {
 		return (
-			<RecoilRoot>
-				<ScorecardStateProvider
-					config={config}
-					initialState={getInitialStateFromConfig(playConfig)}
+			<ScorecardStateProvider config={config}>
+				<div
+					style={{
+						maxWidth: 1600,
+						display: "flex",
+						flexDirection: "column",
+						gap: 32,
+						height: "60vh",
+						width: "100%",
+					}}
 				>
-					<div
-						style={{
-							maxWidth: 1600,
-							display: "flex",
-							flexDirection: "column",
-							gap: 32,
-							height: "60vh",
-							width: "100%",
-						}}
-					>
-						<div style={{ display: "flex", gap: 16 }}>
-							<OptionsToggle
-								name="showDataInRows"
-								label={"Show data in rows"}
-							/>
-							<OptionsToggle
-								name="arrows"
-								label={"Show arrows"}
-							/>
-							<OptionsToggle
-								name="showHierarchy"
-								label={"Show hierarchy"}
-							/>
-							<OptionsToggle
-								name="averageColumn"
-								label={"Show average column"}
-							/>
-							<OptionsToggle
-								name="averageRow"
-								label={"Show average row"}
-							/>
-							<OptionsToggle
-								name="itemNumber"
-								label={"Show item numbers"}
-							/>
-						</div>
-						<ScorecardContext config={playConfig}>
-							<ScorecardDataProvider>
-								<Story
-									args={{
-										...context.args,
-										tableProps: {
-											scrollHeight: "800px",
-											scrollWidth: "1600px",
-											width: "1600px",
-										},
-									}}
-								/>
-							</ScorecardDataProvider>
-						</ScorecardContext>
+					<ButtonStrip>
+						<PeriodSelector />
+						<OrgUnitSelector />
+					</ButtonStrip>
+					<div style={{ display: "flex", gap: 16 }}>
+						<OptionsToggle
+							name="showDataInRows"
+							label={"Show data in rows"}
+						/>
+						<OptionsToggle name="arrows" label={"Show arrows"} />
+						<OptionsToggle
+							name="showHierarchy"
+							label={"Show hierarchy"}
+						/>
+						<OptionsToggle
+							name="averageColumn"
+							label={"Show average column"}
+						/>
+						<OptionsToggle
+							name="averageRow"
+							label={"Show average row"}
+						/>
+						<OptionsToggle
+							name="itemNumber"
+							label={"Show item numbers"}
+						/>
+						<OptionsToggle
+							name="emptyRows"
+							label={"Show empty rows"}
+						/>
+						<OptionsToggle
+							name="disablePagination"
+							label={"Disable pagination"}
+						/>
 					</div>
-				</ScorecardStateProvider>
-			</RecoilRoot>
+					<ScorecardContext config={playConfig}>
+						<ScorecardDataProvider>
+							<Story
+								args={{
+									...context.args,
+									tableProps: {
+										scrollHeight: "800px",
+										scrollWidth: "1600px",
+										width: "1600px",
+									},
+								}}
+							/>
+						</ScorecardDataProvider>
+					</ScorecardContext>
+				</div>
+			</ScorecardStateProvider>
 		);
 	},
 };

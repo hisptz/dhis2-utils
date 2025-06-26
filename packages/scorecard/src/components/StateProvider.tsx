@@ -1,51 +1,70 @@
 import type { ScorecardConfig, ScorecardState } from "../schemas/config";
-import { type ReactNode, useCallback } from "react";
-import { MutableSnapshot, RecoilRoot, useRecoilCallback } from "recoil";
-import { scorecardStateAtom } from "../state";
-import { getInitialStateFromConfig } from "../utils";
+import { createContext, type ReactNode, useContext, useRef } from "react";
+import {
+	createScorecardViewStateEngine,
+	type ScorecardViewStateEngine,
+} from "../utils/viewState";
+import {
+	createDimensionStateEngine,
+	type DimensionStateEngine,
+} from "../utils/dimensionState";
 
 export interface ScorecardStateProviderProps {
 	initialState?: ScorecardState;
 	config: ScorecardConfig;
 	children: ReactNode;
-	withRecoilRoot?: boolean;
+}
+
+const ScorecardStateContext = createContext<{
+	options: ScorecardViewStateEngine;
+	dimension: DimensionStateEngine;
+} | null>(null);
+
+export function useScorecardViewStateEngine() {
+	const context = useContext(ScorecardStateContext);
+	if (!context) {
+		throw Error(
+			"useScorecardViewStateEngine should be used inside a Scorecard Context",
+		);
+	}
+	return context.options;
+}
+
+export function useScorecardDimensionStateEngine() {
+	const context = useContext(ScorecardStateContext);
+	if (!context) {
+		throw Error(
+			"useScorecardDimensionStateEngine should be used inside a Scorecard Context",
+		);
+	}
+	return context.dimension;
 }
 
 export function ScorecardStateProvider({
 	children,
 	initialState,
 	config,
-	withRecoilRoot,
 }: ScorecardStateProviderProps) {
-	const initState = useCallback(
-		({ set }: MutableSnapshot) => {
-			set(
-				scorecardStateAtom,
-				initialState ?? getInitialStateFromConfig(config),
-			);
-		},
-		[initialState, config],
+	const viewStateEngine = useRef<ScorecardViewStateEngine>(
+		createScorecardViewStateEngine(initialState?.options ?? config.options),
 	);
-	const initializeStateWithoutRecoil = useRecoilCallback(
-		({ set, snapshot }) =>
-			(initialState: ScorecardState) => {
-				if (
-					snapshot.getLoadable(scorecardStateAtom).contents === null
-				) {
-					set(scorecardStateAtom, initialState);
-				}
-			},
+	const dimensionStateEngine = useRef<DimensionStateEngine>(
+		createDimensionStateEngine({
+			orgUnitSelection:
+				initialState?.orgUnitSelection ?? config.orgUnitSelection,
+			periodSelection:
+				initialState?.periodSelection ?? config.periodSelection,
+		}),
 	);
 
-	if (!withRecoilRoot) {
-		initializeStateWithoutRecoil(
-			initialState ?? getInitialStateFromConfig(config),
-		);
-	}
-
-	if (withRecoilRoot) {
-		return <RecoilRoot initializeState={initState}>{children}</RecoilRoot>;
-	}
-
-	return children;
+	return (
+		<ScorecardStateContext.Provider
+			value={{
+				options: viewStateEngine.current,
+				dimension: dimensionStateEngine.current,
+			}}
+		>
+			{children}
+		</ScorecardStateContext.Provider>
+	);
 }

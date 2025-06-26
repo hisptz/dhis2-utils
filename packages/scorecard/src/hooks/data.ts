@@ -139,7 +139,7 @@ export function useGetScorecardData(dataEngine: ScorecardDataEngine) {
 				orgUnits: orgUnitsIds,
 			},
 		});
-	}, [dataEngine]);
+	}, [dataEngine, dataItemsIds, analyticsPeriod, orgUnitsIds]);
 
 	return {};
 }
