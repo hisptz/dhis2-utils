@@ -36,6 +36,18 @@ export function createScorecardViewStateEngine(
 				listener(this.options);
 			}
 		},
+		updateOptions(options: ScorecardViewOptions) {
+			this.options = {
+				...this.options,
+				...options,
+			};
+			for (const listener of this.listeners) {
+				listener.listener(options[listener.key]);
+			}
+			for (const listener of this.optionsListeners) {
+				listener(this.options);
+			}
+		},
 		addOptionListener(listener: (options: ScorecardViewOptions) => void) {
 			this.optionsListeners.push(listener);
 

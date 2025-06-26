@@ -1,5 +1,11 @@
 # @hisptz/dhis2-scorecard
 
+## 1.2.1
+
+### Patch Changes
+
+- exported view and dimension states
+
 ## 1.2.0
 
 ### Minor Changes
