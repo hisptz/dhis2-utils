@@ -35,9 +35,9 @@ export const DataValue = memo(function DataValue({
 		}
 
 		return currentValue > previousValue ? "increasing" : "decreasing";
-	}, [currentValue, dataSource.effectiveGap, showArrows]);
+	}, [currentValue, dataSource.effectiveGap, showArrows, previousValue]);
 
-	if (value) {
+	if (value && !dataSource.data.current) {
 		if (isNaN(value as number)) {
 			return "";
 		}
@@ -70,7 +70,11 @@ export const DataValue = memo(function DataValue({
 		>
 			{showArrow === "decreasing" && <IconArrowDown16 />}
 			{showArrow === "increasing" && <IconArrowUp16 />}
-			{currentValue?.toFixed(2).toString() ?? ""}
+			{bold ? (
+				<b>{currentValue?.toFixed(2).toString() ?? ""}</b>
+			) : (
+				(currentValue?.toFixed(2).toString() ?? "")
+			)}
 		</div>
 	);
 });
