@@ -20,6 +20,7 @@ export function createScorecardViewStateEngine(
 	return {
 		options: defaultOptions as ScorecardViewOptions,
 		listeners: [] as ViewOptionListener[],
+		optionsListeners: [] as Array<(options: ScorecardViewOptions) => void>,
 		updateOption(
 			key: keyof ScorecardViewOptions,
 			value: ScorecardViewOptions[keyof ScorecardViewOptions],
@@ -31,6 +32,19 @@ export function createScorecardViewStateEngine(
 			for (const listener of listeners) {
 				listener.listener(value);
 			}
+			for (const listener of this.optionsListeners) {
+				listener(this.options);
+			}
+		},
+		addOptionListener(listener: (options: ScorecardViewOptions) => void) {
+			this.optionsListeners.push(listener);
+
+			return () => {
+				this.optionsListeners = this.optionsListeners.filter(
+					(l: (options: ScorecardViewOptions) => void) =>
+						l !== listener,
+				);
+			};
 		},
 		addListener(listener: ViewOptionListener) {
 			this.listeners.push(listener);
@@ -67,6 +81,23 @@ export function useScorecardViewStateValue<
 		};
 	}, []);
 	return value;
+}
+
+export function useScorecardViewOptions() {
+	const viewEngine = useScorecardViewStateEngine();
+	const [options, setOptions] = useState<ScorecardViewOptions>(
+		viewEngine.options,
+	);
+
+	useEffect(() => {
+		const unsubscribe = viewEngine.addOptionListener(setOptions);
+
+		return () => {
+			unsubscribe();
+		};
+	}, []);
+
+	return options;
 }
 
 export function useUpdateScorecardViewState(key: keyof ScorecardViewOptions) {

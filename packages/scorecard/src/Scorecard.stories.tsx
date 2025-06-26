@@ -825,11 +825,11 @@ const config: ScorecardConfig = {
 		legend: true,
 		showHierarchy: false,
 		title: true,
-		disablePagination: true,
+		disablePagination: false,
 	},
 	orgUnitSelection: {
 		groups: [],
-		levels: ["m9lBJogzE95"],
+		levels: ["wjP19dkFeIk"],
 		orgUnits: [
 			{
 				id: "H1KlN4QIauv",
