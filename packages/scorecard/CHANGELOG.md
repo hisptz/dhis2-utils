@@ -1,5 +1,11 @@
 # @hisptz/dhis2-scorecard
 
+## 1.2.0
+
+### Minor Changes
+
+- Improvements of scorecard state management
+
 ## 1.1.10
 
 ### Patch Changes

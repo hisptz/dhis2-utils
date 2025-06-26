@@ -7,10 +7,13 @@ import { ScorecardHeader } from "../../ScorecardHeader";
 import { ScorecardLegendsView } from "../../ScorecardLegendsView";
 import { ScorecardStateProvider } from "../../StateProvider";
 import { useScorecardConfig } from "../../ConfigProvider";
-import { useRecoilValue } from "recoil";
-import { scorecardStateAtom } from "../../../state";
 import type { ScorecardState } from "../../../schemas/config";
 import "../print.css";
+import { useScorecardViewOptions } from "../../../utils/viewState";
+import {
+	useOrgUnitSelectionValue,
+	usePeriodSelectionValue,
+} from "../../../utils/dimensionState";
 
 export const ScorecardPreviewArea = memo(function ScorecardPreviewArea({
 	previewRef,
@@ -18,12 +21,15 @@ export const ScorecardPreviewArea = memo(function ScorecardPreviewArea({
 	previewRef: RefObject<HTMLDivElement>;
 }) {
 	const config = useScorecardConfig();
-	const state = useRecoilValue(scorecardStateAtom);
+	const options = useScorecardViewOptions();
+	const periodSelection = usePeriodSelectionValue();
+	const orgUnitSelection = useOrgUnitSelectionValue();
 
 	const updatedState = {
-		...(state ?? {}),
+		periodSelection,
+		orgUnitSelection,
 		options: {
-			...(state?.options ?? {}),
+			...(options ?? {}),
 			disableExpanding: true,
 			disablePagination: true,
 			printMode: true,
@@ -31,11 +37,7 @@ export const ScorecardPreviewArea = memo(function ScorecardPreviewArea({
 	} as ScorecardState;
 
 	return (
-		<ScorecardStateProvider
-			withRecoilRoot
-			initialState={updatedState}
-			config={config}
-		>
+		<ScorecardStateProvider initialState={updatedState} config={config}>
 			<div style={{ display: "none" }}>
 				<div
 					className="print-preview"

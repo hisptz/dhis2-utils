@@ -1,10 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import type { ScorecardConfig } from "./schemas/config";
-import { ScorecardContext, ScorecardPrint } from "./components";
-import { ScorecardStateProvider } from "./components/StateProvider";
+import {
+	ScorecardContext,
+	ScorecardDataProvider,
+	ScorecardPrint,
+	ScorecardStateProvider,
+} from "./components";
 import { getInitialStateFromConfig } from "./utils";
-import { ScorecardDataProvider } from "./components/DataProvider";
-import { RecoilRoot } from "recoil";
 
 const playConfig: ScorecardConfig = {
 	id: "YyeJxCBJpcz",
@@ -1472,44 +1474,42 @@ const meta: Meta<typeof ScorecardPrint> = {
 	component: ScorecardPrint,
 	decorators: (Story, context) => {
 		return (
-			<RecoilRoot>
-				<ScorecardStateProvider
-					config={config}
-					initialState={{
-						...getInitialStateFromConfig(playConfig),
-						orgUnitSelection: {
-							userOrgUnit: true,
-							userSubUnit: true,
-							userSubX2Unit: false,
-						},
-						options: {
-							...getInitialStateFromConfig(playConfig).options,
-							disableExpanding: true,
-							disablePagination: true,
-							printMode: true,
-						},
+			<ScorecardStateProvider
+				config={config}
+				initialState={{
+					...getInitialStateFromConfig(playConfig),
+					orgUnitSelection: {
+						userOrgUnit: true,
+						userSubUnit: true,
+						userSubX2Unit: false,
+					},
+					options: {
+						...getInitialStateFromConfig(playConfig).options,
+						disableExpanding: true,
+						disablePagination: true,
+						printMode: true,
+					},
+				}}
+			>
+				<div
+					style={{
+						display: "flex",
+						flexDirection: "column",
+						gap: 32,
+						width: "100%",
 					}}
 				>
-					<div
-						style={{
-							display: "flex",
-							flexDirection: "column",
-							gap: 32,
-							width: "100%",
-						}}
-					>
-						<ScorecardContext config={playConfig}>
-							<ScorecardDataProvider>
-								<Story
-									args={{
-										...context.args,
-									}}
-								/>
-							</ScorecardDataProvider>
-						</ScorecardContext>
-					</div>
-				</ScorecardStateProvider>
-			</RecoilRoot>
+					<ScorecardContext config={playConfig}>
+						<ScorecardDataProvider>
+							<Story
+								args={{
+									...context.args,
+								}}
+							/>
+						</ScorecardDataProvider>
+					</ScorecardContext>
+				</div>
+			</ScorecardStateProvider>
 		);
 	},
 };
