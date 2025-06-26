@@ -1,12 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Scorecard } from "./Scorecard";
-import type { ScorecardConfig } from "./schemas/config";
-import { ScorecardContext, ScorecardDataProvider } from "./components";
+import type { ScorecardConfig, ScorecardViewOptions } from "./schemas/config";
+import {
+	ScorecardContext,
+	ScorecardDataProvider,
+	ScorecardStateProvider,
+} from "./components";
 import { CheckboxField } from "@dhis2/ui";
-import { ScorecardStateProvider } from "./components/StateProvider";
-import { getInitialStateFromConfig } from "./utils";
-import { useScorecardStateSelector } from "./state";
 import { RecoilRoot } from "recoil";
+import {
+	useScorecardViewStateValue,
+	useUpdateScorecardViewState,
+} from "./utils/viewState";
 
 const playConfig: ScorecardConfig = {
 	id: "YyeJxCBJpcz",
@@ -820,13 +825,14 @@ const config: ScorecardConfig = {
 		legend: true,
 		showHierarchy: false,
 		title: true,
+		disablePagination: true,
 	},
 	orgUnitSelection: {
 		groups: [],
-		levels: ["P0QFTFfTl2X"],
+		levels: ["m9lBJogzE95"],
 		orgUnits: [
 			{
-				id: "GD7TowwI46c",
+				id: "H1KlN4QIauv",
 			},
 		],
 		userOrgUnit: false,
@@ -836,7 +842,7 @@ const config: ScorecardConfig = {
 	periodSelection: {
 		periods: [
 			{
-				id: "2018Q2",
+				id: "2024Q2",
 			},
 		],
 		type: "Quarterly",
@@ -1443,10 +1449,10 @@ const linkedConfig: ScorecardConfig = {
 	},
 	orgUnitSelection: {
 		groups: [],
-		levels: ["P0QFTFfTl2X"],
+		levels: ["wjP19dkFeIk"],
 		orgUnits: [
 			{
-				id: "GD7TowwI46c",
+				id: "H1KlN4QIauv",
 			},
 		],
 		userOrgUnit: false,
@@ -1464,18 +1470,24 @@ const linkedConfig: ScorecardConfig = {
 	title: "RMNCAH Score Card Revised",
 };
 
-function OptionsToggle({ name, label }: { name: string; label: string }) {
-	const [showDataInRows, setShowDataInRows] =
-		useScorecardStateSelector<boolean>(["options", name]);
+function OptionsToggle({
+	name,
+	label,
+}: {
+	name: keyof ScorecardViewOptions;
+	label: string;
+}) {
+	const updateOption = useUpdateScorecardViewState(name);
+	const value = useScorecardViewStateValue<boolean>(name);
 
 	return (
 		<CheckboxField
 			label={label}
 			value={name}
 			onChange={({ checked }) => {
-				setShowDataInRows(checked);
+				updateOption(checked);
 			}}
-			checked={showDataInRows}
+			checked={value}
 		/>
 	);
 }
@@ -1486,10 +1498,7 @@ const meta: Meta<typeof Scorecard> = {
 	decorators: (Story, context) => {
 		return (
 			<RecoilRoot>
-				<ScorecardStateProvider
-					config={config}
-					initialState={getInitialStateFromConfig(playConfig)}
-				>
+				<ScorecardStateProvider config={config}>
 					<div
 						style={{
 							maxWidth: 1600,
@@ -1524,6 +1533,14 @@ const meta: Meta<typeof Scorecard> = {
 							<OptionsToggle
 								name="itemNumber"
 								label={"Show item numbers"}
+							/>
+							<OptionsToggle
+								name="emptyRows"
+								label={"Show empty rows"}
+							/>
+							<OptionsToggle
+								name="disablePagination"
+								label={"Disable pagination"}
 							/>
 						</div>
 						<ScorecardContext config={playConfig}>

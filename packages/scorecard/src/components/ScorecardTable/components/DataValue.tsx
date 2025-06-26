@@ -1,7 +1,7 @@
 import { IconArrowDown16, IconArrowUp16 } from "@dhis2/ui";
 import { memo, useMemo } from "react";
 import type { ScorecardCellData } from "../../../schemas/config";
-import { useScorecardStateSelectorValue } from "../../../state";
+import { useScorecardViewStateValue } from "../../../utils/viewState";
 
 export const DataValue = memo(function DataValue({
 	dataSource,
@@ -12,10 +12,7 @@ export const DataValue = memo(function DataValue({
 	value?: number;
 	bold?: boolean;
 }) {
-	const showArrows = useScorecardStateSelectorValue<boolean>([
-		"options",
-		"arrows",
-	]);
+	const showArrows = useScorecardViewStateValue<boolean>("arrows");
 	const currentValue = dataSource.data.current;
 	const previousValue = dataSource.data.previous;
 	const showArrow: "decreasing" | "increasing" | undefined = useMemo(() => {
@@ -56,7 +53,7 @@ export const DataValue = memo(function DataValue({
 				{bold ? (
 					<b>{value?.toFixed(2).toString() ?? ""}</b>
 				) : (
-					value?.toFixed(2).toString() ?? ""
+					(value?.toFixed(2).toString() ?? "")
 				)}
 			</div>
 		);

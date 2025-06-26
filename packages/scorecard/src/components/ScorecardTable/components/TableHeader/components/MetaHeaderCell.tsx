@@ -6,18 +6,16 @@ import styles from "../TableHeader.module.css";
 import { FilterArea } from "./FilterArea";
 import { uid } from "@hisptz/dhis2-utils";
 import { memo, useRef } from "react";
-import { useScorecardStateSelectorValue } from "../../../../../state";
+import { useScorecardViewStateValue } from "../../../../../utils/viewState";
+import { useHasOnePeriod } from "../../../../../utils/dimensionState";
 
 function MetaHeaderCellComponent({
 	header,
 }: HeaderContext<ScorecardTableData, any>) {
 	const randomId = useRef<string>(uid());
 
-	const hasOnePeriod = useScorecardStateSelectorValue(["hasOnePeriod"]);
-	const dataInRows = useScorecardStateSelectorValue<boolean>([
-		"options",
-		"showDataInRows",
-	]);
+	const hasOnePeriod = useHasOnePeriod();
+	const dataInRows = useScorecardViewStateValue<boolean>("showDataInRows");
 
 	const rowSpan = dataInRows
 		? hasOnePeriod

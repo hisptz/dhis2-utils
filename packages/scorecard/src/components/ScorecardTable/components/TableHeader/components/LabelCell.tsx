@@ -6,9 +6,9 @@ import {
 import { DataTableCell } from "@dhis2/ui";
 import DroppableCell from "../../DroppableCell";
 import { DraggableCell } from "../../DraggableCell";
-import { useScorecardStateSelectorValue } from "../../../../../state";
 import { useMemo } from "react";
 import { isEmpty } from "lodash";
+import { useScorecardViewStateValue } from "../../../../../utils/viewState";
 
 export function LabelCellComponent(
 	props: CellContext<
@@ -21,19 +21,10 @@ export function LabelCellComponent(
 ) {
 	const data = props.getValue();
 	const size = props.cell.column.getSize();
-	const dataInRows = useScorecardStateSelectorValue<boolean>([
-		"options",
-		"showDataInRows",
-	]);
-	const showHierarchy = useScorecardStateSelectorValue<boolean>([
-		"options",
-		"showHierarchy",
-	]);
+	const dataInRows = useScorecardViewStateValue<boolean>("showDataInRows");
+	const showHierarchy = useScorecardViewStateValue<boolean>("showHierarchy");
 
-	const inPrintMode = useScorecardStateSelectorValue<boolean>([
-		"options",
-		"printMode",
-	]);
+	const inPrintMode = useScorecardViewStateValue<boolean>("printMode");
 
 	const left = useMemo(() => {
 		const index = props.row

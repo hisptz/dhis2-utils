@@ -3,12 +3,12 @@ import { SpecificTargetLegendsView } from "./components/SpecificTargetLegendsVie
 import { LegendView } from "./components/LegendView";
 import { useScorecardConfig } from "../ConfigProvider";
 import { memo } from "react";
-import { useScorecardViewOptionValue } from "../../state";
+import { useScorecardViewStateValue } from "../../utils/viewState";
 
 export const ScorecardLegendsView = memo(function ScorecardLegendsView() {
 	const config = useScorecardConfig();
 	const legendDefinitions = config!.legendDefinitions;
-	const showLegends = useScorecardViewOptionValue("legend");
+	const showLegends = useScorecardViewStateValue<boolean>("legend");
 
 	if (!showLegends) {
 		return null;

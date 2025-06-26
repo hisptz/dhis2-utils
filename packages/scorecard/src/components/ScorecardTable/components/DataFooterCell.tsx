@@ -11,7 +11,7 @@ import { useScorecardData } from "../../DataProvider";
 import { head, isEmpty, meanBy } from "lodash";
 import { CellLoader } from "./CellLoader";
 import { LinkedAverageCell, SingleAverageCell } from "./AverageCell";
-import { useScorecardStateSelectorValue } from "../../../state";
+import { useScorecardViewStateValue } from "../../../utils/viewState";
 
 function getOrgUnitAverage({
 	dataSourcesConfig,
@@ -155,10 +155,8 @@ export function DataFooterCell({
 	column,
 }: HeaderContext<ScorecardTableData, ScorecardTableCellConfig>) {
 	const size = column.getSize();
-	const showDataInRows = useScorecardStateSelectorValue<boolean>([
-		"options",
-		"showDataInRows",
-	]);
+	const showDataInRows =
+		useScorecardViewStateValue<boolean>("showDataInRows");
 	const dataSourceConfig = useMemo(() => {
 		return table
 			.getRowModel()

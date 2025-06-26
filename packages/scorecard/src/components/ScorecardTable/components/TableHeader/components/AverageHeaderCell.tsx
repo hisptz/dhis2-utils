@@ -3,18 +3,14 @@ import type { ScorecardTableData } from "../../../../../schemas/config";
 import { DataTableColumnHeader } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
 import styles from "../TableHeader.module.css";
-import { useScorecardStateSelectorValue } from "../../../../../state";
+import { useScorecardViewStateValue } from "../../../../../utils/viewState";
+import { useHasOnePeriod } from "../../../../../utils/dimensionState";
 
 export function AverageHeaderCell({
 	header,
 }: HeaderContext<ScorecardTableData, any>) {
-	const dataInRows = useScorecardStateSelectorValue<boolean>([
-		"options",
-		"showDataInRows",
-	]);
-	const hasOnePeriod = useScorecardStateSelectorValue<boolean>([
-		"hasOnePeriod",
-	]);
+	const dataInRows = useScorecardViewStateValue<boolean>("showDataInRows");
+	const hasOnePeriod = useHasOnePeriod();
 	const rowSpan = dataInRows
 		? hasOnePeriod
 			? "2"

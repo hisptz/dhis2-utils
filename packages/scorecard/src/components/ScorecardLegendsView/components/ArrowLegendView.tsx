@@ -1,9 +1,9 @@
 import { IconArrowDown24, IconArrowUp24 } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
-import { useScorecardViewOptionValue } from "../../../state";
+import { useScorecardViewStateValue } from "../../../utils/viewState";
 
-export function ArrowLegendsView(props: any) {
-	const showArrows = useScorecardViewOptionValue("arrows");
+export function ArrowLegendsView() {
+	const showArrows = useScorecardViewStateValue<boolean>("arrows");
 
 	if (!showArrows) {
 		return null;

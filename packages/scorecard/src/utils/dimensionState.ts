@@ -1,0 +1,145 @@
+import type { OrgUnitSelection, PeriodSelection } from "../schemas/config";
+import { useScorecardDimensionStateEngine } from "../components";
+import { useEffect, useState } from "react";
+
+export type DimensionState = {
+	orgUnitSelection: OrgUnitSelection;
+	periodSelection: PeriodSelection;
+};
+export type OrgUnitListener = {
+	type: "orgUnit";
+	listener: (orgUnitSelection: OrgUnitSelection) => void;
+};
+export type PeriodListener = {
+	type: "period";
+	listener: (periodSelection: PeriodSelection) => void;
+};
+export type AllDimensionListener = {
+	type: "all";
+	listener: (dimensionState: DimensionState) => void;
+};
+export type DimensionListener =
+	| OrgUnitListener
+	| PeriodListener
+	| AllDimensionListener;
+
+export type DimensionStateEngine = ReturnType<
+	typeof createDimensionStateEngine
+>;
+
+export function createDimensionStateEngine({
+	orgUnitSelection,
+	periodSelection,
+}: DimensionState) {
+	return {
+		orgUnitSelection,
+		periodSelection,
+		listeners: [] as DimensionListener[],
+		addListener(listener: DimensionListener) {
+			this.listeners.push(listener);
+			return () => {
+				this.listeners = this.listeners.filter(
+					(l: DimensionListener) => l !== listener,
+				);
+			};
+		},
+		removeListener(listener: DimensionListener) {
+			this.listeners = this.listeners.filter(
+				(l: DimensionListener) => l !== listener,
+			);
+		},
+		update({ orgUnitSelection, periodSelection }: DimensionState) {
+			this.orgUnitSelection = orgUnitSelection;
+			this.periodSelection = periodSelection;
+			for (const listener of this.listeners) {
+				if (listener.type === "orgUnit") {
+					listener.listener(orgUnitSelection);
+				}
+				if (listener.type === "period") {
+					listener.listener(periodSelection);
+				}
+				if (listener.type === "all") {
+					listener.listener({
+						orgUnitSelection,
+						periodSelection,
+					});
+				}
+			}
+		},
+	};
+}
+
+export function useUpdateDimensionState() {
+	const dimensionEngine = useScorecardDimensionStateEngine();
+	return dimensionEngine.update.bind(dimensionEngine);
+}
+
+export function usePeriodSelectionValue() {
+	const dimensionEngine = useScorecardDimensionStateEngine();
+	const [periodSelection, setPeriodSelection] = useState<PeriodSelection>(
+		dimensionEngine.periodSelection,
+	);
+
+	useEffect(() => {
+		const unsubscribe = dimensionEngine.addListener({
+			type: "period",
+			listener: (periodSelection) => {
+				setPeriodSelection(periodSelection);
+			},
+		});
+
+		return () => {
+			unsubscribe();
+		};
+	}, []);
+
+	return periodSelection;
+}
+
+export function useHasOnePeriod() {
+	const periodSelection = usePeriodSelectionValue();
+	return periodSelection.periods.length === 1;
+}
+
+export function useOrgUnitSelectionValue() {
+	const dimensionEngine = useScorecardDimensionStateEngine();
+	const [orgUnitSelection, setOrgUnitSelection] = useState<OrgUnitSelection>(
+		dimensionEngine.orgUnitSelection,
+	);
+
+	useEffect(() => {
+		const unsubscribe = dimensionEngine.addListener({
+			type: "orgUnit",
+			listener: (periodSelection) => {
+				setOrgUnitSelection(periodSelection);
+			},
+		});
+
+		return () => {
+			unsubscribe();
+		};
+	}, []);
+
+	return orgUnitSelection;
+}
+
+export function useDimensionStateValue() {
+	const dimensionEngine = useScorecardDimensionStateEngine();
+	const [dimensions, setDimensions] = useState<DimensionState>({
+		orgUnitSelection: dimensionEngine.orgUnitSelection,
+		periodSelection: dimensionEngine.periodSelection,
+	});
+	useEffect(() => {
+		const unsubscribe = dimensionEngine.addListener({
+			type: "all",
+			listener: (dimensions) => {
+				setDimensions(dimensions);
+			},
+		});
+
+		return () => {
+			unsubscribe();
+		};
+	}, []);
+	return dimensions;
+}
