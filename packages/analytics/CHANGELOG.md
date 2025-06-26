@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.1.10
+
+### Patch Changes
+
+- Exported map utils
+
 ## 2.1.9
 
 ### Patch Changes
