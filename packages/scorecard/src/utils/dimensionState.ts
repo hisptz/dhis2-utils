@@ -66,12 +66,53 @@ export function createDimensionStateEngine({
 				}
 			}
 		},
+		updatePeriodSelection(periodSelection: PeriodSelection) {
+			this.periodSelection = periodSelection;
+			for (const listener of this.listeners) {
+				if (listener.type === "period") {
+					listener.listener(periodSelection);
+				}
+				if (listener.type === "all") {
+					listener.listener({
+						orgUnitSelection: this.orgUnitSelection,
+						periodSelection,
+					});
+				}
+			}
+		},
+		updateOrgUnitSelection(orgUnitSelection: OrgUnitSelection) {
+			this.orgUnitSelection = orgUnitSelection;
+			for (const listener of this.listeners) {
+				if (listener.type === "orgUnit") {
+					listener.listener(orgUnitSelection);
+				}
+				if (listener.type === "all") {
+					listener.listener({
+						orgUnitSelection: orgUnitSelection,
+						periodSelection: this.periodSelection,
+					});
+				}
+			}
+		},
 	};
 }
 
-export function useUpdateDimensionState() {
+export function useUpdateDimensionState(type: "orgUnit" | "period" | "all") {
 	const dimensionEngine = useScorecardDimensionStateEngine();
-	return dimensionEngine.update.bind(dimensionEngine);
+	return (value: OrgUnitSelection | PeriodSelection | DimensionState) => {
+		switch (type) {
+			case "orgUnit":
+				dimensionEngine.updateOrgUnitSelection(
+					value as OrgUnitSelection,
+				);
+				break;
+			case "period":
+				dimensionEngine.updatePeriodSelection(value as PeriodSelection);
+				break;
+			case "all":
+				dimensionEngine.update(value as DimensionState);
+		}
+	};
 }
 
 export function usePeriodSelectionValue() {
@@ -121,25 +162,4 @@ export function useOrgUnitSelectionValue() {
 	}, []);
 
 	return orgUnitSelection;
-}
-
-export function useDimensionStateValue() {
-	const dimensionEngine = useScorecardDimensionStateEngine();
-	const [dimensions, setDimensions] = useState<DimensionState>({
-		orgUnitSelection: dimensionEngine.orgUnitSelection,
-		periodSelection: dimensionEngine.periodSelection,
-	});
-	useEffect(() => {
-		const unsubscribe = dimensionEngine.addListener({
-			type: "all",
-			listener: (dimensions) => {
-				setDimensions(dimensions);
-			},
-		});
-
-		return () => {
-			unsubscribe();
-		};
-	}, []);
-	return dimensions;
 }

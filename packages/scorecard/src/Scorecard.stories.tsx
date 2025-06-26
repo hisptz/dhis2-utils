@@ -6,12 +6,19 @@ import {
 	ScorecardDataProvider,
 	ScorecardStateProvider,
 } from "./components";
-import { CheckboxField } from "@dhis2/ui";
-import { RecoilRoot } from "recoil";
+import { Button, ButtonStrip, CheckboxField } from "@dhis2/ui";
 import {
 	useScorecardViewStateValue,
 	useUpdateScorecardViewState,
 } from "./utils/viewState";
+import {
+	useOrgUnitSelectionValue,
+	usePeriodSelectionValue,
+	useUpdateDimensionState,
+} from "./utils/dimensionState";
+import { useState } from "react";
+import { OrgUnitSelectorModal, PeriodSelectorModal } from "@hisptz/dhis2-ui";
+import i18n from "@dhis2/d2-i18n";
 
 const playConfig: ScorecardConfig = {
 	id: "YyeJxCBJpcz",
@@ -1492,74 +1499,134 @@ function OptionsToggle({
 	);
 }
 
+function PeriodSelector() {
+	const periodSelection = usePeriodSelectionValue();
+	const updatePeriodSelection = useUpdateDimensionState("period");
+	const [open, setOpen] = useState<boolean>(false);
+
+	return (
+		<>
+			{open && (
+				<PeriodSelectorModal
+					hide={!open}
+					onUpdate={(value: string[]) => {
+						updatePeriodSelection({
+							periods: value.map((id) => ({ id })),
+						});
+						setOpen(false);
+					}}
+					position="middle"
+					defaultInputType="period"
+					enablePeriodSelector
+					selectedPeriods={periodSelection.periods.map(
+						({ id }) => id,
+					)}
+					onClose={() => setOpen(false)}
+				/>
+			)}
+			<Button onClick={() => setOpen(true)}>
+				{i18n.t("Update period")}
+			</Button>
+		</>
+	);
+}
+
+function OrgUnitSelector() {
+	const orgUnitSelection = useOrgUnitSelectionValue();
+	const updateOrgUnitSelection = useUpdateDimensionState("orgUnit");
+	const [open, setOpen] = useState<boolean>(false);
+
+	return (
+		<>
+			{open && (
+				<OrgUnitSelectorModal
+					hide={!open}
+					onUpdate={(value) => {
+						updateOrgUnitSelection(value);
+						setOpen(false);
+					}}
+					position="middle"
+					showGroups
+					showLevels
+					showUserOptions
+					value={orgUnitSelection}
+					onClose={() => setOpen(false)}
+				/>
+			)}
+			<Button onClick={() => setOpen(true)}>
+				{i18n.t("Update org unit")}
+			</Button>
+		</>
+	);
+}
+
 const meta: Meta<typeof Scorecard> = {
 	title: "Scorecard",
 	component: Scorecard,
 	decorators: (Story, context) => {
 		return (
-			<RecoilRoot>
-				<ScorecardStateProvider config={config}>
-					<div
-						style={{
-							maxWidth: 1600,
-							display: "flex",
-							flexDirection: "column",
-							gap: 32,
-							height: "60vh",
-							width: "100%",
-						}}
-					>
-						<div style={{ display: "flex", gap: 16 }}>
-							<OptionsToggle
-								name="showDataInRows"
-								label={"Show data in rows"}
-							/>
-							<OptionsToggle
-								name="arrows"
-								label={"Show arrows"}
-							/>
-							<OptionsToggle
-								name="showHierarchy"
-								label={"Show hierarchy"}
-							/>
-							<OptionsToggle
-								name="averageColumn"
-								label={"Show average column"}
-							/>
-							<OptionsToggle
-								name="averageRow"
-								label={"Show average row"}
-							/>
-							<OptionsToggle
-								name="itemNumber"
-								label={"Show item numbers"}
-							/>
-							<OptionsToggle
-								name="emptyRows"
-								label={"Show empty rows"}
-							/>
-							<OptionsToggle
-								name="disablePagination"
-								label={"Disable pagination"}
-							/>
-						</div>
-						<ScorecardContext config={playConfig}>
-							<ScorecardDataProvider>
-								<Story
-									args={{
-										...context.args,
-										tableProps: {
-											scrollHeight: "800px",
-											scrollWidth: "1600px",
-											width: "1600px",
-										},
-									}}
-								/>
-							</ScorecardDataProvider>
-						</ScorecardContext>
+			<ScorecardStateProvider config={config}>
+				<div
+					style={{
+						maxWidth: 1600,
+						display: "flex",
+						flexDirection: "column",
+						gap: 32,
+						height: "60vh",
+						width: "100%",
+					}}
+				>
+					<ButtonStrip>
+						<PeriodSelector />
+						<OrgUnitSelector />
+					</ButtonStrip>
+					<div style={{ display: "flex", gap: 16 }}>
+						<OptionsToggle
+							name="showDataInRows"
+							label={"Show data in rows"}
+						/>
+						<OptionsToggle name="arrows" label={"Show arrows"} />
+						<OptionsToggle
+							name="showHierarchy"
+							label={"Show hierarchy"}
+						/>
+						<OptionsToggle
+							name="averageColumn"
+							label={"Show average column"}
+						/>
+						<OptionsToggle
+							name="averageRow"
+							label={"Show average row"}
+						/>
+						<OptionsToggle
+							name="itemNumber"
+							label={"Show item numbers"}
+						/>
+						<OptionsToggle
+							name="emptyRows"
+							label={"Show empty rows"}
+						/>
+						<OptionsToggle
+							name="disablePagination"
+							label={"Disable pagination"}
+						/>
 					</div>
-				</ScorecardStateProvider>
-			</RecoilRoot>
+					<ScorecardContext config={playConfig}>
+						<ScorecardDataProvider>
+							<Story
+								args={{
+									...context.args,
+									tableProps: {
+										scrollHeight: "800px",
+										scrollWidth: "1600px",
+										width: "1600px",
+									},
+								}}
+							/>
+						</ScorecardDataProvider>
+					</ScorecardContext>
+				</div>
+			</ScorecardStateProvider>
 		);
 	},
 };
