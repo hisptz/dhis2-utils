@@ -1,5 +1,11 @@
 # @hisptz/dhis2-scorecard
 
+## 1.2.2
+
+### Patch Changes
+
+- Added update options in viewEngine
+
 ## 1.2.1
 
 ### Patch Changes
