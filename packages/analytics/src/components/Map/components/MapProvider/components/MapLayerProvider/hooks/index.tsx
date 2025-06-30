@@ -481,6 +481,7 @@ export function useGoogleEngineLayers() {
 					}),
 				);
 			} catch (e: any) {
+				console.log(e);
 				console.error(`Error getting thematic layers`, e.details);
 				return [];
 			}
