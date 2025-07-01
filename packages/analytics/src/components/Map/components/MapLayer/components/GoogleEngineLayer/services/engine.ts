@@ -15,11 +15,13 @@ import {
 import { find, head, isEmpty } from "lodash";
 
 //@ts-expect-error earth engine does not have types
-import * as EE from "@google/earthengine";
+import EE from "./api";
 // @ts-ignore
 const ee = EE as any;
 // @ts-ignore
 window.ee = ee;
+
+console.log(ee.data);
 
 const FEATURE_STYLE = { color: "FFA500", strokeWidth: 2 };
 const DEFAULT_TILE_SCALE = 1;

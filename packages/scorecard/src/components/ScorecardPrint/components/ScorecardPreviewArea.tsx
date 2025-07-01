@@ -9,11 +9,11 @@ import { ScorecardStateProvider } from "../../StateProvider";
 import { useScorecardConfig } from "../../ConfigProvider";
 import type { ScorecardState } from "../../../schemas/config";
 import "../print.css";
-import { useScorecardViewOptions } from "../../../utils/viewState";
 import {
 	useOrgUnitSelectionValue,
 	usePeriodSelectionValue,
-} from "../../../utils/dimensionState";
+	useScorecardViewOptions,
+} from "../../../utils";
 
 export const ScorecardPreviewArea = memo(function ScorecardPreviewArea({
 	previewRef,

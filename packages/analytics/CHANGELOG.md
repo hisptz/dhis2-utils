@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.1.11
+
+### Patch Changes
+
+- Fixes on earth engine map
+
 ## 2.1.10
 
 ### Patch Changes
