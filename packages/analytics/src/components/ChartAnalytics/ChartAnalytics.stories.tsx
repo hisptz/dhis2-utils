@@ -37,28 +37,28 @@ export const Default: Story = {
 						name: "Invalid"
 					},
 					{
-						startValue: 101,
+						startValue: 100,
 						endValue: 200,
 						color: "#0011FF",
 						id: "ee8QJxth4ul",
 						name: "Overstock"
 					},
 					{
-						startValue: 201,
+						startValue: 200,
 						endValue: 300,
 						color: "#EE391E",
 						id: "fFBIEwglorN",
 						name: "Stock out"
 					},
 					{
-						startValue: 301,
+						startValue: 300,
 						endValue: 400,
 						color: "#0BFF00",
 						id: "mmvDbIcm41d",
 						name: "Adequate stock"
 					},
 					{
-						startValue: 401,
+						startValue: 400,
 						endValue: 500,
 						color: "#FEFB08",
 						id: "wAdm1fy3Fmk",
@@ -94,28 +94,28 @@ export const Bar: Story = {
 						name: "Invalid"
 					},
 					{
-						startValue: 101,
+						startValue: 100,
 						endValue: 200,
 						color: "#0011FF",
 						id: "ee8QJxth4ul",
 						name: "Overstock"
 					},
 					{
-						startValue: 201,
+						startValue: 200,
 						endValue: 300,
 						color: "#EE391E",
 						id: "fFBIEwglorN",
 						name: "Stock out"
 					},
 					{
-						startValue: 301,
+						startValue: 300,
 						endValue: 400,
 						color: "#0BFF00",
 						id: "mmvDbIcm41d",
 						name: "Adequate stock"
 					},
 					{
-						startValue: 401,
+						startValue: 400,
 						endValue: 500,
 						color: "#FEFB08",
 						id: "wAdm1fy3Fmk",
@@ -150,28 +150,28 @@ export const MultipleColumns: Story = {
 						name: "Invalid"
 					},
 					{
-						startValue: 101,
+						startValue: 100,
 						endValue: 200,
 						color: "#0011FF",
 						id: "ee8QJxth4ul",
 						name: "Overstock"
 					},
 					{
-						startValue: 201,
+						startValue: 200,
 						endValue: 300,
 						color: "#EE391E",
 						id: "fFBIEwglorN",
 						name: "Stock out"
 					},
 					{
-						startValue: 301,
+						startValue: 300,
 						endValue: 400,
 						color: "#0BFF00",
 						id: "mmvDbIcm41d",
 						name: "Adequate stock"
 					},
 					{
-						startValue: 401,
+						startValue: 400,
 						endValue: 500,
 						color: "#FEFB08",
 						id: "wAdm1fy3Fmk",
@@ -207,28 +207,28 @@ export const StackedColumn: Story = {
 						name: "Invalid"
 					},
 					{
-						startValue: 101,
+						startValue: 100,
 						endValue: 200,
 						color: "#0011FF",
 						id: "ee8QJxth4ul",
 						name: "Overstock"
 					},
 					{
-						startValue: 201,
+						startValue: 200,
 						endValue: 300,
 						color: "#EE391E",
 						id: "fFBIEwglorN",
 						name: "Stock out"
 					},
 					{
-						startValue: 301,
+						startValue: 300,
 						endValue: 400,
 						color: "#0BFF00",
 						id: "mmvDbIcm41d",
 						name: "Adequate stock"
 					},
 					{
-						startValue: 401,
+						startValue: 400,
 						endValue: 500,
 						color: "#FEFB08",
 						id: "wAdm1fy3Fmk",
@@ -263,28 +263,28 @@ export const StackedBar: Story = {
 						name: "Invalid"
 					},
 					{
-						startValue: 101,
+						startValue: 100,
 						endValue: 200,
 						color: "#0011FF",
 						id: "ee8QJxth4ul",
 						name: "Overstock"
 					},
 					{
-						startValue: 201,
+						startValue: 200,
 						endValue: 300,
 						color: "#EE391E",
 						id: "fFBIEwglorN",
 						name: "Stock out"
 					},
 					{
-						startValue: 301,
+						startValue: 300,
 						endValue: 400,
 						color: "#0BFF00",
 						id: "mmvDbIcm41d",
 						name: "Adequate stock"
 					},
 					{
-						startValue: 401,
+						startValue: 400,
 						endValue: 500,
 						color: "#FEFB08",
 						id: "wAdm1fy3Fmk",
