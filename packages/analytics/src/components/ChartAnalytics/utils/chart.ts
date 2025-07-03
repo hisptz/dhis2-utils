@@ -16,6 +16,7 @@ import { DHIS2GaugeChart } from "../models/gauge";
 import { DHIS2AreaChart, DHISStackedAreaChart } from "../models/area";
 import { DHIS2RadarChart } from "../models/radar";
 import { DHIS2ScatterChart } from "../models/scatter";
+import type { Options } from "highcharts";
 
 export function getDimensionHeaderIndex(
 	headers: AnalyticsHeader[],
@@ -187,42 +188,38 @@ export function getLegendColorFromValue({
 
 
 
-export function updateSeries(	config: ChartConfig){
-	const updatedSeries = { ...config.series };
+
+export function updateChartOptions(config: ChartConfig) {
 	const legendSet = config.legendSet;
 	if (legendSet) {
-		set(
-			updatedSeries,
-			"series",
-			updatedSeries?.map((series) => {
-				return {
+		config.highChartOverrides = (options: Options): Partial<Options> => {
+			const updatedOptions = { ...options };
+			set(
+				updatedOptions,
+				"series",
+				updatedOptions.series?.map((series) => ({
 					...series,
 					color: "#FFFFFF",
 					// @ts-ignore
-					data: series.data.map(
-						(data: number, index: number) => {
-							const color =
-								getLegendColorFromValue({
-									legendSet,
-									value: data,
-								});
-							return {
-								x: index,
-								y: data,
-								value: data,
-								color: color,
-							};
-						},
-					),
-				};
-			}),
-		);
+					data: series.data.map((data: number, index: number) => {
+						const color = getLegendColorFromValue({
+							legendSet,
+							value: data,
+						});
+						return {
+							x: index,
+							y: data,
+							value: data,
+							color: color,
+						};
+					}),
+				}))
+			);
+			return updatedOptions;
+		};
 	}
-
-	return updatedSeries;
-
+	return config;
 }
-
 export function getChartInstance(
 	id: string,
 	analytics: Analytics,

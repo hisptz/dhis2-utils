@@ -27,6 +27,47 @@ export const Default: Story = {
 				category: ["ou"],
 				filter: ["pe"],
 			},
+			legendSet:{
+				legends: [
+					{
+						startValue: 0,
+						endValue: 100,
+						color: "#DC00FF",
+						id: "wfbGANgbnMR",
+						name: "Invalid"
+					},
+					{
+						startValue: 101,
+						endValue: 200,
+						color: "#0011FF",
+						id: "ee8QJxth4ul",
+						name: "Overstock"
+					},
+					{
+						startValue: 201,
+						endValue: 300,
+						color: "#EE391E",
+						id: "fFBIEwglorN",
+						name: "Stock out"
+					},
+					{
+						startValue: 301,
+						endValue: 400,
+						color: "#0BFF00",
+						id: "mmvDbIcm41d",
+						name: "Adequate stock"
+					},
+					{
+						startValue: 401,
+						endValue: 500,
+						color: "#FEFB08",
+						id: "wAdm1fy3Fmk",
+						name: "Understock"
+					}
+				],
+				id: "f1hWZIYCTzc",
+				name: "Stock coverage time"
+			},
 			showFilterAsTitle: true,
 			type: "column",
 		},
@@ -43,6 +84,47 @@ export const Bar: Story = {
 				category: ["ou"],
 				filter: ["pe"],
 			},
+			legendSet:{
+				legends: [
+					{
+						startValue: 0,
+						endValue: 100,
+						color: "#DC00FF",
+						id: "wfbGANgbnMR",
+						name: "Invalid"
+					},
+					{
+						startValue: 101,
+						endValue: 200,
+						color: "#0011FF",
+						id: "ee8QJxth4ul",
+						name: "Overstock"
+					},
+					{
+						startValue: 201,
+						endValue: 300,
+						color: "#EE391E",
+						id: "fFBIEwglorN",
+						name: "Stock out"
+					},
+					{
+						startValue: 301,
+						endValue: 400,
+						color: "#0BFF00",
+						id: "mmvDbIcm41d",
+						name: "Adequate stock"
+					},
+					{
+						startValue: 401,
+						endValue: 500,
+						color: "#FEFB08",
+						id: "wAdm1fy3Fmk",
+						name: "Understock"
+					}
+				],
+				id: "f1hWZIYCTzc",
+				name: "Stock coverage time"
+			},
 			showFilterAsTitle: true,
 			type: "bar",
 		},
@@ -57,6 +139,47 @@ export const MultipleColumns: Story = {
 				series: ["ou"],
 				category: ["pe"],
 				filter: ["dx"],
+			},
+			legendSet:{
+				legends: [
+					{
+						startValue: 0,
+						endValue: 100,
+						color: "#DC00FF",
+						id: "wfbGANgbnMR",
+						name: "Invalid"
+					},
+					{
+						startValue: 101,
+						endValue: 200,
+						color: "#0011FF",
+						id: "ee8QJxth4ul",
+						name: "Overstock"
+					},
+					{
+						startValue: 201,
+						endValue: 300,
+						color: "#EE391E",
+						id: "fFBIEwglorN",
+						name: "Stock out"
+					},
+					{
+						startValue: 301,
+						endValue: 400,
+						color: "#0BFF00",
+						id: "mmvDbIcm41d",
+						name: "Adequate stock"
+					},
+					{
+						startValue: 401,
+						endValue: 500,
+						color: "#FEFB08",
+						id: "wAdm1fy3Fmk",
+						name: "Understock"
+					}
+				],
+				id: "f1hWZIYCTzc",
+				name: "Stock coverage time"
 			},
 			showFilterAsTitle: true,
 			type: "column",
@@ -74,6 +197,47 @@ export const StackedColumn: Story = {
 				category: ["pe"],
 				filter: ["dx"],
 			},
+			legendSet:{
+				legends: [
+					{
+						startValue: 0,
+						endValue: 100,
+						color: "#DC00FF",
+						id: "wfbGANgbnMR",
+						name: "Invalid"
+					},
+					{
+						startValue: 101,
+						endValue: 200,
+						color: "#0011FF",
+						id: "ee8QJxth4ul",
+						name: "Overstock"
+					},
+					{
+						startValue: 201,
+						endValue: 300,
+						color: "#EE391E",
+						id: "fFBIEwglorN",
+						name: "Stock out"
+					},
+					{
+						startValue: 301,
+						endValue: 400,
+						color: "#0BFF00",
+						id: "mmvDbIcm41d",
+						name: "Adequate stock"
+					},
+					{
+						startValue: 401,
+						endValue: 500,
+						color: "#FEFB08",
+						id: "wAdm1fy3Fmk",
+						name: "Understock"
+					}
+				],
+				id: "f1hWZIYCTzc",
+				name: "Stock coverage time"
+			},
 			showFilterAsTitle: true,
 			type: "stacked-column",
 		},
@@ -88,6 +252,47 @@ export const StackedBar: Story = {
 				series: ["ou"],
 				category: ["pe"],
 				filter: ["dx"],
+			},
+			legendSet:{
+				legends: [
+					{
+						startValue: 0,
+						endValue: 100,
+						color: "#DC00FF",
+						id: "wfbGANgbnMR",
+						name: "Invalid"
+					},
+					{
+						startValue: 101,
+						endValue: 200,
+						color: "#0011FF",
+						id: "ee8QJxth4ul",
+						name: "Overstock"
+					},
+					{
+						startValue: 201,
+						endValue: 300,
+						color: "#EE391E",
+						id: "fFBIEwglorN",
+						name: "Stock out"
+					},
+					{
+						startValue: 301,
+						endValue: 400,
+						color: "#0BFF00",
+						id: "mmvDbIcm41d",
+						name: "Adequate stock"
+					},
+					{
+						startValue: 401,
+						endValue: 500,
+						color: "#FEFB08",
+						id: "wAdm1fy3Fmk",
+						name: "Understock"
+					}
+				],
+				id: "f1hWZIYCTzc",
+				name: "Stock coverage time"
 			},
 			showFilterAsTitle: true,
 			type: "stacked-bar",
