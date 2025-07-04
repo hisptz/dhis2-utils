@@ -27,46 +27,62 @@ export const Default: Story = {
 				category: ["ou"],
 				filter: ["pe"],
 			},
-			legendSet:{
+
+			showFilterAsTitle: true,
+			type: "column",
+		},
+	},
+};
+export const ColumnWithLegendSet: Story = {
+	name: "Column with legend set",
+	args: {
+		analytics: columnData as unknown as Analytics,
+		config: {
+			layout: {
+				series: ["dx"],
+				category: ["ou"],
+				filter: ["pe"],
+			},
+			legendSet: {
 				legends: [
 					{
 						startValue: 0,
 						endValue: 100,
 						color: "#DC00FF",
 						id: "wfbGANgbnMR",
-						name: "Invalid"
+						name: "Invalid",
 					},
 					{
 						startValue: 100,
 						endValue: 200,
 						color: "#0011FF",
 						id: "ee8QJxth4ul",
-						name: "Overstock"
+						name: "Overstock",
 					},
 					{
 						startValue: 200,
 						endValue: 300,
 						color: "#EE391E",
 						id: "fFBIEwglorN",
-						name: "Stock out"
+						name: "Stock out",
 					},
 					{
 						startValue: 300,
 						endValue: 400,
 						color: "#0BFF00",
 						id: "mmvDbIcm41d",
-						name: "Adequate stock"
+						name: "Adequate stock",
 					},
 					{
 						startValue: 400,
 						endValue: 500,
 						color: "#FEFB08",
 						id: "wAdm1fy3Fmk",
-						name: "Understock"
-					}
+						name: "Understock",
+					},
 				],
 				id: "f1hWZIYCTzc",
-				name: "Stock coverage time"
+				name: "Stock coverage time",
 			},
 			showFilterAsTitle: true,
 			type: "column",
@@ -84,46 +100,61 @@ export const Bar: Story = {
 				category: ["ou"],
 				filter: ["pe"],
 			},
-			legendSet:{
+			showFilterAsTitle: true,
+			type: "bar",
+		},
+	},
+};
+export const BarWithLegendSet: Story = {
+	name: "Bar with legend set",
+	args: {
+		analytics: columnData as any,
+		config: {
+			layout: {
+				series: ["dx"],
+				category: ["ou"],
+				filter: ["pe"],
+			},
+			legendSet: {
 				legends: [
 					{
 						startValue: 0,
 						endValue: 100,
 						color: "#DC00FF",
 						id: "wfbGANgbnMR",
-						name: "Invalid"
+						name: "Invalid",
 					},
 					{
 						startValue: 100,
 						endValue: 200,
 						color: "#0011FF",
 						id: "ee8QJxth4ul",
-						name: "Overstock"
+						name: "Overstock",
 					},
 					{
 						startValue: 200,
 						endValue: 300,
 						color: "#EE391E",
 						id: "fFBIEwglorN",
-						name: "Stock out"
+						name: "Stock out",
 					},
 					{
 						startValue: 300,
 						endValue: 400,
 						color: "#0BFF00",
 						id: "mmvDbIcm41d",
-						name: "Adequate stock"
+						name: "Adequate stock",
 					},
 					{
 						startValue: 400,
 						endValue: 500,
 						color: "#FEFB08",
 						id: "wAdm1fy3Fmk",
-						name: "Understock"
-					}
+						name: "Understock",
+					},
 				],
 				id: "f1hWZIYCTzc",
-				name: "Stock coverage time"
+				name: "Stock coverage time",
 			},
 			showFilterAsTitle: true,
 			type: "bar",
@@ -140,46 +171,61 @@ export const MultipleColumns: Story = {
 				category: ["pe"],
 				filter: ["dx"],
 			},
-			legendSet:{
+			showFilterAsTitle: true,
+			type: "column",
+		},
+	},
+};
+export const MultipleColumnsWithLegendSet: Story = {
+	name: "Multiple columns with legend set",
+	args: {
+		analytics: multiSeriesData as any,
+		config: {
+			layout: {
+				series: ["ou"],
+				category: ["pe"],
+				filter: ["dx"],
+			},
+			legendSet: {
 				legends: [
 					{
 						startValue: 0,
 						endValue: 100,
 						color: "#DC00FF",
 						id: "wfbGANgbnMR",
-						name: "Invalid"
+						name: "Invalid",
 					},
 					{
 						startValue: 100,
 						endValue: 200,
 						color: "#0011FF",
 						id: "ee8QJxth4ul",
-						name: "Overstock"
+						name: "Overstock",
 					},
 					{
 						startValue: 200,
 						endValue: 300,
 						color: "#EE391E",
 						id: "fFBIEwglorN",
-						name: "Stock out"
+						name: "Stock out",
 					},
 					{
 						startValue: 300,
 						endValue: 400,
 						color: "#0BFF00",
 						id: "mmvDbIcm41d",
-						name: "Adequate stock"
+						name: "Adequate stock",
 					},
 					{
 						startValue: 400,
 						endValue: 500,
 						color: "#FEFB08",
 						id: "wAdm1fy3Fmk",
-						name: "Understock"
-					}
+						name: "Understock",
+					},
 				],
 				id: "f1hWZIYCTzc",
-				name: "Stock coverage time"
+				name: "Stock coverage time",
 			},
 			showFilterAsTitle: true,
 			type: "column",
@@ -197,46 +243,46 @@ export const StackedColumn: Story = {
 				category: ["pe"],
 				filter: ["dx"],
 			},
-			legendSet:{
+			legendSet: {
 				legends: [
 					{
 						startValue: 0,
 						endValue: 100,
 						color: "#DC00FF",
 						id: "wfbGANgbnMR",
-						name: "Invalid"
+						name: "Invalid",
 					},
 					{
 						startValue: 100,
 						endValue: 200,
 						color: "#0011FF",
 						id: "ee8QJxth4ul",
-						name: "Overstock"
+						name: "Overstock",
 					},
 					{
 						startValue: 200,
 						endValue: 300,
 						color: "#EE391E",
 						id: "fFBIEwglorN",
-						name: "Stock out"
+						name: "Stock out",
 					},
 					{
 						startValue: 300,
 						endValue: 400,
 						color: "#0BFF00",
 						id: "mmvDbIcm41d",
-						name: "Adequate stock"
+						name: "Adequate stock",
 					},
 					{
 						startValue: 400,
 						endValue: 500,
 						color: "#FEFB08",
 						id: "wAdm1fy3Fmk",
-						name: "Understock"
-					}
+						name: "Understock",
+					},
 				],
 				id: "f1hWZIYCTzc",
-				name: "Stock coverage time"
+				name: "Stock coverage time",
 			},
 			showFilterAsTitle: true,
 			type: "stacked-column",
@@ -253,46 +299,46 @@ export const StackedBar: Story = {
 				category: ["pe"],
 				filter: ["dx"],
 			},
-			legendSet:{
+			legendSet: {
 				legends: [
 					{
 						startValue: 0,
 						endValue: 100,
 						color: "#DC00FF",
 						id: "wfbGANgbnMR",
-						name: "Invalid"
+						name: "Invalid",
 					},
 					{
 						startValue: 100,
 						endValue: 200,
 						color: "#0011FF",
 						id: "ee8QJxth4ul",
-						name: "Overstock"
+						name: "Overstock",
 					},
 					{
 						startValue: 200,
 						endValue: 300,
 						color: "#EE391E",
 						id: "fFBIEwglorN",
-						name: "Stock out"
+						name: "Stock out",
 					},
 					{
 						startValue: 300,
 						endValue: 400,
 						color: "#0BFF00",
 						id: "mmvDbIcm41d",
-						name: "Adequate stock"
+						name: "Adequate stock",
 					},
 					{
 						startValue: 400,
 						endValue: 500,
 						color: "#FEFB08",
 						id: "wAdm1fy3Fmk",
-						name: "Understock"
-					}
+						name: "Understock",
+					},
 				],
 				id: "f1hWZIYCTzc",
-				name: "Stock coverage time"
+				name: "Stock coverage time",
 			},
 			showFilterAsTitle: true,
 			type: "stacked-bar",
