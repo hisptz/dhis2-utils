@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.1.13
+
+### Patch Changes
+
+- Chart visualization fixes
+
 ## 2.1.12
 
 ### Patch Changes
