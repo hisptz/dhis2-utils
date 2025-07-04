@@ -89,6 +89,82 @@ export const ColumnWithLegendSet: Story = {
 		},
 	},
 };
+export const ColumnWithLegendSetPerItem: Story = {
+	name: "Column with legend set per data item",
+	args: {
+		analytics: columnData as unknown as Analytics,
+		config: {
+			layout: {
+				series: ["dx"],
+				category: ["ou"],
+				filter: ["pe"],
+			},
+			legendSet: [
+				{
+					dataItem: "Uvn6LCg7dVU",
+					legendSet: {
+						name: "ANC Coverage",
+						legends: [
+							{
+								name: "High Plus",
+								startValue: 80,
+								endValue: 90,
+								color: "#FED976",
+								id: "LHzMx7m1mo7",
+							},
+							{
+								name: "Great",
+								startValue: 90,
+								endValue: 120,
+								color: "#FFFFB2",
+								id: "nFM35aXnjG4",
+							},
+							{
+								name: "Medium Pl.",
+								startValue: 50,
+								endValue: 70,
+								color: "#FD8D3C",
+								id: "R09fMgqwz7l",
+							},
+							{
+								name: "Medium",
+								startValue: 30,
+								endValue: 50,
+								color: "#F03B20",
+								id: "fyn331OKcrc",
+							},
+							{
+								name: "Invalid",
+								startValue: 120,
+								endValue: 990,
+								color: "#CCCCCC",
+								id: "uLeRgauKbmk",
+							},
+							{
+								name: "Low",
+								startValue: 0,
+								endValue: 30,
+								color: "#BD0026",
+								id: "YCSOboULcBM",
+							},
+							{
+								name: "High",
+								startValue: 70,
+								endValue: 80,
+								color: "#FEB24C",
+								id: "XMzyLoC0hdi",
+							},
+						],
+						displayName: "ANC Coverage",
+						id: "fqs276KXCXi",
+					},
+				},
+			],
+			showFilterAsTitle: true,
+			type: "column",
+		},
+	},
+};
 
 export const Bar: Story = {
 	name: "Bar",

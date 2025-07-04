@@ -75,7 +75,7 @@ export function getColumnSeries(
 			);
 			return seriesDimensionValues?.map(
 				(seriesDimensionValue: string, index) => {
-					const data = categories?.map((category: string) => {
+					const data = categories?.map((category: string, index) => {
 						const row = find(
 							analytics?.rows,
 							(row: any) =>
@@ -83,28 +83,55 @@ export function getColumnSeries(
 									seriesDimensionValue &&
 								row[categoryDimensionIndex ?? -1] === category,
 						);
-						return row?.[valueIndex ?? -1]
+						const value = row?.[valueIndex ?? -1]
 							? parseFloat(row?.[valueIndex ?? -1])
 							: null;
+
+						if (!config.legendSet) {
+							return value;
+						}
+
+						if (!Array.isArray(config.legendSet)) {
+							const color = getLegendColorFromValue({
+								legendSet: config.legendSet as LegendSet,
+								value: value ?? 0,
+							});
+							return {
+								x: index,
+								y: value,
+								value: value,
+								color: color,
+							};
+						}
+
+						const legendSet =
+							config.legendSet.find(
+								({ dataItem }) => dataItem === category,
+							)?.legendSet ??
+							config.legendSet.find(
+								({ dataItem }) =>
+									dataItem === seriesDimensionValue,
+							)?.legendSet;
+
+						if (!legendSet) {
+							return value;
+						}
+
+						const color = getLegendColorFromValue({
+							legendSet: legendSet,
+							value: value ?? 0,
+						});
+						return {
+							x: index,
+							y: value,
+							value: value,
+							color: color,
+						};
 					});
 					return {
 						id: seriesDimensionValue,
 						name: items?.[seriesDimensionValue as any]?.name,
-						data: config.legendSet
-							? data.map((value, index) => {
-									const color = getLegendColorFromValue({
-										legendSet: config.legendSet,
-										value: value ?? 0,
-									});
-
-									return {
-										x: index,
-										y: value,
-										value: value,
-										color: color,
-									};
-								})
-							: data,
+						data,
 						type: highchartsType,
 						color: colors[index % colors.length],
 					};
