@@ -62,7 +62,7 @@ export type ChartConfig = {
 		| Partial<Options>
 		| ((config: Options) => Partial<Options>);
 	multiSeries?: MultiSeriesConfig;
-	legendSet?: LegendSet | { dataItem: string; legendSet: LegendSet };
+	legendSet?: LegendSet | { dataItem: string; legendSet: LegendSet }[];
 };
 
 export type ChartAnalyticsProps = {
