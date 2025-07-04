@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.1.14
+
+### Patch Changes
+
+- Chart legend improvements
+
 ## 2.1.13
 
 ### Patch Changes
