@@ -2,7 +2,7 @@ import type {
 	Analytics,
 	AnalyticsHeader,
 	AnalyticsMetadata,
-	LegendSet
+	LegendSet,
 } from "@hisptz/dhis2-utils";
 import { compact, find, findIndex, head, isEmpty, set } from "lodash";
 import { DHIS2Chart } from "../models";
@@ -16,7 +16,6 @@ import { DHIS2GaugeChart } from "../models/gauge";
 import { DHIS2AreaChart, DHISStackedAreaChart } from "../models/area";
 import { DHIS2RadarChart } from "../models/radar";
 import { DHIS2ScatterChart } from "../models/scatter";
-import type { Options } from "highcharts";
 
 export function getDimensionHeaderIndex(
 	headers: AnalyticsHeader[],
@@ -91,7 +90,21 @@ export function getColumnSeries(
 					return {
 						id: seriesDimensionValue,
 						name: items?.[seriesDimensionValue as any]?.name,
-						data,
+						data: config.legendSet
+							? data.map((value, index) => {
+									const color = getLegendColorFromValue({
+										legendSet: config.legendSet,
+										value: value ?? 0,
+									});
+
+									return {
+										x: index,
+										y: value,
+										value: value,
+										color: color,
+									};
+								})
+							: data,
 						type: highchartsType,
 						color: colors[index % colors.length],
 					};
@@ -166,9 +179,9 @@ export function updateLayout(
 }
 
 export function getLegendColorFromValue({
-											legendSet,
-											value,
-										}: {
+	legendSet,
+	value,
+}: {
 	legendSet?: LegendSet;
 	value?: number;
 }): string | null {
@@ -186,40 +199,6 @@ export function getLegendColorFromValue({
 	return legend?.color ?? null;
 }
 
-
-
-
-export function updateChartOptions(config: ChartConfig) {
-	const legendSet = config.legendSet;
-	if (legendSet) {
-		config.highChartOverrides = (options: Options): Partial<Options> => {
-			const updatedOptions = { ...options };
-			set(
-				updatedOptions,
-				"series",
-				updatedOptions.series?.map((series) => ({
-					...series,
-					color: "#FFFFFF",
-					// @ts-ignore
-					data: series.data.map((data: number, index: number) => {
-						const color = getLegendColorFromValue({
-							legendSet,
-							value: data,
-						});
-						return {
-							x: index,
-							y: data,
-							value: data,
-							color: color,
-						};
-					}),
-				}))
-			);
-			return updatedOptions;
-		};
-	}
-	return config;
-}
 export function getChartInstance(
 	id: string,
 	analytics: Analytics,

@@ -3,7 +3,7 @@ import { Options } from "highcharts";
 import { useCallback, useEffect, useState } from "react";
 import { DHIS2Chart } from "../models";
 import { ChartConfig, ChartType } from "../types/props.js";
-import { getChartInstance, updateChartOptions, updateLayout } from "../utils/chart.js";
+import { getChartInstance, updateLayout } from "../utils/chart.js";
 
 export function useChart({
 	id,
@@ -37,16 +37,13 @@ export function useChart({
 
 	useEffect(() => {
 		if (analytics && config) {
-			const updatedOptions = updateChartOptions(config);
-			const updatedConfig = { ...config, ...updatedOptions};
 			const chartInstance: DHIS2Chart = getChartInstance(
 				id,
 				analytics,
-				updatedConfig,
+				config,
 			);
 			setChart(chartInstance.getOptions());
 		}
-
 	}, [analytics, config, id]);
 
 	return {
