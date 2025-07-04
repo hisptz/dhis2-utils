@@ -9,8 +9,9 @@ import {
 } from "highcharts";
 import { get, head } from "lodash";
 import { DHIS2Chart } from "./index.js";
-import { getColorFromLegendSet } from "../../Map/utils/map";
+import { getColorFromLegendSet } from "../../Map";
 import { colors } from "@dhis2/ui";
+import type { LegendSet } from "@hisptz/dhis2-utils/src";
 
 const DEFAULT_PANE_SIZE = "100%";
 const DEFAULT_FONT_SIZE = "28px";
@@ -91,7 +92,12 @@ export class DHIS2GaugeChart extends DHIS2Chart {
 		const chartColors = this.config.colors ?? [];
 		const legendSet = this.config.legendSet;
 		const legendColor = legendSet
-			? getColorFromLegendSet(legendSet?.legends, this.getValue())
+			? getColorFromLegendSet(
+					Array.isArray(legendSet)
+						? head(legendSet).legends
+						: (legendSet as LegendSet).legends,
+					this.getValue(),
+				)
 			: undefined;
 		return [
 			{
