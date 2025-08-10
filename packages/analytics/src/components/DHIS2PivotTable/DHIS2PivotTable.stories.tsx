@@ -102,7 +102,7 @@ WithLegendSet.args = {
 			showFilterAsTitle: true,
 			legend: {
 				showKey: false,
-				style: "FILLED",
+				style: "FILL",
 				strategy: "FIXED",
 				set: legendSet,
 			},
@@ -128,7 +128,7 @@ WithByItemLegendSet.args = {
 			showFilterAsTitle: true,
 			legend: {
 				showKey: false,
-				style: "FILLED",
+				style: "FILL",
 				strategy: "BY_DATA_ITEM",
 				legendMap: new Map([["b69S1KvmO0a", legendSet]]),
 			},

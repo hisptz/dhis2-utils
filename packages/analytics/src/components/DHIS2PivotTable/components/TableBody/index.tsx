@@ -5,7 +5,7 @@ import { DataTableCell, DataTableRow, TableBody } from "@dhis2/ui";
 import React, { Fragment, ReactNode, useRef } from "react";
 import { AnalyticsItem } from "@hisptz/dhis2-utils";
 import classes from "./TableBody.module.css";
-import { DHIS2Dimension } from "../../interfaces/index.js";
+import { DHIS2Dimension } from "../../interfaces";
 import { useResizeObserver } from "usehooks-ts";
 import { getTextColorFromBackgroundColor } from "../../utils/color";
 
@@ -36,11 +36,11 @@ function DataRowRenderer({
 					<DataTableCell
 						style={{
 							background:
-								legend?.style === "FILLED"
+								legend?.style === "FILL"
 									? legend?.color
 									: undefined,
 							color:
-								legend?.style === "FILLED"
+								legend?.style === "FILL"
 									? getTextColorFromBackgroundColor(
 											legend?.color,
 										)

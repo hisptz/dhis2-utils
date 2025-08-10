@@ -7,7 +7,7 @@ import { getColorFromLegendSet } from "../../Map";
 export interface BaseLegendConfig {
 	strategy: "FIXED" | "BY_DATA_ITEM";
 	showKey: boolean;
-	style: "TEXT" | "FILLED";
+	style: "TEXT" | "FILL";
 }
 export interface FixedLegendConfig extends BaseLegendConfig {
 	strategy: "FIXED";
