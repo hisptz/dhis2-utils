@@ -5,7 +5,7 @@ import {
 	SeriesGaugeOptions,
 	SeriesOptionsType,
 	XAxisOptions,
-	type YAxisOptions,
+	type YAxisOptions
 } from "highcharts";
 import { get, head } from "lodash";
 import { DHIS2Chart } from "./index.js";
@@ -94,7 +94,8 @@ export class DHIS2GaugeChart extends DHIS2Chart {
 		const legendColor = legendSet
 			? getColorFromLegendSet(
 					Array.isArray(legendSet)
-						? head(legendSet).legends
+						? (head(legendSet as unknown as Array<LegendSet>)
+								?.legends ?? [])
 						: (legendSet as LegendSet).legends,
 					this.getValue(),
 				)
