@@ -5,7 +5,7 @@ import {
 	SeriesGaugeOptions,
 	SeriesOptionsType,
 	XAxisOptions,
-	type YAxisOptions
+	type YAxisOptions,
 } from "highcharts";
 import { get, head } from "lodash";
 import { DHIS2Chart } from "./index.js";
