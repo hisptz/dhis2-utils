@@ -1,9 +1,11 @@
 import React from "react";
 import { ScaleControl, ZoomControl } from "react-leaflet";
+
 import { MapControls } from "../MapArea/interfaces/index.js";
 import FullscreenControl from "./components/FullscreenControl/index.js";
 import DownloadControl from "./components/DownloadControl/index.js";
-
+import TimeSliderLayer from "../MapLayer/components/TimeSlider/components/index.js";
+import TimeSliderControlWrapper from "../MapLayer/components/TimeSlider/components/TimeSliderControlWrapper.js";
 export interface MapControlProps extends MapControls {
 	mapId: string;
 }
@@ -28,6 +30,10 @@ export default function MapControl({
 					position={position}
 					options={options}
 				/>
+			);
+		case "temporalslider":
+			return (
+				<TimeSliderControlWrapper position={position} {...options} />
 			);
 		default:
 			return null;

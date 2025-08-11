@@ -10,7 +10,14 @@ import type { MapAnalyticsOptions } from "../../../interfaces";
 
 export interface MapControls {
 	position: ControlPosition;
-	type: "zoom" | "rotate" | "fullscreen" | "compass" | "scale" | "print";
+	type:
+		| "zoom"
+		| "rotate"
+		| "fullscreen"
+		| "compass"
+		| "scale"
+		| "print"
+		| "temporalslider";
 	options?: Record<string, any>;
 }
 

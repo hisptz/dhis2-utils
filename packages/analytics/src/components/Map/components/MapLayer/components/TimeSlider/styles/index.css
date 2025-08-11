@@ -1,0 +1,69 @@
+.container {
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* subtle shadow */
+  margin-top: 20px;
+  padding: 15px 25px; /* a bit more padding */
+  min-height: 4em;
+  border-radius: 8px; /* rounded corners */
+  max-width: 900px; /* limit width */
+  margin-left: auto;
+  margin-right: auto; /* center container horizontally */
+}
+
+.container-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* space between button and months */
+}
+
+button {
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #008080; /* teal */
+  color: white;
+  transition: background-color 0.3s ease;
+}
+button:hover {
+  background-color: #006666;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  width: 100%;
+  height: 40px; /* consistent height */
+  align-items: center; /* vertically center items */
+  gap: 10px; /* spacing between months */
+  user-select: none; /* prevent text selection */
+}
+
+.wrapper-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slider {
+  width: 100%;
+  height: 8px;
+  background-color: #ccc;
+  border-radius: 4px;
+  margin-bottom: 6px;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+  opacity: 0.5;
+}
+
+.slider.active {
+  background-color: teal;
+  opacity: 1;
+}
+
+.period {
+  font-size: 0.75rem;
+  color: #333;
+  white-space: nowrap;
+}

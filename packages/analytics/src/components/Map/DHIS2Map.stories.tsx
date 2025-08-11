@@ -35,11 +35,19 @@ Controls.args = {
 	controls: [
 		{
 			type: "print",
-			position: "topleft",
+			position: "topright",
 			options: {
 				hidden: false,
 				hideControlContainer: true,
 				sizeModes: ["A4Landscape", "A4Portrait", "Current"],
+			},
+		},
+		{
+			type: "temporalslider",
+			position: "bottomright",
+			options: {
+				hidden: false,
+				hideControlContainer: false,
 			},
 		},
 	],

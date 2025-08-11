@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import MapArea from "./components/MapArea/index.js";
 import {
 	CustomBoundaryLayer,
@@ -10,7 +10,6 @@ import "leaflet/dist/leaflet.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient();
-
 const MapComponent = ({
 	orgUnitSelection,
 	pointLayer,
@@ -26,6 +25,7 @@ const MapComponent = ({
 	analyticsOptions,
 	base,
 }: MapProps) => {
+	
 	const sanitizedPointLayers: CustomPointLayer[] = [
 		{
 			type: "point",
@@ -48,6 +48,7 @@ const MapComponent = ({
 			<MapProvider
 				periodSelection={periodSelection}
 				orgUnitSelection={orgUnitSelection}
+				
 			>
 				<MapArea
 					base={{
