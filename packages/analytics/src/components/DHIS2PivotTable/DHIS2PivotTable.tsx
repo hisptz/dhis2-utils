@@ -2,9 +2,9 @@ import { Analytics, LegendSet } from "@hisptz/dhis2-utils";
 import { DHIS2PivotTableEngine, type EngineConfig } from "./services/engine.js";
 import React, { useMemo } from "react";
 import { DHIS2PivotTableEngineProvider } from "./state/engine.js";
-import { PivotTable } from "./components/Table/index.js";
-import { TableHeaders } from "./components/TableHeaders/index.js";
-import { CustomPivotTableBody } from "./components/TableBody/index.js";
+import { PivotTable } from "./components/Table";
+import { TableHeaders } from "./components/TableHeaders";
+import { CustomPivotTableBody } from "./components/TableBody";
 import { DataTableProps } from "@dhis2/ui";
 
 export interface DHIS2PivotTableOptions {

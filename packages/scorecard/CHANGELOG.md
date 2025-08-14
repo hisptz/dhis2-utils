@@ -1,5 +1,13 @@
 # @hisptz/dhis2-scorecard
 
+## 1.2.7
+
+### Patch Changes
+
+- Legend sets on pivot table
+- Updated dependencies
+    - @hisptz/dhis2-analytics@2.1.15
+
 ## 1.2.6
 
 ### Patch Changes

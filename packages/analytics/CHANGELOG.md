@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.1.15
+
+### Patch Changes
+
+- Legend sets on pivot table
+
 ## 2.1.14
 
 ### Patch Changes
