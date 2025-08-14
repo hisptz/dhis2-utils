@@ -42,17 +42,34 @@ Controls.args = {
 				sizeModes: ["A4Landscape", "A4Portrait", "Current"],
 			},
 		},
+	],
+};
+export const TimeLapse: Story = {
+	name: "Time lapse",
+};
+TimeLapse.args = {
+	orgUnitSelection: {
+		orgUnits: [],
+		userOrgUnit: true,
+		userSubUnit: true,
+		userSubX2Unit: true,
+	},
+	controls: [
+		
 		{
 			type: "temporalslider",
 			position: "bottomright",
+			 // Change every 1 second
 			options: {
 				hidden: false,
 				hideControlContainer: false,
+				slideInterval: 3000,
 			},
 		},
 	],
+	periodSelection: {
+		periods: ["202301", "202302", "202303", "202304", "202305", "202306", "202307", "202308", "202309", "202310", "202311", "202312"],}
 };
-
 export const BoundaryLayer: Story = {
 	name: "Boundary layer",
 };
