@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { MapOrgUnit, MapProviderProps } from "../../interfaces";
 import { MapOrgUnitContext, MapPeriodContext } from "../../state";
 import { getOrgUnitsSelection, sanitizeOrgUnits, toGeoJson } from "../../utils";
-import { BasePeriod, PeriodUtility } from "@hisptz/dhis2-utils/src";
+import { BasePeriod, PeriodUtility } from "@hisptz/dhis2-utils";
 
 const boundaryQuery = {
 	boundaries: {

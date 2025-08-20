@@ -1,6 +1,6 @@
 {
   "name": "@hisptz/dhis2-scorecard",
-  "version": "1.2.9",
+  "version": "1.2.10",
   "main": "./dist/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/types/index.d.ts",
