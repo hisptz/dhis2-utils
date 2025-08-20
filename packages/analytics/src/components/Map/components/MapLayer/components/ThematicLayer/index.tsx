@@ -1,7 +1,7 @@
 import { last } from "lodash";
 import React from "react";
 import { LayerGroup, LayersControl, Pane } from "react-leaflet";
-import { CustomBubbleLayer } from "../../interfaces/index.js";
+import { CustomBubbleLayer } from "../../interfaces";
 import Bubble from "./components/Bubble/index.js";
 import Choropleth from "./components/Choropleth/index.js";
 import useThematicLayer from "./hooks/config.js";
@@ -43,6 +43,7 @@ export default function ThematicLayer({
 						{data?.map((datum) =>
 							type === "choropleth" ? (
 								<Choropleth
+									labelConfig={layer.labelConfig}
 									customEventHandlers={customEventHandlers}
 									onLayerClick={onLayerClick}
 									legends={legends ?? []}

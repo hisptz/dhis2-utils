@@ -109,6 +109,11 @@ ChoroplethThematicLayer.args = {
 					scale: 5,
 				},
 			},
+			labelConfig: {
+				labels: true,
+				labelTemplate: "{name}\n{value}",
+				labelFontWeight: "bold",
+			},
 			control: {
 				enabled: true,
 				position: "topright",
