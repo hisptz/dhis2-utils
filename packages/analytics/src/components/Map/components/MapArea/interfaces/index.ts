@@ -38,5 +38,6 @@ export interface MapAreaProps {
 	mapOptions?: MapContainerProps;
 	legends?: MapLegendConfig;
 	layers: MapLayerConfig;
+	showPeriodTitle?: boolean;
 	key?: string;
 }

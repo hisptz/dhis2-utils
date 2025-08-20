@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.1.19
+
+### Patch Changes
+
+- Fixed map error introduced in the last version
+
 ## 2.1.18
 
 ### Patch Changes

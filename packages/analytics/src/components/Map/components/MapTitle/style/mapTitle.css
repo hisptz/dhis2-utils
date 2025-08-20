@@ -1,0 +1,22 @@
+/* Ensure your map keeps position:relative (Leaflet sets this by default) */
+.leaflet-container .map-title-overlay {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    pointer-events: none; /* don't block map drag/zoom */
+    max-width: 90%;
+}
+
+.map-title-box {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 6px 12px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.1);
+    text-align: center;
+    font-weight: 600;
+}
+
+.map-title-text { font-size: 16px; line-height: 1.2; }
+.map-subtitle-text { font-size: 12px; opacity: .8; font-weight: 400; margin-top: 2px; }

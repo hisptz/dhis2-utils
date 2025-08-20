@@ -21,6 +21,7 @@ const MapComponent = ({
 	mapOptions,
 	key,
 	controls,
+	showPeriodTitle,
 	legends,
 	setRef,
 	analyticsOptions,
@@ -59,6 +60,7 @@ const MapComponent = ({
 						boundaryLayers: sanitizedBoundaryLayers,
 						pointLayers: sanitizedPointLayers,
 					}}
+					showPeriodTitle={showPeriodTitle}
 					analyticsOptions={analyticsOptions}
 					legends={legends}
 					controls={controls}

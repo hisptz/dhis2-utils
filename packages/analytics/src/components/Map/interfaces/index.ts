@@ -60,6 +60,7 @@ export interface MapProps {
 	legends?: MapLegendConfig;
 	thematicLayers?: ThematicLayerConfig[];
 	earthEngineLayers?: EarthEngineLayerConfig[];
+	showPeriodTitle?: boolean;
 	periodSelection?: {
 		periods?: string[];
 		range?: { start: Date; end: Date };

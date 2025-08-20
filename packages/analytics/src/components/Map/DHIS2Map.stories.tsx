@@ -120,6 +120,7 @@ ChoroplethThematicLayer.args = {
 			},
 		},
 	],
+	showPeriodTitle: true,
 	periodSelection: {
 		periods: ["LAST_QUARTER"],
 	},

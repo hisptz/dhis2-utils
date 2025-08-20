@@ -16,6 +16,7 @@ import {
 	MapLegendConfig,
 } from "./interfaces/index.js";
 import MapUpdater from "../MapUpdater/index.js";
+import { MapPeriodTitle } from "../MapTitle";
 
 function MapLayerArea({
 	id,
@@ -85,6 +86,7 @@ const MapArea = (
 		base,
 		controls,
 		mapOptions,
+		showPeriodTitle,
 		key,
 		legends,
 		layers,
@@ -115,6 +117,7 @@ const MapArea = (
 				{...mapOptions}
 			>
 				<>
+					{showPeriodTitle && <MapPeriodTitle />}
 					<MapUpdater containerRef={containerRef} bounds={bounds} />
 					<MapLayersProvider
 						analyticsOptions={analyticsOptions}
