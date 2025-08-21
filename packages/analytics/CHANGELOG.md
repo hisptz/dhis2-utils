@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.1.20
+
+### Patch Changes
+
+- Map improvements
+
 ## 2.1.19
 
 ### Patch Changes
