@@ -78,7 +78,7 @@ export function MapProvider({
 		}
 
 		getOrgUnits().catch((error) => console.log(error));
-	}, [orgUnitSelection, refetch]);
+	}, [orgUnitSelection, refetch, periodSelection?.periods]);
 
 	if (loading) {
 		return (
