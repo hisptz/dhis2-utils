@@ -106,7 +106,7 @@ export function MapProvider({
 		return (
 			<MapOrgUnitContext.Provider value={{ orgUnitSelection, orgUnits }}>
 				<MapPeriodContext.Provider
-					value={{ ...periodSelection, periods }}
+					value={{ ...periodSelection, periods,  }}
 				>
 					{children}
 				</MapPeriodContext.Provider>

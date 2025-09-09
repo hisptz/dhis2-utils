@@ -51,6 +51,7 @@
     "usehooks-ts": "^2.16.0"
   },
   "dependencies": {
+    "@arcgis/map-components-react": "^4.33.14",
     "@google/earthengine": "^1.5.21",
     "@hisptz/dhis2-ui": "workspace:*",
     "@hisptz/dhis2-utils": "workspace:*",

@@ -54,6 +54,7 @@ const config: StorybookConfig = {
 					transformMixedEsModules: true,
 				},
 			},
+
 			resolve: {
 				alias: [
 					{

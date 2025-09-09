@@ -18,4 +18,4 @@ httpProxy
 		secure: false,
 		changeOrigin: true,
 	})
-	.listen(8080);
+	.listen(8082);
