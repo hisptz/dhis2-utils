@@ -1,6 +1,6 @@
 {
   "name": "@hisptz/dhis2-scorecard",
-  "version": "1.2.12",
+  "version": "1.2.13",
   "main": "./dist/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/types/index.d.ts",
@@ -74,7 +74,8 @@
     "classnames": "^2.5.1",
     "eslint": "^8.56.0",
     "lodash": "^4.17.21",
-    "react": "^18",
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19",
     "styled-jsx": "^5.1.2",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3",
