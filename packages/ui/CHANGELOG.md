@@ -1,5 +1,11 @@
 # @hisptz/dhis2-ui
 
+## 2.0.49
+
+### Patch Changes
+
+- Peer deps fixes
+
 ## 2.0.48
 
 ### Patch Changes

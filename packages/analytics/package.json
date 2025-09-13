@@ -1,6 +1,6 @@
 {
   "name": "@hisptz/dhis2-analytics",
-  "version": "2.1.21",
+  "version": "2.1.22",
   "main": "./dist/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/types/index.d.ts",
@@ -23,9 +23,11 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "devDependencies": {
+    "@dhis2/app-runtime": "^3.14.1",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@storybook/react": "^7.6.7",
+    "@tanstack/react-query": "^4.36.1",
     "@types/async": "^3.2.24",
     "@types/d3-color": "^3.1.0",
     "@types/d3-scale": "^4.0.3",
@@ -76,7 +78,6 @@
     "react-helmet": "^6.1.0",
     "react-leaflet": "^4.2.1",
     "react-leaflet-custom-control": "^1.4.0",
-    "react-query": "^3.39.3",
     "react-spring": "^9.6.1",
     "react-to-print": "^3.0.1",
     "screenfull": "^6.0.2",

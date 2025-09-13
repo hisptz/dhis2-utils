@@ -1,5 +1,13 @@
 # @hisptz/dhis2-analytics
 
+## 2.1.22
+
+### Patch Changes
+
+- Peer deps fixes
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.49
+
 ## 2.1.21
 
 ### Patch Changes

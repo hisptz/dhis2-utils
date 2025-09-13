@@ -7,7 +7,7 @@ import {
 import { MapProvider } from "./components/MapProvider";
 import { MapProps } from "./interfaces";
 import "leaflet/dist/leaflet.css";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 
