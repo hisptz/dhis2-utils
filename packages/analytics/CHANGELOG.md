@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.1.23
+
+### Patch Changes
+
+- Removed react-query deps
+
 ## 2.1.22
 
 ### Patch Changes

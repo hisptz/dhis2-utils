@@ -7,9 +7,6 @@ import {
 import { MapProvider } from "./components/MapProvider";
 import { MapProps } from "./interfaces";
 import "leaflet/dist/leaflet.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-const queryClient = new QueryClient();
 
 const MapComponent = ({
 	orgUnitSelection,
@@ -45,31 +42,29 @@ const MapComponent = ({
 	];
 
 	return (
-		<QueryClientProvider client={queryClient}>
-			<MapProvider
-				periodSelection={periodSelection}
-				orgUnitSelection={orgUnitSelection}
-			>
-				<MapArea
-					base={{
-						...base,
-					}}
-					layers={{
-						thematicLayers,
-						earthEngineLayers,
-						boundaryLayers: sanitizedBoundaryLayers,
-						pointLayers: sanitizedPointLayers,
-					}}
-					showPeriodTitle={showPeriodTitle}
-					analyticsOptions={analyticsOptions}
-					legends={legends}
-					controls={controls}
-					key={key}
-					ref={setRef}
-					mapOptions={mapOptions}
-				/>
-			</MapProvider>
-		</QueryClientProvider>
+		<MapProvider
+			periodSelection={periodSelection}
+			orgUnitSelection={orgUnitSelection}
+		>
+			<MapArea
+				base={{
+					...base,
+				}}
+				layers={{
+					thematicLayers,
+					earthEngineLayers,
+					boundaryLayers: sanitizedBoundaryLayers,
+					pointLayers: sanitizedPointLayers,
+				}}
+				showPeriodTitle={showPeriodTitle}
+				analyticsOptions={analyticsOptions}
+				legends={legends}
+				controls={controls}
+				key={key}
+				ref={setRef}
+				mapOptions={mapOptions}
+			/>
+		</MapProvider>
 	);
 };
 export const DHIS2Map: React.FC<MapProps> = MapComponent;

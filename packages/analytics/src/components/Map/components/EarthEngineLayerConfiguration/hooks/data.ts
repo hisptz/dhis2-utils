@@ -1,7 +1,7 @@
 import { EarthEngineOptions } from "../../MapLayer/components/GoogleEngineLayer/interfaces/index.js";
 import { useGoogleEngineToken } from "../../MapLayer/components/GoogleEngineLayer/hooks/index.js";
 import { EarthEngine } from "../../MapLayer/components/GoogleEngineLayer/services/engine.js";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { useWatch } from "react-hook-form";
 import { find } from "lodash";

@@ -6,7 +6,7 @@ import { Name } from "./components/Name.js";
 import { TypeField } from "./components/TypeField.js";
 import { AggregationSelector } from "./components/AggregationSelector.js";
 import { PeriodSelector } from "./components/PeriodSelector.js";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 
