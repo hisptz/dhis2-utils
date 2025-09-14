@@ -76,7 +76,6 @@ export function MapProvider({
 			setPeriods(periods);
 			setOrgUnits(orgUnits);
 		}
-
 		getOrgUnits().catch((error) => console.log(error));
 	}, [orgUnitSelection, refetch, periodSelection?.periods]);
 
