@@ -1,6 +1,6 @@
 import { Analytics, LegendSet } from "@hisptz/dhis2-utils";
 import { DHIS2PivotTableEngine, type EngineConfig } from "./services/engine.js";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { DHIS2PivotTableEngineProvider } from "./state/engine.js";
 import { PivotTable } from "./components/Table";
 import { TableHeaders } from "./components/TableHeaders";

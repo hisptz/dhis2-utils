@@ -1,4 +1,4 @@
-import React, { memo, type RefObject } from "react";
+import { memo, type RefObject } from "react";
 import { TableStateProvider } from "../../TableStateProvider";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";

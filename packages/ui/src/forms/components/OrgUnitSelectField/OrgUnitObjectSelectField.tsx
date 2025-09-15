@@ -1,5 +1,5 @@
 import { FieldProps } from "../../interfaces";
-import React, { useCallback, useEffect, useMemo } from "react";
+import { type FC, useCallback, useEffect, useMemo } from "react";
 import {
 	Button,
 	colors,
@@ -33,7 +33,7 @@ export interface OrgUnitSelectFieldProps extends FieldProps {
 	 * Used to override `OrgUnitSelector` component props
 	 * */
 	orgUnitProps?: OrgUnitSelectorProps;
-	customIcon?: React.FC<any>;
+	customIcon?: FC<any>;
 }
 
 const orgUnitQuery: any = {

@@ -1,5 +1,5 @@
 import { Field, Input, Popover, ReferenceElement } from "@dhis2/ui";
-import React, { useState } from "react";
+import { forwardRef, useState } from "react";
 import type { Color } from "react-color";
 import { SketchPicker } from "react-color";
 import { uid } from "@hisptz/dhis2-utils";
@@ -79,7 +79,7 @@ export interface LegendDefinitionFieldProps {
 	value?: LegendDefinition;
 }
 
-export const LegendDefinitionField = React.forwardRef<
+export const LegendDefinitionField = forwardRef<
 	HTMLDivElement,
 	LegendDefinitionFieldProps
 >(({ name, label, value, onChange, ...props }, ref) => {

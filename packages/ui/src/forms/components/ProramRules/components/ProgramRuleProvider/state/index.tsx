@@ -1,4 +1,4 @@
-import React from "react";
+import { memo, type ReactNode } from "react";
 import { atomFamily, RecoilRoot, selectorFamily } from "recoil";
 
 export const FieldVisibilityState = atomFamily({
@@ -132,11 +132,11 @@ export const SectionState = selectorFamily({
 		},
 });
 
-export const FieldStateProvider = React.memo(function FieldStateProvider({
+export const FieldStateProvider = memo(function FieldStateProvider({
 	children,
 	includeRoot,
 }: {
-	children: React.ReactNode;
+	children: ReactNode;
 	includeRoot?: boolean;
 }) {
 	if (includeRoot) {

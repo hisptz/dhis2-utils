@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { type ReactElement, useRef } from "react";
 import { useCustomPivotTableEngine } from "../../state/engine.js";
 import { DataTableColumnHeader, DataTableRow, TableHead } from "@dhis2/ui";
 import { isEmpty, slice, times } from "lodash";
@@ -20,7 +20,7 @@ function ColumnRenderer({
 		fixColumnHeaders?: boolean;
 		engine: DHIS2PivotTableEngine;
 	};
-}): React.ReactElement | null {
+}): ReactElement | null {
 	const ref = useRef<HTMLElement | null>(null);
 	const { height } = useResizeObserver({
 		ref,

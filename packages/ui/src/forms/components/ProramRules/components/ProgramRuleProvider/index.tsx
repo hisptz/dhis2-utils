@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { type ReactNode, useMemo } from "react";
 import {
 	Event,
 	Program,
@@ -27,7 +27,7 @@ export interface ProgramRuleProviderProps {
 	programRules: ProgramRule[];
 	programStage?: string;
 	customRules?: Rule[];
-	children: React.ReactNode;
+	children: ReactNode;
 	includeRoot?: boolean;
 }
 

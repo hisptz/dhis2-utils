@@ -1,5 +1,5 @@
 import { Controller, useFormContext } from "react-hook-form";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { head, isEmpty } from "lodash";
 import {
 	Center,

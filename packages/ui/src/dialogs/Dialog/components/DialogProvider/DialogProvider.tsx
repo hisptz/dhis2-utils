@@ -1,8 +1,12 @@
-import React, { ReactNode, useCallback, useState } from "react";
+import { ReactNode, useCallback, useState } from "react";
 import { DialogContext } from "../../states/dialog.js";
 import { ContentDialog } from "../ContentDialog/index.js";
 import { useBoolean } from "usehooks-ts";
-import { ConfirmDialogConfig, ContentDialogConfig, DialogConfig } from "../../types";
+import {
+	ConfirmDialogConfig,
+	ContentDialogConfig,
+	DialogConfig,
+} from "../../types";
 import { ConfirmDialog } from "../ConfirmDialog/index.js";
 
 /**

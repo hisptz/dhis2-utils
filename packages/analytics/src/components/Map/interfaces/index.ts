@@ -1,5 +1,5 @@
 import type { OrgUnitSelection } from "@hisptz/dhis2-utils";
-import React from "react";
+import { type ReactNode } from "react";
 import type { MapContainerProps } from "react-leaflet";
 import { MapControls, MapLegendConfig } from "../components/MapArea/interfaces";
 import {
@@ -13,7 +13,7 @@ import {
 } from "leaflet";
 
 export interface MapProviderProps {
-	children: React.ReactNode;
+	children: ReactNode;
 	orgUnitSelection: OrgUnitSelection;
 	periodSelection?: {
 		periods?: string[];

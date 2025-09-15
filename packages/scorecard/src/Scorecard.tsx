@@ -1,4 +1,4 @@
-import React from "react";
+import { ReactElement } from "react";
 import { TableStateProvider } from "./components";
 import {
 	ScorecardTable,
@@ -11,7 +11,7 @@ export interface ScorecardProps {
 	tableProps?: ScorecardTableProps;
 }
 
-export function Scorecard({ tableProps }: ScorecardProps): React.ReactElement {
+export function Scorecard({ tableProps }: ScorecardProps): ReactElement {
 	return (
 		<TableStateProvider>
 			<DndProvider backend={HTML5Backend}>

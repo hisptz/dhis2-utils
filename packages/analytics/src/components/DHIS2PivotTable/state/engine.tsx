@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useContext } from "react";
+import { createContext, ReactNode, useContext } from "react";
 import { DHIS2PivotTableEngine } from "../services/engine.js";
 
 const DHIS2PivotTableEngineContext =

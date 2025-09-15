@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import { FieldProps } from "../../interfaces";
 import { CustomCheckboxField } from "../CustomCheckboxField";
 import i18n from "@dhis2/d2-i18n";

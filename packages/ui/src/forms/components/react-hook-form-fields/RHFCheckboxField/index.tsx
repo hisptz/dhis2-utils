@@ -1,4 +1,4 @@
-import React from "react";
+import { type ReactElement } from "react";
 import { Controller } from "react-hook-form";
 import { CheckboxField } from "@dhis2/ui";
 
@@ -10,7 +10,7 @@ export function RHFCheckboxField({
 	name: string;
 	validations?: Record<string, any>;
 	[key: string]: any;
-}): React.ReactElement {
+}): ReactElement {
 	return (
 		<Controller
 			name={name}

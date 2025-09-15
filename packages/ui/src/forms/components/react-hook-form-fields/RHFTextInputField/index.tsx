@@ -1,4 +1,4 @@
-import React from "react";
+import { type ReactElement } from "react";
 import { Controller } from "react-hook-form";
 import { InputField } from "@dhis2/ui";
 
@@ -11,7 +11,7 @@ export function RHFTextInputField({
 	name: string;
 	validations?: Record<string, any>;
 	[key: string]: any;
-}): React.ReactElement {
+}): ReactElement {
 	return (
 		<Controller
 			name={name}

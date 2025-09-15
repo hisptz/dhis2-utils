@@ -1,4 +1,4 @@
-import React from "react";
+import { type ReactNode } from "react";
 import { Layout, LayoutProvider } from "../LayoutProvider/index.js";
 import { AnalyticsDimension } from "@hisptz/dhis2-utils";
 import { DimensionsProvider } from "../DimensionsProvider/index.js";
@@ -10,7 +10,7 @@ import {
 import { VisualizationConfig } from "../../index.js";
 
 export interface VisualizationProviderProps {
-	children: React.ReactNode;
+	children: ReactNode;
 	layout: Layout;
 	dimensions: AnalyticsDimension;
 	type: VisualizationType;

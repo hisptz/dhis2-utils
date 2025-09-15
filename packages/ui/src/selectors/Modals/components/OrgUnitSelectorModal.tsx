@@ -8,7 +8,7 @@ import {
 	ModalTitle,
 } from "@dhis2/ui";
 import { flatten, last } from "lodash";
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import {
 	OrgUnitSelection,
 	OrgUnitSelector,

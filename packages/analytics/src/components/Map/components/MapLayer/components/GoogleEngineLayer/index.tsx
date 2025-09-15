@@ -1,5 +1,5 @@
 import { capitalize, find, head, isEmpty, sortBy } from "lodash";
-import React, { useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 import {
 	GeoJSON,
 	LayerGroup,

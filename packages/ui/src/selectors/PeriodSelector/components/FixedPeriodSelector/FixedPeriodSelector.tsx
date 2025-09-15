@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { CustomSelectField } from "../../../../forms/index.js";
 import i18n from "@dhis2/d2-i18n";
 import { MapOrEntries, useMap } from "usehooks-ts";
@@ -60,7 +60,7 @@ export function FixedPeriodSelector({
 
 	const years = useMemo(() => {
 		const currentYear = year
-			? parseInt(year) ?? new Date().getFullYear()
+			? (parseInt(year) ?? new Date().getFullYear())
 			: new Date().getFullYear();
 		return uniqBy(
 			[

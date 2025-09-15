@@ -1,13 +1,13 @@
 import { SectionVisibilityState } from "../state";
 import type { OptionSet } from "@hisptz/dhis2-utils";
-import React from "react";
+import { memo } from "react";
 import { useRecoilValue } from "recoil";
 
 export interface SectionProgramRuleChildrenProps {
 	hidden: boolean;
 }
 
-export const SectionProgramRule = React.memo(function SectionProgramRule({
+export const SectionProgramRule = memo(function SectionProgramRule({
 	id,
 	children,
 }: {

@@ -1,5 +1,5 @@
 import { Box, Center, CircularLoader, colors, IconError24 } from "@dhis2/ui";
-import React, { Fragment, useMemo } from "react";
+import { Fragment, useMemo } from "react";
 import { useOrgUnitsRoot } from "../hooks";
 import { OrgUnitSelectorProps } from "../types";
 import { LevelAndGroupSelector } from "./LevelAndGroupSelector";

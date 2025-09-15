@@ -1,5 +1,5 @@
 import { colors } from "@dhis2/ui";
-import React from "react";
+import { type ReactNode } from "react";
 import type { ScorecardDraggableItems } from "../../../schemas/config";
 import { useDrop } from "react-dnd";
 
@@ -8,7 +8,7 @@ export default function DroppableCell({
 	children,
 }: {
 	accept: ScorecardDraggableItems[];
-	children: React.ReactNode;
+	children: ReactNode;
 }) {
 	const [collectedProps, drop] = useDrop(() => {
 		return {

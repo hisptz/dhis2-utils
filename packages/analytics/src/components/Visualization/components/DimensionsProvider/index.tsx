@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useReducer } from "react";
+import {
+	createContext,
+	type ReactNode,
+	useContext,
+	useEffect,
+	useReducer,
+} from "react";
 import { AnalyticsDimension } from "@hisptz/dhis2-utils";
 import { set } from "lodash";
 
@@ -27,7 +33,7 @@ function reducer(
 }
 
 export interface DimensionProviderProps {
-	children: React.ReactNode;
+	children: ReactNode;
 	dimensions: AnalyticsDimension;
 }
 

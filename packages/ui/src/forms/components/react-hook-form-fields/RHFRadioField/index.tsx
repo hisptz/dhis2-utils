@@ -1,4 +1,4 @@
-import React from "react";
+import { type ReactElement } from "react";
 import { Controller } from "react-hook-form";
 import { Field, Radio } from "@dhis2/ui";
 
@@ -12,7 +12,7 @@ export function RHFRadioField({
 	validations?: Record<string, any>;
 	radioValue: string;
 	[key: string]: any;
-}): React.ReactElement {
+}): ReactElement {
 	return (
 		<Controller
 			name={name}

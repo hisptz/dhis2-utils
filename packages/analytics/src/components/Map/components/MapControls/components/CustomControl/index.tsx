@@ -1,5 +1,5 @@
 import { ControlOptions } from "leaflet";
-import React from "react";
+import { type ReactNode } from "react";
 
 const POSITION_CLASSES = {
 	bottomleft: "leaflet-bottom leaflet-left",
@@ -9,16 +9,24 @@ const POSITION_CLASSES = {
 };
 
 interface CustomControlOptions extends ControlOptions {
-  children: React.ReactNode;
+	children: ReactNode;
 }
 
-export function CustomControl({ children, position, ...options }: CustomControlOptions) {
-  const positionClass = (position && POSITION_CLASSES[position]) || POSITION_CLASSES.topright;
-  return (
-    <div {...options} className={`${positionClass}`}>
-      <div style={{ overflow: "hidden", border: "none" }} className="leaflet-control leaflet-bar">
-        {children}
-      </div>
-    </div>
-  );
+export function CustomControl({
+	children,
+	position,
+	...options
+}: CustomControlOptions) {
+	const positionClass =
+		(position && POSITION_CLASSES[position]) || POSITION_CLASSES.topright;
+	return (
+		<div {...options} className={`${positionClass}`}>
+			<div
+				style={{ overflow: "hidden", border: "none" }}
+				className="leaflet-control leaflet-bar"
+			>
+				{children}
+			</div>
+		</div>
+	);
 }

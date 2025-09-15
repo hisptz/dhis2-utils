@@ -1,6 +1,6 @@
 import { Provider } from "@dhis2/app-runtime";
 import { CssReset } from "@dhis2/ui";
-import React from "react";
+import { type ReactNode } from "react";
 import hispTheme from "./theme";
 import "./style.css";
 
@@ -28,11 +28,7 @@ const appConfig = {
 		parseInt(import.meta.env.STORYBOOK_DHIS2_API_VERSION ?? "38") ?? 38,
 };
 
-const DHIS2Provider = ({
-	children,
-}: {
-	children: React.ReactNode | React.ReactNodeArray;
-}) => (
+const DHIS2Provider = ({ children }: { children: ReactNode }) => (
 	<Provider
 		plugin={false}
 		showAlertsInPlugin

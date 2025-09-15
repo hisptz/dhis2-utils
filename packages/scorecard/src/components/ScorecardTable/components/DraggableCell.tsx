@@ -1,5 +1,5 @@
 import { colors } from "@dhis2/ui";
-import React from "react";
+import { type CSSProperties, type ReactNode } from "react";
 import type { ScorecardDraggableItems } from "../../../schemas/config";
 import { useDrag } from "react-dnd";
 
@@ -10,10 +10,10 @@ export function DraggableCell({
 	id,
 	...props
 }: {
-	children: React.ReactNode;
+	children: ReactNode;
 	type: ScorecardDraggableItems;
 	id: string;
-	style?: React.CSSProperties;
+	style?: CSSProperties;
 }) {
 	const [collected, drag, dragPreview] = useDrag(() => {
 		return {

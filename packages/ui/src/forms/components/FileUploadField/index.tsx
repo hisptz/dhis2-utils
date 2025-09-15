@@ -1,4 +1,4 @@
-import React from "react";
+import { forwardRef, type ReactElement } from "react";
 import {
 	FileInputField as FileField,
 	FileList as FileListComponent,
@@ -14,14 +14,14 @@ export interface FileInputFieldProps extends FieldProps {
 	[key: string]: any;
 }
 
-export const FileUploadField = React.forwardRef<
+export const FileUploadField = forwardRef<
 	HTMLInputElement,
 	FileInputFieldProps
 >(
 	(
 		{ name, value, error, onChange, validations, accept, ...props },
 		ref,
-	): React.ReactElement => {
+	): ReactElement => {
 		return (
 			<FileField
 				{...props}

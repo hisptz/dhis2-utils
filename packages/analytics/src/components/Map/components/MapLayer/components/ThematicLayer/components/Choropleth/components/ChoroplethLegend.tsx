@@ -1,7 +1,7 @@
 import "../../../styles/legends.css";
 import { Divider } from "@dhis2/ui";
 import type { Legend } from "@hisptz/dhis2-utils";
-import React, { forwardRef } from "react";
+import { forwardRef, type LegacyRef } from "react";
 import { getLegendCount } from "../../../../../../../utils/map.js";
 import {
 	ThematicLayerData,
@@ -48,7 +48,7 @@ function ChoroplethLegend(
 		onCollapse?: () => void;
 		legends: Legend[];
 	},
-	ref: React.LegacyRef<HTMLDivElement> | undefined,
+	ref: LegacyRef<HTMLDivElement> | undefined,
 ) {
 	return (
 		<div className="legend-card" ref={ref}>

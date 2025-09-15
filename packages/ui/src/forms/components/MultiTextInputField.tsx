@@ -1,5 +1,5 @@
 import type { FieldProps } from "../interfaces";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import type { OptionSet } from "@hisptz/dhis2-utils";
 import { compact } from "lodash";
 import { Field, MultiSelectField, MultiSelectOption } from "@dhis2/ui";

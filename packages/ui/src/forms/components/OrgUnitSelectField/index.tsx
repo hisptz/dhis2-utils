@@ -1,5 +1,5 @@
 import { FieldProps } from "../../interfaces";
-import React, { useCallback, useEffect } from "react";
+import { type FC, useCallback, useEffect } from "react";
 import { Button, colors, Field, IconDimensionOrgUnit16 } from "@dhis2/ui";
 import { useDataQuery } from "@dhis2/app-runtime";
 import {
@@ -28,7 +28,7 @@ export interface OrgUnitSelectFieldProps extends FieldProps {
 	 * Used to override `OrgUnitSelector` component props
 	 * */
 	orgUnitProps?: OrgUnitSelectorProps;
-	customIcon?: React.FC<any>;
+	customIcon?: FC<any>;
 }
 
 const orgUnitQuery = {

@@ -1,5 +1,5 @@
 import { Controller, useFormContext } from "react-hook-form";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import i18n from "@dhis2/d2-i18n";
 import { InputField } from "@dhis2/ui";
 import { useType } from "../hooks/data.js";

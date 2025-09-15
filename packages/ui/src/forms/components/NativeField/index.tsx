@@ -1,6 +1,6 @@
 import { FieldProps } from "../../interfaces";
 import { InputField, InputType } from "@dhis2/ui";
-import React, { useMemo } from "react";
+import { forwardRef, useMemo } from "react";
 import { VALUE_TYPE } from "../../constants";
 
 export interface NativeFieldProps extends FieldProps {
@@ -22,7 +22,7 @@ export interface NativeFieldProps extends FieldProps {
 	max?: string | number;
 }
 
-export const NativeField = React.forwardRef<HTMLInputElement, NativeFieldProps>(
+export const NativeField = forwardRef<HTMLInputElement, NativeFieldProps>(
 	(
 		{ onChange, value, type, valueType, name, error, min, max, ...props },
 		ref,

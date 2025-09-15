@@ -1,4 +1,4 @@
-import React from "react";
+import { type ReactElement } from "react";
 import { DataTableSortDirection } from "@dhis2/ui";
 
 /**
@@ -81,7 +81,7 @@ export interface SimpleDataTableProps {
 	columns: SimpleDataTableColumn[];
 	loading?: boolean;
 	rows?: Array<SimpleDataTableRow>;
-	emptyLabel?: string | React.ReactElement;
+	emptyLabel?: string | ReactElement;
 	onRowClick?: (selectedValueId: string) => void;
 	selectable?: boolean;
 	selectedRows?: string[];

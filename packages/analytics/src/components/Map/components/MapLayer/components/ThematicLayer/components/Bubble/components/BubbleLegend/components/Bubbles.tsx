@@ -1,7 +1,7 @@
 import i18n from "@dhis2/d2-i18n";
 import { scaleSqrt } from "d3-scale";
 import { reduce } from "lodash";
-import React, { memo } from "react";
+import { memo } from "react";
 import { getContrastColor } from "../../../../../../../../../utils/colors.js";
 import { getLongestTextLength } from "../../../../../../../../../utils/helpers.js";
 import Bubble, { BubbleProps } from "./Bubble.js";

@@ -2,7 +2,7 @@ import { Header } from "../../services/engine";
 import { isEmpty, slice } from "lodash";
 import { useCustomPivotTableEngine } from "../../state/engine.js";
 import { DataTableCell, DataTableRow, TableBody } from "@dhis2/ui";
-import React, { Fragment, ReactNode, useRef } from "react";
+import { Fragment, type ReactElement, ReactNode, useRef } from "react";
 import { AnalyticsItem } from "@hisptz/dhis2-utils";
 import classes from "./TableBody.module.css";
 import { DHIS2Dimension } from "../../interfaces";
@@ -74,7 +74,7 @@ function RowRenderer({
 		prevWidth?: number;
 		fixRowHeaders?: boolean;
 	};
-}): React.ReactElement | null {
+}): ReactElement | null {
 	const cellRef = useRef<HTMLElement | null>(null);
 	const { width } = useResizeObserver({
 		ref: cellRef,

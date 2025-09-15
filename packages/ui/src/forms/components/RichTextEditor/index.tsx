@@ -1,13 +1,13 @@
 import { Field } from "@dhis2/ui";
 import JoditEditor from "jodit-react";
-import React, { forwardRef } from "react";
+import { type FC, forwardRef } from "react";
 import { FieldProps } from "../../interfaces";
 
 export interface RichTextEditorProps extends FieldProps {
 	config?: Parameters<typeof JoditEditor>[0]["config"];
 }
 
-export const RichTextEditor: React.FC<RichTextEditorProps> = forwardRef<
+export const RichTextEditor: FC<RichTextEditorProps> = forwardRef<
 	Parameters<typeof JoditEditor>[0]["ref"],
 	RichTextEditorProps
 >(

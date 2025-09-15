@@ -1,7 +1,7 @@
 import i18n from "@dhis2/d2-i18n";
 import { Button, Field, IconCross24, InputField } from "@dhis2/ui";
 import { DateTime } from "luxon";
-import React, { useCallback, useMemo } from "react";
+import { forwardRef, Ref, useCallback, useMemo } from "react";
 import classes from "./AgeField.module.css";
 import { formatDate, getValues } from "./utils/index.js";
 import { FieldProps } from "../../interfaces/index.js";
@@ -26,10 +26,10 @@ export interface AgeFieldProps extends FieldProps {
  * This is an input component that allows user to input the date of birth and then calculates the age.
  *
  * */
-export const AgeField = React.forwardRef<any, AgeFieldProps>(
+export const AgeField = forwardRef<any, AgeFieldProps>(
 	(
 		{ name, value = "", onChange, error, max, ...props },
-		ref: React.Ref<any>,
+		ref: Ref<any>,
 	) => {
 		const { years, months, days } = useMemo(
 			() => getValues(value),

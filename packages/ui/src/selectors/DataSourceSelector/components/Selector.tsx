@@ -1,7 +1,7 @@
 import { CssReset } from "@dhis2/ui";
 import GroupSelector from "./GroupSelector";
 import DataSource from "./DataSource";
-import React, { memo, useState } from "react";
+import { memo, type SetStateAction, useState } from "react";
 import styled from "styled-components";
 import { DataSourceList } from "./DataSourceList";
 import { type DataSourceSelectorProps, SelectedDataItem } from "../types";
@@ -26,7 +26,7 @@ function Selector({
     }`;
 
 	const [selectedGroup, setSelectedGroup] = useState();
-	const onGroupChange = (group: React.SetStateAction<undefined>) => {
+	const onGroupChange = (group: SetStateAction<undefined>) => {
 		setSelectedGroup(group);
 	};
 

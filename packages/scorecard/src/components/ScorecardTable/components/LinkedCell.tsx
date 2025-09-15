@@ -2,7 +2,7 @@ import { colors, DataTableCell } from "@dhis2/ui";
 import { getTextColorFromBackgroundColor } from "../../../utils/legends";
 import { DataValue } from "./DataValue";
 import { useResizeObserver } from "usehooks-ts";
-import React, { useMemo, useRef } from "react";
+import { memo, useMemo, useRef } from "react";
 import type {
 	LegendDefinition,
 	ScorecardCellData,
@@ -132,7 +132,7 @@ function LinkedCellComponent({
 	);
 }
 
-export const LinkedCell = React.memo(LinkedCellComponent, (prev, next) => {
+export const LinkedCell = memo(LinkedCellComponent, (prev, next) => {
 	return (
 		prev.top.value === next.top.value &&
 		prev.bottom.value === next.bottom.value

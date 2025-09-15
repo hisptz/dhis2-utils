@@ -1,9 +1,9 @@
-import React from "react";
+import { type ReactNode } from "react";
 import { useOrganisationUnitData } from "./hooks/index.js";
 
 interface OfflineOrgUnitProviderProps {
-	children: React.ReactNode;
-	fallback?: React.ReactNode;
+	children: ReactNode;
+	fallback?: ReactNode;
 	pageSize?: number;
 }
 

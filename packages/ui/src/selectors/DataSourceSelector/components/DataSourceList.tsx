@@ -1,5 +1,5 @@
 import { Chip } from "@dhis2/ui";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { getDataSourcesList } from "../utils";
 import type { dataSource } from "../types";
 import { useSelectedDataSourceState } from "./ConfigProvider";

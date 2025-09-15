@@ -1,6 +1,6 @@
 import { FieldState } from "../state";
 import type { OptionSet } from "@hisptz/dhis2-utils";
-import React, { useMemo } from "react";
+import { memo, useMemo } from "react";
 import { useRecoilValue } from "recoil";
 
 export interface FieldProgramRuleChildrenProps {
@@ -15,7 +15,7 @@ export interface FieldProgramRuleChildrenProps {
 	mandatory?: boolean;
 }
 
-export const FieldProgramRule = React.memo(function FieldProgramRule({
+export const FieldProgramRule = memo(function FieldProgramRule({
 	name,
 	children,
 	optionSet,

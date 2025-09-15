@@ -1,7 +1,7 @@
 import { uid } from "@hisptz/dhis2-utils";
 import * as Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-import React, { forwardRef, useRef } from "react";
+import { forwardRef, type ForwardRefExoticComponent, useRef } from "react";
 import { useChart } from "./hooks/useChart.js";
 import "./styles/custom-highchart.css";
 import "highcharts/modules/exporting";
@@ -57,7 +57,7 @@ function ChartAnalyticsComponent({
  *
  * @returns {React.ForwardRefExoticComponent<ChartAnalyticsProps>} - The DHIS2 chart component with forward ref support.
  */
-export const DHIS2Chart: React.ForwardRefExoticComponent<ChartAnalyticsProps> =
+export const DHIS2Chart: ForwardRefExoticComponent<ChartAnalyticsProps> =
 	forwardRef<HighchartsReact.RefObject, ChartAnalyticsProps>(
 		ChartAnalyticsComponent,
 	);

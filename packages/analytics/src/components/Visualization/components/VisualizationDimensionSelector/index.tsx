@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Button, IconClock24, IconLocation24, Tooltip } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
 import { useDimensions } from "../DimensionsProvider/index.js";

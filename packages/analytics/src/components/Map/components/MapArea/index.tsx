@@ -1,7 +1,7 @@
 import { uid } from "@hisptz/dhis2-utils";
 import { Map as LeafletMap } from "leaflet";
 import { isEmpty } from "lodash";
-import React, { forwardRef, useRef } from "react";
+import { forwardRef, type Ref, useRef } from "react";
 import { LayersControl, MapContainer, TileLayer } from "react-leaflet";
 import { useMapBounds } from "../../hooks/map.js";
 import MapControl from "../MapControls/index.js";
@@ -92,7 +92,7 @@ const MapArea = (
 		layers,
 		analyticsOptions,
 	}: MapAreaProps,
-	ref: React.Ref<LeafletMap> | undefined,
+	ref: Ref<LeafletMap> | undefined,
 ) => {
 	const { center, bounds } = useMapBounds();
 	const { current: id } = useRef<string>(uid());

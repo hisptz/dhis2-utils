@@ -1,4 +1,3 @@
-import React from "react";
 import MapArea from "./components/MapArea/index.js";
 import {
 	CustomBoundaryLayer,
@@ -7,6 +6,7 @@ import {
 import { MapProvider } from "./components/MapProvider";
 import { MapProps } from "./interfaces";
 import "leaflet/dist/leaflet.css";
+import type { FC } from "react";
 
 const MapComponent = ({
 	orgUnitSelection,
@@ -67,7 +67,7 @@ const MapComponent = ({
 		</MapProvider>
 	);
 };
-export const DHIS2Map: React.FC<MapProps> = MapComponent;
+export const DHIS2Map: FC<MapProps> = MapComponent;
 
 /**
  * @deprecated since `v2`. Use `DHIS2Map` instead

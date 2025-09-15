@@ -1,6 +1,6 @@
 import { Tooltip } from "@dhis2/ui";
 import { capitalize } from "lodash";
-import React from "react";
+import { type ReactElement } from "react";
 import { animated, useSpring } from "react-spring";
 import styles from "../../styles/SingleValueContainer.module.css";
 import { SingleValue } from "../../types/props.js";
@@ -23,7 +23,7 @@ export default function SingleValueItem({
 	decimalPlaces,
 	globalAnimationDuration,
 	disableAnimation,
-}: SingleValueProps): React.ReactElement {
+}: SingleValueProps): ReactElement {
 	const numberFormatter = (value: number) =>
 		Intl.NumberFormat("en-US", {
 			notation: "compact",

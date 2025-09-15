@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import { forwardRef, type LegacyRef } from "react";
 import LegendCardHeader from "../../LegendArea/components/LegendCardHeader/index.js";
 import { CustomGoogleEngineLayer } from "../../../interfaces/index.js";
 import { Divider } from "@dhis2/ui";
@@ -70,7 +70,7 @@ function EarthEngineLegend(
 		onCollapse?: () => void;
 		name: string;
 	},
-	ref: React.LegacyRef<HTMLDivElement>,
+	ref: LegacyRef<HTMLDivElement>,
 ) {
 	const { options } = layer;
 	const legends =

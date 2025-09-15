@@ -1,6 +1,6 @@
 import { SingleSelectField, SingleSelectOption } from "@dhis2/ui";
 import { find, isEmpty } from "lodash";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { GroupSelectorProps } from "../../types";
 import useDataGroups from "./hooks/useDataGroups.js";
 import { useSelectedDataSource } from "../ConfigProvider";

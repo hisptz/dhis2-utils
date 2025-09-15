@@ -1,9 +1,9 @@
 import { CustomDataProvider, useDataEngine } from "@dhis2/app-runtime";
-import React from "react";
+import { type ReactNode } from "react";
 import { db } from "../../services/db.js";
 import { getData, getOrgUnits } from "./services/index.js";
 
-export function CachedOrgUnits({ children }: { children: React.ReactNode }) {
+export function CachedOrgUnits({ children }: { children: ReactNode }) {
 	const engine = useDataEngine();
 
 	if (!db) {
@@ -40,10 +40,6 @@ export function CachedOrgUnits({ children }: { children: React.ReactNode }) {
 	);
 }
 
-export function CustomOrgUnitProvider({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
+export function CustomOrgUnitProvider({ children }: { children: ReactNode }) {
 	return <CachedOrgUnits>{children}</CachedOrgUnits>;
 }

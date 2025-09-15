@@ -2,7 +2,7 @@ import { useDataQuery } from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
 import { Center, CircularLoader } from "@dhis2/ui";
 import { compact, isEmpty } from "lodash";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { MapOrgUnit, MapProviderProps } from "../../interfaces";
 import { MapOrgUnitContext, MapPeriodContext } from "../../state";
 import { getOrgUnitsSelection, sanitizeOrgUnits, toGeoJson } from "../../utils";

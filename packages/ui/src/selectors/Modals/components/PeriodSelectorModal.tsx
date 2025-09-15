@@ -7,7 +7,7 @@ import {
 	ModalContent,
 	ModalTitle,
 } from "@dhis2/ui";
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import type { PeriodSelectorProps } from "../../PeriodSelector/index.js";
 import { PeriodSelector } from "../../PeriodSelector/index.js";
 import { ModalProps } from "../types/index.js";
@@ -53,7 +53,7 @@ export function PeriodSelectorModal({
 			position={position}
 		>
 			<ModalTitle>
-				{title ?? singleSelection
+				{(title ?? singleSelection)
 					? i18n.t("Select Period")
 					: i18n.t("Select Period(s)")}
 			</ModalTitle>

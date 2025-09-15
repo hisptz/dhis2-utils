@@ -1,4 +1,4 @@
-import React from "react";
+import { forwardRef } from "react";
 import { FieldProps } from "../../interfaces";
 import { OptionSet } from "@hisptz/dhis2-utils";
 import { VALUE_TYPE, VALUE_TYPES } from "../../constants";
@@ -84,7 +84,7 @@ function getField(valueType: VALUE_TYPE, optionSet?: OptionSet) {
  * @param {React.Ref} ref - The ref of the component.
  *
  */
-export const DHIS2FormField = React.forwardRef<unknown, DHIS2FormFieldProps>(
+export const DHIS2FormField = forwardRef<unknown, DHIS2FormFieldProps>(
 	({ valueType, optionSet, ...props }, ref) => {
 		const Field = getField(valueType, optionSet);
 

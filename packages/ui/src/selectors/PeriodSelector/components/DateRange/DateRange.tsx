@@ -1,7 +1,7 @@
 import i18n from "@dhis2/d2-i18n";
 import { CssReset, InputField } from "@dhis2/ui";
 import { head } from "lodash";
-import React, { useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { DateRangeValue } from "../../types/index.js";
 import { DateTime } from "luxon";
 

@@ -1,7 +1,7 @@
 import i18n from "@dhis2/d2-i18n";
 import { Button, Field, InputField, Radio } from "@dhis2/ui";
 import { Controller, FormProvider, useWatch } from "react-hook-form";
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { compact } from "lodash";
 import { defaultClasses, defaultColorScaleName } from "../../utils/colors.js";
 import IndicatorSelectorModal from "./components/IndicatorSelectorModal/index.js";

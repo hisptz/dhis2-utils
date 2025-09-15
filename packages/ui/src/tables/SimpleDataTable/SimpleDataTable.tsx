@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { type FC, ReactElement } from "react";
 import {
 	Checkbox,
 	colors,
@@ -36,7 +36,7 @@ import { SimpleDataTableProps } from "./types";
  *
  *
  */
-export const SimpleDataTable: React.FC<SimpleDataTableProps> = ({
+export const SimpleDataTable: FC<SimpleDataTableProps> = ({
 	sortState,
 	rows,
 	tableProps,

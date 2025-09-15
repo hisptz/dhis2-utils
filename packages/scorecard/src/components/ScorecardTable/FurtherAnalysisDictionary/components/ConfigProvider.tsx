@@ -1,6 +1,7 @@
-import React, {
+import {
 	createContext,
 	type Dispatch,
+	type ReactNode,
 	type SetStateAction,
 	useContext,
 	useState,
@@ -31,7 +32,7 @@ export function DictionaryConfigProvider({
 	children,
 }: {
 	initialConfig: DictionaryConfig;
-	children: React.ReactNode;
+	children: ReactNode;
 }) {
 	const value = useState<DictionaryConfig>(initialConfig);
 

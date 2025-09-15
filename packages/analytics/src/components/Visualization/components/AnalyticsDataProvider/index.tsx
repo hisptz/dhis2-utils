@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useMemo } from "react";
+import {
+	createContext,
+	type ReactNode,
+	useContext,
+	useEffect,
+	useMemo,
+} from "react";
 import { Analytics, AnalyticsDimension } from "@hisptz/dhis2-utils";
 import { useDimensions } from "../DimensionsProvider/index.js";
 import { useDataQuery } from "@dhis2/app-runtime";
@@ -29,7 +35,7 @@ const analyticsQuery = {
 };
 
 export interface DataProviderProps {
-	children: React.ReactNode;
+	children: ReactNode;
 }
 
 export function useAnalyticsData() {

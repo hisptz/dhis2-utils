@@ -1,7 +1,14 @@
 import { colors, IconLegend24, Popper, Portal } from "@dhis2/ui";
 import { ControlPosition } from "leaflet";
 import { compact, head } from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import {
+	Children,
+	cloneElement,
+	type ReactElement,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
 import { MapLegendConfig } from "../../../MapArea/interfaces/index.js";
 import { CustomControl } from "../../../MapControls/components/CustomControl";
 import {
@@ -166,7 +173,7 @@ function Legend({
 	children,
 	collapsible,
 }: {
-	children: React.ReactElement;
+	children: ReactElement;
 	collapsible: boolean;
 }) {
 	const [collapsed, setCollapsed] = useState(collapsible);
@@ -177,8 +184,7 @@ function Legend({
 		}
 	};
 
-	const name = head(React.Children.toArray(children) as React.ReactElement[])
-		?.props.name;
+	const name = head(Children.toArray(children) as ReactElement[])?.props.name;
 
 	const shouldCollapse = collapsed && !inPrintMode;
 
@@ -187,8 +193,8 @@ function Legend({
 			{shouldCollapse ? (
 				<CollapsedLegendIcon name={name} onCollapse={onCollapse} />
 			) : (
-				React.Children.map(children, (child) =>
-					React.cloneElement(child, { collapsible, onCollapse }),
+				Children.map(children, (child) =>
+					cloneElement(child, { collapsible, onCollapse }),
 				)
 			)}
 		</div>

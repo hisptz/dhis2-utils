@@ -1,5 +1,5 @@
 import { Field, InputField } from "@dhis2/ui";
-import React, { useCallback, useMemo, useState } from "react";
+import { forwardRef, useCallback, useMemo, useState } from "react";
 import { FieldProps, LegendDefinition } from "../../interfaces/index.js";
 import { uid } from "@hisptz/dhis2-utils";
 import { set } from "lodash";
@@ -21,7 +21,7 @@ export type LegendMinMaxProps = FieldProps & {
 	max?: number;
 };
 
-export const LegendMinMax = React.forwardRef<HTMLDivElement, LegendMinMaxProps>(
+export const LegendMinMax = forwardRef<HTMLDivElement, LegendMinMaxProps>(
 	(
 		{ name, value, onChange, legendDefinition, min, max, error, ...props },
 		ref,

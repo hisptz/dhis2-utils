@@ -2,7 +2,7 @@ import i18n from "@dhis2/d2-i18n";
 import { Center, CircularLoader } from "@dhis2/ui";
 import { LayersControlEvent } from "leaflet";
 import { compact, find, head, set } from "lodash";
-import React, { useCallback, useEffect, useState } from "react";
+import { type ReactNode, useCallback, useEffect, useState } from "react";
 import { useMapEvents } from "react-leaflet";
 import { MapLayersContext } from "../../../../state";
 import { MapLayerConfig } from "../../../MapArea/interfaces";
@@ -28,7 +28,7 @@ export function MapLayersProvider({
 	analyticsOptions,
 }: {
 	layers: MapLayerConfig;
-	children: React.ReactNode;
+	children: ReactNode;
 	analyticsOptions?: MapAnalyticsOptions;
 }) {
 	const period = useMapPeriods();

@@ -1,11 +1,11 @@
 import { LinearLoader } from "@dhis2/ui";
-import React from "react";
+import { type ReactElement } from "react";
 import styles from "../../styles/SingleValueContainer.module.css";
 
 export default function SingleValuePercentage({
 	percentage,
 	color,
-}: any): React.ReactElement {
+}: any): ReactElement {
 	const width = "100%";
 	return (
 		<div className="w-100">

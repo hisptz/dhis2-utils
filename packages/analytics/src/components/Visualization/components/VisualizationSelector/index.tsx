@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useVisualizationType } from "../VisualizationTypeProvider/index.js";
 import { useAnalyticsData } from "../AnalyticsDataProvider/index.js";
 import { CircularLoader } from "@dhis2/ui";

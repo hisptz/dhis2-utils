@@ -1,4 +1,10 @@
-import React, { createContext, memo, useContext } from "react";
+import {
+	createContext,
+	type FC,
+	memo,
+	type ReactNode,
+	useContext,
+} from "react";
 import type { ScorecardConfig } from "../schemas/config";
 import i18n from "@dhis2/d2-i18n";
 
@@ -16,9 +22,9 @@ export function useScorecardConfig() {
 	return config;
 }
 
-export const ScorecardConfigProvider: React.FC<{
+export const ScorecardConfigProvider: FC<{
 	config: ScorecardConfig;
-	children: React.ReactNode;
+	children: ReactNode;
 }> = memo(({ config, children }) => {
 	return (
 		<ScorecardConfigContext.Provider value={config}>

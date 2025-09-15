@@ -1,5 +1,5 @@
 import { SingleSelectField, SingleSelectOption } from "@dhis2/ui";
-import React, { useMemo } from "react";
+import { type ForwardedRef, forwardRef, useMemo } from "react";
 import { FieldProps } from "../../interfaces";
 import { OptionSet } from "@hisptz/dhis2-utils";
 
@@ -15,13 +15,13 @@ export interface CustomSelectFieldProps extends FieldProps {
 	[key: string]: any;
 }
 
-export const CustomSelectField = React.forwardRef<
+export const CustomSelectField = forwardRef<
 	HTMLSelectElement,
 	CustomSelectFieldProps
 >(
 	(
 		{ filterable, onChange, optionSet, value, error, warning, ...props },
-		ref: React.ForwardedRef<any>,
+		ref: ForwardedRef<any>,
 	) => {
 		const options = useMemo(
 			() =>

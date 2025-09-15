@@ -1,6 +1,6 @@
 import { ScorecardConfigProvider } from "./ConfigProvider";
 import { ScorecardMetaGetter } from "./MetaProvider";
-import React, { memo, type ReactNode } from "react";
+import { memo, type ReactNode } from "react";
 import type { ScorecardConfig } from "../schemas/config";
 import { ErrorBoundary, FallbackProps } from "react-error-boundary";
 import { Button, colors, IconError24 } from "@dhis2/ui";

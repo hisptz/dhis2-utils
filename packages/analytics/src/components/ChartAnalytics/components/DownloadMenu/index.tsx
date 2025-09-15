@@ -1,6 +1,6 @@
 import { IconMore24 } from "@dhis2/ui";
 import HighchartsReact from "highcharts-react-official";
-import React, { useRef, useState } from "react";
+import { type ReactNode, useRef, useState } from "react";
 import {
 	onCSVDownload,
 	onFullScreenView,
@@ -18,7 +18,7 @@ export function ChartDownloadMenu({
 }: {
 	chartRef: HighchartsReact.RefObject | null;
 	exclude?: ChartExportMenuItem[];
-	icon?: React.ReactNode;
+	icon?: ReactNode;
 }) {
 	const menuButtonRef = useRef<HTMLDivElement | null>(null);
 	const [menuRef, setMenuRef] = useState<HTMLDivElement | null>(null);

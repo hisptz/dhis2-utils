@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import Collapsible from "react-collapsible";
 import { CircularProgressbarWithChildren } from "react-circular-progressbar";
 import { FormSectionInterface } from "../../interfaces/index.js";
