@@ -11,6 +11,7 @@ import {
 	FurtherAnalysis,
 	type FurtherAnalysisConfig,
 } from "./FurtherAnalysisModal";
+import { useScorecardViewStateValue } from "../../../utils";
 
 export interface SingleDataCellProps {
 	dataSources: ScorecardCellData[];
@@ -25,6 +26,9 @@ function SingleDataCellComponent({
 	orgUnit,
 	size,
 }: SingleDataCellProps): ReactNode {
+	const disableFurtherAnalysis = useScorecardViewStateValue<boolean>(
+		"disableFurtherAnalysis",
+	);
 	const [furtherAnalysisConfig, setFurtherAnalysisConfig] =
 		useState<FurtherAnalysisConfig | null>(null);
 	const dataSource = head(dataSources);
@@ -54,29 +58,33 @@ function SingleDataCellComponent({
 			<DataTableCell
 				onClick={(event) => {
 					event.stopPropagation();
-					setFurtherAnalysisConfig({
-						periodSelection: {
-							periods: [
-								{
-									id: period,
-								},
-							],
-						},
-						orgUnitSelection: {
-							levels: [],
-							groups: [],
-							orgUnits: [
-								{
-									id: orgUnit.uid,
-								},
-							],
-						},
-						dataSources,
-					});
+					if (!disableFurtherAnalysis) {
+						setFurtherAnalysisConfig({
+							periodSelection: {
+								periods: [
+									{
+										id: period,
+									},
+								],
+							},
+							orgUnitSelection: {
+								levels: [],
+								groups: [],
+								orgUnits: [
+									{
+										id: orgUnit.uid,
+									},
+								],
+							},
+							dataSources,
+						});
+					}
 				}}
 				onContextMenu={(e: any) => {
 					e.preventDefault();
-					setStateActionRef(e.target);
+					if (disableFurtherAnalysis) {
+						setStateActionRef(e.target);
+					}
 				}}
 				bordered
 				style={{

@@ -9,6 +9,7 @@ import {
 	type FurtherAnalysisConfig,
 } from "./FurtherAnalysisModal";
 import { isEqual } from "lodash";
+import { useScorecardViewStateValue } from "../../../utils";
 
 export interface LinkedDataCellProps {
 	dataSources: ScorecardCellData[];
@@ -23,6 +24,9 @@ function LinkedDataCellComponent({
 	period,
 	size,
 }: LinkedDataCellProps) {
+	const disableFurtherAnalysis = useScorecardViewStateValue<boolean>(
+		"disableFurtherAnalysis",
+	);
 	const [furtherAnalysisConfig, setFurtherAnalysisConfig] =
 		useState<FurtherAnalysisConfig | null>(null);
 	const [stateActionRef, setStateActionRef] = useState(undefined);
@@ -54,29 +58,33 @@ function LinkedDataCellComponent({
 				size={size}
 				onContextMenu={(e: any) => {
 					e.preventDefault();
-					setStateActionRef(e.target);
+					if (!disableFurtherAnalysis) {
+						setStateActionRef(e.target);
+					}
 				}}
 				onClick={(event: MouseEvent) => {
 					event.stopPropagation();
-					setFurtherAnalysisConfig({
-						periodSelection: {
-							periods: [
-								{
-									id: period,
-								},
-							],
-						},
-						orgUnitSelection: {
-							levels: [],
-							groups: [],
-							orgUnits: [
-								{
-									id: orgUnit.uid,
-								},
-							],
-						},
-						dataSources,
-					});
+					if (disableFurtherAnalysis) {
+						setFurtherAnalysisConfig({
+							periodSelection: {
+								periods: [
+									{
+										id: period,
+									},
+								],
+							},
+							orgUnitSelection: {
+								levels: [],
+								groups: [],
+								orgUnits: [
+									{
+										id: orgUnit.uid,
+									},
+								],
+							},
+							dataSources,
+						});
+					}
 				}}
 				top={{
 					legendDefinition: topLegendDefinition,
