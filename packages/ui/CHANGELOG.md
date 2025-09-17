@@ -1,5 +1,11 @@
 # @hisptz/dhis2-ui
 
+## 2.0.50
+
+### Patch Changes
+
+- React input fixes
+
 ## 2.0.49
 
 ### Patch Changes

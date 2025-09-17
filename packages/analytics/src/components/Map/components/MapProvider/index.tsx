@@ -20,7 +20,7 @@ const boundaryQuery = {
 		params: ({ orgUnitIds, periodIds }: any) => ({
 			dimension: [
 				`ou:${orgUnitIds.join(";")}`,
-				`pe:${periodIds.join(";")}`,
+				`pe:${periodIds?.join(";")}`,
 			],
 			skipData: true,
 			hierarchyMeta: true,

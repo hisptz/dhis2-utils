@@ -51,6 +51,7 @@ export function FurtherAnalysisVisualization({
 					},
 					pivotTable: {},
 					map: {
+						showPeriodTitle: true,
 						thematicLayers: config.dataSources.map((item) => ({
 							enabled: true,
 							name: item.label,

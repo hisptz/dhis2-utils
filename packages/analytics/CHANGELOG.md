@@ -1,5 +1,13 @@
 # @hisptz/dhis2-analytics
 
+## 2.1.25
+
+### Patch Changes
+
+- React input fixes
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.50
+
 ## 2.1.24
 
 ### Patch Changes

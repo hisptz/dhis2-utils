@@ -142,10 +142,18 @@ export function MapRenderer({
 				} as ThematicLayerConfig;
 			}) ?? []
 		);
-	}, [analytics]);
+	}, [
+		analytics.headers,
+		analytics.metaData?.dimensions,
+		options.thematicLayers,
+		analytics.rows,
+	]);
 
 	return (
 		<DHIS2Map
+			periodSelection={{
+				periods: dimensions.pe,
+			}}
 			orgUnitSelection={orgUnitSelection}
 			thematicLayers={thematicLayers}
 		/>
