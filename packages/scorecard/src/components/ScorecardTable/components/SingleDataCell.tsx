@@ -82,7 +82,7 @@ function SingleDataCellComponent({
 				}}
 				onContextMenu={(e: any) => {
 					e.preventDefault();
-					if (disableFurtherAnalysis) {
+					if (!disableFurtherAnalysis) {
 						setStateActionRef(e.target);
 					}
 				}}
