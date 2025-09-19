@@ -143,6 +143,8 @@ export const dataGroupSchema = z.object({
 
 export type ScorecardDataGroup = z.infer<typeof dataGroupSchema>;
 
+const sharingObject = z.object({ access: z.string(), id: z.string() });
+
 export const scorecardConfig = z.object({
 	id: z.string(),
 	title: z.string(),
@@ -158,7 +160,21 @@ export const scorecardConfig = z.object({
 	}),
 	highlightedIndicators: z.array(dataSourceSchema),
 	additionalLabels: z.array(z.string()).optional(),
-	sharing: scorecardSharing,
+	sharing: scorecardSharing.optional(),
+	//These are placed as optional and they will be removed in future versions
+	user: z
+		.object({
+			id: z.string(),
+		})
+		.optional(),
+	userAccesses: z.array(sharingObject).optional(),
+	userGroupAccesses: z.array(sharingObject).optional(),
+	publicAccess: z
+		.object({
+			access: z.string(),
+			id: z.string(),
+		})
+		.optional(),
 });
 
 export type ScorecardConfig = z.infer<typeof scorecardConfig>;
