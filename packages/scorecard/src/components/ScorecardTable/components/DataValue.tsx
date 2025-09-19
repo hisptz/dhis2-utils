@@ -1,7 +1,7 @@
 import { IconArrowDown16, IconArrowUp16 } from "@dhis2/ui";
 import { memo, useMemo } from "react";
 import type { ScorecardCellData } from "../../../schemas/config";
-import { useScorecardViewStateValue } from "../../../utils/viewState";
+import { useScorecardViewStateValue } from "../../../utils";
 
 export const DataValue = memo(function DataValue({
 	dataSource,
@@ -71,7 +71,13 @@ export const DataValue = memo(function DataValue({
 			{showArrow === "decreasing" && <IconArrowDown16 />}
 			{showArrow === "increasing" && <IconArrowUp16 />}
 			{bold ? (
-				<b>{currentValue?.toFixed(2).toString() ?? ""}</b>
+				<b>
+					{isNaN(currentValue as number)
+						? ""
+						: (currentValue?.toFixed(2).toString() ?? "")}
+				</b>
+			) : isNaN(currentValue as number) ? (
+				""
 			) : (
 				(currentValue?.toFixed(2).toString() ?? "")
 			)}

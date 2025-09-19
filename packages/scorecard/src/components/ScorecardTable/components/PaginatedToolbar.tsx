@@ -45,7 +45,7 @@ export function PaginatedToolbar() {
 			style={{ position: "unset" }}
 			position="bottom"
 		>
-			<div style={{ width: "100%" }}>
+			<div style={{ width: "stretch" }}>
 				<Pagination
 					total={rowCount}
 					pageCount={pageCount}

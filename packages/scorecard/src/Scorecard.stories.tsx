@@ -8,14 +8,12 @@ import {
 } from "./components";
 import { Button, ButtonStrip, CheckboxField } from "@dhis2/ui";
 import {
-	useScorecardViewStateValue,
-	useUpdateScorecardViewState,
-} from "./utils/viewState";
-import {
 	useOrgUnitSelectionValue,
 	usePeriodSelectionValue,
+	useScorecardViewStateValue,
 	useUpdateDimensionState,
-} from "./utils/dimensionState";
+	useUpdateScorecardViewState,
+} from "./utils";
 import { useState } from "react";
 import { OrgUnitSelectorModal, PeriodSelectorModal } from "@hisptz/dhis2-ui";
 import i18n from "@dhis2/d2-i18n";
@@ -441,11 +439,11 @@ const playConfig: ScorecardConfig = {
 	additionalLabels: [],
 	orgUnitSelection: {
 		groups: [],
-		levels: [],
+		levels: [3],
 		orgUnits: [],
-		userOrgUnit: true,
-		userSubUnit: true,
-		userSubX2Unit: false,
+		userOrgUnit: false,
+		userSubUnit: false,
+		userSubX2Unit: true,
 	},
 	legendDefinitions: [
 		{
@@ -1559,7 +1557,7 @@ const meta: Meta<typeof Scorecard> = {
 	component: Scorecard,
 	decorators: (Story, context) => {
 		return (
-			<ScorecardStateProvider config={config}>
+			<ScorecardStateProvider config={context.args.config}>
 				<div
 					style={{
 						maxWidth: 1600,
@@ -1611,7 +1609,7 @@ const meta: Meta<typeof Scorecard> = {
 								args={{
 									...context.args,
 									tableProps: {
-										scrollHeight: "800px",
+										scrollHeight: "1000px",
 										scrollWidth: "1600px",
 										width: "1600px",
 									},
@@ -1633,6 +1631,12 @@ export const Default: Story = {
 	name: "Default View",
 	args: {
 		config,
+	},
+};
+export const LargeScorecard: Story = {
+	name: "Large scorecard example",
+	args: {
+		config: playConfig,
 	},
 };
 // export const DataInRows: Story = {

@@ -18,7 +18,7 @@ import {
 	useOrgUnitAverageCellValue,
 } from "../../../hooks/value";
 import { CellLoader } from "./CellLoader";
-import { useScorecardViewStateValue } from "../../../utils/viewState";
+import { useScorecardViewStateValue } from "../../../utils";
 
 export function SingleAverageCell({
 	dataSource,
