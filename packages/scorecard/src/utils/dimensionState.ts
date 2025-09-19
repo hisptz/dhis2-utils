@@ -1,5 +1,8 @@
 import type { OrgUnitSelection, PeriodSelection } from "../schemas/config";
-import { useScorecardDimensionStateEngine } from "../components";
+import {
+	useScorecardDimensionStateEngine,
+	useScorecardMeta,
+} from "../components";
 import { useEffect, useState } from "react";
 
 export type DimensionState = {
@@ -138,7 +141,11 @@ export function usePeriodSelectionValue() {
 }
 
 export function useHasOnePeriod() {
+	const scorecardMeta = useScorecardMeta();
 	const periodSelection = usePeriodSelectionValue();
+	if (scorecardMeta) {
+		return scorecardMeta.periods.length === 1;
+	}
 	return periodSelection.periods.length === 1;
 }
 

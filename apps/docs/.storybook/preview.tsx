@@ -1,6 +1,6 @@
 import { Provider } from "@dhis2/app-runtime";
 import { CssReset } from "@dhis2/ui";
-import { type ReactNode } from "react";
+import React, { type ReactNode } from "react";
 import hispTheme from "./theme";
 import "./style.css";
 

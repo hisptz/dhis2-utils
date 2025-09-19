@@ -434,13 +434,7 @@ const playConfig: ScorecardConfig = {
 	periodSelection: {
 		periods: [
 			{
-				id: "202401",
-			},
-			{
-				id: "202402",
-			},
-			{
-				id: "202403",
+				id: "LAST_4_QUARTERS",
 			},
 		],
 	},
@@ -849,7 +843,7 @@ const config: ScorecardConfig = {
 	periodSelection: {
 		periods: [
 			{
-				id: "2024Q2",
+				id: "LAST_4_QUARTERS",
 			},
 		],
 		type: "Quarterly",

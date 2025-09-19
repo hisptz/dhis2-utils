@@ -8,7 +8,7 @@ import DroppableCell from "../../DroppableCell";
 import { DraggableCell } from "../../DraggableCell";
 import { useMemo } from "react";
 import { isEmpty } from "lodash";
-import { useScorecardViewStateValue } from "../../../../../utils/viewState";
+import { useScorecardViewStateValue } from "../../../../../utils";
 
 export function LabelCellComponent(
 	props: CellContext<
@@ -31,7 +31,7 @@ export function LabelCellComponent(
 			.getVisibleCells()
 			.findIndex(({ id }) => props.cell.id === id);
 		return index * 48;
-	}, [props.row.getVisibleCells(), props.cell.id]);
+	}, [props.cell.id, props.row]);
 
 	const label = useMemo(() => {
 		if (dataInRows) {

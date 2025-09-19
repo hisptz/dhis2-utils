@@ -1,5 +1,11 @@
 # @hisptz/dhis2-scorecard
 
+## 1.2.20
+
+### Patch Changes
+
+- Fixed disabling further analysis
+
 ## 1.2.19
 
 ### Patch Changes

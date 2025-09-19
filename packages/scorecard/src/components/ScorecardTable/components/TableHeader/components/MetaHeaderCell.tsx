@@ -6,8 +6,8 @@ import styles from "../TableHeader.module.css";
 import { FilterArea } from "./FilterArea";
 import { uid } from "@hisptz/dhis2-utils";
 import { memo, useRef } from "react";
-import { useScorecardViewStateValue } from "../../../../../utils/viewState";
-import { useHasOnePeriod } from "../../../../../utils/dimensionState";
+import { useScorecardViewStateValue } from "../../../../../utils";
+import { useHasOnePeriod } from "../../../../../utils";
 
 function MetaHeaderCellComponent({
 	header,
