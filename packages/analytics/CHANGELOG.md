@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.1.27
+
+### Patch Changes
+
+- Earth engine fixes
+
 ## 2.1.26
 
 ### Patch Changes
