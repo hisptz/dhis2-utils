@@ -44,7 +44,9 @@ export function MapProvider({
 			const rawOrgUnitIds = getOrgUnitsSelection(orgUnitSelection);
 			const data = await refetch({
 				orgUnitIds: rawOrgUnitIds,
-				periodIds: periodSelection?.periods,
+				periodIds: !isEmpty(periodSelection?.periods)
+					? periodSelection?.periods
+					: ["THIS_YEAR"], // Just a placeholder so as the analytics query doesn't fail, when the period is empty, it means that this isn't  a DHIS2 map plot
 			});
 			const { analytics, boundaries } = (data as any) ?? {};
 			const rawOrgUnits = sanitizeOrgUnits(analytics?.metaData);

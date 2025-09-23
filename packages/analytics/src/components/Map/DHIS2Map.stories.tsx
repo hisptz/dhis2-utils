@@ -360,7 +360,7 @@ GoogleEarthEngineLayers.args = {
 	},
 	thematicLayers: [],
 	periodSelection: {
-		periods: ["2023"],
+		periods: [],
 	},
 	earthEngineLayers: [
 		{
