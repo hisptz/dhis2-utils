@@ -1,5 +1,13 @@
 # @hisptz/dhis2-ui
 
+## 2.0.51
+
+### Patch Changes
+
+- Fixes on deps included after release
+- Updated dependencies
+    - @hisptz/dhis2-utils@2.0.19
+
 ## 2.0.50
 
 ### Patch Changes

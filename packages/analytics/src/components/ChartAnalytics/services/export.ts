@@ -25,6 +25,8 @@ export function onPDFDownload(
 	chartRef: HighchartsReact.RefObject,
 	options?: Highcharts.Options,
 ) {
+	// @ts-ignore
+
 	chartRef?.chart.exportChart({ type: "application/pdf" }, options ?? {});
 }
 
@@ -32,6 +34,8 @@ export function onCSVDownload(
 	chartRef: HighchartsReact.RefObject,
 	options?: Highcharts.Options,
 ) {
+	// @ts-ignore
+
 	chartRef?.chart.downloadCSV();
 }
 
@@ -40,6 +44,7 @@ export const onImageDownload = (
 	type: "png" | "svg+xml" | "jpeg",
 	options?: Highcharts.Options,
 ) => {
+	// @ts-ignore
 	chartRef?.chart.exportChart({ type: `image/${type}` }, options ?? {});
 };
 

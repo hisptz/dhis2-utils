@@ -1,5 +1,26 @@
 # @hisptz/dhis2-analytics
 
+## 2.1.29
+
+### Patch Changes
+
+- Updated app runtime dep
+
+## 2.1.28
+
+### Patch Changes
+
+- Fixes on deps included after release
+- Updated dependencies
+    - @hisptz/dhis2-utils@2.0.19
+    - @hisptz/dhis2-ui@2.0.51
+
+## 2.1.28
+
+### Patch Changes
+
+- Peer deps fixes
+
 ## 2.1.27
 
 ### Patch Changes

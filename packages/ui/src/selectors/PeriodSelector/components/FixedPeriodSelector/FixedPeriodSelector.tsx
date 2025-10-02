@@ -1,7 +1,7 @@
 import { useMemo } from "react";
-import { CustomSelectField } from "../../../../forms/index.js";
+import { CustomSelectField } from "../../../../forms";
 import i18n from "@dhis2/d2-i18n";
-import { MapOrEntries, useMap } from "usehooks-ts";
+import { useMap } from "usehooks-ts";
 import { head, isEmpty, uniqBy } from "lodash";
 import {
 	BasePeriod,
@@ -31,19 +31,18 @@ export function FixedPeriodSelector({
 	selectedPeriods,
 	onSelect,
 }: FixedPeriodSelectorProps) {
-	const defaultValue: MapOrEntries<string, string> | undefined =
-		useMemo(() => {
-			if (isEmpty(selectedPeriods)) {
-				return;
-			}
-			const period = PeriodUtility.getPeriodById(
-				head(selectedPeriods) as string,
-			);
-			return [
-				["year", period.start.year.toString()],
-				["periodType", period.type.id],
-			];
-		}, [selectedPeriods]);
+	const defaultValue = useMemo(() => {
+		if (isEmpty(selectedPeriods)) {
+			return;
+		}
+		const period = PeriodUtility.getPeriodById(
+			head(selectedPeriods) as string,
+		);
+		return [
+			["year", period.start.year.toString()],
+			["periodType", period.type.id],
+		] as [string, string][];
+	}, [selectedPeriods]);
 	const [value, { set }] = useMap<string, string>(defaultValue);
 	const year = useMemo(() => value.get("year"), [value]);
 	const periodType = useMemo(() => value.get("periodType"), [value]);

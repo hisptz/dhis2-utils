@@ -5,6 +5,7 @@ export default defineConfig((options) => {
 		...options,
 		treeshake: true,
 		legacyOutput: true,
+		onSuccess: "cp package.prod.json dist/package.json",
 		entry: [
 			"src/**/*.{ts,tsx}",
 			"src/**/*.css",

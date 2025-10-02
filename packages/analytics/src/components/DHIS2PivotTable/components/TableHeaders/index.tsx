@@ -79,6 +79,8 @@ function ColumnRenderer({
 							/*
       // @ts-ignore */
 							top={`${prevHeight.toString()}px`}
+							/*
+// @ts-ignore */
 							ref={index === 0 ? ref : undefined}
 							className={classes["table-header"]}
 							align="center"

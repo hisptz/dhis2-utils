@@ -112,10 +112,7 @@ export const SimpleDataTable: FC<SimpleDataTableProps> = ({
 				<DataTableHead>
 					<DataTableRow>
 						{selectable && (
-							<DataTableColumnHeader
-								fixed
-								top={"0" as unknown as boolean}
-							>
+							<DataTableColumnHeader fixed top={"0"}>
 								<Checkbox
 									indeterminate={partiallySelected}
 									checked={allSelected}
@@ -128,7 +125,7 @@ export const SimpleDataTable: FC<SimpleDataTableProps> = ({
 							<DataTableColumnHeader
 								name={key}
 								fixed
-								top={"0" as unknown as boolean} //TODO: Remove this when the issue is fixed
+								top={"0"}
 								sortIconTitle={
 									sortable
 										? i18n.t("Sort by {{column}}", {

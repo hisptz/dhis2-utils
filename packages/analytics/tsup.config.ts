@@ -15,6 +15,7 @@ export default defineConfig((options) => {
 		],
 		ignoreWatch: ["*/**.stories.*"],
 		splitting: false,
+		onSuccess: "cp package.prod.json dist/package.json",
 		sourcemap: true,
 		clean: true,
 		dts: false,

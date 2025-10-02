@@ -51,7 +51,7 @@ export function MapProvider({
 			const { analytics, boundaries } = (data as any) ?? {};
 			const rawOrgUnits = sanitizeOrgUnits(analytics?.metaData);
 			const geoJSONObjects = toGeoJson(
-				boundaries.filter((bound: any) => bound.co),
+				boundaries?.filter((bound: any) => bound.co),
 			);
 			const orgUnits: MapOrgUnit[] = compact(
 				rawOrgUnits.map((orgUnit: any) => {

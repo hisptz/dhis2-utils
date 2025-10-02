@@ -1,85 +1,91 @@
 # @hisptz/dhis2-utils
 
+## 2.0.19
+
+### Patch Changes
+
+- Fixes on deps included after release
+
 ## 2.0.18
 
 ### Patch Changes
 
--   Leaflet updates
+- Leaflet updates
 
 ## 2.0.17
 
 ### Patch Changes
 
--   Fixes on program rules
+- Fixes on program rules
 
 ## 2.0.16
 
 ### Patch Changes
 
--   Program rules improvements
+- Program rules improvements
 
 ## 2.0.15
 
 ### Patch Changes
 
--   Fixes and improvements on program rules
+- Fixes and improvements on program rules
 
 ## 2.0.14
 
 ### Patch Changes
 
--   Program rules improvements
+- Program rules improvements
 
 ## 2.0.13
 
 ### Patch Changes
 
--   Fixes on date calculation for program rules
+- Fixes on date calculation for program rules
 
 ## 2.0.12
 
 ### Patch Changes
 
--   Improvements on program rules implementation
+- Improvements on program rules implementation
 
 ## 2.0.11
 
 ### Patch Changes
 
--   Improvements on build
+- Improvements on build
 
 ## 2.0.10
 
 ### Patch Changes
 
--   Fixes and improvements on map component
+- Fixes and improvements on map component
 
 ## 2.0.9
 
 ### Patch Changes
 
--   Deps upgrade and cleanup
+- Deps upgrade and cleanup
 
 ## 2.0.8
 
 ### Patch Changes
 
--   Fixed issues with period utilities future filter filtering all periods except one previous period
+- Fixed issues with period utilities future filter filtering all periods except one previous period
 
 ## 2.0.7
 
 ### Patch Changes
 
--   period utility improvements
+- period utility improvements
 
 ## 2.0.6
 
 ### Patch Changes
 
--   03350ee: Fixes on scorecard view
+- 03350ee: Fixes on scorecard view
 
 ## 2.0.5
 
 ### Patch Changes
 
--   Removed @dhis2/multi-calendar-dates dependency
+- Removed @dhis2/multi-calendar-dates dependency
