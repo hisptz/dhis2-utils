@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Scorecard } from "./Scorecard";
 import type { ScorecardConfig, ScorecardViewOptions } from "./schemas/config";
 import {
+	HighlightedItems,
 	ScorecardContext,
 	ScorecardDataProvider,
 	ScorecardStateProvider,
@@ -2322,6 +2323,7 @@ export const SpecificTargetsScorecard: Story = {
 	decorators: (Story, context) => {
 		return (
 			<div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+				<HighlightedItems />
 				<SpecificTargetLegendsView />
 				<Story {...context} />
 			</div>

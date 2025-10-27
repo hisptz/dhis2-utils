@@ -8,3 +8,4 @@ export * from "./ScorecardHeader";
 export * from "./ScorecardLegendsView";
 export * from "./StateProvider";
 export * from "./TableStateProvider";
+export * from "./HighlightedItems";
