@@ -1,5 +1,11 @@
 # @hisptz/dhis2-scorecard
 
+## 1.2.25
+
+### Patch Changes
+
+- Highlighted indicators implementation
+
 ## 1.2.24
 
 ### Patch Changes

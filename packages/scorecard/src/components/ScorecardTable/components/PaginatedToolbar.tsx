@@ -3,9 +3,10 @@ import {
 	useTableState,
 	useToggleTableLoadingState,
 } from "../../TableStateProvider";
-import { useEffect, useTransition } from "react";
+import { useRef, useTransition } from "react";
 
 export function PaginatedToolbar() {
+	const rendered = useRef<boolean>(false);
 	const [isPending, startTransition] = useTransition();
 	const table = useTableState();
 	const rowCount = table.getRowCount();
@@ -24,10 +25,6 @@ export function PaginatedToolbar() {
 			table.setPageSize(pageSize);
 		});
 	};
-
-	useEffect(() => {
-		toggleTableLoading();
-	}, [isPending]);
 
 	if (
 		rowCount <= 50 ||
