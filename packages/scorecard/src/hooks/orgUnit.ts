@@ -6,7 +6,6 @@ import type {
 	OrganisationUnitLevel,
 } from "@hisptz/dhis2-utils";
 import { useDataQuery } from "@dhis2/app-runtime";
-import { useUpdateEffect } from "usehooks-ts";
 
 export function useLowestOrgUnitLevel() {
 	const meta = useScorecardMeta();
@@ -36,7 +35,7 @@ type OrgUnitResponse = {
 };
 
 export function useOrgUnits(initialIds?: string[]) {
-	const { refetch, data, loading } = useDataQuery<OrgUnitResponse>(
+	const { refetch, data, loading, called } = useDataQuery<OrgUnitResponse>(
 		orgUnitQuery,
 		{
 			variables: {
@@ -46,8 +45,8 @@ export function useOrgUnits(initialIds?: string[]) {
 		},
 	);
 
-	useUpdateEffect(() => {
-		if (initialIds) {
+	useEffect(() => {
+		if (called) {
 			refetch({ ids: initialIds }).catch(console.error);
 		}
 	}, [refetch, initialIds]);

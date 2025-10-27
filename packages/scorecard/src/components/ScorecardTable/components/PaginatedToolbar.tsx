@@ -3,8 +3,7 @@ import {
 	useTableState,
 	useToggleTableLoadingState,
 } from "../../TableStateProvider";
-import { useTransition } from "react";
-import { useUpdateEffect } from "usehooks-ts";
+import { useEffect, useTransition } from "react";
 
 export function PaginatedToolbar() {
 	const [isPending, startTransition] = useTransition();
@@ -26,7 +25,7 @@ export function PaginatedToolbar() {
 		});
 	};
 
-	useUpdateEffect(() => {
+	useEffect(() => {
 		toggleTableLoading();
 	}, [isPending]);
 

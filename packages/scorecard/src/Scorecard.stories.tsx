@@ -17,6 +17,7 @@ import {
 import { useState } from "react";
 import { OrgUnitSelectorModal, PeriodSelectorModal } from "@hisptz/dhis2-ui";
 import i18n from "@dhis2/d2-i18n";
+import { SpecificTargetLegendsView } from "./components/ScorecardLegendsView/components/SpecificTargetLegendsView";
 
 const playConfig: ScorecardConfig = {
 	id: "YyeJxCBJpcz",
@@ -475,6 +476,678 @@ const playConfig: ScorecardConfig = {
 		},
 	],
 	highlightedIndicators: [],
+};
+
+const specificTargetsConfig: ScorecardConfig = {
+	id: "UTqwXl0th3h",
+	title: "Scorecard with specific targets",
+	subtitle: "Scorecard with specific targets",
+	description: "Scorecard with specific targets",
+	legendDefinitions: [
+		{
+			id: "N/A",
+			color: "#D3D3D3",
+			name: "N/A",
+			isDefault: true,
+		},
+		{
+			id: "No Data",
+			color: "#FFFFFF",
+			name: "No Data",
+			isDefault: true,
+		},
+		{
+			id: "Iu5x9GVnoT9",
+			color: "#008000",
+			name: "Target Reached/ On Track",
+		},
+		{
+			id: "Bx5zDyCAQXX",
+			color: "#FFFF00",
+			name: "Progress, but more effort required",
+		},
+		{
+			id: "ylPb7vKpX4q",
+			color: "#FF0000",
+			name: "Not on track",
+		},
+	],
+	options: {
+		averageColumn: true,
+		averageDisplayType: "ALL",
+		averageRow: true,
+		emptyRows: true,
+		highlightedIndicators: false,
+		itemNumber: true,
+		legend: true,
+		showHierarchy: false,
+		title: true,
+		arrows: true,
+		showDataInRows: false,
+	},
+	orgUnitSelection: {
+		userSubUnit: true,
+		orgUnits: [],
+		groups: [],
+		levels: [],
+	},
+	periodSelection: {
+		periods: [
+			{
+				id: "LAST_3_MONTHS",
+			},
+		],
+		type: "MONTHLY",
+	},
+	dataSelection: {
+		dataGroups: [
+			{
+				id: "zHSDKbvRNdd",
+				dataHolders: [
+					{
+						id: "no5jcOf6nKd",
+						dataSources: [
+							{
+								id: "Uvn6LCg7dVU",
+								name: "ANC 1 Coverage",
+								label: "ANC 1 Coverage",
+								type: "indicator",
+								displayArrows: false,
+								highIsGood: true,
+								effectiveGap: 5,
+								showColors: true,
+								weight: 100,
+								legends: [
+									{
+										legendDefinitionId: "ylPb7vKpX4q",
+										id: "y3bhy2S05bA",
+										startValue: 0,
+										endValue: 33,
+									},
+									{
+										legendDefinitionId: "Bx5zDyCAQXX",
+										id: "CJsspOC2ziB",
+										startValue: 33,
+										endValue: 66,
+									},
+									{
+										legendDefinitionId: "Iu5x9GVnoT9",
+										id: "DZdAQ64xWUt",
+										startValue: 66,
+										endValue: 100,
+									},
+								],
+								specificTargets: [],
+								specificTargetsSet: false,
+							},
+						],
+					},
+					{
+						id: "A5gZvXnkuG7",
+						dataSources: [
+							{
+								id: "ReUHfIn0pTQ",
+								name: "ANC 1-3 Dropout Rate",
+								label: "ANC 1-3 Dropout Rate",
+								type: "indicator",
+								displayArrows: false,
+								highIsGood: true,
+								effectiveGap: 5,
+								showColors: true,
+								weight: 100,
+								legends: [
+									{
+										legendDefinitionId: "ylPb7vKpX4q",
+										id: "tk0GqYrvEMl",
+										startValue: 0,
+										endValue: 33,
+									},
+									{
+										legendDefinitionId: "Bx5zDyCAQXX",
+										id: "UURdIweNjKX",
+										startValue: 33,
+										endValue: 66,
+									},
+									{
+										legendDefinitionId: "Iu5x9GVnoT9",
+										id: "WZfLV6aShT6",
+										startValue: 66,
+										endValue: 100,
+									},
+								],
+								specificTargets: [],
+								specificTargetsSet: false,
+							},
+						],
+					},
+					{
+						id: "xQ9Bp8gPBiA",
+						dataSources: [
+							{
+								id: "OdiHJayrsKo",
+								name: "ANC 2 Coverage",
+								label: "ANC 2 Coverage",
+								type: "indicator",
+								displayArrows: false,
+								highIsGood: true,
+								effectiveGap: 5,
+								showColors: true,
+								weight: 100,
+								legends: {
+									tTUf91fCytl: [
+										{
+											legendDefinitionId: "ylPb7vKpX4q",
+											id: "mGnxpz5z04C",
+											startValue: 0,
+											endValue: 33,
+										},
+										{
+											legendDefinitionId: "Bx5zDyCAQXX",
+											id: "Ma6if3CqE7W",
+											startValue: 33,
+											endValue: 66,
+										},
+										{
+											legendDefinitionId: "Iu5x9GVnoT9",
+											id: "zdto8g2scvn",
+											startValue: 66,
+											endValue: 100,
+										},
+									],
+									wjP19dkFeIk: [
+										{
+											legendDefinitionId: "ylPb7vKpX4q",
+											id: "sKobDh55qDv",
+											startValue: 0,
+											endValue: 40,
+										},
+										{
+											legendDefinitionId: "Bx5zDyCAQXX",
+											id: "jtzj4Jd3BU8",
+											startValue: 40,
+											endValue: 80,
+										},
+										{
+											legendDefinitionId: "Iu5x9GVnoT9",
+											id: "bWyNlMfmkvs",
+											startValue: 80,
+											endValue: 100,
+										},
+									],
+									m9lBJogzE95: [
+										{
+											legendDefinitionId: "ylPb7vKpX4q",
+											id: "JyIuaO8IwHl",
+											startValue: 0,
+											endValue: 30,
+										},
+										{
+											legendDefinitionId: "Bx5zDyCAQXX",
+											id: "PF88v0ZXrIW",
+											startValue: 30,
+											endValue: 60,
+										},
+										{
+											legendDefinitionId: "Iu5x9GVnoT9",
+											id: "pnxdR9LCk28",
+											startValue: 60,
+											endValue: 100,
+										},
+									],
+									H1KlN4QIauv: [
+										{
+											legendDefinitionId: "ylPb7vKpX4q",
+											id: "sG4uh3W97LD",
+											startValue: 0,
+											endValue: 60,
+										},
+										{
+											legendDefinitionId: "Bx5zDyCAQXX",
+											id: "mlXN7rbQbLe",
+											startValue: 60,
+											endValue: 80,
+										},
+										{
+											legendDefinitionId: "Iu5x9GVnoT9",
+											id: "gBsKMYYn31Q",
+											startValue: 80,
+											endValue: 100,
+										},
+									],
+								},
+								specificTargets: [],
+								specificTargetsSet: true,
+							},
+						],
+					},
+					{
+						id: "nUCpRrmXVh7",
+						dataSources: [
+							{
+								id: "sB79w2hiLp8",
+								name: "ANC 3 Coverage",
+								label: "ANC 3 Coverage",
+								type: "indicator",
+								displayArrows: false,
+								highIsGood: true,
+								effectiveGap: 5,
+								showColors: true,
+								weight: 100,
+								legends: [
+									{
+										legendDefinitionId: "ylPb7vKpX4q",
+										id: "nBJB2eLiayg",
+										startValue: 0,
+										endValue: 33,
+									},
+									{
+										legendDefinitionId: "Bx5zDyCAQXX",
+										id: "lnfAX3Su3CW",
+										startValue: 33,
+										endValue: 66,
+									},
+									{
+										legendDefinitionId: "Iu5x9GVnoT9",
+										id: "u0E9qAKlxvk",
+										startValue: 66,
+										endValue: 100,
+									},
+								],
+								specificTargets: [],
+								specificTargetsSet: false,
+							},
+						],
+					},
+					{
+						id: "RZZYU38rSrk",
+						dataSources: [
+							{
+								id: "AUqdhY4mpvp",
+								name: "ANC => 4 Coverage",
+								label: "ANC => 4 Coverage",
+								type: "indicator",
+								displayArrows: false,
+								highIsGood: true,
+								effectiveGap: 5,
+								showColors: true,
+								weight: 100,
+								legends: [
+									{
+										legendDefinitionId: "ylPb7vKpX4q",
+										id: "G6eiL10QpEF",
+										startValue: 0,
+										endValue: 33,
+									},
+									{
+										legendDefinitionId: "Bx5zDyCAQXX",
+										id: "iVF8QV65Iaf",
+										startValue: 33,
+										endValue: 66,
+									},
+									{
+										legendDefinitionId: "Iu5x9GVnoT9",
+										id: "tMSboQGvuvo",
+										startValue: 66,
+										endValue: 100,
+									},
+								],
+								specificTargets: [],
+								specificTargetsSet: false,
+							},
+						],
+					},
+					{
+						id: "EwNxv0v5a3P",
+						dataSources: [
+							{
+								id: "dwEq7wi6nXV",
+								name: "ANC IPT 1 Coverage",
+								label: "ANC IPT 1 Coverage",
+								type: "indicator",
+								displayArrows: false,
+								highIsGood: true,
+								effectiveGap: 5,
+								showColors: true,
+								weight: 100,
+								legends: [
+									{
+										legendDefinitionId: "ylPb7vKpX4q",
+										id: "SbMlKhsfiZJ",
+										startValue: 0,
+										endValue: 33,
+									},
+									{
+										legendDefinitionId: "Bx5zDyCAQXX",
+										id: "MdqpJNtSjsH",
+										startValue: 33,
+										endValue: 66,
+									},
+									{
+										legendDefinitionId: "Iu5x9GVnoT9",
+										id: "Td2rkf80pYp",
+										startValue: 66,
+										endValue: 100,
+									},
+								],
+								specificTargets: [],
+								specificTargetsSet: false,
+							},
+						],
+					},
+				],
+				style: {},
+				title: "ANC",
+			},
+			{
+				id: "kizRGGoWnUM",
+				dataHolders: [
+					{
+						id: "yGJORGOCwP1",
+						dataSources: [
+							{
+								id: "FnYCr2EAzWS",
+								name: "BCG Coverage <1y",
+								label: "BCG Coverage <1y",
+								type: "indicator",
+								displayArrows: true,
+								highIsGood: true,
+								effectiveGap: 5,
+								showColors: true,
+								weight: 100,
+								legends: {
+									tTUf91fCytl: [
+										{
+											legendDefinitionId: "ylPb7vKpX4q",
+											id: "mGnxpz5z04C",
+											startValue: 0,
+											endValue: 33,
+										},
+										{
+											legendDefinitionId: "Bx5zDyCAQXX",
+											id: "Ma6if3CqE7W",
+											startValue: 33,
+											endValue: 66,
+										},
+										{
+											legendDefinitionId: "Iu5x9GVnoT9",
+											id: "zdto8g2scvn",
+											startValue: 66,
+											endValue: 100,
+										},
+									],
+									wjP19dkFeIk: [
+										{
+											legendDefinitionId: "ylPb7vKpX4q",
+											id: "sKobDh55qDv",
+											startValue: 0,
+											endValue: 40,
+										},
+										{
+											legendDefinitionId: "Bx5zDyCAQXX",
+											id: "jtzj4Jd3BU8",
+											startValue: 40,
+											endValue: 80,
+										},
+										{
+											legendDefinitionId: "Iu5x9GVnoT9",
+											id: "bWyNlMfmkvs",
+											startValue: 80,
+											endValue: 100,
+										},
+									],
+									m9lBJogzE95: [
+										{
+											legendDefinitionId: "ylPb7vKpX4q",
+											id: "JyIuaO8IwHl",
+											startValue: 0,
+											endValue: 30,
+										},
+										{
+											legendDefinitionId: "Bx5zDyCAQXX",
+											id: "PF88v0ZXrIW",
+											startValue: 30,
+											endValue: 60,
+										},
+										{
+											legendDefinitionId: "Iu5x9GVnoT9",
+											id: "pnxdR9LCk28",
+											startValue: 60,
+											endValue: 100,
+										},
+									],
+									H1KlN4QIauv: [
+										{
+											legendDefinitionId: "ylPb7vKpX4q",
+											id: "sG4uh3W97LD",
+											startValue: 0,
+											endValue: 60,
+										},
+										{
+											legendDefinitionId: "Bx5zDyCAQXX",
+											id: "mlXN7rbQbLe",
+											startValue: 60,
+											endValue: 80,
+										},
+										{
+											legendDefinitionId: "Iu5x9GVnoT9",
+											id: "gBsKMYYn31Q",
+											startValue: 80,
+											endValue: 100,
+										},
+									],
+								},
+								specificTargets: [],
+								specificTargetsSet: true,
+							},
+						],
+					},
+					{
+						id: "GzV6CnlG4SV",
+						dataSources: [
+							{
+								id: "n5nS0SmkUpq",
+								name: "OPV 0 Coverage <1y",
+								label: "OPV 0 Coverage <1y",
+								type: "indicator",
+								displayArrows: true,
+								highIsGood: true,
+								effectiveGap: 5,
+								showColors: true,
+								weight: 100,
+								legends: [
+									{
+										legendDefinitionId: "ylPb7vKpX4q",
+										id: "BMrULAFGUF4",
+										startValue: 0,
+										endValue: 33,
+									},
+									{
+										legendDefinitionId: "Bx5zDyCAQXX",
+										id: "lh4KP58Reap",
+										startValue: 33,
+										endValue: 66,
+									},
+									{
+										legendDefinitionId: "Iu5x9GVnoT9",
+										id: "VxTN9o219Jz",
+										startValue: 66,
+										endValue: 100,
+									},
+								],
+								specificTargets: [
+									{
+										type: "orgUnit",
+										items: ["O6uvpzGd5pu", "fdc6uOvgoji"],
+										legends: [
+											{
+												legendDefinitionId:
+													"ylPb7vKpX4q",
+												id: "rkhNKUlmdGb",
+												startValue: 0,
+												endValue: 60,
+											},
+											{
+												legendDefinitionId:
+													"Bx5zDyCAQXX",
+												id: "RhTDKwkW5yG",
+												startValue: 60,
+												endValue: 80,
+											},
+											{
+												legendDefinitionId:
+													"Iu5x9GVnoT9",
+												id: "Fl332ZHP5Ra",
+												startValue: 80,
+												endValue: 100,
+											},
+										],
+									},
+								],
+								specificTargetsSet: true,
+							},
+						],
+					},
+					{
+						id: "t1X0hFDfqDo",
+						dataSources: [
+							{
+								id: "i7WSgSJpnfu",
+								name: "Penta 1 Coverage <1y",
+								label: "Penta 1 Coverage <1y",
+								type: "indicator",
+								displayArrows: false,
+								highIsGood: true,
+								effectiveGap: 5,
+								showColors: true,
+								weight: 100,
+								legends: [
+									{
+										legendDefinitionId: "ylPb7vKpX4q",
+										id: "h2fQ92WnY4Q",
+										startValue: 0,
+										endValue: 33,
+									},
+									{
+										legendDefinitionId: "Bx5zDyCAQXX",
+										id: "w5vOiJelzuK",
+										startValue: 33,
+										endValue: 66,
+									},
+									{
+										legendDefinitionId: "Iu5x9GVnoT9",
+										id: "rNgRxuwVy9L",
+										startValue: 66,
+										endValue: 100,
+									},
+								],
+								specificTargets: [
+									{
+										type: "periods",
+										items: ["2025"],
+										legends: [
+											{
+												legendDefinitionId:
+													"ylPb7vKpX4q",
+												id: "Zh3CcBLj3Qt",
+												startValue: 0,
+												endValue: 70,
+											},
+											{
+												legendDefinitionId:
+													"Bx5zDyCAQXX",
+												id: "wvkJXzI9acQ",
+												startValue: 70,
+												endValue: 90,
+											},
+											{
+												legendDefinitionId:
+													"Iu5x9GVnoT9",
+												id: "fpwsbGbymUd",
+												startValue: 90,
+												endValue: 100,
+											},
+										],
+									},
+								],
+								specificTargetsSet: true,
+							},
+						],
+					},
+				],
+				style: {},
+				title: "PNC",
+			},
+		],
+	},
+	highlightedIndicators: [
+		{
+			id: "Uvn6LCg7dVU",
+			name: "ANC 1 Coverage",
+			label: "ANC 1 Coverage",
+			type: "indicator",
+			displayArrows: false,
+			highIsGood: true,
+			effectiveGap: 5,
+			showColors: true,
+			weight: 100,
+			legends: [
+				{
+					legendDefinitionId: "ylPb7vKpX4q",
+					id: "oGKKt3DMsQ6",
+					startValue: 0,
+					endValue: 33,
+				},
+				{
+					legendDefinitionId: "Bx5zDyCAQXX",
+					id: "dFPGTBE4tnw",
+					startValue: 33,
+					endValue: 66,
+				},
+				{
+					legendDefinitionId: "Iu5x9GVnoT9",
+					id: "G1oPIZ9Nx1e",
+					startValue: 66,
+					endValue: 100,
+				},
+			],
+			specificTargets: [],
+			specificTargetsSet: false,
+		},
+		{
+			id: "FnYCr2EAzWS",
+			name: "BCG Coverage <1y",
+			label: "BCG Coverage <1y",
+			type: "indicator",
+			displayArrows: false,
+			highIsGood: true,
+			effectiveGap: 5,
+			showColors: true,
+			weight: 100,
+			legends: [
+				{
+					legendDefinitionId: "ylPb7vKpX4q",
+					id: "XVSuzRCs1P8",
+					startValue: 0,
+					endValue: 33,
+				},
+				{
+					legendDefinitionId: "Bx5zDyCAQXX",
+					id: "ijRlzqUnWIz",
+					startValue: 33,
+					endValue: 66,
+				},
+				{
+					legendDefinitionId: "Iu5x9GVnoT9",
+					id: "Gohc9hI4RWk",
+					startValue: 66,
+					endValue: 100,
+				},
+			],
+			specificTargets: [],
+			specificTargetsSet: false,
+		},
+	],
+	additionalLabels: [],
 };
 
 const config: ScorecardConfig = {
@@ -1603,19 +2276,21 @@ const meta: Meta<typeof Scorecard> = {
 							label={"Disable pagination"}
 						/>
 					</div>
-					<ScorecardContext config={playConfig}>
-						<ScorecardDataProvider>
-							<Story
-								args={{
-									...context.args,
-									tableProps: {
-										scrollHeight: "1000px",
-										scrollWidth: "1600px",
-										width: "1600px",
-									},
-								}}
-							/>
-						</ScorecardDataProvider>
+					<ScorecardContext config={context.args.config}>
+						<div>
+							<ScorecardDataProvider>
+								<Story
+									args={{
+										...context.args,
+										tableProps: {
+											scrollHeight: "1000px",
+											scrollWidth: "1600px",
+											width: "1600px",
+										},
+									}}
+								/>
+							</ScorecardDataProvider>
+						</div>
 					</ScorecardContext>
 				</div>
 			</ScorecardStateProvider>
@@ -1637,6 +2312,20 @@ export const LargeScorecard: Story = {
 	name: "Large scorecard example",
 	args: {
 		config: playConfig,
+	},
+};
+export const SpecificTargetsScorecard: Story = {
+	name: "Specific targets scorecard",
+	args: {
+		config: specificTargetsConfig,
+	},
+	decorators: (Story, context) => {
+		return (
+			<div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+				<SpecificTargetLegendsView />
+				<Story {...context} />
+			</div>
+		);
 	},
 };
 // export const DataInRows: Story = {

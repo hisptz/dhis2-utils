@@ -5,9 +5,11 @@ import {
 	ModalActions,
 	ModalContent,
 	ModalTitle,
+	Tab,
+	TabBar,
 } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { OrgUnitSpecificTargetView } from "./OrgUnitSpecificTargetView";
 import { PeriodSpecificTargetView } from "./PeriodSpecificTargetView";
 import { useBoolean } from "usehooks-ts";
@@ -25,7 +27,7 @@ export function SpecificTargetsLibrary() {
 	const dataSources = getDataSourcesFromGroups(
 		config.dataSelection.dataGroups,
 	);
-	const specificTargetsDataSourcesByType = useMemo(() => {
+	const { orgUnit, orgUnitLevel, periods } = useMemo(() => {
 		const dataSourcesWithSpecificTargets = dataSources.filter(
 			(ds) => ds.specificTargetsSet,
 		);
@@ -36,87 +38,112 @@ export function SpecificTargetsLibrary() {
 			),
 			(ds) => head(ds.specificTargets)?.type,
 		);
+
+		console.log({ data });
+
 		data["orgUnitLevel"] = dataSourcesWithSpecificTargets.filter((ds) =>
 			isEmpty(ds.specificTargets),
 		);
 		return data as {
-			period: Array<ScorecardDataSource> | undefined;
+			periods: Array<ScorecardDataSource> | undefined;
 			orgUnit: Array<ScorecardDataSource> | undefined;
 			orgUnitLevel: Array<ScorecardDataSource>;
 		};
 	}, [dataSources]);
 
+	const [activeTab, setActiveTab] = useState<
+		"period" | "orgUnit" | "orgUnitLevel"
+	>(
+		!isEmpty(orgUnit)
+			? "orgUnit"
+			: !isEmpty("orgUnitLevel")
+				? "orgUnitLevel"
+				: "period",
+	);
+
 	const getDataSourceLabel = useGetDataSourceLabel();
 	return (
 		<>
 			<div className="column gap-16">
-				{!isEmpty(specificTargetsDataSourcesByType?.orgUnit) && (
+				<TabBar>
+					{!isEmpty(orgUnit) && (
+						<Tab
+							selected={activeTab === "orgUnit"}
+							onClick={() => setActiveTab("orgUnit")}
+						>
+							{i18n.t("Organisation Units")}
+						</Tab>
+					)}
+					{!isEmpty(orgUnitLevel) && (
+						<Tab
+							selected={activeTab === "orgUnitLevel"}
+							onClick={() => setActiveTab("orgUnitLevel")}
+						>
+							{i18n.t("Organisation Unit Level")}
+						</Tab>
+					)}
+					{!isEmpty(periods) && (
+						<Tab
+							selected={activeTab === "period"}
+							onClick={() => setActiveTab("period")}
+						>
+							{i18n.t("Period")}
+						</Tab>
+					)}
+				</TabBar>
+				{activeTab === "orgUnit" && (
 					<div>
 						<h3>{i18n.t("Organisation Units Specific targets")}</h3>
 						<div className="row gap-16">
-							{specificTargetsDataSourcesByType?.orgUnit?.map(
-								(dataSource) => (
-									<>
-										<OrgUnitSpecificTargetView
-											key={`${dataSource.id}-orgUnit-specific-target`}
-											specificTarget={
-												head(
-													dataSource.specificTargets,
-												)!
-											}
-											label={getDataSourceLabel(
-												dataSource,
-											)}
-										/>
-										<div className="page-break" />
-									</>
-								),
-							)}
-						</div>
-						<div className="page-break" />
-					</div>
-				)}
-				{!isEmpty(specificTargetsDataSourcesByType?.period) && (
-					<div>
-						<h3>{i18n.t("Period Specific targets")}</h3>
-						<div className="row gap-16">
-							{specificTargetsDataSourcesByType?.period?.map(
-								(dataSource) => (
-									<>
-										<PeriodSpecificTargetView
-											key={`${dataSource.id}-orgUnit-specific-target`}
-											specificTarget={
-												head(
-													dataSource.specificTargets,
-												)!
-											}
-											label={getDataSourceLabel(
-												dataSource,
-											)}
-										/>
-										<div className="page-break" />
-									</>
-								),
-							)}
-						</div>
-						<div className="page-break" />
-					</div>
-				)}
-				{!isEmpty(specificTargetsDataSourcesByType.orgUnitLevel) && (
-					<div>
-						<h3>{i18n.t("Organisation unit level targets")}</h3>
-						<div className="column gap-16">
-							{specificTargetsDataSourcesByType?.orgUnitLevel.map(
-								(dataSource) => (
-									<OrgUnitLevelSpecificTargetView
+							{orgUnit?.map((dataSource) => (
+								<>
+									<OrgUnitSpecificTargetView
 										key={`${dataSource.id}-orgUnit-specific-target`}
 										specificTarget={
-											dataSource.legends as OrgUnitLevelLegend
+											head(dataSource.specificTargets)!
 										}
 										label={getDataSourceLabel(dataSource)}
 									/>
-								),
-							)}
+									<div className="page-break" />
+								</>
+							))}
+						</div>
+						<div className="page-break" />
+					</div>
+				)}
+				{activeTab === "period" && (
+					<div>
+						<h3>{i18n.t("Period Specific targets")}</h3>
+						<div className="row gap-16">
+							{periods?.map((dataSource) => (
+								<>
+									<PeriodSpecificTargetView
+										key={`${dataSource.id}-orgUnit-specific-target`}
+										specificTarget={
+											head(dataSource.specificTargets)!
+										}
+										label={getDataSourceLabel(dataSource)}
+									/>
+									<div className="page-break" />
+								</>
+							))}
+						</div>
+						<div className="page-break" />
+					</div>
+				)}
+				{activeTab === "orgUnitLevel" && (
+					<div>
+						<h3>{i18n.t("Organisation Unit Level Targets")}</h3>
+						<div className="column gap-16">
+							{orgUnitLevel.map((dataSource) => (
+								<OrgUnitLevelSpecificTargetView
+									key={`${dataSource.id}-orgUnit-specific-target`}
+									specificTarget={
+										dataSource.legends as OrgUnitLevelLegend
+									}
+									label={getDataSourceLabel(dataSource)}
+								/>
+							))}
 						</div>
 						<div className="page-break" />
 					</div>

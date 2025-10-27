@@ -29,10 +29,19 @@ export function PeriodSpecificTargetView({
 				maxWidth: 350,
 				border: `1px solid ${colors.grey600}`,
 				borderRadius: 4,
+				display: "flex",
+				flexDirection: "column",
+				gap: 8,
+				padding: 16,
 			}}
-			className="column gap-16 p-16"
 		>
-			<div className="column gap-16">
+			<div
+				style={{
+					gap: 8,
+					display: "flex",
+					flexDirection: "column",
+				}}
+			>
 				<div>
 					<b>{i18n.t("Period(s)")}: </b>{" "}
 					{periods?.map((ou) => ou.displayName)?.join(", ")}

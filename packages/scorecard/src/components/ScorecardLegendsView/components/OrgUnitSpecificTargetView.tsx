@@ -30,9 +30,14 @@ export function OrgUnitSpecificTargetView({
 	return (
 		<div
 			style={{
-				maxWidth: 350,
+				maxWidth: "fit-content",
 				border: `1px solid ${colors.grey600}`,
 				borderRadius: 4,
+				display: "flex",
+				flexDirection: "column",
+				gap: 8,
+				padding: 16,
+				fontSize: 14,
 			}}
 			className="column gap-16 p-16"
 		>

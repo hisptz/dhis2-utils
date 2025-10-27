@@ -1,8 +1,8 @@
-import { colors } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
 import { LegendsView } from "./LegendView";
 import type { OrgUnitLevelLegend } from "../../../schemas/config";
 import { useScorecardMeta } from "../../MetaProvider";
+import { colors } from "@dhis2/ui";
 
 export interface OrgUnitSpecificTargetViewProps {
 	specificTarget: OrgUnitLevelLegend;
@@ -19,31 +19,50 @@ export function OrgUnitLevelSpecificTargetView({
 	return (
 		<div
 			style={{
-				maxWidth: 350,
-				border: `1px solid ${colors.grey600}`,
 				borderRadius: 4,
 				gap: 8,
+				maxWidth: "fit-content",
+				display: "flex",
+				flexDirection: "column",
+				padding: 16,
+				fontSize: 14,
 			}}
-			className="column gap-16 p-16"
 		>
-			<div>
+			<div style={{ fontSize: 16 }}>
 				<b>{i18n.t("Data Source")}: </b>
 				{label}
 			</div>
-			<div style={{ gap: 16 }} className="column gap-8">
+			<div
+				style={{
+					gap: 16,
+					display: "grid",
+					gridTemplateColumns: "1fr 1fr",
+				}}
+			>
 				{Object.keys(specificTarget).map((key) => {
 					const orgUnitLevel = orgUnitLevels.find(
 						(level) => level.id === key,
 					);
 					const legends = specificTarget[key];
 					return (
-						<div>
-							<div className="column gap-16">
+						<div
+							style={{
+								border: `1px solid ${colors.grey600}`,
+								padding: 16,
+								borderRadius: 4,
+								fontSize: 14,
+							}}
+						>
+							<div
+								style={{
+									display: "flex",
+									flexDirection: "column",
+									gap: 4,
+								}}
+							>
 								<div>
-									<b>
-										{i18n.t("Organisation Unit Level")}:{" "}
-										{orgUnitLevel?.displayName}
-									</b>
+									<b>{i18n.t("Organisation Unit Level")}: </b>
+									{orgUnitLevel?.displayName}
 								</div>
 							</div>
 							<LegendsView legends={legends} />

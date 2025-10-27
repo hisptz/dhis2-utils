@@ -20,7 +20,7 @@ export function LegendsView({ legends }: LegendsViewProps) {
 				<col width="60%" />
 				<col width="20%" />
 				<col width="20%" />
-				<thead>
+				<thead style={{ fontSize: 14 }}>
 					<tr>
 						<th align="left">{i18n.t("Legend")}</th>
 						<th>{i18n.t("Min")}</th>
@@ -33,29 +33,33 @@ export function LegendsView({ legends }: LegendsViewProps) {
 							id: legend.legendDefinitionId,
 						});
 						return (
-							<tr key={`${legend.id}-view`}>
+							<tr
+								style={{
+									fontSize: 14,
+								}}
+								key={`${legend.id}-view`}
+							>
 								<td>
-									<table>
-										<col width="20%" />
-										<col width="80%" />
-										<tbody>
-											<tr>
-												<td>
-													<div
-														style={{
-															height: 24,
-															width: 32,
-															background:
-																legendDefinition?.color,
-														}}
-													/>
-												</td>
-												<td>
-													{legendDefinition?.name}
-												</td>
-											</tr>
-										</tbody>
-									</table>
+									<div
+										style={{
+											display: "grid",
+											alignItems: "center",
+											gap: 8,
+											gridTemplateColumns: "32px 1fr",
+										}}
+									>
+										<div>
+											<div
+												style={{
+													height: 24,
+													width: 32,
+													background:
+														legendDefinition?.color,
+												}}
+											/>
+										</div>
+										<div>{legendDefinition?.name}</div>
+									</div>
 								</td>
 								<td align="center">{legend?.startValue}</td>
 								<td align="center">{legend?.endValue}</td>
