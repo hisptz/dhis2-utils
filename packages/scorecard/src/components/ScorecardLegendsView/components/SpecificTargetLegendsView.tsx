@@ -39,8 +39,6 @@ export function SpecificTargetsLibrary() {
 			(ds) => head(ds.specificTargets)?.type,
 		);
 
-		console.log({ data });
-
 		data["orgUnitLevel"] = dataSourcesWithSpecificTargets.filter((ds) =>
 			isEmpty(ds.specificTargets),
 		);

@@ -1,5 +1,11 @@
 # @hisptz/dhis2-scorecard
 
+## 1.2.26
+
+### Patch Changes
+
+- Fixed loading issues with scorecard
+
 ## 1.2.25
 
 ### Patch Changes

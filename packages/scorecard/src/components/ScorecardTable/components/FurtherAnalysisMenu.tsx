@@ -34,7 +34,7 @@ export function FurtherAnalysisMenu({
 	const lowestLevel = useLowestOrgUnitLevel();
 	const orgUnitInLowestLevel = useMemo(() => {
 		return getOrgUnitLevel(orgUnit) === lowestLevel?.level;
-	}, [lowestLevel, orgUnit]);
+	}, [orgUnit, lowestLevel?.level]);
 	const [showSubMenu, setShowSubMenu] = useState(false);
 
 	return (

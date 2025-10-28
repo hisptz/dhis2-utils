@@ -4,8 +4,8 @@ import { PeriodUtility } from "@hisptz/dhis2-utils";
 import { head } from "lodash";
 import { colors } from "@dhis2/ui";
 import JsxParser from "react-jsx-parser";
-import { useScorecardViewStateValue } from "../utils/viewState";
-import { usePeriodSelectionValue } from "../utils/dimensionState";
+import { useScorecardViewStateValue } from "../utils";
+import { usePeriodSelectionValue } from "../utils";
 
 export function ScorecardHeader() {
 	const config = useScorecardConfig();

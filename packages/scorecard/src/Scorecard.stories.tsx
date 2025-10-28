@@ -2261,6 +2261,10 @@ const meta: Meta<typeof Scorecard> = {
 							label={"Show average column"}
 						/>
 						<OptionsToggle
+							name="highlightedIndicators"
+							label={"Show highlighted indicators"}
+						/>
+						<OptionsToggle
 							name="averageRow"
 							label={"Show average row"}
 						/>
