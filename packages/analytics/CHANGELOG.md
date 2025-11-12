@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.1.30
+
+### Patch Changes
+
+- Fixed map legend
+
 ## 2.1.29
 
 ### Patch Changes
