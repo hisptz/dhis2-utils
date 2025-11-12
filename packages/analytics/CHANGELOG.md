@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.1.31
+
+### Patch Changes
+
+- Fixed map issues where 0 values do not show legend
+
 ## 2.1.30
 
 ### Patch Changes
