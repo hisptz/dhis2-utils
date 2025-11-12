@@ -1,6 +1,6 @@
 import { TextAreaField } from "@dhis2/ui";
 import React from "react";
-import { FieldProps } from "../../interfaces/index.js";
+import { FieldProps } from "../../interfaces";
 
 export interface CustomTextAreaFieldProps extends FieldProps {}
 

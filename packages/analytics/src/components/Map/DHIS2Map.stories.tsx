@@ -282,6 +282,7 @@ ChoroplethThematicLayerWithLevels.args = {
 				id: "Uvn6LCg7dVU",
 				displayName: "ANC 1 Coverage",
 				type: "indicator",
+				legendSet: "fqs276KXCXi",
 			},
 			control: {
 				enabled: true,
@@ -295,7 +296,7 @@ ChoroplethThematicLayerWithLevels.args = {
 		collapsible: true,
 	},
 	periodSelection: {
-		periods: ["2023"],
+		periods: ["2025"],
 	},
 	controls: [
 		{
