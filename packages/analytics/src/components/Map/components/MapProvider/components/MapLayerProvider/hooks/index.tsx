@@ -158,6 +158,7 @@ export function useThematicLayers({
 								row[ouIndex] === ou.id &&
 								row[dxIndex] === layer.dataItem.id,
 						);
+						row[valueIndex] = 0;
 						return {
 							orgUnit: ou,
 							data: row ? parseFloat(row[valueIndex]) : undefined,

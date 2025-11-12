@@ -72,6 +72,7 @@ export function MapLayersProvider({
 			const sanitizedThematicLayers = await sanitizeThematicLayers([
 				...(thematicLayers ?? []),
 			] as ThematicLayerConfig[]);
+
 			const sanitizedBoundaryLayers = (boundaryLayers ??
 				[]) as CustomBoundaryLayer[];
 			const sanitizedPointLayer = head(pointLayers ?? [])

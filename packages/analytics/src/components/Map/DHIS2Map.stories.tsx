@@ -298,6 +298,22 @@ ChoroplethThematicLayerWithLevels.args = {
 	periodSelection: {
 		periods: ["2025"],
 	},
+	base: {
+		enabled: false,
+	},
+	mapOptions: {
+		trackResize: true,
+		zoomControl: true,
+		scrollWheelZoom: false,
+		bounceAtZoomLimits: true,
+		boxZoom: true,
+		zoom: 1,
+		style: {
+			height: 800,
+			width: "100%",
+			background: "#FFFFFF",
+		},
+	},
 	controls: [
 		{
 			type: "print",

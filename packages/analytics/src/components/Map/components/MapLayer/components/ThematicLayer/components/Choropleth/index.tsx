@@ -45,6 +45,7 @@ export default function Choropleth({
 	labelConfig?: LayerLabelConfig;
 }) {
 	const { orgUnit } = data;
+
 	const color = getColorFromLegendSet(legends, data.data);
 
 	const center = getCenter(

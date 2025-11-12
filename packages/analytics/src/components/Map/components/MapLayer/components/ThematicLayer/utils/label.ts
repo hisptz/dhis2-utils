@@ -16,6 +16,6 @@ export function getLabel({
 
 	return template(labelConfig.labelTemplate.replace(/\n/g, "<br />"))({
 		name: orgUnit.name,
-		value: data ? valueFormatter(data) : "",
+		value: typeof data === "number" ? valueFormatter(data) : "",
 	});
 }

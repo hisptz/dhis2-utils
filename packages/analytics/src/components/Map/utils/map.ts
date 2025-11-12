@@ -35,7 +35,7 @@ export function getColorFromLegendSet(
 	legends: Legend[],
 	value?: number,
 ): string {
-	if (!value) {
+	if (typeof value !== "number") {
 		return "transparent";
 	}
 	const legend: any =
