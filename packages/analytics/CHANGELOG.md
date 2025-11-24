@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.1.32
+
+### Patch Changes
+
+- Fixed map value issues
+
 ## 2.1.31
 
 ### Patch Changes

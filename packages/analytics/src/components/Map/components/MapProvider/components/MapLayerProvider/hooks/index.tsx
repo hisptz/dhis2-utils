@@ -7,7 +7,7 @@ import {
 	last,
 	sortBy,
 } from "lodash";
-import { useMapOrganisationUnit, useMapPeriods } from "../../../hooks/index.js";
+import { useMapOrganisationUnit, useMapPeriods } from "../../../hooks";
 import { useCallback, useMemo, useState } from "react";
 import {
 	generateLegends,
@@ -15,7 +15,7 @@ import {
 	sanitizeDate,
 	sanitizeOrgUnits,
 	toGeoJson,
-} from "../../../../../utils/map.js";
+} from "../../../../../utils";
 import { useDataEngine } from "@dhis2/app-runtime";
 import {
 	CustomGoogleEngineLayer,
