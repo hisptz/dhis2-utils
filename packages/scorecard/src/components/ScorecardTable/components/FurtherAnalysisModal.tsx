@@ -14,11 +14,21 @@ import i18n from "@dhis2/d2-i18n";
 import { useState } from "react";
 import { FurtherAnalysisVisualization } from "../FurtherAnalysisVisualization";
 import { FurtherAnalysisDictionary } from "../FurtherAnalysisDictionary";
+import type { Dimension } from "@hisptz/dhis2-analytics/src/components/Visualization/components/DimensionsProvider";
 
 export interface FurtherAnalysisConfig {
 	orgUnitSelection: OrgUnitSelection;
 	periodSelection: PeriodSelection;
 	dataSources: ScorecardDataSource[];
+	layout?: {
+		columns: Dimension[];
+		rows: Dimension[];
+		filters: Dimension[];
+	};
+	type?: {
+		visualizationType: "chart" | "pivotTable" | "map";
+		chartType?: "line" | "bar" | "column";
+	};
 }
 
 export interface FurtherAnalysisProps {

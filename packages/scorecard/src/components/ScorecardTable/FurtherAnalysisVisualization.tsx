@@ -26,15 +26,19 @@ export function FurtherAnalysisVisualization({
 		>
 			<Visualization
 				height={400}
-				layout={{
-					columns: ["dx"],
-					filters: ["pe"],
-					rows: ["ou"],
-				}}
+				layout={
+					config.layout ?? {
+						columns: ["dx"],
+						filters: ["pe"],
+						rows: ["ou"],
+					}
+				}
 				showToolbar
 				showOrgUnitSelector
 				showPeriodSelector
-				defaultVisualizationType={"chart"}
+				defaultVisualizationType={
+					config.type?.visualizationType ?? "chart"
+				}
 				dimensions={{
 					ou: orgUnits,
 					pe: periods,
@@ -42,11 +46,11 @@ export function FurtherAnalysisVisualization({
 				}}
 				config={{
 					chart: {
-						type: "column",
+						type: config.type?.chartType ?? "column",
 						layout: {
-							filter: ["pe"],
-							category: ["ou"],
-							series: ["dx"],
+							filter: config.layout?.filters ?? ["pe"],
+							category: config.layout?.rows ?? ["ou"],
+							series: config.layout?.columns ?? ["dx"],
 						},
 					},
 					pivotTable: {},

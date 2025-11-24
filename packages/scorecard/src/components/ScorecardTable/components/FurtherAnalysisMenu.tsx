@@ -130,6 +130,15 @@ export function FurtherAnalysisMenu({
 											},
 										],
 									},
+									type: {
+										visualizationType: "chart",
+										chartType: "line",
+									},
+									layout: {
+										columns: ["dx"],
+										rows: ["pe"],
+										filters: ["ou"],
+									},
 									orgUnitSelection: {
 										levels: [],
 										groups: [],
@@ -156,6 +165,15 @@ export function FurtherAnalysisMenu({
 												id: "LAST_6_MONTHS",
 											},
 										],
+									},
+									type: {
+										visualizationType: "chart",
+										chartType: "line",
+									},
+									layout: {
+										columns: ["dx"],
+										rows: ["pe"],
+										filters: ["ou"],
 									},
 									orgUnitSelection: {
 										levels: [],
@@ -184,6 +202,15 @@ export function FurtherAnalysisMenu({
 											},
 										],
 									},
+									type: {
+										visualizationType: "chart",
+										chartType: "line",
+									},
+									layout: {
+										columns: ["dx"],
+										rows: ["pe"],
+										filters: ["ou"],
+									},
 									orgUnitSelection: {
 										levels: [],
 										groups: [],
@@ -211,6 +238,15 @@ export function FurtherAnalysisMenu({
 											},
 										],
 									},
+									type: {
+										visualizationType: "chart",
+										chartType: "line",
+									},
+									layout: {
+										columns: ["dx"],
+										rows: ["pe"],
+										filters: ["ou"],
+									},
 									orgUnitSelection: {
 										levels: [],
 										groups: [],
@@ -237,6 +273,15 @@ export function FurtherAnalysisMenu({
 												id: "LAST_5_YEARS",
 											},
 										],
+									},
+									type: {
+										visualizationType: "chart",
+										chartType: "line",
+									},
+									layout: {
+										columns: ["dx"],
+										rows: ["pe"],
+										filters: ["ou"],
 									},
 									orgUnitSelection: {
 										levels: [],
