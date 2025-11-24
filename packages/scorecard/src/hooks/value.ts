@@ -1,18 +1,15 @@
-import { useEffect, useState } from "react";
+import { useCallback, useMemo, useSyncExternalStore } from "react";
 import type {
 	ScorecardAverageCellData,
 	ScorecardCellData,
 	ScorecardTableAverageCellConfig,
 	ScorecardTableCellConfig,
 } from "../schemas/config";
-import { useScorecardData } from "../components/DataProvider";
-import type {
-	DataEngineListener,
-	OnCompleteDataEngineListener,
-} from "../utils/dataEngine";
+import { useScorecardData, useScorecardMeta } from "../components";
+
 import type { AnalyticsData } from "../utils/data";
 import { getValues } from "../utils/columns";
-import { every, isEqual, meanBy } from "lodash";
+import { compact, flatten, meanBy } from "lodash";
 
 function getDataValues({
 	data,
@@ -55,51 +52,36 @@ function getDataValues({
 	});
 }
 
-export function useCellValue(dataConfig: ScorecardTableCellConfig) {
+export function useDataValue(config: {
+	dx: string[];
+	pe: string[];
+	ou: string[];
+}) {
 	const { data: scorecardEngine } = useScorecardData();
-	const [loading, setLoading] = useState<boolean>(false);
-	const [cellData, setCellData] = useState<ScorecardCellData[]>([]);
+	const getSnapshot = useCallback(scorecardEngine.getSnapshot(config), [
+		config,
+	]);
+	return useSyncExternalStore(
+		(listener) => scorecardEngine.addGeneralListener(listener),
+		getSnapshot,
+	);
+}
 
-	useEffect(() => {
-		return scorecardEngine.addOnCompleteListener((completed) => {
-			if (completed) {
-				setLoading(false);
-			}
-		});
-	}, []);
+export function useCellValue(dataConfig: ScorecardTableCellConfig) {
+	const analyticsData = useDataValue({
+		dx: dataConfig.dataSources.map((source) => source.id),
+		pe: compact([dataConfig.currentPeriod!, dataConfig.previousPeriod]),
+		ou: [dataConfig.orgUnit.uid],
+	});
 
-	useEffect(() => {
-		setLoading(true);
-		const listener: DataEngineListener = (data) => {
-			const values = getDataValues({ data, dataConfig });
-			const hasValues = every(values, (value) => !!value.data);
-			setCellData((prevState) => {
-				if (isEqual(prevState, values)) {
-					return prevState;
-				} else {
-					return values;
-				}
-			});
-			if (hasValues) {
-				scorecardEngine.removeListener(listener);
-				setLoading(false);
-			}
-		};
-		if (scorecardEngine.isDone) {
-			const values = getDataValues({
-				data: scorecardEngine.data,
-				dataConfig,
-			});
-
-			setCellData(values);
-			setLoading(false);
-		} else {
-			return scorecardEngine.addDataListener(listener);
-		}
-	}, [dataConfig]);
+	const cellData = useMemo(() => {
+		return analyticsData
+			? getDataValues({ dataConfig, data: analyticsData })
+			: undefined;
+	}, [analyticsData]);
 
 	return {
-		loading,
+		loading: false,
 		cellData,
 	};
 }
@@ -133,38 +115,26 @@ function getDataHolderAverageValues({
 export function useDataHolderAverageCellValue(
 	dataConfig: ScorecardTableAverageCellConfig,
 ) {
-	const { data: scorecardEngine } = useScorecardData();
-	const [loading, setLoading] = useState<boolean>(false);
-	const [cellData, setCellData] = useState<ScorecardAverageCellData[]>([]);
-
-	useEffect(() => {
-		setLoading(true);
-		const listener: OnCompleteDataEngineListener = (completed) => {
-			if (completed) {
-				setLoading(false);
-				setCellData(
-					getDataHolderAverageValues({
-						data: scorecardEngine.data,
-						dataConfig,
-					}),
-				);
-			}
-		};
-		if (scorecardEngine.isDone) {
-			setLoading(false);
-			setCellData(
-				getDataHolderAverageValues({
-					data: scorecardEngine.data,
+	const { periods, orgUnits } = useScorecardMeta()!;
+	const analyticsData = useDataValue({
+		dx:
+			flatten(
+				dataConfig.dataHolder?.dataSources.map((source) => source.id),
+			) ?? [],
+		ou: orgUnits.map(({ uid }) => uid),
+		pe: periods.map(({ uid }) => uid),
+	});
+	const cellData = useMemo(() => {
+		return analyticsData
+			? getDataHolderAverageValues({
+					data: analyticsData,
 					dataConfig,
-				}),
-			);
-		} else {
-			return scorecardEngine.addOnCompleteListener(listener);
-		}
-	}, [dataConfig]);
+				})
+			: undefined;
+	}, [analyticsData]);
 
 	return {
-		loading,
+		loading: false,
 		cellData,
 	};
 }
@@ -179,46 +149,30 @@ function getOrgUnitAverageValues({
 	const dataValues = data.filter((datum) => {
 		return datum.ou === dataConfig.orgUnit?.uid;
 	});
-
 	return meanBy(dataValues, (value) => parseFloat(value.value!));
 }
 
 export function useOrgUnitAverageCellValue(
 	dataConfig: ScorecardTableAverageCellConfig,
 ) {
-	const { data: scorecardEngine } = useScorecardData();
-	const [loading, setLoading] = useState<boolean>(false);
-	const [average, setAverage] = useState<number | null>(null);
+	const { periods, dataItems } = useScorecardMeta()!;
 
-	useEffect(() => {
-		setLoading(true);
-		const listener: OnCompleteDataEngineListener = (completed) => {
-			if (completed) {
-				setLoading(false);
-				setAverage(
-					getOrgUnitAverageValues({
-						data: scorecardEngine.data,
-						dataConfig,
-					}),
-				);
-			} else {
-			}
-		};
-		if (scorecardEngine.isDone) {
-			setLoading(false);
-			setAverage(
-				getOrgUnitAverageValues({
-					data: scorecardEngine.data,
+	const analyticsData = useDataValue({
+		dx: dataItems.map((item) => item.uid),
+		ou: compact([dataConfig.orgUnit?.uid]),
+		pe: periods.map(({ uid }) => uid),
+	});
+	const average = useMemo(() => {
+		return analyticsData
+			? getOrgUnitAverageValues({
+					data: analyticsData,
 					dataConfig,
-				}),
-			);
-		} else {
-			return scorecardEngine.addOnCompleteListener(listener);
-		}
-	}, [dataConfig]);
+				})
+			: undefined;
+	}, [analyticsData]);
 
 	return {
-		loading,
+		loading: false,
 		average,
 	};
 }

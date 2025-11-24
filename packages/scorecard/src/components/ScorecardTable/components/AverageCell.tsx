@@ -37,7 +37,7 @@ export function SingleAverageCell({
 			config: config!,
 			value: dataSource.data.average,
 		});
-	}, [dataSource]);
+	}, [dataSource, config]);
 
 	if (!dataSource.data.average || isNaN(dataSource.data.average)) {
 		return <DataTableCell bordered />;
@@ -153,7 +153,7 @@ function OrgUnitAverageCell(
 	props: CellContext<ScorecardTableData, ScorecardTableAverageCellConfig>,
 ) {
 	const size = props.cell.column.getSize();
-	const dataConfig = useMemo(() => props.getValue(), [props.getValue()]);
+	const dataConfig = useMemo(() => props.getValue(), [props]);
 	const { loading, average } = useOrgUnitAverageCellValue(dataConfig);
 
 	if (loading) {

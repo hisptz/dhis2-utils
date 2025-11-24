@@ -65,7 +65,7 @@ function getSortingFunction(dataEngine: ScorecardDataEngine) {
 		rowB: Row<ScorecardTableData>,
 		columnId: string,
 	) {
-		if (!dataEngine.isDone) {
+		if (!dataEngine.getIsCompleteSnapshot()) {
 			return 0;
 		}
 
@@ -74,12 +74,12 @@ function getSortingFunction(dataEngine: ScorecardDataEngine) {
 
 		const dataAValue = getValueFromConfig({
 			config: dataA,
-			data: dataEngine.data,
+			data: Array.from(dataEngine.data.values()),
 		});
 
 		const dataBValue = getValueFromConfig({
 			config: dataB,
-			data: dataEngine.data,
+			data: Array.from(dataEngine.data.values()),
 		});
 
 		const valueA = dataAValue.data.current ?? 0;

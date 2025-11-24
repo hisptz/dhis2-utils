@@ -1,11 +1,11 @@
 import type { AnalyticsData } from "./data";
 import { asyncify, queue } from "async-es";
-import { chunk, maxBy } from "lodash";
+import { chunk, compact, flattenDeep, isEmpty, map, maxBy, uniq } from "lodash";
 import type { QueueObject } from "async";
 
 export type RemoveListener = () => void;
-export type DataEngineListener = (data: AnalyticsData[]) => void;
-export type OnCompleteDataEngineListener = (completed: boolean) => void;
+export type DataEngineListener = () => void;
+export type OnCompleteDataEngineListener = () => void;
 export type ProgressListeners = (progress: number) => void;
 
 const chunkSize = 5;
@@ -13,119 +13,176 @@ const chunkSize = 5;
 export type ScorecardDataEngine = ReturnType<typeof createScorecardDataEngine>;
 
 export function createScorecardDataEngine() {
+	const data = new Map<string, AnalyticsData>();
+	const mappedData = new Map<string, AnalyticsData[]>();
+	const generalListeners = new Set<DataEngineListener>();
+	const progressListeners = new Set<ProgressListeners>();
+	const onCompleteListeners = new Set<OnCompleteDataEngineListener>();
+	let dataQueryQueue = queue(async () => Promise.resolve([])) as QueueObject<{
+		periods: string[];
+		orgUnits: string[];
+		dataItems: string[];
+	}>;
+	const keyListeners = new Map<string, Set<DataEngineListener>>();
+
+	let totalRequests = 0;
+	let completedRequests = 0;
+	let isDone = false;
+	let initialized = false;
+	let dimensions: {
+		orgUnits: string[];
+		periods: string[];
+		dataItems: string[];
+	} = {
+		orgUnits: [] as string[],
+		periods: [] as string[],
+		dataItems: [] as string[],
+	};
+
+	function getSnapshot(config: { dx: string[]; pe: string[]; ou: string[] }) {
+		return function () {
+			const keys = flattenDeep(
+				config.dx.map((dx) =>
+					config.ou.map((ou) =>
+						config.pe.map((pe) => `${ou}-${dx}-${pe}`),
+					),
+				),
+			);
+			const dataKey = keys.join("-");
+			if (mappedData.get(dataKey)) {
+				return mappedData.get(dataKey);
+			}
+			const datum = compact(keys.map((key) => data.get(key)));
+			if (!isEmpty(datum)) {
+				mappedData.set(dataKey, datum);
+			}
+			return mappedData.get(dataKey);
+		};
+	}
+
+	function getIsCompleteSnapshot() {
+		return isDone;
+	}
+
+	function complete() {
+		isDone = true;
+		for (const listener of onCompleteListeners) {
+			listener();
+		}
+	}
+
 	return {
-		queue: queue(async () => Promise.resolve([])) as QueueObject<{
-			periods: string[];
-			orgUnits: string[];
-			dataItems: string[];
-		}>,
-		data: [] as AnalyticsData[],
-		totalRequests: 0,
-		completedRequests: 0,
-		isDone: false,
-		initialized: false,
+		queue: dataQueryQueue,
+		getSnapshot,
+		getIsCompleteSnapshot,
+		data,
+		isDone: getIsCompleteSnapshot(),
+		initialized,
 		dataListeners: [] as DataEngineListener[],
-		onCompleteListeners: [] as OnCompleteDataEngineListener[],
-		progressListeners: [] as ProgressListeners[],
-		dimensions: {
-			orgUnits: [] as string[],
-			periods: [] as string[],
-			dataItems: [] as string[],
-		},
+		onCompleteListeners,
+		progressListeners,
+		dimensions,
 		updateProgress() {
-			const progress = this.completedRequests / this.totalRequests;
+			const progress = completedRequests / totalRequests;
 			for (const listener of this.progressListeners) {
 				listener(progress);
 			}
 		},
 		updateTotalRequests(value: number) {
-			this.totalRequests = value;
+			totalRequests = value;
 			this.updateProgress();
 		},
 		updateCompleteRequests(value: number) {
-			this.completedRequests = value;
+			completedRequests = value;
 			this.updateProgress();
 		},
-		addDataListener(listener: DataEngineListener): RemoveListener {
-			this.dataListeners.push(listener);
+		addDataListener(
+			key: string,
+			listener: DataEngineListener,
+		): RemoveListener {
+			keyListeners.get(key)?.add(listener);
 			return () => {
-				this.dataListeners.filter((l) => l !== listener);
+				keyListeners.get(key)?.delete(listener);
+			};
+		},
+		addGeneralListener(listener: DataEngineListener): RemoveListener {
+			generalListeners.add(listener);
+			return () => {
+				generalListeners.delete(listener);
 			};
 		},
 		addOnCompleteListener(
 			listener: OnCompleteDataEngineListener,
 		): RemoveListener {
-			this.onCompleteListeners.push(listener);
+			onCompleteListeners.add(listener);
 			return () => {
-				this.onCompleteListeners.filter((l) => l !== listener);
+				onCompleteListeners.delete(listener);
 			};
 		},
 		addProgressListener(listener: ProgressListeners): RemoveListener {
-			this.progressListeners.push(listener);
+			progressListeners.add(listener);
 			return () => {
-				this.progressListeners.filter((l) => l !== listener);
+				progressListeners.delete(listener);
 			};
 		},
-		removeListener(listener: DataEngineListener) {
-			return this.dataListeners.filter((l) => l !== listener);
+		removeListener(key: string, listener: DataEngineListener) {
+			return keyListeners.get(key)?.delete(listener);
 		},
-		updateData(data: AnalyticsData[]) {
-			this.data = [...this.data, ...data];
-			for (const listener of this.dataListeners) {
-				listener(this.data);
+		updateData(downloadedData: AnalyticsData[]) {
+			for (const dataItem of downloadedData) {
+				const { ou, dx, pe } = dataItem;
+				data.set(`${ou}-${dx}-${pe}`, dataItem);
 			}
-		},
-		complete() {
-			this.isDone = true;
-			for (const listener of this.onCompleteListeners) {
-				listener(this.isDone);
+			for (const listener of generalListeners) {
+				listener();
 			}
 		},
 		clear() {
-			this.data = [];
-			this.isDone = false;
-			this.initialized = false;
+			data.clear();
+			mappedData.clear();
+			isDone = false;
+			initialized = false;
 		},
 		setupDataFetch() {
 			const getTheLongestDimension = () => {
-				const dimensions = [
+				const updatedDimensions = [
 					{
 						dimension: "pe",
-						length: this.dimensions.periods.length,
+						length: dimensions.periods.length,
 					},
 					{
 						dimension: "dx",
-						length: this.dimensions.dataItems.length,
+						length: dimensions.dataItems.length,
 					},
 					{
 						dimension: "ou",
-						length: this.dimensions.orgUnits.length,
+						length: dimensions.orgUnits.length,
 					},
 				] as const;
 
-				return maxBy(dimensions, "length")!.dimension;
+				return maxBy(updatedDimensions, "length")!.dimension;
 			};
 			const getChunkedData = async (maxItem: "dx" | "pe" | "ou") => {
 				switch (maxItem) {
 					case "dx":
 						const dataItemChunks = chunk(
-							this.dimensions.dataItems,
+							dimensions.dataItems,
 							chunkSize,
 						);
 						this.updateTotalRequests(dataItemChunks.length);
 						for (const dataItemChunk of dataItemChunks) {
-							this.queue
+							dataQueryQueue
 								.push({
-									periods: this.dimensions.periods,
+									periods: dimensions.periods,
 									dataItems: dataItemChunk,
-									orgUnits: this.dimensions.orgUnits,
+									orgUnits: dimensions.orgUnits,
 								})
 								.then((data) => {
 									this.updateData(data as AnalyticsData[]);
 								})
 								.then((data) => {
 									this.updateCompleteRequests(
-										this.completedRequests + 1,
+										completedRequests + 1,
 									);
 									return data;
 								});
@@ -133,23 +190,23 @@ export function createScorecardDataEngine() {
 						break;
 					case "pe":
 						const periodChunks = chunk(
-							this.dimensions.periods,
+							dimensions.periods,
 							chunkSize,
 						);
 						this.updateTotalRequests(periodChunks.length);
 						for (const periodChunk of periodChunks) {
-							this.queue
+							dataQueryQueue
 								.push({
 									periods: periodChunk,
-									dataItems: this.dimensions.dataItems,
-									orgUnits: this.dimensions.orgUnits,
+									dataItems: dimensions.dataItems,
+									orgUnits: dimensions.orgUnits,
 								})
 								.then((data) => {
 									this.updateData(data as AnalyticsData[]);
 								})
 								.then((data) => {
 									this.updateCompleteRequests(
-										this.completedRequests + 1,
+										completedRequests + 1,
 									);
 									return data;
 								});
@@ -157,15 +214,15 @@ export function createScorecardDataEngine() {
 						break;
 					case "ou":
 						const orgUnitChunks = chunk(
-							this.dimensions.orgUnits,
+							dimensions.orgUnits,
 							chunkSize,
 						);
 						this.updateTotalRequests(orgUnitChunks.length);
 						for (const orgUnitChunk of orgUnitChunks) {
-							this.queue
+							dataQueryQueue
 								.push({
-									periods: this.dimensions.periods,
-									dataItems: this.dimensions.dataItems,
+									periods: dimensions.periods,
+									dataItems: dimensions.dataItems,
 									orgUnits: orgUnitChunk,
 								})
 								.then((data) => {
@@ -173,7 +230,7 @@ export function createScorecardDataEngine() {
 								})
 								.then((data) => {
 									this.updateCompleteRequests(
-										this.completedRequests + 1,
+										completedRequests + 1,
 									);
 									return data;
 								});
@@ -181,16 +238,16 @@ export function createScorecardDataEngine() {
 						break;
 				}
 			};
-			this.queue.remove(() => true);
+			dataQueryQueue.remove(() => true);
 			if (
-				this.dimensions.periods.length < 5 &&
-				this.dimensions.dataItems.length < 5 &&
-				this.dimensions.orgUnits.length < 5
+				dimensions.periods.length < 5 &&
+				dimensions.dataItems.length < 5 &&
+				dimensions.orgUnits.length < 5
 			) {
-				const { orgUnits, periods, dataItems } = this.dimensions;
+				const { orgUnits, periods, dataItems } = dimensions;
 				this.updateTotalRequests(1);
 				this.updateCompleteRequests(0);
-				this.queue
+				dataQueryQueue
 					.push({
 						periods,
 						orgUnits,
@@ -212,7 +269,7 @@ export function createScorecardDataEngine() {
 				dataItems: string[];
 			}) => Promise<AnalyticsData[]>,
 			{
-				dimensions,
+				dimensions: appliedDimensions,
 			}: {
 				dimensions: {
 					dataItems: string[];
@@ -221,13 +278,13 @@ export function createScorecardDataEngine() {
 				};
 			},
 		) {
-			this.dimensions = dimensions;
-			this.queue = queue(asyncify(fetch));
-			this.queue.drain(() => {
-				this.complete();
-			});
-			this.initialized = true;
 			this.clear();
+			dimensions = appliedDimensions;
+			dataQueryQueue = queue(asyncify(fetch));
+			dataQueryQueue.drain(() => {
+				complete();
+			});
+			initialized = true;
 			this.setupDataFetch();
 		},
 	};

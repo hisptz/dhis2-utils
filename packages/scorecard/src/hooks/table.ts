@@ -28,7 +28,8 @@ import { type AnalyticsData, getRowsFromMeta } from "../utils/data";
 import { isEmpty, meanBy } from "lodash";
 import type { ScorecardDataEngine } from "../utils/dataEngine";
 import { getAverageValue } from "../utils/columns";
-import { useScorecardViewStateValue } from "../utils/viewState";
+import { useScorecardViewStateValue } from "../utils";
+import { useScorecardLoadingCompleted } from "./completed";
 
 export function getRowValues({
 	data,
@@ -64,14 +65,11 @@ export function filterRows({
 	rows: ScorecardTableData[];
 	meta: ScorecardMeta;
 }) {
-	if (!dataEngine.isDone) {
-		return [];
-	}
 	const hiddenRows: number[] = [];
 	const rowsWithDataValues = rows.map((row, index) => {
 		const values = getRowValues({
 			row,
-			data: dataEngine.data,
+			data: Array.from(dataEngine.data.values()),
 			showDataInRows,
 		});
 		const average = meanBy(values, ({ value }) => parseFloat(value!));
@@ -92,7 +90,7 @@ export function filterRows({
 
 	if (averageDisplayType !== "ALL") {
 		const average = getAverageValue({
-			dataValues: dataEngine.data,
+			dataValues: Array.from(dataEngine.data.values()),
 			meta,
 		});
 		if (averageDisplayType === "BELOW_AVERAGE") {
@@ -121,59 +119,50 @@ export function useTableRows(): ScorecardTableData[] {
 		useScorecardViewStateValue<ScorecardViewOptions["averageDisplayType"]>(
 			"averageDisplayType",
 		);
+	const completed = useScorecardLoadingCompleted();
 
 	const config = useScorecardConfig();
 
-	const [hiddenRowIndexes, setHiddenRowIndexes] = useState<number[]>([]);
-
-	if (meta == null) return [];
-
-	const rows = useMemo(() => {
-		const rows = getRowsFromMeta({
-			meta,
+	const allRows = useMemo(() => {
+		return getRowsFromMeta({
+			meta: meta!,
 			showDataInRows,
 			config,
 		});
+	}, [meta, showDataInRows, config]);
+
+	const hiddenRowIndexes: number[] = useMemo(() => {
+		if (!completed) {
+			return [];
+		}
+		return filterRows({
+			meta: meta!,
+			dataEngine,
+			showDataInRows,
+			rows: allRows,
+			averageDisplayType,
+			emptyRows,
+		});
+	}, [
+		completed,
+		meta,
+		dataEngine,
+		showDataInRows,
+		averageDisplayType,
+		emptyRows,
+	]);
+
+	if (meta == null) return [];
+
+	return useMemo(() => {
+		const rows = allRows;
 
 		if (isEmpty(hiddenRowIndexes)) {
 			return rows;
 		}
 
 		return rows.filter((_, index) => !hiddenRowIndexes.includes(index));
-	}, [meta, showDataInRows, config, hiddenRowIndexes]);
-
-	useEffect(() => {
-		const listener = (completed: boolean) => {
-			if (completed) {
-				setHiddenRowIndexes(
-					filterRows({
-						meta,
-						dataEngine,
-						showDataInRows,
-						rows,
-						averageDisplayType,
-						emptyRows,
-					}),
-				);
-			}
-		};
-		if (dataEngine.isDone) {
-			setHiddenRowIndexes(
-				filterRows({
-					meta,
-					dataEngine,
-					showDataInRows,
-					rows,
-					averageDisplayType,
-					emptyRows,
-				}),
-			);
-		} else {
-			return dataEngine.addOnCompleteListener(listener);
-		}
-	}, [averageDisplayType, emptyRows, showDataInRows]);
-
-	return rows;
+	}, [allRows, hiddenRowIndexes]);
 }
 
 export function useColumnVisibility() {

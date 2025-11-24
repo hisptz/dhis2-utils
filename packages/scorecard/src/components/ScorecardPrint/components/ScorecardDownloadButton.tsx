@@ -5,13 +5,7 @@ import {
 	MenuItem,
 } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
-import {
-	type RefObject,
-	useEffect,
-	useRef,
-	useState,
-	useTransition,
-} from "react";
+import { type RefObject, useRef, useState, useTransition } from "react";
 import { useScorecardData } from "../../DataProvider";
 import { useReactToPrint } from "react-to-print";
 import { useScorecardConfig } from "../../ConfigProvider";
@@ -21,6 +15,7 @@ import { useScorecardMeta } from "../../MetaProvider";
 import { downloadALMAData, downloadALMAMeta } from "../utils/download";
 import { useAlert } from "@dhis2/app-runtime";
 import "../print.css";
+import { useScorecardLoadingCompleted } from "../../../hooks/completed";
 
 function DownloadMenu({
 	previewRef,
@@ -73,7 +68,7 @@ function DownloadMenu({
 					downloadALMAData({
 						config,
 						meta: meta!,
-						data: dataEngine.data,
+						data: Array.from(dataEngine.data.values()),
 					});
 					break;
 			}
@@ -105,18 +100,9 @@ function DownloadMenu({
 
 export function ScorecardDownloadButton() {
 	const [isPending, startTransition] = useTransition();
-	const { data: dataEngine } = useScorecardData();
 	const [openMenu, setOpenMenu] = useState<boolean>(false);
-	const [completed, setCompleted] = useState<boolean>(dataEngine.isDone);
+	const completed = useScorecardLoadingCompleted();
 	const previewRef = useRef<HTMLDivElement | null>(null);
-
-	useEffect(() => {
-		return dataEngine.addOnCompleteListener((completed) => {
-			startTransition(() => {
-				setCompleted(completed);
-			});
-		});
-	}, [dataEngine]);
 
 	return (
 		<>

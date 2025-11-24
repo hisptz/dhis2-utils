@@ -35,6 +35,7 @@ const playConfig: ScorecardConfig = {
 		showDataInRows: false,
 		averageDisplayType: "ALL",
 		highlightedIndicators: false,
+		disablePagination: true,
 	},
 	sharing: {
 		owner: "xE7jOejl9FI",
@@ -441,7 +442,7 @@ const playConfig: ScorecardConfig = {
 	additionalLabels: [],
 	orgUnitSelection: {
 		groups: [],
-		levels: [3],
+		levels: ["3"],
 		orgUnits: [],
 		userOrgUnit: false,
 		userSubUnit: false,

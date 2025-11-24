@@ -234,6 +234,12 @@ export const scorecardTableAverageCellConfig = z.object({
 			hierarchy: z.string(),
 		})
 		.optional(),
+	period: z
+		.object({
+			uid: z.string(),
+			name: z.string(),
+		})
+		.optional(),
 });
 export type ScorecardTableAverageCellConfig = z.infer<
 	typeof scorecardTableAverageCellConfig

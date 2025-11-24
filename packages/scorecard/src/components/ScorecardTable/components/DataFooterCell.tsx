@@ -4,14 +4,13 @@ import type {
 	ScorecardTableCellConfig,
 	ScorecardTableData,
 } from "../../../schemas/config";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { DataTableCell } from "@dhis2/ui";
 import type { AnalyticsData } from "../../../utils/data";
-import { useScorecardData } from "../../DataProvider";
-import { head, isEmpty, meanBy } from "lodash";
-import { CellLoader } from "./CellLoader";
+import { compact, head, isEmpty, meanBy } from "lodash";
 import { LinkedAverageCell, SingleAverageCell } from "./AverageCell";
-import { useScorecardViewStateValue } from "../../../utils/viewState";
+import { useScorecardViewStateValue } from "../../../utils";
+import { useDataValue } from "../../../hooks/value";
 
 function getOrgUnitAverage({
 	dataSourcesConfig,
@@ -45,40 +44,28 @@ function OrgUnitFooterCell({
 	dataSourcesConfig: ScorecardTableCellConfig[];
 	size: number;
 }) {
-	const { data: scorecardEngine } = useScorecardData();
-	const [loading, setLoading] = useState<boolean>(false);
-	const [averageValues, setAverageValues] =
-		useState<ScorecardAverageCellData[]>();
+	const analyticsData = useDataValue({
+		ou: dataSourcesConfig.map(({ orgUnit }) => orgUnit.uid),
+		pe: compact(
+			dataSourcesConfig.map(({ currentPeriod }) => currentPeriod),
+		),
+		dx: compact(
+			dataSourcesConfig
+				.map(({ dataSources }) => dataSources?.map(({ id }) => id))
+				.flat(),
+		),
+	});
 
-	useEffect(() => {
-		setLoading(true);
-		const listener = (completed: boolean) => {
-			if (completed) {
-				setAverageValues(
-					getOrgUnitAverage({
-						dataSourcesConfig,
-						data: scorecardEngine.data,
-					}),
-				);
-				setLoading(false);
-			}
-		};
-		if (scorecardEngine.isDone) {
-			setAverageValues(
-				getOrgUnitAverage({
-					dataSourcesConfig,
-					data: scorecardEngine.data,
-				}),
-			);
-			setLoading(false);
-		} else {
-			return scorecardEngine.addOnCompleteListener(listener);
+	const averageValues = useMemo(() => {
+		if (!analyticsData) {
+			return;
 		}
-	}, [dataSourcesConfig]);
 
-	if (loading) {
-		return <CellLoader size={size} />;
-	}
+		return getOrgUnitAverage({
+			dataSourcesConfig,
+			data: analyticsData,
+		});
+	}, [analyticsData, dataSourcesConfig]);
 
 	if (isEmpty(averageValues)) {
 		return <DataTableCell style={{ width: size }} bordered />;
@@ -100,43 +87,25 @@ function DataHolderFooterCell({
 	dataSourcesConfig: ScorecardTableCellConfig[];
 	size: number;
 }) {
-	const { data: scorecardEngine } = useScorecardData();
-	const [loading, setLoading] = useState<boolean>(false);
-	const [average, setAverage] = useState<number>();
-
-	useEffect(() => {
-		setLoading(true);
-		const listener = (completed: boolean) => {
-			if (completed) {
-				setLoading(false);
-				const orgUnitId = head(dataSourcesConfig)!;
-				const dataValues = scorecardEngine.data.filter(
-					(datum) => datum.ou === orgUnitId.orgUnit.uid,
-				);
-				const average = meanBy(dataValues, (value) =>
-					parseFloat(value.value!),
-				);
-				setAverage(average);
-			}
-		};
-		if (scorecardEngine.isDone) {
-			const orgUnitId = head(dataSourcesConfig)!;
-			const dataValues = scorecardEngine.data.filter(
-				(datum) => datum.ou === orgUnitId.orgUnit.uid,
-			);
-			const average = meanBy(dataValues, (value) =>
-				parseFloat(value.value!),
-			);
-			setAverage(average);
-			setLoading(false);
-		} else {
-			return scorecardEngine.addOnCompleteListener(listener);
+	const analyticsData = useDataValue({
+		ou: dataSourcesConfig.map(({ orgUnit }) => orgUnit.uid),
+		pe: compact(
+			dataSourcesConfig.map(({ currentPeriod }) => currentPeriod),
+		),
+		dx: compact(
+			dataSourcesConfig
+				.map(({ dataSources }) => dataSources?.map(({ id }) => id))
+				.flat(),
+		),
+	});
+	const average = useMemo(() => {
+		if (!analyticsData) {
+			return;
 		}
-	}, [dataSourcesConfig]);
-
-	if (loading) {
-		return <CellLoader size={size} />;
-	}
+		return meanBy(analyticsData, (datum) => parseFloat(datum.value!)) as
+			| number
+			| undefined;
+	}, [analyticsData]);
 
 	if (isNaN(average as number)) {
 		return (
@@ -163,7 +132,7 @@ export function DataFooterCell({
 			.rows.map((row) =>
 				row.getValue(column.id),
 			) as ScorecardTableCellConfig[];
-	}, [table.getRowModel().rows]);
+	}, [table, column.id]);
 
 	if (showDataInRows) {
 		return (
