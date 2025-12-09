@@ -1,6 +1,7 @@
 import type { HeaderContext } from "@tanstack/react-table";
 import {
 	ScorecardDraggableItems,
+	type ScorecardLegend,
 	type ScorecardTableData,
 } from "../../../../../schemas/config";
 import { DataTableColumnHeader, type DataTableSortDirection } from "@dhis2/ui";
@@ -8,6 +9,10 @@ import i18n from "@dhis2/d2-i18n";
 import { DraggableCell } from "../../DraggableCell";
 import DroppableCell from "../../DroppableCell";
 import { useScorecardViewStateValue } from "../../../../../utils";
+import { useBoolean } from "usehooks-ts";
+import { useRef } from "react";
+import { DataHeaderLegendView } from "./DataHeaderLegendView";
+import { isEmpty } from "lodash";
 
 export function EmptyDataHeaderCell({
 	header,
@@ -21,15 +26,22 @@ export function DataHeaderCellComponent({
 	header,
 }: HeaderContext<ScorecardTableData, any>) {
 	const dataInRows = useScorecardViewStateValue<boolean>("showDataInRows");
+	const labelRef = useRef<HTMLElement>(null);
 	const label =
-		(header.column.columnDef.meta as { label: string }).label ??
-		(column.columnDef.meta as { label: string }).label;
+		(
+			header.column.columnDef.meta as {
+				label: string;
+				legends: { id: string };
+			}
+		).label ?? (column.columnDef.meta as { label: string }).label;
 
 	const bold =
 		(header.column.columnDef.meta as { bold?: boolean }).bold ??
 		(column.columnDef.meta as { bold?: boolean }).bold;
 
 	const colSpan = header.colSpan.toString();
+	const { value: openLegendView, toggle: toggleLegendView } =
+		useBoolean(false);
 
 	const sortDirection = !column?.getIsSorted()
 		? "default"
@@ -40,6 +52,18 @@ export function DataHeaderCellComponent({
 			: column?.getNextSortingOrder() === "desc"
 				? i18n.t("in descending order")
 				: i18n.t("disable");
+
+	const legends = (
+		header.column.columnDef.meta as {
+			legends: Array<{
+				id: string;
+				label: string;
+				legends: ScorecardLegend[];
+			}>;
+		}
+	)?.legends;
+
+	console.log(openLegendView, legends, labelRef.current);
 
 	return (
 		<DataTableColumnHeader
@@ -78,7 +102,20 @@ export function DataHeaderCellComponent({
 							: ScorecardDraggableItems.data
 					}
 				>
-					{bold ? <b>{label}</b> : label}
+					{openLegendView && !isEmpty(legends) && (
+						<DataHeaderLegendView
+							legends={legends}
+							reference={labelRef}
+							onClose={toggleLegendView}
+						/>
+					)}
+					{bold ? (
+						<b>{label}</b>
+					) : (
+						<span onClick={toggleLegendView} ref={labelRef}>
+							{label}
+						</span>
+					)}
 				</DraggableCell>
 			</DroppableCell>
 		</DataTableColumnHeader>

@@ -4,6 +4,7 @@ import type {
 	ScorecardLegend,
 } from "../../../schemas/config";
 import { colors } from "@dhis2/ui";
+import { isEmpty } from "lodash";
 
 export interface LegendsViewProps {
 	legends: ScorecardLegend[];
@@ -71,6 +72,12 @@ export function LegendsView({ legends }: LegendsViewProps) {
 	const config = useScorecardConfig();
 	const legendDefinitions = config.legendDefinitions ?? [];
 
+	if (isEmpty(legends)) {
+		return null;
+	}
+
+	console.log(legends);
+
 	return (
 		<div
 			style={{
@@ -80,7 +87,7 @@ export function LegendsView({ legends }: LegendsViewProps) {
 				fontSize: 14,
 			}}
 		>
-			{legends.map((legend) => (
+			{legends?.map((legend) => (
 				<LegendItem
 					key={legend.id}
 					legend={legend}

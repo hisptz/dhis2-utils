@@ -243,6 +243,12 @@ function getDataHolderColumn({
 					"",
 				);
 
+	const legends = dataSources.map(({ legends, id, label }) => ({
+		id,
+		label,
+		legends,
+	}));
+
 	if (hasOnePeriod) {
 		return columnHelper.accessor(
 			(rowData) => {
@@ -269,6 +275,7 @@ function getDataHolderColumn({
 				header: DataHeaderCell,
 				meta: {
 					label: header,
+					legends,
 				},
 				id: id.toString(),
 				cell: DataContainer,
@@ -360,7 +367,6 @@ export function getDataColumnHeaders({
 						dataEngine,
 					});
 				}),
-
 				enableSorting: false,
 				footer: () => null,
 			});

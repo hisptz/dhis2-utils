@@ -536,7 +536,7 @@ const specificTargetsConfig: ScorecardConfig = {
 	periodSelection: {
 		periods: [
 			{
-				id: "LAST_3_MONTHS",
+				id: "202509",
 			},
 		],
 		type: "MONTHLY",
@@ -575,6 +575,39 @@ const specificTargetsConfig: ScorecardConfig = {
 									{
 										legendDefinitionId: "Iu5x9GVnoT9",
 										id: "DZdAQ64xWUt",
+										startValue: 66,
+										endValue: 100,
+									},
+								],
+								specificTargets: [],
+								specificTargetsSet: false,
+							},
+							{
+								id: "ReUHfIn0pTQ",
+								name: "ANC 1-3 Dropout Rate",
+								label: "ANC 1-3 Dropout Rate",
+								type: "indicator",
+								displayArrows: false,
+								highIsGood: true,
+								effectiveGap: 5,
+								showColors: true,
+								weight: 100,
+								legends: [
+									{
+										legendDefinitionId: "ylPb7vKpX4q",
+										id: "tk0GqYrvEMl",
+										startValue: 0,
+										endValue: 33,
+									},
+									{
+										legendDefinitionId: "Bx5zDyCAQXX",
+										id: "UURdIweNjKX",
+										startValue: 33,
+										endValue: 66,
+									},
+									{
+										legendDefinitionId: "Iu5x9GVnoT9",
+										id: "WZfLV6aShT6",
 										startValue: 66,
 										endValue: 100,
 									},
