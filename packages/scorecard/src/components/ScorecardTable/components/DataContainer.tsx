@@ -33,7 +33,11 @@ function DataContainerComponent(
 		return <DataTableCell bordered />;
 	}
 
-	if (cellData?.length === 1) {
+	if (!cellData) {
+		return <DataTableCell bordered />;
+	}
+
+	if (cellData.length === 1) {
 		return (
 			<SingleDataCell
 				{...dataConfig}
