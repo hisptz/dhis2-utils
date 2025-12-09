@@ -1,4 +1,3 @@
-import i18n from "@dhis2/d2-i18n";
 import { LegendsView } from "./LegendView";
 import type { OrgUnitLevelLegend } from "../../../schemas/config";
 import { useScorecardMeta } from "../../MetaProvider";
@@ -29,8 +28,7 @@ export function OrgUnitLevelSpecificTargetView({
 			}}
 		>
 			<div style={{ fontSize: 16 }}>
-				<b>{i18n.t("Data Source")}: </b>
-				{label}
+				<b>{label}</b>
 			</div>
 			<div
 				style={{
@@ -47,24 +45,16 @@ export function OrgUnitLevelSpecificTargetView({
 					return (
 						<div
 							style={{
-								border: `1px solid ${colors.grey600}`,
+								border: `1px solid ${colors.grey400}`,
 								padding: 16,
 								borderRadius: 4,
 								fontSize: 14,
+								display: "flex",
+								flexDirection: "column",
+								gap: 8,
 							}}
 						>
-							<div
-								style={{
-									display: "flex",
-									flexDirection: "column",
-									gap: 4,
-								}}
-							>
-								<div>
-									<b>{i18n.t("Organisation Unit Level")}: </b>
-									{orgUnitLevel?.displayName}
-								</div>
-							</div>
+							<b>{orgUnitLevel?.displayName}</b>
 							<LegendsView legends={legends} />
 						</div>
 					);

@@ -77,6 +77,7 @@ export function LegendsView({ legends }: LegendsViewProps) {
 				display: "flex",
 				flexDirection: "column",
 				gap: 8,
+				fontSize: 14,
 			}}
 		>
 			{legends.map((legend) => (

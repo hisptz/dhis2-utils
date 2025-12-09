@@ -1,6 +1,5 @@
 import type { SpecificTarget } from "../../../schemas/config";
 import { CircularLoader, colors } from "@dhis2/ui";
-import i18n from "@dhis2/d2-i18n";
 import { LegendsView } from "./LegendView";
 import { useOrgUnits } from "../../../hooks/orgUnit";
 
@@ -31,25 +30,25 @@ export function OrgUnitSpecificTargetView({
 		<div
 			style={{
 				maxWidth: "fit-content",
-				border: `1px solid ${colors.grey600}`,
+				border: `1px solid ${colors.grey400}`,
 				borderRadius: 4,
 				display: "flex",
 				flexDirection: "column",
 				gap: 8,
 				padding: 16,
-				fontSize: 14,
 			}}
-			className="column gap-16 p-16"
 		>
-			<div className="column gap-16">
-				<div>
-					<b>{i18n.t("Organisation Unit(s)")}: </b>{" "}
+			<div
+				style={{
+					display: "flex",
+					flexDirection: "column",
+					gap: 8,
+				}}
+			>
+				<b>{label}</b>
+				<span style={{ color: colors.grey600, fontSize: 12 }}>
 					{orgUnits?.map((ou) => ou.displayName)?.join(", ")}
-				</div>
-				<div>
-					<b>{i18n.t("Data Source")}: </b>
-					{label}
-				</div>
+				</span>
 			</div>
 			<LegendsView legends={specificTarget.legends} />
 		</div>

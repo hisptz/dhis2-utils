@@ -1,5 +1,4 @@
 import { colors } from "@dhis2/ui";
-import i18n from "@dhis2/d2-i18n";
 import { LegendsView } from "./LegendView";
 import { createFixedPeriodFromPeriodId } from "@dhis2/multi-calendar-dates";
 import { useCalendar } from "../../../hooks/metadata";
@@ -27,7 +26,7 @@ export function PeriodSpecificTargetView({
 		<div
 			style={{
 				maxWidth: 350,
-				border: `1px solid ${colors.grey600}`,
+				border: `1px solid ${colors.grey400}`,
 				borderRadius: 4,
 				display: "flex",
 				flexDirection: "column",
@@ -37,19 +36,15 @@ export function PeriodSpecificTargetView({
 		>
 			<div
 				style={{
-					gap: 8,
+					gap: 4,
 					display: "flex",
 					flexDirection: "column",
 				}}
 			>
-				<div>
-					<b>{i18n.t("Period(s)")}: </b>{" "}
+				<b>{label}</b>
+				<span style={{ color: colors.grey600, fontSize: 12 }}>
 					{periods?.map((ou) => ou.displayName)?.join(", ")}
-				</div>
-				<div>
-					<b>{i18n.t("Data Source")}: </b>
-					{label}
-				</div>
+				</span>
 			</div>
 			<LegendsView legends={specificTarget.legends} />
 		</div>
