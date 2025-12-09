@@ -1,13 +1,70 @@
-import i18n from "@dhis2/d2-i18n";
-import { find } from "lodash";
 import { useScorecardConfig } from "../../ConfigProvider";
 import type {
 	LegendDefinition,
 	ScorecardLegend,
 } from "../../../schemas/config";
+import { colors } from "@dhis2/ui";
 
 export interface LegendsViewProps {
 	legends: ScorecardLegend[];
+}
+
+const formatNumber = Intl.NumberFormat("en-GB", {
+	notation: "standard",
+}).format;
+
+function LegendItem({
+	legend,
+	legendDefinitions,
+}: {
+	legend: ScorecardLegend;
+	legendDefinitions: LegendDefinition[];
+}) {
+	const legendDefinition = legendDefinitions.find(
+		({ id }) => id === legend.legendDefinitionId,
+	);
+	if (!legendDefinition) {
+		return null;
+	}
+
+	return (
+		<div
+			style={{
+				display: "flex",
+				gap: 8,
+				alignItems: "stretch",
+				width: "100%",
+			}}
+		>
+			<div
+				style={{
+					alignSelf: "stretch",
+					backgroundColor: legendDefinition.color,
+					width: 8,
+					minHeight: "100%",
+				}}
+			></div>
+			<div
+				style={{
+					display: "flex",
+					flexDirection: "column",
+					gap: 2,
+				}}
+			>
+				<span>{legendDefinition.name}</span>
+				<div
+					style={{
+						display: "flex",
+						gap: 4,
+						fontSize: 11,
+						color: colors.grey600,
+					}}
+				>
+					<div className="legend-item-label">{`${formatNumber(+legend.startValue)} - ${formatNumber(+legend.endValue)}`}</div>
+				</div>
+			</div>
+		</div>
+	);
 }
 
 export function LegendsView({ legends }: LegendsViewProps) {
@@ -15,59 +72,20 @@ export function LegendsView({ legends }: LegendsViewProps) {
 	const legendDefinitions = config.legendDefinitions ?? [];
 
 	return (
-		<div className="column gap-8">
-			<table>
-				<col width="60%" />
-				<col width="20%" />
-				<col width="20%" />
-				<thead style={{ fontSize: 14 }}>
-					<tr>
-						<th align="left">{i18n.t("Legend")}</th>
-						<th>{i18n.t("Min")}</th>
-						<th>{i18n.t("Max")}</th>
-					</tr>
-				</thead>
-				<tbody>
-					{legends?.map((legend) => {
-						const legendDefinition = find(legendDefinitions, {
-							id: legend.legendDefinitionId,
-						});
-						return (
-							<tr
-								style={{
-									fontSize: 14,
-								}}
-								key={`${legend.id}-view`}
-							>
-								<td>
-									<div
-										style={{
-											display: "grid",
-											alignItems: "center",
-											gap: 8,
-											gridTemplateColumns: "32px 1fr",
-										}}
-									>
-										<div>
-											<div
-												style={{
-													height: 24,
-													width: 32,
-													background:
-														legendDefinition?.color,
-												}}
-											/>
-										</div>
-										<div>{legendDefinition?.name}</div>
-									</div>
-								</td>
-								<td align="center">{legend?.startValue}</td>
-								<td align="center">{legend?.endValue}</td>
-							</tr>
-						);
-					})}
-				</tbody>
-			</table>
+		<div
+			style={{
+				display: "flex",
+				flexDirection: "column",
+				gap: 8,
+			}}
+		>
+			{legends.map((legend) => (
+				<LegendItem
+					key={legend.id}
+					legend={legend}
+					legendDefinitions={legendDefinitions}
+				/>
+			))}
 		</div>
 	);
 }
