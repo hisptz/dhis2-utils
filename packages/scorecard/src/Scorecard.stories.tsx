@@ -480,6 +480,666 @@ const playConfig: ScorecardConfig = {
 	highlightedIndicators: [],
 };
 
+const immunizationConfig: ScorecardConfig = {
+	id: "HFCV2aRfDEY",
+	title: "Immunization",
+	options: {
+		title: true,
+		arrows: true,
+		legend: true,
+		emptyRows: true,
+		averageRow: true,
+		itemNumber: true,
+		averageColumn: true,
+		showHierarchy: false,
+		showDataInRows: false,
+		averageDisplayType: "ALL",
+		highlightedIndicators: false,
+	},
+	description: "Immunization scorecard",
+	dataSelection: {
+		dataGroups: [
+			{
+				id: "wXXyRym14gj",
+				style: {},
+				title: "Coverage",
+				dataHolders: [
+					{
+						id: "plxD1oSbxpG",
+						dataSources: [
+							{
+								id: "FnYCr2EAzWS",
+								name: "BCG Coverage <1y",
+								type: "indicator",
+								label: "BCG Coverage <1y",
+								weight: 100,
+								legends: {
+									H1KlN4QIauv: [
+										{
+											id: "uMTgFFYFlwQ",
+											endValue: 10,
+											startValue: 0,
+											legendDefinitionId: "SNy80Jv1wRy",
+										},
+										{
+											id: "EokC486lL4h",
+											endValue: 30,
+											startValue: 10,
+											legendDefinitionId: "zZSvFfx45se",
+										},
+										{
+											id: "s1nSDKSC8pt",
+											endValue: 100,
+											startValue: 30,
+											legendDefinitionId: "R56GcWMt03N",
+										},
+									],
+									m9lBJogzE95: [
+										{
+											id: "Da4GCTaTAML",
+											endValue: 33,
+											startValue: 0,
+											legendDefinitionId: "SNy80Jv1wRy",
+										},
+										{
+											id: "Y8jaFaxQsIb",
+											endValue: 66,
+											startValue: 33,
+											legendDefinitionId: "zZSvFfx45se",
+										},
+										{
+											id: "EirlF1wS3LY",
+											endValue: 100,
+											startValue: 66,
+											legendDefinitionId: "R56GcWMt03N",
+										},
+									],
+									tTUf91fCytl: [
+										{
+											id: "OpmP0I2IZ5d",
+											endValue: 33,
+											startValue: 0,
+											legendDefinitionId: "SNy80Jv1wRy",
+										},
+										{
+											id: "JNfYNCq9K0R",
+											endValue: 66,
+											startValue: 33,
+											legendDefinitionId: "zZSvFfx45se",
+										},
+										{
+											id: "hArllhHWD5N",
+											endValue: 100,
+											startValue: 66,
+											legendDefinitionId: "R56GcWMt03N",
+										},
+									],
+									wjP19dkFeIk: [
+										{
+											id: "SQQzqCu8Uro",
+											endValue: 20,
+											startValue: 0,
+											legendDefinitionId: "SNy80Jv1wRy",
+										},
+										{
+											id: "ma4RPC0uzJG",
+											endValue: 40,
+											startValue: 20,
+											legendDefinitionId: "zZSvFfx45se",
+										},
+										{
+											id: "hw1vFluNZ0U",
+											endValue: 100,
+											startValue: 40,
+											legendDefinitionId: "R56GcWMt03N",
+										},
+									],
+								},
+								highIsGood: true,
+								showColors: true,
+								effectiveGap: 5,
+								displayArrows: true,
+								specificTargets: [],
+								specificTargetsSet: true,
+							},
+						],
+					},
+					{
+						id: "TR5BEn0TESE",
+						dataSources: [
+							{
+								id: "n5nS0SmkUpq",
+								name: "OPV 0 Coverage <1y",
+								type: "indicator",
+								label: "OPV 0 Coverage <1y",
+								weight: 100,
+								legends: [
+									{
+										id: "nNVEYslqc0E",
+										endValue: 33,
+										startValue: 0,
+										legendDefinitionId: "SNy80Jv1wRy",
+									},
+									{
+										id: "zzEcP4sqp79",
+										endValue: 66,
+										startValue: 33,
+										legendDefinitionId: "zZSvFfx45se",
+									},
+									{
+										id: "f23O6OiolDM",
+										endValue: 100,
+										startValue: 66,
+										legendDefinitionId: "R56GcWMt03N",
+									},
+								],
+								highIsGood: true,
+								showColors: true,
+								effectiveGap: 5,
+								displayArrows: true,
+								specificTargets: [],
+								specificTargetsSet: false,
+							},
+						],
+					},
+					{
+						id: "Ho8ABwAD5iN",
+						dataSources: [
+							{
+								id: "YlTWksXEhEO",
+								name: "OPV 1 Coverage <1y",
+								type: "indicator",
+								label: "OPV 1 Coverage <1y",
+								weight: 100,
+								legends: [
+									{
+										id: "G7raslWZSPk",
+										endValue: 33,
+										startValue: 0,
+										legendDefinitionId: "SNy80Jv1wRy",
+									},
+									{
+										id: "rT3SJUEtXj1",
+										endValue: 66,
+										startValue: 33,
+										legendDefinitionId: "zZSvFfx45se",
+									},
+									{
+										id: "Yw2Pg7HPnB5",
+										endValue: 100,
+										startValue: 66,
+										legendDefinitionId: "R56GcWMt03N",
+									},
+								],
+								highIsGood: true,
+								showColors: true,
+								effectiveGap: 5,
+								displayArrows: true,
+								specificTargets: [],
+								specificTargetsSet: false,
+							},
+						],
+					},
+					{
+						id: "yw7F15t1r2b",
+						dataSources: [
+							{
+								id: "QsuBK2pMfkk",
+								name: "OPV 2 Coverage <1y",
+								type: "indicator",
+								label: "OPV 2 Coverage <1y",
+								weight: 100,
+								legends: [
+									{
+										id: "Vv3H6Et0SKg",
+										endValue: 33,
+										startValue: 0,
+										legendDefinitionId: "SNy80Jv1wRy",
+									},
+									{
+										id: "WolDcfMvZR7",
+										endValue: 66,
+										startValue: 33,
+										legendDefinitionId: "zZSvFfx45se",
+									},
+									{
+										id: "dOLbEDLwf15",
+										endValue: 100,
+										startValue: 66,
+										legendDefinitionId: "R56GcWMt03N",
+									},
+								],
+								highIsGood: true,
+								showColors: true,
+								effectiveGap: 5,
+								displayArrows: true,
+								specificTargets: [],
+								specificTargetsSet: false,
+							},
+						],
+					},
+					{
+						id: "jtm80t6OcPP",
+						dataSources: [
+							{
+								id: "JoEzWYGdX7s",
+								name: "OPV 3 Coverage <1y",
+								type: "indicator",
+								label: "OPV 3 Coverage <1y",
+								weight: 100,
+								legends: [
+									{
+										id: "z04BezkzNVP",
+										endValue: 33,
+										startValue: 0,
+										legendDefinitionId: "SNy80Jv1wRy",
+									},
+									{
+										id: "OI0tked65R6",
+										endValue: 66,
+										startValue: 33,
+										legendDefinitionId: "zZSvFfx45se",
+									},
+									{
+										id: "ZtB61NZL0M4",
+										endValue: 100,
+										startValue: 66,
+										legendDefinitionId: "R56GcWMt03N",
+									},
+								],
+								highIsGood: true,
+								showColors: true,
+								effectiveGap: 5,
+								displayArrows: true,
+								specificTargets: [],
+								specificTargetsSet: false,
+							},
+						],
+					},
+					{
+						id: "UEJwXhPEftW",
+						dataSources: [
+							{
+								id: "FbKK4ofIv5R",
+								name: "Measles Coverage <1y",
+								type: "indicator",
+								label: "Measles Coverage <1y",
+								weight: 100,
+								legends: [
+									{
+										id: "sMFYxcQpXb7",
+										endValue: 5,
+										startValue: 0,
+										legendDefinitionId: "SNy80Jv1wRy",
+									},
+									{
+										id: "RBZgb2KoIan",
+										endValue: 20,
+										startValue: 5,
+										legendDefinitionId: "zZSvFfx45se",
+									},
+									{
+										id: "bHFaN8ettC2",
+										endValue: 100,
+										startValue: 20,
+										legendDefinitionId: "R56GcWMt03N",
+									},
+								],
+								highIsGood: true,
+								showColors: true,
+								effectiveGap: 5,
+								displayArrows: true,
+								specificTargets: [
+									{
+										type: "periods",
+										items: ["2024"],
+										legends: [
+											{
+												id: "gsb1s2nUWIT",
+												endValue: 33,
+												startValue: 0,
+												legendDefinitionId:
+													"SNy80Jv1wRy",
+											},
+											{
+												id: "HH776A7UAZ3",
+												endValue: 66,
+												startValue: 33,
+												legendDefinitionId:
+													"zZSvFfx45se",
+											},
+											{
+												id: "cpB5nXgUlqV",
+												endValue: 100,
+												startValue: 66,
+												legendDefinitionId:
+													"R56GcWMt03N",
+											},
+										],
+									},
+								],
+								specificTargetsSet: true,
+							},
+						],
+					},
+					{
+						id: "CtCdrgTLIH0",
+						dataSources: [
+							{
+								id: "i7WSgSJpnfu",
+								name: "Penta 1 Coverage <1y",
+								type: "indicator",
+								label: "Penta 1 Coverage <1y",
+								weight: 100,
+								legends: [
+									{
+										id: "igaaT2SGsMU",
+										endValue: 33,
+										startValue: 0,
+										legendDefinitionId: "SNy80Jv1wRy",
+									},
+									{
+										id: "N8CD7eVkGxI",
+										endValue: 66,
+										startValue: 33,
+										legendDefinitionId: "zZSvFfx45se",
+									},
+									{
+										id: "QjX95oba6lr",
+										endValue: 100,
+										startValue: 66,
+										legendDefinitionId: "R56GcWMt03N",
+									},
+								],
+								highIsGood: true,
+								showColors: true,
+								effectiveGap: 5,
+								displayArrows: true,
+								specificTargets: [
+									{
+										type: "orgUnit",
+										items: ["bL4ooGhyHRQ"],
+										legends: [
+											{
+												id: "RNbOCwqPZwY",
+												endValue: 5,
+												startValue: 0,
+												legendDefinitionId:
+													"SNy80Jv1wRy",
+											},
+											{
+												id: "Emb3vrLdT7C",
+												endValue: 20,
+												startValue: 5,
+												legendDefinitionId:
+													"zZSvFfx45se",
+											},
+											{
+												id: "N3FhGHZPNzi",
+												endValue: 100,
+												startValue: 20,
+												legendDefinitionId:
+													"R56GcWMt03N",
+											},
+										],
+									},
+								],
+								specificTargetsSet: true,
+							},
+						],
+					},
+					{
+						id: "r1WOJ3whbS6",
+						dataSources: [
+							{
+								id: "Om2QoRtsncL",
+								name: "Penta 2 Coverage <1y",
+								type: "indicator",
+								label: "Penta 2 Coverage <1y",
+								weight: 100,
+								legends: [
+									{
+										id: "jTArvSvuOy2",
+										endValue: 33,
+										startValue: 0,
+										legendDefinitionId: "SNy80Jv1wRy",
+									},
+									{
+										id: "P77r8UMXmlU",
+										endValue: 66,
+										startValue: 33,
+										legendDefinitionId: "zZSvFfx45se",
+									},
+									{
+										id: "bpMBE9GAAln",
+										endValue: 100,
+										startValue: 66,
+										legendDefinitionId: "R56GcWMt03N",
+									},
+								],
+								highIsGood: true,
+								showColors: true,
+								effectiveGap: 5,
+								displayArrows: true,
+								specificTargets: [],
+								specificTargetsSet: false,
+							},
+						],
+					},
+					{
+						id: "xirCqMx9LRe",
+						dataSources: [
+							{
+								id: "tUIlpyeeX9N",
+								name: "Penta 3 Coverage <1y",
+								type: "indicator",
+								label: "Penta 3 Coverage <1y",
+								weight: 100,
+								legends: [
+									{
+										id: "Irv4Pd1mQA9",
+										endValue: 33,
+										startValue: 0,
+										legendDefinitionId: "SNy80Jv1wRy",
+									},
+									{
+										id: "mUeaSeQYTrZ",
+										endValue: 66,
+										startValue: 33,
+										legendDefinitionId: "zZSvFfx45se",
+									},
+									{
+										id: "sZJk1e3HWJU",
+										endValue: 100,
+										startValue: 66,
+										legendDefinitionId: "R56GcWMt03N",
+									},
+								],
+								highIsGood: true,
+								showColors: true,
+								effectiveGap: 5,
+								displayArrows: true,
+								specificTargets: [],
+								specificTargetsSet: false,
+							},
+						],
+					},
+					{
+						id: "JkPhhUp2PRL",
+						dataSources: [
+							{
+								id: "GxdhnY5wmHq",
+								name: "Average weight (g)",
+								type: "programIndicator",
+								label: "Average weight (g)",
+								weight: 100,
+								legends: [
+									{
+										id: "DiAXCOHz0dE",
+										endValue: 33,
+										startValue: 0,
+										legendDefinitionId: "SNy80Jv1wRy",
+									},
+									{
+										id: "UN6EENI2L9k",
+										endValue: 66,
+										startValue: 33,
+										legendDefinitionId: "zZSvFfx45se",
+									},
+									{
+										id: "UqLgfFapQHF",
+										endValue: 100,
+										startValue: 66,
+										legendDefinitionId: "R56GcWMt03N",
+									},
+								],
+								highIsGood: true,
+								showColors: true,
+								effectiveGap: 5,
+								displayArrows: false,
+								specificTargets: [],
+								specificTargetsSet: false,
+							},
+						],
+					},
+				],
+			},
+			{
+				id: "fcYEgaPmjZM",
+				style: {},
+				title: "Dropouts",
+				dataHolders: [
+					{
+						id: "baaqS76jYT5",
+						dataSources: [
+							{
+								id: "EdN7qlmI5FS",
+								name: "Dropout rate Penta 1 - 3",
+								type: "indicator",
+								label: "Dropout rate Penta 1 - 3",
+								weight: 100,
+								legends: [
+									{
+										id: "YxFW81CLOdO",
+										endValue: 100,
+										startValue: 66,
+										legendDefinitionId: "SNy80Jv1wRy",
+									},
+									{
+										id: "gSnK0Qhd3zT",
+										endValue: 66,
+										startValue: 33,
+										legendDefinitionId: "zZSvFfx45se",
+									},
+									{
+										id: "ByOMqsvddza",
+										endValue: 33,
+										startValue: 0,
+										legendDefinitionId: "R56GcWMt03N",
+									},
+								],
+								highIsGood: false,
+								showColors: true,
+								effectiveGap: 5,
+								displayArrows: true,
+								specificTargets: [],
+								specificTargetsSet: false,
+							},
+						],
+					},
+					{
+						id: "uZUMhzg1YpR",
+						dataSources: [
+							{
+								id: "d9thHOJMROr",
+								name: "Dropout rate Penta 1 - Measles",
+								type: "indicator",
+								label: "Dropout rate Penta 1 - Measles",
+								weight: 100,
+								legends: [
+									{
+										id: "qXPQM5rY5CR",
+										endValue: 100,
+										startValue: 66,
+										legendDefinitionId: "SNy80Jv1wRy",
+									},
+									{
+										id: "RxPP8yT7g2h",
+										endValue: 66,
+										startValue: 33,
+										legendDefinitionId: "zZSvFfx45se",
+									},
+									{
+										id: "CwqLdPqK7dG",
+										endValue: 33,
+										startValue: 0,
+										legendDefinitionId: "R56GcWMt03N",
+									},
+								],
+								highIsGood: false,
+								showColors: true,
+								effectiveGap: 5,
+								displayArrows: true,
+								specificTargets: [],
+								specificTargetsSet: false,
+							},
+						],
+					},
+				],
+			},
+		],
+	},
+	periodSelection: {
+		type: "YEARLY",
+		periods: [
+			{
+				id: "LAST_YEAR",
+			},
+			{
+				id: "THIS_YEAR",
+			},
+		],
+	},
+	additionalLabels: [],
+	orgUnitSelection: {
+		groups: [],
+		levels: [],
+		orgUnits: [],
+		userOrgUnit: true,
+		userSubUnit: true,
+	},
+	legendDefinitions: [
+		{
+			id: "N/A",
+			name: "N/A",
+			color: "#D3D3D3",
+			isDefault: true,
+		},
+		{
+			id: "No Data",
+			name: "No Data",
+			color: "#FFFFFF",
+			isDefault: true,
+		},
+		{
+			id: "R56GcWMt03N",
+			name: "Target Reached/ On Track",
+			color: "#008000",
+		},
+		{
+			id: "zZSvFfx45se",
+			name: "Progress, but more effort required",
+			color: "#FFFF00",
+		},
+		{
+			id: "SNy80Jv1wRy",
+			name: "Not on track",
+			color: "#FF0000",
+		},
+	],
+	highlightedIndicators: [],
+};
+
 const specificTargetsConfig: ScorecardConfig = {
 	id: "UTqwXl0th3h",
 	title: "Scorecard with specific targets",
@@ -2344,7 +3004,7 @@ type Story = StoryObj<typeof ScorecardContext>;
 export const Default: Story = {
 	name: "Default View",
 	args: {
-		config,
+		config: immunizationConfig,
 	},
 };
 export const LargeScorecard: Story = {

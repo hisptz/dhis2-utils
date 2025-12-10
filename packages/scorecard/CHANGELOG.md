@@ -1,5 +1,11 @@
 # @hisptz/dhis2-scorecard
 
+## 1.2.31
+
+### Patch Changes
+
+- Fixes and improvements
+
 ## 1.2.30
 
 ### Patch Changes

@@ -14,6 +14,7 @@ export function DataHeaderLegendView({
 		id: string;
 		label: string;
 		legends: Array<ScorecardLegend>;
+		specificTargetsSet?: boolean;
 	}>;
 	reference: RefObject<HTMLElement>;
 	onClose: () => void;
@@ -30,8 +31,8 @@ export function DataHeaderLegendView({
 					padding: 16,
 				}}
 			>
-				{legends?.map(({ id, label, legends }) => {
-					if (!Array.isArray(legends)) {
+				{legends?.map(({ id, label, legends, specificTargetsSet }) => {
+					if (specificTargetsSet) {
 						return (
 							<div
 								style={{

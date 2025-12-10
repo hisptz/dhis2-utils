@@ -4,7 +4,11 @@ import {
 	type ScorecardLegend,
 	type ScorecardTableData,
 } from "../../../../../schemas/config";
-import { DataTableColumnHeader, type DataTableSortDirection } from "@dhis2/ui";
+import {
+	DataTableColumnHeader,
+	type DataTableSortDirection,
+	Tooltip,
+} from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
 import { DraggableCell } from "../../DraggableCell";
 import DroppableCell from "../../DroppableCell";
@@ -19,6 +23,23 @@ export function EmptyDataHeaderCell({
 }: HeaderContext<ScorecardTableData, any>) {
 	const colSpan = header.colSpan.toString();
 	return <DataTableColumnHeader colSpan={colSpan} />;
+}
+
+function SpecificTargetsIndicator({
+	legends,
+}: {
+	legends?: Array<{ specificTargetsSet?: boolean | undefined }>;
+}) {
+	const hasSpecificTargets = legends?.some(
+		({ specificTargetsSet }) => specificTargetsSet === true,
+	);
+	return hasSpecificTargets ? (
+		<Tooltip
+			content={i18n.t("This data item has specific targets configured")}
+		>
+			*
+		</Tooltip>
+	) : null;
 }
 
 export function DataHeaderCellComponent({
@@ -59,11 +80,10 @@ export function DataHeaderCellComponent({
 				id: string;
 				label: string;
 				legends: ScorecardLegend[];
+				specificTargetsSet?: boolean;
 			}>;
 		}
 	)?.legends;
-
-	console.log(openLegendView, legends, labelRef.current);
 
 	return (
 		<DataTableColumnHeader
@@ -113,7 +133,8 @@ export function DataHeaderCellComponent({
 						<b>{label}</b>
 					) : (
 						<span onClick={toggleLegendView} ref={labelRef}>
-							{label}
+							{label}{" "}
+							<SpecificTargetsIndicator legends={legends} />
 						</span>
 					)}
 				</DraggableCell>

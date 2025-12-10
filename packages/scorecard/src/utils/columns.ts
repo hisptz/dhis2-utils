@@ -243,11 +243,14 @@ function getDataHolderColumn({
 					"",
 				);
 
-	const legends = dataSources.map(({ legends, id, label }) => ({
-		id,
-		label,
-		legends,
-	}));
+	const legends = dataSources.map(
+		({ legends, id, label, specificTargetsSet }) => ({
+			id,
+			label,
+			legends,
+			specificTargetsSet,
+		}),
+	);
 
 	if (hasOnePeriod) {
 		return columnHelper.accessor(
@@ -326,6 +329,7 @@ function getDataHolderColumn({
 		),
 		meta: {
 			label: header,
+			legends,
 		},
 		header: DataHeaderCell,
 		enableSorting: true,
