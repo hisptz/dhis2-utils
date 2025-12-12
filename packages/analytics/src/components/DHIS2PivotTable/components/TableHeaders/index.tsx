@@ -1,15 +1,15 @@
-import React from "react";
+import { type ReactElement, useRef } from "react";
 import { useCustomPivotTableEngine } from "../../state/engine.js";
 import { DataTableColumnHeader, DataTableRow, TableHead } from "@dhis2/ui";
 import { isEmpty, slice, times } from "lodash";
-import { Header } from "../../services/engine.js";
+import { DHIS2PivotTableEngine, Header } from "../../services/engine.js";
 import classes from "./TableHeaders.module.css";
-import { useElementSize } from "usehooks-ts";
+import { useResizeObserver } from "usehooks-ts";
 
 function ColumnRenderer({
 	column,
 	index,
-	config: { fixColumnHeaders, rowHeaders, prevHeight = 0, columns },
+	config: { fixColumnHeaders, rowHeaders, prevHeight = 0, columns, engine },
 }: {
 	column: Header;
 	index: number;
@@ -18,9 +18,13 @@ function ColumnRenderer({
 		rowHeaders?: Header[];
 		prevHeight?: number;
 		fixColumnHeaders?: boolean;
+		engine: DHIS2PivotTableEngine;
 	};
-}): React.ReactElement | null {
-	const [columnHeaderRef, { height }] = useElementSize();
+}): ReactElement | null {
+	const ref = useRef<HTMLElement | null>(null);
+	const { height } = useResizeObserver({
+		ref,
+	});
 
 	if (!column) {
 		return null;
@@ -41,6 +45,16 @@ function ColumnRenderer({
 
 	return (
 		<>
+			{engine?.showTitle && (
+				<DataTableRow>
+					<DataTableColumnHeader
+						align="center"
+						colSpan={engine.titleSpan.toString()}
+					>
+						{engine.title ?? ""}
+					</DataTableColumnHeader>
+				</DataTableRow>
+			)}
 			<DataTableRow>
 				{index === 0 &&
 					rowHeaders?.map((header) => {
@@ -65,7 +79,9 @@ function ColumnRenderer({
 							/*
       // @ts-ignore */
 							top={`${prevHeight.toString()}px`}
-							ref={index === 0 ? columnHeaderRef : undefined}
+							/*
+// @ts-ignore */
+							ref={index === 0 ? ref : undefined}
 							className={classes["table-header"]}
 							align="center"
 							colSpan={colSpan.toString()}
@@ -85,6 +101,7 @@ function ColumnRenderer({
 						rowHeaders,
 						prevHeight: height,
 						fixColumnHeaders,
+						engine,
 					}}
 				/>
 			) : null}
@@ -107,7 +124,7 @@ export function TableHeaders() {
 			<ColumnRenderer
 				column={columns[0]}
 				index={0}
-				config={{ rowHeaders, columns, fixColumnHeaders }}
+				config={{ engine, rowHeaders, columns, fixColumnHeaders }}
 			/>
 		</TableHead>
 	);

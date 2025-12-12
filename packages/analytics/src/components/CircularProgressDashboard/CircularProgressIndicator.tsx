@@ -1,5 +1,5 @@
 import { colors } from "@dhis2/ui";
-import React, { useMemo } from "react";
+import { type ReactElement, useMemo } from "react";
 import { CircularProgressbarWithChildren } from "react-circular-progressbar";
 import { CircularDashboardProps } from "./types/props.js";
 
@@ -12,7 +12,7 @@ export function CircularProgressVisualizer({
 	value,
 	textStyle,
 	strokeStyle,
-}: CircularDashboardProps): React.ReactElement {
+}: CircularDashboardProps): ReactElement {
 	const filledSectionFieldsPercentage = useMemo(() => {
 		return value !== undefined
 			? value
@@ -38,7 +38,7 @@ export function CircularProgressVisualizer({
 					style={{
 						...(textStyle ?? {}),
 						fontSize:
-							textStyle?.fontSize ?? typeof size === "number"
+							(textStyle?.fontSize ?? typeof size === "number")
 								? 0.3 * (size as number)
 								: "100%",
 						marginTop: -11,

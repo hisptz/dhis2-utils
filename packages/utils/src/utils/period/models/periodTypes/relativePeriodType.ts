@@ -1,11 +1,8 @@
-import { BasePeriod, RelativePeriod } from "../periods/index.js";
+import { BasePeriod, RelativePeriod } from "../periods";
 import { compact } from "lodash";
-import {
-	PeriodPreference,
-	PeriodTypeInterface,
-} from "../../interfaces/index.js";
-import { RELATIVE_PERIOD_TYPES } from "../../constants/relative.js";
-import { BasePeriodType } from "./basePeriodType.js";
+import { PeriodPreference, PeriodTypeInterface } from "../../interfaces";
+import { RELATIVE_PERIOD_TYPES } from "../../constants/relative";
+import { BasePeriodType } from "./basePeriodType";
 
 export class RelativePeriodType extends BasePeriodType {
 	constructor(config: PeriodTypeInterface, preference: PeriodPreference) {

@@ -2,7 +2,8 @@ import type {
 	Event,
 	Program,
 	TrackedEntityInstance,
-} from "../../../interfaces/index.js";
+} from "../../../interfaces";
+import { ProgramRuleActionType } from "../utils";
 
 export interface RuleExecutionOptions {
 	triggers: RuleTrigger[];
@@ -19,10 +20,16 @@ export interface ActionCallbacks {
 		options: { field: string; options: string[]; hide: boolean }[],
 	) => void;
 	toggleFieldVisibility: (field: { field: string; hide: boolean }[]) => void;
+	toggleSectionVisibility: (
+		field: { field: string; hide: boolean }[],
+	) => void;
 	toggleFieldWarning: (field: { field: string; warning: string }[]) => void;
 	toggleLoading: (field: { field: string; loading: boolean }[]) => void;
 	getOptionGroups: (ids: string[]) => any;
 	toggleFieldDisabled: (
+		field: { field: string; disabled?: boolean }[],
+	) => void;
+	toggleMandatoryField: (
 		field: { field: string; disabled?: boolean }[],
 	) => void;
 	setMinMax: (
@@ -95,7 +102,12 @@ export interface BuiltInVariable {
 
 export interface RuleTarget {
 	id: string;
-	type: "DATA_ELEMENT" | "ATTRIBUTE" | "VARIABLE";
+	type:
+		| "DATA_ELEMENT"
+		| "ATTRIBUTE"
+		| "VARIABLE"
+		| "PROGRAM_STAGE_SECTION"
+		| "PROGRAM_SECTION";
 }
 
 export type ActionData =
@@ -114,20 +126,10 @@ export interface RuleAction {
 	option?: { id: string; code: string };
 	optionGroup?: { id: string };
 	content?: string;
-	type:
-		| "ASSIGN"
-		| "HIDEFIELD"
-		| "HIDEOPTION"
-		| "HIDEOPTIONGROUP"
-		| "DISPLAYTEXT"
-		| "SHOWOPTION"
-		| "SHOWOPTIONGROUP"
-		| "SHOWWARNING"
-		| "SHOWERROR"
-		| "DISPLAYKEYVALUEPAIR"
-		| "SETMINMAXVALUE"
-		| "DISABLEFIELD"
-		| "NONE";
+	programStage?: { id: string };
+	programStageSection?: { id: string };
+	programSection?: { id: string };
+	type: keyof typeof ProgramRuleActionType;
 }
 
 export type RuleConditionFunction = (values: {

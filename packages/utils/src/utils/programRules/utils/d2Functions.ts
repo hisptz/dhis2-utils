@@ -2,12 +2,14 @@ import { DateTime } from "luxon";
 import { trim } from "lodash";
 
 //DO NOT DELETE THESE!!!!
+//This is because they will be tree-shaken as not used when building the library
 hasValue("");
 yearsBetween("", "");
 daysBetween("", "");
 addDays("", 1);
 ceil(2);
 floor(2);
+validatePattern("", "");
 
 function hasValue(value: any) {
 	const trimmedValue = trim(value.toString()) ?? "";
@@ -15,17 +17,21 @@ function hasValue(value: any) {
 }
 
 function yearsBetween(startDate: string, endDate: string) {
-	const start = DateTime.fromFormat(startDate, "yyyy-MM-dd");
-	const end = DateTime.fromFormat(endDate, "yyyy-MM-dd");
+	const start = DateTime.fromJSDate(new Date(startDate));
+	const end = DateTime.fromJSDate(new Date(endDate));
 	const value = Math.floor(end.diff(start, "years").years);
 	return isNaN(value) ? "" : `${value}`;
 }
 
 function daysBetween(startDate: string, endDate: string) {
-	const start = DateTime.fromFormat(startDate, "yyyy-MM-dd");
-	const end = DateTime.fromFormat(endDate, "yyyy-MM-dd");
+	const start = DateTime.fromJSDate(new Date(startDate));
+	const end = DateTime.fromJSDate(new Date(endDate));
 	const value = Math.floor(end.diff(start, "days").days);
 	return isNaN(value) ? "" : `${value}`;
+}
+
+function validatePattern(value: string, pattern: string) {
+	return RegExp(pattern).test(value);
 }
 
 function addDays(date: string, days: number): string {

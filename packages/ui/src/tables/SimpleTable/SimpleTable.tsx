@@ -1,4 +1,4 @@
-import React from "react";
+import { type FC } from "react";
 import { SimpleTableProps } from "./types/index.js";
 import {
 	Pagination,
@@ -26,7 +26,7 @@ import EmptyList from "../../shared/components/EmptyList.js";
  *  - Empty label component
  *  - Pagination (external control)
  */
-export const SimpleTable: React.FC<SimpleTableProps> = ({
+export const SimpleTable: FC<SimpleTableProps> = ({
 	columns,
 	rows,
 	emptyLabel,

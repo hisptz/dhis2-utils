@@ -29,6 +29,8 @@ export interface FieldProps {
 	 * */
 	warning?: string | boolean;
 
+	disabled?: boolean;
+
 	[key: string]: any;
 }
 

@@ -1,0 +1,10 @@
+.label-icon {
+    background: transparent;
+    border: none;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+    pointer-events: none; /* prevents label from blocking map clicks */
+    margin: auto
+}

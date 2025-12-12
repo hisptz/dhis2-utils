@@ -1,7 +1,7 @@
 import i18n from "@dhis2/d2-i18n";
 import { SegmentedControl } from "@dhis2/ui";
 import { head, isEmpty } from "lodash";
-import React, { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import DateRange from "./components/DateRange/DateRange.js";
 import PeriodSelect from "./components/PeriodSelect/PeriodSelect.js";
 import { DateRangeValue, PeriodSelectorProps } from "./types/index.js";

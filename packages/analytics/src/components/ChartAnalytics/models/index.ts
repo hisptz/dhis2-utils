@@ -1,6 +1,16 @@
 import type { Analytics } from "@hisptz/dhis2-utils";
-import HighCharts from "highcharts";
 import { ChartConfig } from "../types/props.js";
+import { compact } from "lodash";
+import {
+	ChartOptions,
+	ExportingOptions,
+	Options,
+	PaneOptions,
+	PlotOptions,
+	SeriesOptionsType,
+	XAxisOptions,
+	YAxisOptions,
+} from "highcharts";
 
 export abstract class DHIS2Chart {
 	id: string;
@@ -15,7 +25,7 @@ export abstract class DHIS2Chart {
 
 	abstract getHighchartsType(): string;
 
-	getChartConfig(): HighCharts.ChartOptions & any {
+	getChartConfig(): ChartOptions & any {
 		return {
 			renderTo: this.id,
 			zoomType: "xy",
@@ -25,10 +35,15 @@ export abstract class DHIS2Chart {
 		};
 	}
 
-	getOptions(): HighCharts.Options {
+	getPane(): PaneOptions | undefined {
+		return undefined;
+	}
+
+	getOptions(): Options {
 		const options = {
 			yAxis: this.getYAxis(),
 			chart: this.getChartConfig(),
+			pane: this.getPane(),
 			colors: this.config?.colors ?? [
 				"#a8bf24",
 				"#518cc3",
@@ -52,7 +67,13 @@ export abstract class DHIS2Chart {
 			],
 			series: this.getSeries(),
 			plotOptions: this.getPlotOptions(),
-			title: { text: "" },
+			title: {
+				text: this.config.customTitle
+					? this.config.customTitle
+					: this.config.showFilterAsTitle
+						? this.getFilterLabel()
+						: "",
+			},
 			xAxis: this.getXAxis(),
 			exporting: this.getExporting(),
 			legend: { enabled: true },
@@ -64,7 +85,7 @@ export abstract class DHIS2Chart {
 		if (this.config?.highChartOverrides) {
 			overrides = {
 				...(typeof this.config?.highChartOverrides === "object"
-					? this.config?.highChartOverrides ?? {}
+					? (this.config?.highChartOverrides ?? {})
 					: this.config?.highChartOverrides(options)),
 			};
 		}
@@ -75,13 +96,13 @@ export abstract class DHIS2Chart {
 		};
 	}
 
-	abstract getSeries(): HighCharts.SeriesOptionsType[];
+	abstract getSeries(): SeriesOptionsType[];
 
-	abstract getPlotOptions(): HighCharts.PlotOptions;
+	abstract getPlotOptions(): PlotOptions;
 
-	abstract getXAxis(): HighCharts.XAxisOptions | undefined;
+	abstract getXAxis(): XAxisOptions | undefined;
 
-	getYAxis(): HighCharts.YAxisOptions[] {
+	getYAxis(): YAxisOptions[] {
 		return [
 			{
 				title: {
@@ -120,7 +141,7 @@ export abstract class DHIS2Chart {
 		];
 	}
 
-	getExporting(): HighCharts.ExportingOptions {
+	getExporting(): ExportingOptions {
 		const name = this.config?.name ?? "chart";
 		return {
 			filename: `${name}`,
@@ -131,5 +152,18 @@ export abstract class DHIS2Chart {
 				},
 			},
 		};
+	}
+
+	private getFilterLabel() {
+		const filters = this.config.layout.filter ?? [];
+		const labels = filters.map((filter) => {
+			const dimensions =
+				this.analytics.metaData?.dimensions[filter] ?? [];
+			return dimensions.map((dimension) => {
+				const filterItem = this.analytics.metaData?.items[dimension];
+				return filterItem?.name;
+			});
+		});
+		return compact(labels.flat()).join(", ");
 	}
 }

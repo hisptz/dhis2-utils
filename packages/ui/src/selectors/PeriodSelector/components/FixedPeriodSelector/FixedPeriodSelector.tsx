@@ -1,7 +1,7 @@
-import React, { useMemo } from "react";
-import { CustomSelectField } from "../../../../forms/index.js";
+import { useMemo } from "react";
+import { CustomSelectField } from "../../../../forms";
 import i18n from "@dhis2/d2-i18n";
-import { MapOrEntries, useMap } from "usehooks-ts";
+import { useMap } from "usehooks-ts";
 import { head, isEmpty, uniqBy } from "lodash";
 import {
 	BasePeriod,
@@ -17,11 +17,11 @@ export interface FixedPeriodSelectorProps {
 }
 
 /**
- * This is a period selector that allows selection of fixed periods only.
+ * This is a period selector that allows selection of fixed periodsIds only.
  *
  * @param {Object} props - The component props.
- * @param {boolean} props.allowFuturePeriods - Whether to allow future periods. Default is false.
- * @param {Array} props.selectedPeriods - The selected periods.
+ * @param {boolean} props.allowFuturePeriods - Whether to allow future periodsIds. Default is false.
+ * @param {Array} props.selectedPeriods - The selected periodsIds.
  * @param {function} props.onSelect - The callback function when a period is selected.
  *
  * @returns {ReactNode} The fixed period selector component.
@@ -31,19 +31,18 @@ export function FixedPeriodSelector({
 	selectedPeriods,
 	onSelect,
 }: FixedPeriodSelectorProps) {
-	const defaultValue: MapOrEntries<string, string> | undefined =
-		useMemo(() => {
-			if (isEmpty(selectedPeriods)) {
-				return;
-			}
-			const period = PeriodUtility.getPeriodById(
-				head(selectedPeriods) as string,
-			);
-			return [
-				["year", period.start.year.toString()],
-				["periodType", period.type.id],
-			];
-		}, [selectedPeriods]);
+	const defaultValue = useMemo(() => {
+		if (isEmpty(selectedPeriods)) {
+			return;
+		}
+		const period = PeriodUtility.getPeriodById(
+			head(selectedPeriods) as string,
+		);
+		return [
+			["year", period.start.year.toString()],
+			["periodType", period.type.id],
+		] as [string, string][];
+	}, [selectedPeriods]);
 	const [value, { set }] = useMap<string, string>(defaultValue);
 	const year = useMemo(() => value.get("year"), [value]);
 	const periodType = useMemo(() => value.get("periodType"), [value]);
@@ -60,7 +59,7 @@ export function FixedPeriodSelector({
 
 	const years = useMemo(() => {
 		const currentYear = year
-			? parseInt(year) ?? new Date().getFullYear()
+			? (parseInt(year) ?? new Date().getFullYear())
 			: new Date().getFullYear();
 		return uniqBy(
 			[
@@ -96,7 +95,7 @@ export function FixedPeriodSelector({
 		}));
 	}, [periodUtility]);
 
-	const periods = useMemo(() => {
+	const periodsIds = useMemo(() => {
 		if (!periodType) {
 			return [];
 		}
@@ -150,8 +149,8 @@ export function FixedPeriodSelector({
 				}
 				label={i18n.t("Period")}
 				value={head(selectedPeriods)}
-				optionSet={{ options: periods }}
-				name="periods"
+				optionSet={{ options: periodsIds }}
+				name="periodsIds"
 				onChange={(value: string) => onSelect({ items: [value] })}
 			/>
 		</div>

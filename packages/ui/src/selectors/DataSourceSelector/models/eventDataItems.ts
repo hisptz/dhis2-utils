@@ -1,4 +1,3 @@
-import { filter as _filter, isEmpty } from "lodash";
 import NativeDataSource from "./nativeDataSource.js";
 
 export default class EventDataItems extends NativeDataSource {
@@ -47,74 +46,5 @@ export default class EventDataItems extends NativeDataSource {
 				}),
 			},
 		};
-	}
-
-	async getDataSources(
-		engine: any,
-		{
-			page,
-			programId,
-			searchKeyword,
-		}: { page: number; programId: string; searchKeyword: string },
-	) {
-		if (!isEmpty(programId)) {
-			const response = await engine?.query(this.dataSourcesQuery, {
-				variables: {
-					page,
-					id: programId,
-					filter: searchKeyword
-						? [`identifiable:token:${searchKeyword}`]
-						: [],
-				},
-			});
-			const trackedEntityAttributes = _filter(
-				response?.sources?.programTrackedEntityAttributes?.map(
-					({
-						trackedEntityAttribute,
-					}: {
-						trackedEntityAttribute: string;
-					}) => trackedEntityAttribute,
-				),
-				["valueType", "NUMBER"],
-			);
-			const filteredTrackedEntityAttributes = searchKeyword
-				? _filter(trackedEntityAttributes, ({ displayName }) =>
-						displayName
-							.toLowerCase()
-							.match(RegExp(searchKeyword.toLowerCase())),
-					)
-				: trackedEntityAttributes;
-			const dataElements =
-				response?.dataElements?.programDataElements?.map(
-					({ dataElement }: { dataElement: string }) => dataElement,
-				);
-			return {
-				data: [...filteredTrackedEntityAttributes, ...dataElements],
-				pager: response?.dataElements?.pager,
-			};
-		}
-		return {
-			data: [],
-			pager: {},
-		};
-	}
-
-	async filter(
-		engine: any,
-		{
-			page,
-			selectedGroup,
-			searchKeyword,
-		}: {
-			page: number;
-			selectedGroup: { id: string };
-			searchKeyword: string;
-		},
-	) {
-		return this.getDataSources(engine, {
-			page,
-			programId: selectedGroup?.id,
-			searchKeyword,
-		});
 	}
 }

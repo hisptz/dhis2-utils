@@ -59,7 +59,7 @@ export default function PeriodSelect({
 		periods,
 	} = usePeriodGenerator(
 		{
-			allowFuturePeriods: allowFuturePeriods ?? false,
+			allowFuturePeriods: allowFuturePeriods ?? true,
 		},
 		{
 			excludeFixedPeriods: excludeFixedPeriods,

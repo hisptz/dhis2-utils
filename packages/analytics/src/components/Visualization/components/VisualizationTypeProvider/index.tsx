@@ -1,4 +1,11 @@
-import React, { createContext, useContext, useState } from "react";
+import {
+	createContext,
+	type Dispatch,
+	type ReactNode,
+	type SetStateAction,
+	useContext,
+	useState,
+} from "react";
 import { VisualizationConfig } from "../../index.js";
 
 export type VisualizationType = "pivotTable" | "chart" | "map";
@@ -9,11 +16,11 @@ export const VisualizationConfigContext = createContext<
 	VisualizationConfig | undefined
 >(undefined);
 export const VisualizationTypeSetter = createContext<
-	React.Dispatch<React.SetStateAction<VisualizationType>> | undefined
+	Dispatch<SetStateAction<VisualizationType>> | undefined
 >(undefined);
 
 export interface VisualizationTypeProviderProps {
-	children: React.ReactNode;
+	children: ReactNode;
 	defaultType: VisualizationType;
 	config: VisualizationConfig;
 }
@@ -22,10 +29,7 @@ export function useVisualizationType() {
 	return [
 		useContext(VisualizationTypeContext),
 		useContext(VisualizationTypeSetter),
-	] as [
-		VisualizationType,
-		React.Dispatch<React.SetStateAction<VisualizationType>>,
-	];
+	] as [VisualizationType, Dispatch<SetStateAction<VisualizationType>>];
 }
 
 export function useVisualizationConfig() {

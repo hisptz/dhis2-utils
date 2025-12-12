@@ -1,6 +1,6 @@
-import React, { memo, useEffect, useMemo } from "react";
+import { memo, useEffect, useMemo } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
-import { useActionCallbacks, useTriggers } from "../hooks/index.js";
+import { useActionCallbacks, useTriggers } from "../hooks";
 import { mapValues } from "lodash";
 import {
 	evaluateRules,
@@ -16,17 +16,25 @@ export const ActionComponent = memo(
 		rules,
 		variableValues,
 		formOptions,
+		programStageId,
+		program,
 	}: {
 		field: string;
 		rules: Rule[];
 		variableValues: any;
-		formOptions: any;
+		programStageId?: string;
+		program?: any;
+		formOptions: { isEventForm?: boolean; isEnrollmentForm: boolean };
 	}) => {
 		const value = useWatch({ name: field });
 		const { getValues } = useFormContext();
 		const values = getValues();
 
-		const callbacks = useActionCallbacks();
+		const callbacks = useActionCallbacks({
+			...formOptions,
+			program,
+			programStageId,
+		});
 
 		const rulesToRun = useMemo(() => {
 			return rules.filter(({ triggers }) =>
@@ -88,20 +96,22 @@ export const RuleComponent = memo(
 	({
 		rules,
 		formOptions,
-		dataItems,
 		variables,
+		program,
+		programStageId,
 	}: {
 		rules: Rule[];
 		formOptions: { isEventForm?: boolean; isEnrollmentForm: boolean };
 		variables: ProgramRuleExecutionVariables;
-		dataItems: string[];
+		program: any;
+		programStageId?: string;
 	}) => {
-		const callbacks = useActionCallbacks();
-		const { runTriggers, initialRunRules } = useTriggers(
-			rules,
-			dataItems,
-			formOptions,
-		);
+		const callbacks = useActionCallbacks({
+			...formOptions,
+			program,
+			programStageId,
+		});
+		const { runTriggers, initialRunRules } = useTriggers(rules);
 		useEffect(() => {
 			const actions = sanitizeActions(
 				evaluateRules(

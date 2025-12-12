@@ -1,6 +1,6 @@
 import { useDataQuery } from "@dhis2/app-runtime";
 import { compact, debounce, isEmpty } from "lodash";
-import React, {
+import {
 	createContext,
 	ReactNode,
 	useCallback,

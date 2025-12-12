@@ -1,6 +1,6 @@
 import i18n from "@dhis2/d2-i18n";
 import { Button, Field, IconAdd24, IconDelete24 } from "@dhis2/ui";
-import React from "react";
+import { type JSXElementConstructor, type Ref } from "react";
 import { useFieldArray } from "react-hook-form";
 import { RHFFieldProps } from "../../../interfaces/index.js";
 
@@ -11,7 +11,7 @@ export interface MultipleFieldsFieldProps extends RHFFieldProps {
 	multipleFields?: Array<RHFFieldProps>;
 	deletable?: boolean;
 	addable?: boolean;
-	component: React.JSXElementConstructor<RHFFieldProps>;
+	component: JSXElementConstructor<RHFFieldProps>;
 }
 
 export function RHFMultipleFieldsField(
@@ -27,7 +27,7 @@ export function RHFMultipleFieldsField(
 		validations,
 		...props
 	}: MultipleFieldsFieldProps,
-	ref: React.Ref<any>,
+	ref: Ref<any>,
 ) {
 	const { fields, append, remove } = useFieldArray({
 		name,

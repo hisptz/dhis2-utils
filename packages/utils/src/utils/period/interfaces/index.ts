@@ -1,6 +1,7 @@
 import { DateTime, DateTimeUnit, DurationLikeObject, Interval } from "luxon";
 import { BasePeriod } from "../models/index.js";
 import { PeriodTypeCategory, PeriodTypeEnum } from "../constants/index.js";
+import type { SupportedCalendar } from "@dhis2/multi-calendar-dates/build/types/types";
 
 export interface RelativePeriodConfig {
 	id: string;
@@ -82,6 +83,9 @@ export interface PeriodInterface {
 export interface PeriodPreference {
 	/** allow the Period utility instance to return future dates */
 	allowFuturePeriods: boolean;
+	calendar?: SupportedCalendar;
+	locale?: string;
+	yearsCount?: number;
 }
 
 export interface DateTimeConfiguration {

@@ -284,3 +284,14 @@ describe("Get Period by id tests", () => {
 		});
 	});
 });
+
+describe("is date in the future test", () => {
+	test("checks if period is in the future", () => {
+		// const futureDate = DateTime.now().plus({ days: 10 });
+		// const pastDate = DateTime.now().minus({ days: 10 });
+		//
+		//
+		// expect(isPeriodInFuture(futurePeriod)).toBe(true);
+		// expect(isPeriodInFuture(pastPeriod)).toBe(false);
+	});
+});

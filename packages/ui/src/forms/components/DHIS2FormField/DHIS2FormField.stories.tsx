@@ -22,7 +22,12 @@ type Story = StoryObj<typeof DHIS2FormField>;
 
 function render(args: Story["args"]) {
 	const [value, setValue] = useState();
-	return <DHIS2FormField {...args} value={value} onChange={setValue} />;
+	return (
+		<div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+			<DHIS2FormField {...args} value={value} onChange={setValue} />
+			<span>{value}</span>
+		</div>
+	);
 }
 
 export const Default: Story = {
@@ -31,5 +36,56 @@ export const Default: Story = {
 	args: {
 		valueType: "TEXT",
 		optionSet: {},
+	},
+};
+
+export const MultiText: Story = {
+	name: "Multi text",
+	render,
+	args: {
+		valueType: "MULTI_TEXT",
+		label: "Multi text example",
+		optionSet: {
+			options: [
+				{
+					name: "Yes",
+					code: "yes",
+				},
+				{
+					name: "No",
+					code: "no",
+				},
+				{
+					name: "I don't know",
+					code: "notSure",
+				},
+			],
+		},
+	},
+};
+export const MultiTextCheckboxes: Story = {
+	name: "Multi text checkboxes",
+	render,
+	args: {
+		valueType: "MULTI_TEXT",
+		label: "Multi text example",
+		required: true,
+		renderOptionAsRadio: true,
+		optionSet: {
+			options: [
+				{
+					name: "Yes",
+					code: "yes",
+				},
+				{
+					name: "No",
+					code: "no",
+				},
+				{
+					name: "I don't know",
+					code: "notSure",
+				},
+			],
+		},
 	},
 };

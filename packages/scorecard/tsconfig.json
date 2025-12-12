@@ -1,0 +1,20 @@
+{
+  "extends": "@repo/typescript-config/react-library.json",
+  "include": [
+    "src",
+    "global.d.ts"
+  ],
+  "exclude": [
+    "dist",
+    "build",
+    "node_modules",
+    "**/*.test.tsx",
+    "**/*.stories.tsx"
+  ],
+  "compilerOptions": {
+    "declarationDir": "dist/types",
+    "emitDeclarationOnly": true,
+    "resolveJsonModule": true,
+    "allowUmdGlobalAccess": true,
+  }
+}

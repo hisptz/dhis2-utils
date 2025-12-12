@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import { createContext, type ReactNode, useContext, useState } from "react";
 import { Dimension } from "../DimensionsProvider/index.js";
 
 export interface Layout {
@@ -8,7 +8,7 @@ export interface Layout {
 }
 
 export interface LayoutProviderProps {
-	children: React.ReactNode;
+	children: ReactNode;
 	defaultLayout: Layout;
 }
 

@@ -1,6 +1,6 @@
 import { useConfig } from "@dhis2/app-runtime";
 import { Divider } from "@dhis2/ui";
-import React, { forwardRef } from "react";
+import { forwardRef, type LegacyRef } from "react";
 import { getIconUrl } from "../../../../../../utils/helpers.js";
 import LegendCardHeader from "../../../LegendArea/components/LegendCardHeader/index.js";
 import { usePointLayer } from "../../hooks/index.js";
@@ -69,7 +69,7 @@ function PointLegends({
 
 function PointLegend(
 	{ collapsible, onCollapse }: any,
-	ref: React.LegacyRef<HTMLDivElement>,
+	ref: LegacyRef<HTMLDivElement>,
 ) {
 	const pointLayer = usePointLayer();
 	const { label, style } = pointLayer ?? {};

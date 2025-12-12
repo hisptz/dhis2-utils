@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { type FC, ReactElement } from "react";
 import {
 	Checkbox,
 	colors,
@@ -16,7 +16,7 @@ import { difference, isEmpty } from "lodash";
 import EmptyList from "../../shared/components/EmptyList.js";
 import classes from "./SimpleDataTable.module.css";
 import cx from "classnames";
-import { SimpleDataTableProps } from "./types/index.js";
+import { SimpleDataTableProps } from "./types";
 
 /**
  * SimpleDataTable is a simplified abstraction of the `DataTable` from `@dhis2/ui`
@@ -36,7 +36,7 @@ import { SimpleDataTableProps } from "./types/index.js";
  *
  *
  */
-export const SimpleDataTable: React.FC<SimpleDataTableProps> = ({
+export const SimpleDataTable: FC<SimpleDataTableProps> = ({
 	sortState,
 	rows,
 	tableProps,
@@ -112,10 +112,7 @@ export const SimpleDataTable: React.FC<SimpleDataTableProps> = ({
 				<DataTableHead>
 					<DataTableRow>
 						{selectable && (
-							<DataTableColumnHeader
-								fixed
-								top={"0" as unknown as boolean}
-							>
+							<DataTableColumnHeader fixed top={"0"}>
 								<Checkbox
 									indeterminate={partiallySelected}
 									checked={allSelected}
@@ -128,7 +125,7 @@ export const SimpleDataTable: React.FC<SimpleDataTableProps> = ({
 							<DataTableColumnHeader
 								name={key}
 								fixed
-								top={"0" as unknown as boolean} //TODO: Remove this when the issue is fixed
+								top={"0"}
 								sortIconTitle={
 									sortable
 										? i18n.t("Sort by {{column}}", {
@@ -191,38 +188,49 @@ export const SimpleDataTable: React.FC<SimpleDataTableProps> = ({
 							</td>
 						</tr>
 					) : null}
-					{rows?.map((data, index) => (
-						<DataTableRow
-							selected={selectedRows?.includes(data.id)}
-							key={`${data.id}-${index}-row`}
-						>
-							{selectable && (
-								<DataTableCell
-									{...(data.cellsStyle ?? {})}
-									width="48px"
-								>
-									<Checkbox
-										checked={selectedRows?.includes(
-											data.id,
-										)}
-										onChange={handleRowSelect(data.id)}
-										value="id_1"
-									/>
-								</DataTableCell>
-							)}
-							{columns.map(({ key }) => {
-								return (
+					{rows?.map((data, index) => {
+						const selection = !(
+							data.cellsStyle?.disableSelection ?? false
+						);
+
+						return (
+							<DataTableRow
+								expandableContent={data.expandableContent}
+								selected={selectedRows?.includes(data.id)}
+								key={`${data.id}-${index}-row`}
+							>
+								{selectable && (
 									<DataTableCell
 										{...(data.cellsStyle ?? {})}
-										onClick={handleRowClick(data.id)}
-										key={`${data.id}-${key}-cell`}
+										width="48px"
 									>
-										{data[key]}
+										{selection && (
+											<Checkbox
+												checked={selectedRows?.includes(
+													data.id,
+												)}
+												onChange={handleRowSelect(
+													data.id,
+												)}
+												value="id_1"
+											/>
+										)}
 									</DataTableCell>
-								);
-							})}
-						</DataTableRow>
-					))}
+								)}
+								{columns.map(({ key }) => {
+									return (
+										<DataTableCell
+											{...(data.cellsStyle ?? {})}
+											onClick={handleRowClick(data.id)}
+											key={`${data.id}-${key}-cell`}
+										>
+											{data[key]}
+										</DataTableCell>
+									);
+								})}
+							</DataTableRow>
+						);
+					})}
 				</DataTableBody>
 			</DataTable>
 			{pagination && (

@@ -109,14 +109,20 @@ ChoroplethThematicLayer.args = {
 					scale: 5,
 				},
 			},
+			labelConfig: {
+				labels: true,
+				labelTemplate: "{name}\n{value}",
+				labelFontWeight: "bold",
+			},
 			control: {
 				enabled: true,
 				position: "topright",
 			},
 		},
 	],
+	showPeriodTitle: true,
 	periodSelection: {
-		periods: ["2023"],
+		periods: ["LAST_QUARTER"],
 	},
 	legends: {
 		enabled: true,
@@ -276,6 +282,7 @@ ChoroplethThematicLayerWithLevels.args = {
 				id: "Uvn6LCg7dVU",
 				displayName: "ANC 1 Coverage",
 				type: "indicator",
+				legendSet: "fqs276KXCXi",
 			},
 			control: {
 				enabled: true,
@@ -289,7 +296,23 @@ ChoroplethThematicLayerWithLevels.args = {
 		collapsible: true,
 	},
 	periodSelection: {
-		periods: ["2023"],
+		periods: ["2025"],
+	},
+	base: {
+		enabled: false,
+	},
+	mapOptions: {
+		trackResize: true,
+		zoomControl: true,
+		scrollWheelZoom: false,
+		bounceAtZoomLimits: true,
+		boxZoom: true,
+		zoom: 1,
+		style: {
+			height: 800,
+			width: "100%",
+			background: "#FFFFFF",
+		},
 	},
 	controls: [
 		{
@@ -354,7 +377,7 @@ GoogleEarthEngineLayers.args = {
 	},
 	thematicLayers: [],
 	periodSelection: {
-		periods: ["2023"],
+		periods: [],
 	},
 	earthEngineLayers: [
 		{

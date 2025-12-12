@@ -1,8 +1,14 @@
 import { useCenterMap } from "../../hooks/map.js";
-import React from "react";
+import { type RefObject } from "react";
 import { LatLngTuple } from "leaflet";
 
-export default function MapUpdater({ bounds }: { bounds: LatLngTuple[] }) {
-	const ref = useCenterMap({ bounds });
-	return <div style={{ width: "100%", height: "100%" }} ref={ref}></div>;
+export default function MapUpdater({
+	bounds,
+	containerRef,
+}: {
+	bounds: LatLngTuple[];
+	containerRef: RefObject<HTMLDivElement>;
+}) {
+	useCenterMap({ bounds, containerRef });
+	return null;
 }

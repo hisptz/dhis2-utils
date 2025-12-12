@@ -4,15 +4,16 @@ import {
 	FieldErrorState,
 	FieldHiddenOptionsState,
 	FieldLoadingState,
+	FieldMandatoryState,
 	FieldMinMaxState,
 	FieldVisibilityState,
 	FieldWarningState,
-} from "../state/index.js";
-import { flatten, forEach, some, uniq } from "lodash";
+	SectionVisibilityState,
+} from "../state";
+import { flatten, forEach, uniq } from "lodash";
 import { useDataFetch } from "../services/fetch.js";
 import { useFormContext } from "react-hook-form";
 import {
-	ActionCallbacks,
 	getNewestProgramEvent,
 	getNewestProgramStageEvent,
 	getPreviousEvent,
@@ -21,6 +22,7 @@ import {
 	Rule,
 } from "@hisptz/dhis2-utils";
 import { useRecoilTransaction_UNSTABLE } from "recoil";
+import type { ActionCallbacks } from "@hisptz/dhis2-utils/src";
 
 const optionGroupsQuery = {
 	groups: {
@@ -57,7 +59,25 @@ export function useHiddenFields(suspectedHiddenFields: string[]): string[] {
 	return getHiddenFields(suspectedHiddenFields);
 }
 
-export function useActionCallbacks(): ActionCallbacks {
+export function useActionCallbacks(options: {
+	program: {
+		id: string;
+		programSections: Array<{
+			id: string;
+			trackedEntityAttributes: { id: string }[];
+		}>;
+		programStages: Array<{
+			id: string;
+			programStageSections: Array<{
+				id: string;
+				dataElements: { id: string }[];
+			}>;
+		}>;
+	};
+	programStageId?: string;
+	isEventForm?: boolean;
+	isEnrollmentForm: boolean;
+}): ActionCallbacks {
 	const {
 		setValue: formSetter,
 		unregister,
@@ -91,11 +111,24 @@ export function useActionCallbacks(): ActionCallbacks {
 		[],
 	);
 
+	const toggleFieldDisabled = useRecoilTransaction_UNSTABLE(
+		({ set }) =>
+			(fields: { field: string; disabled?: boolean }[]) => {
+				forEach(fields, ({ field, disabled }) =>
+					set(FieldDisabledState(`${field}`), disabled ?? false),
+				);
+			},
+		[],
+	);
+
 	const setValue = useCallback(
 		(values: { field: string; value: any }[]) => {
 			values.forEach(({ value, field }) => formSetter(`${field}`, value));
+			toggleFieldDisabled(
+				values.map((value) => ({ field: value.field, disabled: true })),
+			);
 		},
-		[formSetter],
+		[formSetter, toggleFieldDisabled],
 	);
 
 	const toggleFieldVisibility = useRecoilTransaction_UNSTABLE(
@@ -114,6 +147,52 @@ export function useActionCallbacks(): ActionCallbacks {
 							field: field.field,
 							value: undefined,
 						})),
+				);
+			},
+		[setValue],
+	);
+
+	const toggleSectionVisibility = useRecoilTransaction_UNSTABLE(
+		({ set }) =>
+			(fields: { field: string; hide: boolean }[]) => {
+				forEach(
+					fields,
+					({ field, hide }) => {
+						set(SectionVisibilityState(`${field}`), () => {
+							return hide;
+						});
+						if (options?.isEnrollmentForm) {
+							const attributesToClear =
+								options?.program?.programSections
+									?.find(({ id }) => id === field)
+									?.trackedEntityAttributes?.map(
+										({ id }) => id,
+									) ?? [];
+							setValue(
+								attributesToClear.map((attribute) => ({
+									field: attribute,
+									value: undefined,
+								})),
+							);
+						}
+						if (options?.isEventForm) {
+							const programStage =
+								options.program.programStages.find(
+									({ id }) => id === options.programStageId,
+								);
+							const dataElementsToClear =
+								programStage?.programStageSections
+									?.find(({ id }) => id === field)
+									?.dataElements?.map(({ id }) => id) ?? [];
+							setValue(
+								dataElementsToClear.map((dataElement) => ({
+									field: dataElement,
+									value: undefined,
+								})),
+							);
+						}
+					},
+					// We need to clear out all fields within this section, never mind, we have limitations now here, not really, we can do it
 				);
 			},
 		[setValue],
@@ -139,11 +218,11 @@ export function useActionCallbacks(): ActionCallbacks {
 		[],
 	);
 
-	const toggleFieldDisabled = useRecoilTransaction_UNSTABLE(
+	const toggleFieldMandatory = useRecoilTransaction_UNSTABLE(
 		({ set }) =>
-			(fields: { field: string; disabled?: boolean }[]) => {
-				forEach(fields, ({ field, disabled }) =>
-					set(FieldDisabledState(`${field}`), disabled ?? false),
+			(fields: { field: string; mandatory?: boolean }[]) => {
+				forEach(fields, ({ field, mandatory }) =>
+					set(FieldMandatoryState(`${field}`), mandatory ?? false),
 				);
 			},
 		[],
@@ -194,6 +273,8 @@ export function useActionCallbacks(): ActionCallbacks {
 		toggleLoading,
 		toggleOptionViews,
 		toggleFieldVisibility,
+		toggleMandatoryField: toggleFieldMandatory,
+		toggleSectionVisibility,
 		setValue,
 		unregister,
 		setError,
@@ -202,15 +283,10 @@ export function useActionCallbacks(): ActionCallbacks {
 	};
 }
 
-export function useTriggers(
-	rules: Rule[],
-	dataItems: string[],
-	formOptions: { isEventForm?: boolean; isEnrollmentForm: boolean },
-): {
+export function useTriggers(rules: Rule[]): {
 	initialRunRules: Rule[];
 	runTriggers: string[];
 } {
-	const { isEnrollmentForm, isEventForm } = formOptions;
 	const runTriggers = useMemo(
 		() => flatten(rules.map((rule) => rule.triggers)),
 		[rules],
@@ -218,15 +294,9 @@ export function useTriggers(
 
 	const initialRunRules = useMemo(
 		() =>
-			rules.filter(
-				(rule) =>
-					!some(
-						rule.triggers,
-						(trigger) =>
-							trigger.type === "DATAELEMENT_CURRENT_EVENT" ||
-							trigger.type === "TEI_ATTRIBUTE",
-					),
-			),
+			rules.filter((rule) => {
+				return rules;
+			}),
 		[rules],
 	);
 

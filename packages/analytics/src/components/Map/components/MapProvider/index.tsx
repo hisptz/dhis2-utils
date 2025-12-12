@@ -2,14 +2,10 @@ import { useDataQuery } from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
 import { Center, CircularLoader } from "@dhis2/ui";
 import { compact, isEmpty } from "lodash";
-import React, { useEffect, useState } from "react";
-import { MapOrgUnit, MapProviderProps } from "../../interfaces/index.js";
-import { MapOrgUnitContext, MapPeriodContext } from "../../state/index.js";
-import {
-	getOrgUnitsSelection,
-	sanitizeOrgUnits,
-	toGeoJson,
-} from "../../utils/map.js";
+import { useEffect, useState } from "react";
+import { MapOrgUnit, MapProviderProps } from "../../interfaces";
+import { MapOrgUnitContext, MapPeriodContext } from "../../state";
+import { getOrgUnitsSelection, sanitizeOrgUnits, toGeoJson } from "../../utils";
 import { BasePeriod, PeriodUtility } from "@hisptz/dhis2-utils";
 
 const boundaryQuery = {
@@ -21,10 +17,10 @@ const boundaryQuery = {
 	},
 	analytics: {
 		resource: "analytics",
-		params: ({ orgUnitIds }: any) => ({
+		params: ({ orgUnitIds, periodIds }: any) => ({
 			dimension: [
 				`ou:${orgUnitIds.join(";")}`,
-				`pe:${new Date().getFullYear()}`,
+				`pe:${periodIds?.join(";")}`,
 			],
 			skipData: true,
 			hierarchyMeta: true,
@@ -38,6 +34,7 @@ export function MapProvider({
 	periodSelection,
 }: MapProviderProps) {
 	const [orgUnits, setOrgUnits] = useState<MapOrgUnit[]>([]);
+	const [periods, setPeriods] = useState<BasePeriod[]>([]);
 	const { refetch, loading, error } = useDataQuery(boundaryQuery, {
 		lazy: true,
 	});
@@ -45,11 +42,16 @@ export function MapProvider({
 	useEffect(() => {
 		async function getOrgUnits() {
 			const rawOrgUnitIds = getOrgUnitsSelection(orgUnitSelection);
-			const data = await refetch({ orgUnitIds: rawOrgUnitIds });
+			const data = await refetch({
+				orgUnitIds: rawOrgUnitIds,
+				periodIds: !isEmpty(periodSelection?.periods)
+					? periodSelection?.periods
+					: ["THIS_YEAR"], // Just a placeholder so as the analytics query doesn't fail, when the period is empty, it means that this isn't  a DHIS2 map plot
+			});
 			const { analytics, boundaries } = (data as any) ?? {};
 			const rawOrgUnits = sanitizeOrgUnits(analytics?.metaData);
 			const geoJSONObjects = toGeoJson(
-				boundaries.filter((bound: any) => bound.co),
+				boundaries?.filter((bound: any) => bound.co),
 			);
 			const orgUnits: MapOrgUnit[] = compact(
 				rawOrgUnits.map((orgUnit: any) => {
@@ -68,11 +70,16 @@ export function MapProvider({
 					};
 				}),
 			);
+			const periodIds =
+				analytics?.metaData?.dimensions?.pe ?? periodSelection?.periods;
+			const periods = periodIds.map((pe: string) =>
+				PeriodUtility.getPeriodById(pe),
+			);
+			setPeriods(periods);
 			setOrgUnits(orgUnits);
 		}
-
 		getOrgUnits().catch((error) => console.log(error));
-	}, [orgUnitSelection, refetch]);
+	}, [orgUnitSelection, refetch, periodSelection?.periods]);
 
 	if (loading) {
 		return (
@@ -95,10 +102,6 @@ export function MapProvider({
 			</div>
 		);
 	}
-
-	const periods: BasePeriod[] = compact(
-		periodSelection?.periods?.map((pe) => PeriodUtility.getPeriodById(pe)),
-	);
 
 	if (!isEmpty(orgUnits)) {
 		return (

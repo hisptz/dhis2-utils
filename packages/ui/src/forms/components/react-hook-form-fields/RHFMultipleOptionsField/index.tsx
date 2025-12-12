@@ -1,4 +1,4 @@
-import React from "react";
+import { type ReactElement } from "react";
 import { Controller } from "react-hook-form";
 import { Button, ButtonStrip, Checkbox, Field } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
@@ -18,7 +18,7 @@ export function MultipleOptionsField({
 	options: { label: string; value: string }[];
 	dataSelected: any;
 	[key: string]: any;
-}): React.ReactElement {
+}): ReactElement {
 	return (
 		<Controller
 			name={name}

@@ -1,7 +1,7 @@
-import { FieldProps } from "../../interfaces/index.js";
+import { FieldProps } from "../../interfaces";
 import { InputField, InputType } from "@dhis2/ui";
-import React, { useMemo } from "react";
-import { VALUE_TYPE } from "../../constants/index.js";
+import { forwardRef, useMemo } from "react";
+import { VALUE_TYPE } from "../../constants";
 
 export interface NativeFieldProps extends FieldProps {
 	type?:
@@ -22,19 +22,9 @@ export interface NativeFieldProps extends FieldProps {
 	max?: string | number;
 }
 
-export const NativeField = React.forwardRef(
+export const NativeField = forwardRef<HTMLInputElement, NativeFieldProps>(
 	(
-		{
-			onChange,
-			value,
-			type,
-			valueType,
-			name,
-			error,
-			min,
-			max,
-			...props
-		}: NativeFieldProps,
+		{ onChange, value, type, valueType, name, error, min, max, ...props },
 		ref,
 	) => {
 		const fieldType: string = useMemo(() => {
@@ -53,22 +43,19 @@ export const NativeField = React.forwardRef(
 
 		return (
 			<InputField
+				/*
+      // @ts-ignore */
+				ref={ref}
 				{...props}
 				warning={!!props.warning}
 				value={value}
 				type={fieldType as InputType}
 				name={name}
-				min={min?.toString() ?? "0"}
+				min={min?.toString()}
 				max={max?.toString()}
 				onChange={({ value }: { value: any }) => onChange(value)}
 				error={!!error}
-				validationText={
-					typeof props.warning === "string"
-						? props.warning
-						: typeof error === "string"
-							? error
-							: undefined
-				}
+				validationText={error ?? props.warning}
 			/>
 		);
 	},

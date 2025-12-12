@@ -1,5 +1,5 @@
 import { DateTime, Interval } from "luxon";
-import { PeriodInterface, PeriodTypeInterface } from "../../interfaces/index.js";
+import { PeriodInterface, PeriodTypeInterface } from "../../interfaces";
 
 /**
  * Abstract Period class to be implemented by Period classes

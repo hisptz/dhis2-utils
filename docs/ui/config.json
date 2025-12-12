@@ -1,0 +1,11 @@
+{
+  "sidebar": {
+    "Getting Started": [
+      "libs/ui/intro",
+      "libs/ui/installation"
+    ],
+    "Setting Up Configuration": [
+      "libs/ui/configuration"
+    ]
+  }
+}

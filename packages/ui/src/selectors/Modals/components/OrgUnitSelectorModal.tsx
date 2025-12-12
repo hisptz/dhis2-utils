@@ -8,13 +8,13 @@ import {
 	ModalTitle,
 } from "@dhis2/ui";
 import { flatten, last } from "lodash";
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import {
 	OrgUnitSelection,
 	OrgUnitSelector,
 	OrgUnitSelectorProps,
-} from "../../OrgUnitSelector/index.js";
-import { ModalProps } from "../types/index.js";
+} from "../../OrgUnitSelector";
+import { ModalProps } from "../types";
 
 /**
  * This is a modal wrapper for `OrgUnitSelector` with internal state to control the selected values.

@@ -1,5 +1,7 @@
 import { OrgUnitSelector } from "./OrgUnitSelector";
-import { Meta, StoryObj } from "@storybook/react";
+import { type ArgTypes, Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
+import type { OrgUnitSelection } from "./types";
 
 const meta: Meta<typeof OrgUnitSelector> = {
 	component: OrgUnitSelector,
@@ -10,6 +12,34 @@ export default meta;
 
 type Story = StoryObj<typeof OrgUnitSelector>;
 
+function render(props: Story["args"]) {
+	const [orgUnitSelection, setOrgUnitSelection] = useState<OrgUnitSelection>({
+		groups: [],
+		levels: [],
+		orgUnits: [],
+		userOrgUnit: false,
+		userSubUnit: false,
+		userSubX2Unit: false,
+	});
+
+	return (
+		<OrgUnitSelector
+			{...props}
+			onUpdate={setOrgUnitSelection}
+			value={orgUnitSelection}
+		/>
+	);
+}
+
+const argTypes: ArgTypes<typeof OrgUnitSelector> = {
+	searchable: {
+		type: "boolean",
+	},
+	singleSelection: {
+		type: "boolean",
+	},
+};
+
 /**
  * The Organisation unit selector shows the `OrgUnitTree` component with a pre-defined root.
  * The root is obtained by getting the organisation units assigned to the current user.
@@ -18,6 +48,8 @@ type Story = StoryObj<typeof OrgUnitSelector>;
 export const Default: Story = {
 	name: "Default",
 	args: {},
+	argTypes,
+	render,
 };
 
 /**
@@ -32,6 +64,8 @@ export const WithLevelsAndGroups: Story = {
 		showGroups: true,
 		showLevels: true,
 	},
+	argTypes,
+	render,
 };
 
 /**
@@ -44,6 +78,8 @@ export const WithUserOptions: Story = {
 	args: {
 		showUserOptions: true,
 	},
+	argTypes,
+	render,
 };
 
 /**
@@ -56,6 +92,8 @@ export const WithSearch: Story = {
 	args: {
 		searchable: true,
 	},
+	argTypes,
+	render,
 };
 
 /**
@@ -69,6 +107,8 @@ export const LimitSelectionToLevels: Story = {
 	args: {
 		limitSelectionToLevels: [4],
 	},
+	argTypes,
+	render,
 };
 
 /**
@@ -84,4 +124,6 @@ export const FilterByOrgUnitGroup: Story = {
 		filterByGroups: ["RXL3lPSK8oG"],
 		limitSelectionToLevels: [4],
 	},
+	argTypes,
+	render,
 };

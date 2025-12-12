@@ -7,7 +7,7 @@ import {
 	ModalContent,
 	ModalTitle,
 } from "@dhis2/ui";
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { DataSourceSelector } from "@hisptz/dhis2-ui";
 
 export default function IndicatorSelectorModal({

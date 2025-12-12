@@ -2,8 +2,8 @@ import i18n from "@dhis2/d2-i18n";
 import { Button, Field, IconAdd24 } from "@dhis2/ui";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { RHFDHIS2FormField } from "../../react-hook-form-fields/index.js";
-import { VALUE_TYPES } from "../../../constants/index.js";
+import { RHFDHIS2FormField } from "../../react-hook-form-fields";
+import { VALUE_TYPES } from "../../../constants";
 
 export function AddLegendDefinition({
 	onAdd,
@@ -17,7 +17,7 @@ export function AddLegendDefinition({
 
 	const onAddClick = () => {
 		form.handleSubmit(({ newLegendDefinition }) =>
-			onAdd(newLegendDefinition)
+			onAdd(newLegendDefinition),
 		)();
 		form.reset({ newLegendDefinition: { color: "", name: "" } });
 	};
@@ -30,7 +30,7 @@ export function AddLegendDefinition({
 		<FormProvider {...form}>
 			<Field
 				error={!!error}
-				validationText={error?.message}
+				validationText={error?.message as string}
 				label={i18n.t("New Legend Definition")}
 			>
 				<div style={{ display: "flex", gap: 16, alignItems: "center" }}>

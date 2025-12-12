@@ -7,7 +7,7 @@ import {
 	last,
 	sortBy,
 } from "lodash";
-import { useMapOrganisationUnit, useMapPeriods } from "../../../hooks/index.js";
+import { useMapOrganisationUnit, useMapPeriods } from "../../../hooks";
 import { useCallback, useMemo, useState } from "react";
 import {
 	generateLegends,
@@ -15,7 +15,7 @@ import {
 	sanitizeDate,
 	sanitizeOrgUnits,
 	toGeoJson,
-} from "../../../../../utils/map.js";
+} from "../../../../../utils";
 import { useDataEngine } from "@dhis2/app-runtime";
 import {
 	CustomGoogleEngineLayer,
@@ -24,7 +24,11 @@ import {
 	EarthEngineLayerConfig,
 	ThematicLayerConfig,
 } from "../../../../MapLayer/interfaces";
-import { MapOrgUnit, PointOrgUnit } from "../../../../../interfaces/index.js";
+import {
+	type MapAnalyticsOptions,
+	MapOrgUnit,
+	PointOrgUnit,
+} from "../../../../../interfaces/index.js";
 import { asyncify, map } from "async-es";
 import { LegendSet } from "@hisptz/dhis2-utils";
 import {
@@ -40,7 +44,7 @@ import { EarthEngineOptions } from "../../../../MapLayer/components/GoogleEngine
 const analyticsQuery = {
 	analytics: {
 		resource: "analytics",
-		params: ({ ou, pe, dx, startDate, endDate }: any) => {
+		params: ({ ou, pe, dx, startDate, endDate, analyticsOptions }: any) => {
 			const peDimension = !isEmpty(pe)
 				? `pe:${pe?.join(";")}`
 				: undefined;
@@ -56,6 +60,7 @@ const analyticsQuery = {
 				startDate,
 				endDate,
 				displayProperty: "NAME",
+				...(analyticsOptions ?? {}),
 			};
 		},
 	},
@@ -98,13 +103,17 @@ const legendSetsQuery = {
 			fields: [
 				"id",
 				"displayName",
-				"legends[id,code,startValue,endValue,color]",
+				"legends[id,code,name,startValue,endValue,color]",
 			],
 		},
 	},
 };
 
-export function useThematicLayers(): any {
+export function useThematicLayers({
+	analyticsOptions,
+}: {
+	analyticsOptions?: MapAnalyticsOptions;
+}): any {
 	const engine = useDataEngine();
 	const [loading, setLoading] = useState(false);
 	const { orgUnits, orgUnitSelection } = useMapOrganisationUnit();
@@ -240,6 +249,7 @@ export function useThematicLayers(): any {
 						pe,
 						startDate,
 						endDate,
+						analyticsOptions,
 					},
 				});
 				sanitizedLayersWithData = layersWithoutData.map((layer) => ({
@@ -471,6 +481,7 @@ export function useGoogleEngineLayers() {
 					}),
 				);
 			} catch (e: any) {
+				console.log(e);
 				console.error(`Error getting thematic layers`, e.details);
 				return [];
 			}

@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { type ReactNode, useMemo } from "react";
 import {
 	Event,
 	Program,
@@ -8,11 +8,12 @@ import {
 	translateProgramRule,
 } from "@hisptz/dhis2-utils";
 import { RuleComponent } from "./components/RuleComponent.js";
-import { useVariableValues } from "./hooks/index.js";
-import { FieldStateProvider } from "./state/index.js";
+import { useVariableValues } from "./hooks";
+import { FieldStateProvider } from "./state";
 
 export * from "./components/RuleComponent.js";
 export * from "./components/FieldProgramRule.js";
+export * from "./components/SectionProgramRule.js";
 export * from "./hooks/index.js";
 export * from "./state/index.js";
 
@@ -26,9 +27,7 @@ export interface ProgramRuleProviderProps {
 	programRules: ProgramRule[];
 	programStage?: string;
 	customRules?: Rule[];
-	attributes?: string[];
-	dataElements?: string[];
-	children: React.ReactNode;
+	children: ReactNode;
 	includeRoot?: boolean;
 }
 
@@ -42,35 +41,21 @@ export function ProgramRuleProvider({
 	customRules,
 	isEnrollmentForm,
 	isEventForm,
-	dataElements,
-	attributes,
 	children,
 	includeRoot,
 }: ProgramRuleProviderProps) {
 	const rules = useMemo(() => {
 		return [
-			...(programRules
-				?.filter(
-					({ programStage: ruleStage }) =>
-						programStage === ruleStage?.id,
-				)
-				?.map((programRule) =>
-					translateProgramRule(
-						programRule,
-						program.programRuleVariables,
-						idPrefix,
-					),
-				) ?? []),
+			...(programRules.map((programRule) =>
+				translateProgramRule(
+					programRule,
+					program.programRuleVariables,
+					idPrefix,
+				),
+			) ?? []),
 			...(customRules ?? []),
 		];
-	}, [
-		programRules,
-		customRules,
-		isEnrollmentForm,
-		isEventForm,
-		program.programRuleVariables,
-		idPrefix,
-	]);
+	}, [programRules, customRules, program.programRuleVariables, idPrefix]);
 
 	const executionVariables = useVariableValues({
 		program,
@@ -82,8 +67,9 @@ export function ProgramRuleProvider({
 	return (
 		<FieldStateProvider includeRoot={includeRoot}>
 			<RuleComponent
+				program={program}
+				programStageId={programStage}
 				variables={executionVariables}
-				dataItems={[...(dataElements ?? []), ...(attributes ?? [])]}
 				formOptions={{
 					isEnrollmentForm: isEnrollmentForm ?? false,
 					isEventForm: isEventForm ?? false,

@@ -1,12 +1,5 @@
-import {
-	filter as _filter,
-	flattenDeep,
-	fromPairs,
-	isArray,
-	isEmpty,
-} from "lodash";
-import { DATASTORE_FUNCTIONS_ENDPOINT } from "../constants/index.js";
-import { DataSourceResponse } from "../types/index.js";
+import { flattenDeep, fromPairs } from "lodash";
+import { DATASTORE_FUNCTIONS_ENDPOINT } from "../constants";
 import DataSource from "./dataSource.js";
 
 const keysQuery = {
@@ -57,87 +50,5 @@ export default class CustomFunctions extends DataSource {
 			this.functions = [];
 			this.rules = [];
 		}
-	}
-
-	async filter(
-		engine: any,
-		{
-			selectedGroup,
-			page,
-			searchKeyword,
-		}: {
-			selectedGroup: { id: string };
-			page: number;
-			searchKeyword: string;
-		},
-	) {
-		const filter: {
-			group: string | undefined;
-			search: string | undefined;
-		} = {
-			group: undefined,
-			search: undefined,
-		};
-		if (selectedGroup) {
-			filter.group = selectedGroup?.id;
-		}
-		if (searchKeyword) {
-			filter.search = searchKeyword;
-		}
-		return this.getDataSources(engine, { filter, page });
-	}
-
-	async getGroups(engine: any) {
-		if (!this.functions) {
-			await this.queryData(engine);
-		}
-		return this.functions;
-	}
-
-	async getDataSources(
-		engine: any,
-		{
-			filter,
-		}: {
-			filter?:
-				| Array<string>
-				| { group: string | undefined; search: string | undefined };
-			page: number;
-			programId?: string;
-		},
-	): Promise<DataSourceResponse> {
-		if (!this.functions) {
-			await this.queryData(engine);
-		}
-		if (isEmpty(filter)) {
-			return {
-				pager: {
-					pageCount: 1,
-				},
-				data: this.rules,
-			};
-		}
-		let filteredRules = this.rules;
-
-		if (!isArray(filter) && filter?.group) {
-			filteredRules = _filter(filteredRules, ({ id }) =>
-				id.startsWith(filter?.group),
-			);
-		}
-
-		if (!isArray(filter) && filter?.search) {
-			filteredRules = _filter(filteredRules, ({ displayName }) =>
-				displayName
-					.toLowerCase()
-					.match(RegExp(filter?.search?.toLowerCase() ?? "")),
-			);
-		}
-
-		return Promise.resolve({
-			pager: {
-				pageCount: 1,
-			},
-			data: filteredRules ?? [],
-		});
 	}
 }

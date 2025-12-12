@@ -1,5 +1,5 @@
 import { useDataQuery } from "@dhis2/app-runtime";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { LegendSet } from "@hisptz/dhis2-utils";
 import { SingleSelectField, SingleSelectOption } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";

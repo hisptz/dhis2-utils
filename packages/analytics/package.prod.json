@@ -1,0 +1,63 @@
+{
+  "name": "@hisptz/dhis2-analytics",
+  "version": "2.1.28",
+  "main": "./dist/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "typings": "./dist/types/index.d.ts",
+  "exports": {
+    "import": "./dist/esm/index.js",
+    "require": "./dist/index.js",
+    "types": "./dist/types/index.d.ts"
+  },
+  "sideEffects": false,
+  "license": "MIT",
+  "files": [
+    "dist/**",
+    "package.json"
+  ],
+  "scripts": {
+    "build": "tsup && tsc",
+    "dev": "tsup --watch",
+    "lint": "eslint . --max-warnings 0",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "dependencies": {
+    "@hisptz/dhis2-ui": "workspace:*",
+    "@hisptz/dhis2-utils": "workspace:*",
+    "@react-leaflet/core": "^2.1.0",
+    "@react-pdf/renderer": "^4.0.0",
+    "@tanstack/react-table": "^8.19.3",
+    "async-es": "^3.2.5",
+    "d3-color": "^3.1.0",
+    "d3-scale": "^4.0.2",
+    "file-saver": "^2.0.5",
+    "geolib": "^3.3.4",
+    "jotai-devtools": "^0.10.1",
+    "leaflet": "^1.9.4",
+    "leaflet-easyprint": "^2.1.9",
+    "leaflet.fullscreen": "^4.0.0",
+    "luxon": "^3.4.4",
+    "react-circular-progressbar": "^2.1.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
+    "react-error-boundary": "^4.0.12",
+    "react-helmet": "^6.1.0",
+    "react-leaflet": "^4.2.1",
+    "react-leaflet-custom-control": "^1.4.0",
+    "react-spring": "^9.6.1",
+    "react-to-print": "^3.0.1",
+    "screenfull": "^6.0.2",
+    "xlsx": "^0.18.5"
+  },
+  "peerDependencies": {
+    "classnames": "^2",
+    "highcharts": "^12",
+    "highcharts-react-official": "^3",
+    "lodash": "^4",
+    "zod": "^3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

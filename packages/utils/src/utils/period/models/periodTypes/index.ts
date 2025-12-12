@@ -1,3 +1,3 @@
-export * from "./fixedPeriodType.js";
-export * from "./basePeriodType.js";
-export * from "./relativePeriodType.js";
+export * from "./fixedPeriodType";
+export * from "./basePeriodType";
+export * from "./relativePeriodType";

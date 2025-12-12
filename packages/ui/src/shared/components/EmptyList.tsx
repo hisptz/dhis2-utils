@@ -1,11 +1,11 @@
 import i18n from "@dhis2/d2-i18n";
-import React from "react";
+import { type ReactElement } from "react";
 import classes from "../../tables/SimpleDataTable/SimpleDataTable.module.css";
 
 export default function EmptyList({
 	message,
 }: {
-	message?: string | React.ReactElement;
+	message?: string | ReactElement;
 }) {
 	return (
 		<div

@@ -13,3 +13,4 @@ export * from "./components/ProramRules/index.js";
 export * from "./components/LegendMinMaxGroup/index.js";
 export * from "./components/RichTextEditor/index.js";
 export * from "./components/LegendDefinitions/index.js";
+export * from "./components/SectionForm";

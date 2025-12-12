@@ -1,13 +1,22 @@
-import React from "react";
 import { DataTable, DataTableProps } from "@dhis2/ui";
+import type { ReactNode } from "react";
 
 export type PivotTableLayoutProps = DataTableProps;
 
 export interface PivotTableProps {
-	children: React.ReactNode;
+	children: ReactNode;
 	tableProps?: DataTableProps;
+	setRef?: (ref: HTMLTableElement) => void;
 }
 
-export function PivotTable({ tableProps, children }: PivotTableProps) {
-	return <DataTable {...(tableProps ?? {})}>{children}</DataTable>;
+export function PivotTable({ tableProps, children, setRef }: PivotTableProps) {
+	return (
+		<>
+			{/*
+// @ts-ignore */}
+			<DataTable ref={setRef as any} {...(tableProps ?? {})}>
+				{children}
+			</DataTable>
+		</>
+	);
 }

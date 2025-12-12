@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import Collapsible from "react-collapsible";
 import { CircularProgressbarWithChildren } from "react-circular-progressbar";
 import { FormSectionInterface } from "../../interfaces/index.js";
@@ -9,7 +9,11 @@ import {
 	IconErrorFilled24,
 } from "@dhis2/ui";
 import { useFormState, useWatch } from "react-hook-form";
-import { useHiddenFields } from "../../../ProramRules/index.js";
+import {
+	FieldProgramRule,
+	type FieldProgramRuleChildrenProps,
+	useHiddenFields,
+} from "../../../ProramRules/index.js";
 import { difference, isEmpty } from "lodash";
 import { RHFDHIS2FormField } from "../../../react-hook-form-fields/index.js";
 
@@ -130,23 +134,54 @@ export function FormSection({
 						const required =
 							dataItem.mandatory ?? dataItem.compulsory;
 						return (
-							<RHFDHIS2FormField
-								key={`${dataItem.id}-field`}
-								valueType={dataItem.valueType}
-								label={
-									dataItem.displayFormName ??
-									dataItem?.formName
-								}
+							<FieldProgramRule
+								key={`${dataItem.id}-key-field`}
 								name={dataItem.id}
 								optionSet={dataItem.optionSet}
-								required={required}
-								validations={{
-									required: required
-										? `${dataItem.formName} is required`
-										: undefined,
-									...(dataItem?.validations ?? {}),
+								mandatory={required}
+								validations={dataItem.validations}
+							>
+								{({
+									disabled,
+									optionSet,
+									mandatory,
+									max,
+									min,
+									validations,
+									warning,
+									loading,
+									hidden,
+								}: FieldProgramRuleChildrenProps) => {
+									if (hidden) {
+										return null;
+									}
+
+									return (
+										<RHFDHIS2FormField
+											loading={loading}
+											key={`${dataItem.id}-field`}
+											disabled={disabled}
+											min={min}
+											max={max}
+											warning={warning}
+											valueType={dataItem.valueType}
+											label={
+												dataItem.displayFormName ??
+												dataItem?.formName
+											}
+											name={dataItem.id}
+											optionSet={optionSet}
+											required={mandatory}
+											validations={{
+												required: required
+													? `${dataItem.formName} is required`
+													: undefined,
+												...(validations ?? {}),
+											}}
+										/>
+									);
 								}}
-							/>
+							</FieldProgramRule>
 						);
 					})}
 				</div>

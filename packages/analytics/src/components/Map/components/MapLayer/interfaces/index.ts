@@ -1,7 +1,7 @@
 import type { Legend } from "@hisptz/dhis2-utils";
-import { MapOrgUnit, PointOrgUnit } from "../../../interfaces/index.js";
-import { LegendColorScale } from "../../../utils/colors.js";
-import { EarthEngineOptions } from "../components/GoogleEngineLayer/interfaces/index.js";
+import { MapOrgUnit, PointOrgUnit } from "../../../interfaces";
+import { LegendColorScale } from "../../../utils";
+import { EarthEngineOptions } from "../components/GoogleEngineLayer/interfaces";
 import { EarthEngine } from "../components/GoogleEngineLayer/services/engine.js";
 import type { LeafletEventHandlerFnMap, LeafletMouseEvent } from "leaflet";
 
@@ -127,6 +127,12 @@ interface LayerData {
 	dataItem?: ThematicLayerDataItem;
 }
 
+export type LayerLabelConfig = {
+	labels: boolean;
+	labelFontWeight: string;
+	labelTemplate: string;
+};
+
 export interface ThematicLayerConfig {
 	id: string;
 	data?: ThematicLayerRawData[];
@@ -137,6 +143,7 @@ export interface ThematicLayerConfig {
 	control?: ThematicLayerControl;
 	customEventHandlers?: LeafletEventHandlerFnMap;
 	onLayerClick?: (e: LeafletMouseEvent, data: LayerData) => void;
+	labelConfig?: LayerLabelConfig;
 	radius?: {
 		min: number;
 		max: number;
@@ -149,6 +156,7 @@ export interface CustomMapLayer {
 	enabled: boolean;
 	customEventHandlers?: LeafletEventHandlerFnMap;
 	onLayerClick?: (e: LeafletMouseEvent, data: LayerData) => void;
+	labelConfig?: LayerLabelConfig;
 }
 
 export type MapLayer =

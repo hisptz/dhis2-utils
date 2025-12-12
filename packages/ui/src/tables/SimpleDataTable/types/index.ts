@@ -1,4 +1,4 @@
-import React from "react";
+import { type ReactElement } from "react";
 import { DataTableSortDirection } from "@dhis2/ui";
 
 /**
@@ -37,7 +37,17 @@ export interface SimpleDataTableRow {
 	 * ...
 	 * @property {any} [propertyN] - The value for propertyN.
 	 */
-	cellsStyle?: Record<string, any>;
+	cellsStyle?: {
+		tag?: "td" | "th";
+		active?: boolean;
+		disableSelection?: boolean;
+		onClick?: () => void;
+		align?: "right" | "center" | "left";
+		error?: boolean;
+		valid?: boolean;
+		muted?: boolean;
+		backgroundColor?: string;
+	};
 
 	[key: string]: any;
 }
@@ -71,7 +81,7 @@ export interface SimpleDataTableProps {
 	columns: SimpleDataTableColumn[];
 	loading?: boolean;
 	rows?: Array<SimpleDataTableRow>;
-	emptyLabel?: string | React.ReactElement;
+	emptyLabel?: string | ReactElement;
 	onRowClick?: (selectedValueId: string) => void;
 	selectable?: boolean;
 	selectedRows?: string[];

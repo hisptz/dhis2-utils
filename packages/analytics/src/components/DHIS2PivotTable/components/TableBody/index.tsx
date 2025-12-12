@@ -2,11 +2,12 @@ import { Header } from "../../services/engine";
 import { isEmpty, slice } from "lodash";
 import { useCustomPivotTableEngine } from "../../state/engine.js";
 import { DataTableCell, DataTableRow, TableBody } from "@dhis2/ui";
-import React, { Fragment, ReactNode } from "react";
+import { Fragment, type ReactElement, ReactNode, useRef } from "react";
 import { AnalyticsItem } from "@hisptz/dhis2-utils";
 import classes from "./TableBody.module.css";
-import { useElementSize } from "usehooks-ts";
-import { DHIS2Dimension } from "../../interfaces/index.js";
+import { DHIS2Dimension } from "../../interfaces";
+import { useResizeObserver } from "usehooks-ts";
+import { getTextColorFromBackgroundColor } from "../../utils/color";
 
 function DataRowRenderer({
 	mapper,
@@ -25,17 +26,36 @@ function DataRowRenderer({
 		...mapper,
 		[dimension]: item.uid,
 	}));
+
 	return (
 		<>
-			{completeMapper?.map((mapper) => (
-				<DataTableCell
-					key={`${Object.values(mapper).join("-")}-value`}
-					align="center"
-					bordered
-				>
-					{engine?.getValue(mapper) ?? ""}
-				</DataTableCell>
-			))}
+			{completeMapper?.map((mapper) => {
+				const legend = engine?.getItemValueLegend(mapper);
+
+				return (
+					<DataTableCell
+						style={{
+							background:
+								legend?.style === "FILL"
+									? legend?.color
+									: undefined,
+							color:
+								legend?.style === "FILL"
+									? getTextColorFromBackgroundColor(
+											legend?.color,
+										)
+									: legend?.style === "TEXT"
+										? legend.color
+										: undefined,
+						}}
+						key={`${Object.values(mapper).join("-")}-value`}
+						align="center"
+						bordered
+					>
+						{engine?.getValue(mapper) ?? ""}
+					</DataTableCell>
+				);
+			})}
 		</>
 	);
 }
@@ -54,8 +74,11 @@ function RowRenderer({
 		prevWidth?: number;
 		fixRowHeaders?: boolean;
 	};
-}): React.ReactElement | null {
-	const [cellRef, { width }] = useElementSize();
+}): ReactElement | null {
+	const cellRef = useRef<HTMLElement | null>(null);
+	const { width } = useResizeObserver({
+		ref: cellRef,
+	});
 
 	const rowSpan = slice(rows, index + 1).reduce((acc, column) => {
 		return acc * (column.items?.length ?? 1);

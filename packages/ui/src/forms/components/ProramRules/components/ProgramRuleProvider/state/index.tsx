@@ -1,8 +1,16 @@
-import React from "react";
+import { memo, type ReactNode } from "react";
 import { atomFamily, RecoilRoot, selectorFamily } from "recoil";
 
 export const FieldVisibilityState = atomFamily({
 	key: "field-visibility-state",
+	default: false,
+});
+export const SectionVisibilityState = atomFamily({
+	key: "section-visibility-state",
+	default: false,
+});
+export const FieldMandatoryState = atomFamily({
+	key: "field-mandatory-state",
 	default: false,
 });
 
@@ -53,12 +61,16 @@ export const FieldState = selectorFamily({
 							| "disabled"
 							| "minMax"
 							| "loading"
+							| "mandatory"
 							| "error",
 						value: any,
 					) => {
 						switch (type) {
 							case "hidden":
 								set(FieldVisibilityState(field), value);
+								break;
+							case "mandatory":
+								set(FieldMandatoryState(field), value);
 								break;
 							case "hiddenOptions":
 								set(FieldHiddenOptionsState(field), value);
@@ -85,6 +97,7 @@ export const FieldState = selectorFamily({
 			);
 			return {
 				hidden: get(FieldVisibilityState(field)),
+				mandatory: get(FieldMandatoryState(field)),
 				hiddenOptions: get(FieldHiddenOptionsState(field)),
 				warning: get(FieldWarningState(field)),
 				disabled: get(FieldDisabledState(field)),
@@ -95,12 +108,35 @@ export const FieldState = selectorFamily({
 			};
 		},
 });
+export const SectionState = selectorFamily({
+	key: "section-state",
+	get:
+		(section: string) =>
+		({ get, getCallback }) => {
+			const setSectionState = getCallback(
+				({ set }) =>
+					(type: "hidden", value: any) => {
+						switch (type) {
+							case "hidden":
+								set(SectionVisibilityState(section), value);
+								break;
+							default:
+								break;
+						}
+					},
+			);
+			return {
+				hidden: get(FieldVisibilityState(section)),
+				setSectionState,
+			};
+		},
+});
 
-export const FieldStateProvider = React.memo(function FieldStateProvider({
+export const FieldStateProvider = memo(function FieldStateProvider({
 	children,
 	includeRoot,
 }: {
-	children: React.ReactNode;
+	children: ReactNode;
 	includeRoot?: boolean;
 }) {
 	if (includeRoot) {

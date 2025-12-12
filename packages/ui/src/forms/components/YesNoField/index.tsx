@@ -1,8 +1,8 @@
-import React, { useCallback } from "react";
-import { FieldProps } from "../../interfaces/index.js";
-import { CustomCheckboxField } from "../CustomCheckboxField/index.js";
+import { useCallback } from "react";
+import { FieldProps } from "../../interfaces";
+import { CustomCheckboxField } from "../CustomCheckboxField";
 import i18n from "@dhis2/d2-i18n";
-import { SelectOption } from "../CustomSelectField/index.js";
+import { SelectOption } from "../CustomSelectField";
 import {
 	Field,
 	Radio,
@@ -19,6 +19,7 @@ export interface YesNoFieldProps extends FieldProps {
 export function YesNoField({
 	renderAsCheckbox,
 	renderAsInputField,
+	disabled,
 	...input
 }: YesNoFieldProps) {
 	if (renderAsCheckbox) {
@@ -89,6 +90,7 @@ export function YesNoField({
 		>
 			<div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
 				<Radio
+					disabled={disabled}
 					error={!!error}
 					checked={value === "true"}
 					label={i18n.t("Yes")}
@@ -96,6 +98,7 @@ export function YesNoField({
 					onChange={onRadioChange}
 				/>
 				<Radio
+					disabled={disabled}
 					error={!!error}
 					checked={value === "false"}
 					label={i18n.t("No")}

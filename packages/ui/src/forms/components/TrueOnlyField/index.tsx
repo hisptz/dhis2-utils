@@ -1,11 +1,14 @@
-import { FieldProps } from "../../interfaces/index.js";
-import React from "react";
-import { CustomCheckboxField } from "../CustomCheckboxField/index.js";
+import { FieldProps } from "../../interfaces";
+import { forwardRef } from "react";
+import { CustomCheckboxField } from "../CustomCheckboxField";
 
-export interface TrueOnlyFieldProps extends FieldProps {}
+export interface TrueOnlyFieldProps extends FieldProps {
+	value?: "true";
+}
 
-export const TrueOnlyField = React.forwardRef(
-	(props: TrueOnlyFieldProps, ref) => {
-		return <CustomCheckboxField ref={ref} {...props} trueOnly />;
+export const TrueOnlyField = forwardRef<unknown, TrueOnlyFieldProps>(
+	(props, ref) => {
+		// @ts-ignore
+		return <CustomCheckboxField {...props} trueOnly />;
 	},
 );

@@ -2,9 +2,9 @@ import i18n from "@dhis2/d2-i18n";
 import { MultiSelectField, MultiSelectOption } from "@dhis2/ui";
 import { intersectionWith } from "lodash";
 import React from "react";
-import { useOrgUnitLevelsAndGroups } from "../../hooks/index.js";
-import { onGroupSelect, onLevelSelect } from "../../utils/index.js";
-import { OrgUnitSelection } from "../../types/index.js";
+import { useOrgUnitLevelsAndGroups } from "../../hooks";
+import { onGroupSelect, onLevelSelect } from "../../utils";
+import { OrgUnitSelection } from "../../types";
 
 export function LevelAndGroupSelector({
 	showLevels,
@@ -29,7 +29,7 @@ export function LevelAndGroupSelector({
 	const sanitizedSelectedLevels = intersectionWith(
 		value?.levels,
 		levels,
-		(levelId, level) => levelId === level.id,
+		(levelId, level) => levelId === level.level?.toString(),
 	);
 	const sanitizedSelectedGroups = intersectionWith(
 		value?.groups,
@@ -58,16 +58,16 @@ export function LevelAndGroupSelector({
 						selected={
 							levelsAndGroupsLoading
 								? []
-								: sanitizedSelectedLevels ?? []
+								: (sanitizedSelectedLevels ?? [])
 						}
 						clearText={i18n.t("Clear")}
 						label={i18n.t("Select Level(s)")}
 					>
-						{levels?.map(({ displayName, id }: any) => (
+						{levels?.map(({ displayName, id, level }: any) => (
 							<MultiSelectOption
 								dataTest={`${displayName}-option`}
 								label={displayName}
-								value={id}
+								value={level.toString()}
 								key={id}
 							/>
 						))}
@@ -86,7 +86,7 @@ export function LevelAndGroupSelector({
 						selected={
 							levelsAndGroupsLoading
 								? []
-								: sanitizedSelectedGroups ?? []
+								: (sanitizedSelectedGroups ?? [])
 						}
 						dataTest={"select-facility-group"}
 						clearText={i18n.t("Clear")}

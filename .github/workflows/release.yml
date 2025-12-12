@@ -1,0 +1,43 @@
+name: Release to npm
+
+on:
+  push:
+    # Trigger when a tag is pushed (e.g., v1.2.3)
+    branches:
+      - main
+
+jobs:
+  release:
+    name: Publish packages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      CI: true
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm run build --filter=@hisptz/docs^...
+
+      - name: Publish with Changesets (pnpm release)
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          # Ensure npm is authenticated (setup-node uses NODE_AUTH_TOKEN)
+          npm whoami || echo "Authentication check failed; attempting publish anyway."
+          pnpm run release

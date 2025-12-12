@@ -1,11 +1,11 @@
 import { Box, Center, CircularLoader, colors, IconError24 } from "@dhis2/ui";
-import React, { Fragment, useMemo } from "react";
-import { useOrgUnitsRoot } from "../hooks/index.js";
-import { OrgUnitSelectorProps } from "../types/index.js";
-import { LevelAndGroupSelector } from "./LevelAndGroupSelector/index.js";
-import { OrgUnitSearch } from "./OrgUnitSearch/index.js";
-import { OrgUnitTree } from "./OrgUnitTree/index.js";
-import { OrgUnitUserOptions } from "./OrgUnitUserOptions/index.js";
+import { Fragment, useMemo } from "react";
+import { useOrgUnitsRoot } from "../hooks";
+import { OrgUnitSelectorProps } from "../types";
+import { LevelAndGroupSelector } from "./LevelAndGroupSelector";
+import { OrgUnitSearch } from "./OrgUnitSearch";
+import { OrgUnitTree } from "./OrgUnitTree";
+import { OrgUnitUserOptions } from "./OrgUnitUserOptions";
 
 export default function OrgUnitSelector({
 	value,
@@ -19,11 +19,10 @@ export default function OrgUnitSelector({
 	limitSelectionToLevels,
 }: OrgUnitSelectorProps) {
 	const { roots, error, loading } = useOrgUnitsRoot(defaultRoots);
-	const { userOrgUnit, userSubUnit, userSubX2Unit } = value ?? {};
-	const disableSelections = useMemo(
-		() => userOrgUnit || userSubX2Unit || userSubUnit,
-		[userOrgUnit, userSubUnit, userSubX2Unit],
-	);
+	const disableSelections = useMemo(() => {
+		const { userOrgUnit, userSubUnit, userSubX2Unit } = value ?? {};
+		return userOrgUnit || userSubX2Unit || userSubUnit;
+	}, [value]);
 
 	if (error) {
 		return (

@@ -1,4 +1,4 @@
-import React from "react";
+import { type ReactElement } from "react";
 import { Controller } from "react-hook-form";
 import { SingleSelectField, SingleSelectOption } from "@dhis2/ui";
 
@@ -12,7 +12,7 @@ export function RHFSingleSelectField({
 	validations?: Record<string, any>;
 	name: string;
 	[key: string]: any;
-}): React.ReactElement {
+}): ReactElement {
 	return (
 		<Controller
 			name={name}

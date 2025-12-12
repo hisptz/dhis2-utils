@@ -1,5 +1,5 @@
 import { capitalize, find, head, isEmpty, sortBy } from "lodash";
-import React, { useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 import {
 	GeoJSON,
 	LayerGroup,
@@ -13,7 +13,7 @@ import useGoogleEngineLayer from "./hooks/index.js";
 import { MapOrgUnit } from "../../../../interfaces/index.js";
 import { highlightFeature, resetHighlight } from "../../../../utils/map.js";
 import { defaultStyle, highlightStyle } from "../BoundaryLayer/index.js";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { Center, CircularLoader, Divider } from "@dhis2/ui";
 import i18n from "@dhis2/d2-i18n";
 import { CustomGoogleEngineLayer } from "../../interfaces/index.js";

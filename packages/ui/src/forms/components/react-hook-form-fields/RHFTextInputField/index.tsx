@@ -1,16 +1,17 @@
-import React from "react";
+import { type ReactElement } from "react";
 import { Controller } from "react-hook-form";
 import { InputField } from "@dhis2/ui";
 
 export function RHFTextInputField({
 	name,
 	validations,
+	type,
 	...props
 }: {
 	name: string;
 	validations?: Record<string, any>;
 	[key: string]: any;
-}): React.ReactElement {
+}): ReactElement {
 	return (
 		<Controller
 			name={name}
@@ -28,9 +29,22 @@ export function RHFTextInputField({
 					onBlur={onBlur}
 					ref={ref}
 					value={value}
-					onChange={({ value }: { value?: string }) =>
-						onChange(value)
-					}
+					onChange={({ value }: { value?: string }) => {
+						if (value !== undefined) {
+							if (type === "number") {
+								const numberValue = parseFloat(value);
+								if (isNaN(numberValue)) {
+									onChange(value);
+								} else {
+									onChange(numberValue);
+								}
+							} else {
+								onChange(value);
+							}
+						} else {
+							onChange(value);
+						}
+					}}
 				/>
 			)}
 		/>

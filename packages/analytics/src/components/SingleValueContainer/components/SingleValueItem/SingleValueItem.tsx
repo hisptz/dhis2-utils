@@ -1,6 +1,6 @@
 import { Tooltip } from "@dhis2/ui";
 import { capitalize } from "lodash";
-import React from "react";
+import { type ReactElement } from "react";
 import { animated, useSpring } from "react-spring";
 import styles from "../../styles/SingleValueContainer.module.css";
 import { SingleValue } from "../../types/props.js";
@@ -9,6 +9,7 @@ import SingleValuePercentage from "./SingleValuePercentage.js";
 interface SingleValueProps extends SingleValue {
 	globalAnimationDelay?: number;
 	globalAnimationDuration?: number;
+	disableAnimation?: boolean;
 }
 
 export default function SingleValueItem({
@@ -21,7 +22,8 @@ export default function SingleValueItem({
 	globalAnimationDelay,
 	decimalPlaces,
 	globalAnimationDuration,
-}: SingleValueProps): React.ReactElement {
+	disableAnimation,
+}: SingleValueProps): ReactElement {
 	const numberFormatter = (value: number) =>
 		Intl.NumberFormat("en-US", {
 			notation: "compact",
@@ -29,6 +31,7 @@ export default function SingleValueItem({
 		}).format(value);
 
 	const sanitizedValue = useSpring({
+		cancel: disableAnimation,
 		val: value,
 		from: { val: 0 },
 		config: {

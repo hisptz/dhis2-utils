@@ -1,26 +1,33 @@
 import { Field } from "@dhis2/ui";
 import JoditEditor from "jodit-react";
-import React, { forwardRef } from "react";
-import { FieldProps } from "../../interfaces/index.js";
+import { type FC, forwardRef } from "react";
+import { FieldProps } from "../../interfaces";
 
-export interface RichTextEditorProps extends FieldProps {}
+export interface RichTextEditorProps extends FieldProps {
+	config?: Parameters<typeof JoditEditor>[0]["config"];
+}
 
-export const RichTextEditor: React.FC<RichTextEditorProps> = forwardRef(
-	function (
+export const RichTextEditor: FC<RichTextEditorProps> = forwardRef<
+	Parameters<typeof JoditEditor>[0]["ref"],
+	RichTextEditorProps
+>(
+	(
 		{
 			name,
 			label,
 			value,
 			onChange,
 			error,
+			config: overrideConfig,
 			warning,
 			...props
-		}: RichTextEditorProps,
-		ref: React.Ref<any>,
-	) {
-		const config = {
+		},
+		ref,
+	) => {
+		const config: Parameters<typeof JoditEditor>[0]["config"] = {
 			readonly: false,
-			defaultFontSizePoints: "pt",
+			defaultFontSizePoints: "pt" as const,
+			...(overrideConfig ?? {}),
 		};
 		return (
 			<Field
@@ -38,7 +45,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = forwardRef(
 				}
 			>
 				<JoditEditor
-					ref={ref}
+					ref={ref as any}
 					value={value}
 					onBlur={(newValue: any) => onChange(newValue)}
 					config={config}

@@ -1,11 +1,10 @@
 import { compact, find, isArray, isEmpty, map } from "lodash";
-import { DATA_SOURCES } from "../constants/index.js";
+import { DATA_SOURCES } from "../constants";
 import CustomFunctions from "../models/customFunctions.js";
-import DataElements from "../models/dataElements.js";
 import DataSets from "../models/dataSets.js";
 import DataSourceModel from "../models/dataSource.js";
 import NativeDataSource from "../models/nativeDataSource.js";
-import { DataSourceType } from "../types/index.js";
+import { DataSourceType } from "../types";
 import { SqlViews } from "../models/sqlViews.js";
 
 export function getDataSourcesList(
@@ -22,9 +21,6 @@ export function getDataSourcesList(
 					if (dataSourceConfig.native) {
 						return new NativeDataSource(dataSourceConfig);
 					}
-					if (dataSourceConfig.type === "dataElement") {
-						return new DataElements(dataSourceConfig);
-					}
 					if (dataSourceConfig.type === "customFunction") {
 						return new CustomFunctions(dataSourceConfig);
 					}
@@ -36,7 +32,7 @@ export function getDataSourcesList(
 					}
 				}
 			}),
-		);
+		) as DataSourceModel[];
 	}
 	return [];
 }

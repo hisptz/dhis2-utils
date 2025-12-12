@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useVisualizationType } from "../VisualizationTypeProvider/index.js";
 import { useAnalyticsData } from "../AnalyticsDataProvider/index.js";
 import { CircularLoader } from "@dhis2/ui";
@@ -142,10 +142,18 @@ export function MapRenderer({
 				} as ThematicLayerConfig;
 			}) ?? []
 		);
-	}, [analytics]);
+	}, [
+		analytics.headers,
+		analytics.metaData?.dimensions,
+		options.thematicLayers,
+		analytics.rows,
+	]);
 
 	return (
 		<DHIS2Map
+			periodSelection={{
+				periods: dimensions.pe,
+			}}
 			orgUnitSelection={orgUnitSelection}
 			thematicLayers={thematicLayers}
 		/>

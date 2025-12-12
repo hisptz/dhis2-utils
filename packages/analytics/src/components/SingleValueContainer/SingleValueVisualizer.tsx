@@ -1,6 +1,6 @@
 import i18n from "@dhis2/d2-i18n";
 import { CssReset } from "@dhis2/ui";
-import React, { Suspense } from "react";
+import { type ReactElement, Suspense } from "react";
 import SingleValueItem from "./components/SingleValueItem/SingleValueItem.js";
 import styles from "./styles/SingleValueContainer.module.css";
 import { SingleValue, SingleValueVisualizerProps } from "./types/props.js";
@@ -12,7 +12,8 @@ export function SingleValueVisualizer({
 	singleValueItems,
 	animationDuration,
 	animationDelay,
-}: SingleValueVisualizerProps): React.ReactElement {
+	disableAnimation,
+}: SingleValueVisualizerProps): ReactElement {
 	return (
 		<div className="w-100 h-100">
 			<CssReset />
@@ -27,6 +28,7 @@ export function SingleValueVisualizer({
 						{singleValueItems.map(
 							(singleValueItem: SingleValue) => (
 								<SingleValueItem
+									disableAnimation={disableAnimation}
 									key={`${singleValueItem.label}-${singleValueItem.value}`}
 									{...singleValueItem}
 									globalAnimationDuration={animationDuration}

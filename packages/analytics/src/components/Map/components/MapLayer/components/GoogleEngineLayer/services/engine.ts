@@ -1,9 +1,9 @@
-import { MapOrgUnit } from "../../../../../interfaces/index.js";
+import { MapOrgUnit } from "../../../../../interfaces";
 import {
 	EarthEngineOptions,
 	EarthEngineToken,
 	RefreshToken,
-} from "../interfaces/index.js";
+} from "../interfaces";
 import {
 	combineReducers,
 	getFeatureCollectionProperties,
@@ -11,23 +11,17 @@ import {
 	getInfo,
 	getScale,
 	hasClasses,
-} from "../utils/index.js";
+} from "../utils";
 import { find, head, isEmpty } from "lodash";
 
-// async function importEEModule(): Promise<any> {
-//     // @ts-ignore
-//     if (import.meta.env.STORYBOOK_BUILD === "true") {
-//         return await import("@google/earthengine");
-//     }
-//     return await import("./api");
-// }
-// const EE = await importEEModule();
-//@ts-ignore
-import * as EE from "./api.js";
+//@ts-expect-error earth engine does not have types
+import EE from "./api";
 // @ts-ignore
 const ee = EE as any;
 // @ts-ignore
 window.ee = ee;
+
+console.log(ee.data);
 
 const FEATURE_STYLE = { color: "FFA500", strokeWidth: 2 };
 const DEFAULT_TILE_SCALE = 1;

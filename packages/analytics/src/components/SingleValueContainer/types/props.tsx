@@ -3,6 +3,7 @@ export type SingleValueVisualizerProps = {
 	singleValueItems: Array<SingleValue>;
 	animationDuration?: number;
 	animationDelay?: number;
+	disableAnimation?: boolean;
 };
 
 export type SingleValueContainerProps = SingleValueVisualizerProps;

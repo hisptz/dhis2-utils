@@ -1,0 +1,11 @@
+{
+  "sidebar": {
+    "Getting Started": [
+      "libs/utils/intro",
+      "libs/utils/installation"
+    ],
+    "Setting Up Configuration": [
+      "libs/utils/configuration"
+    ]
+  }
+}

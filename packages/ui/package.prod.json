@@ -1,0 +1,47 @@
+{
+  "name": "@hisptz/dhis2-ui",
+  "version": "2.0.50",
+  "main": "./dist/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "sideEffects": false,
+  "license": "MIT",
+  "exports": {
+    "import": "./dist/esm/index.js",
+    "types": "./dist/types/index.d.ts",
+    "require": "./dist/index.js"
+  },
+  "files": [
+    "dist/**",
+    "package.json"
+  ],
+  "scripts": {
+    "build": "tsup && tsc",
+    "dev": "tsup --watch",
+    "test": "vitest",
+    "pack": "npm pack",
+    "lint": "eslint . --max-warnings 0",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "dependencies": {
+    "@hisptz/dhis2-utils": "workspace:*",
+    "classnames": "^2.5.1",
+    "dexie": "^3.2.3",
+    "jodit-react": "^5.2.19",
+    "lodash": "^4.17.21",
+    "luxon": "^3.4.4",
+    "react-circular-progressbar": "^2.1.0",
+    "react-collapsible": "^2.10.0",
+    "react-color": "^2.19.3",
+    "recoil": "^0.7.7",
+    "styled-components": "^6.1.8"
+  },
+  "peerDependencies": {
+    "classnames": "^2.5.1",
+    "prop-types": "^15.8.1",
+    "usehooks-ts": "^3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

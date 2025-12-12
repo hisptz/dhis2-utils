@@ -17,11 +17,15 @@ const config: StorybookConfig = {
 			files: "**/*.stories.tsx",
 			titlePrefix: "Analytics UI",
 		},
+		{
+			directory: resolve(__dirname, "../../../packages/scorecard/src"),
+			files: "**/*.stories.tsx",
+			titlePrefix: "Scorecard",
+		},
 	],
 	typescript: {
 		// Overrides the default Typescript configuration to allow multi-package components to be documented via Autodocs.
 		reactDocgen: "react-docgen",
-		skipBabel: true,
 		check: false,
 	},
 	addons: [
@@ -31,9 +35,10 @@ const config: StorybookConfig = {
 		getAbsolutePath("@storybook/addon-interactions"),
 		getAbsolutePath("@storybook/addon-a11y"),
 		getAbsolutePath("@storybook/addon-coverage"),
+		getAbsolutePath("@chromatic-com/storybook"),
 	],
 	framework: {
-		name: "@storybook/react-vite",
+		name: getAbsolutePath("@storybook/react-vite"),
 		options: {},
 	},
 
@@ -44,6 +49,11 @@ const config: StorybookConfig = {
 		return {
 			...config,
 			define: { "process.env": {} },
+			build: {
+				commonjsOptions: {
+					transformMixedEsModules: true,
+				},
+			},
 			resolve: {
 				alias: [
 					{
@@ -72,9 +82,7 @@ const config: StorybookConfig = {
 		};
 	},
 
-	docs: {
-		autodocs: true,
-	},
+	docs: {},
 };
 
 export default config;

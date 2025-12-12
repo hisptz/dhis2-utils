@@ -1,21 +1,22 @@
-import React from "react";
-import { FieldProps } from "../../interfaces/index.js";
+import { forwardRef } from "react";
+import { FieldProps } from "../../interfaces";
 import { OptionSet } from "@hisptz/dhis2-utils";
-import { VALUE_TYPE, VALUE_TYPES } from "../../constants/index.js";
-import { CustomSelectField } from "../CustomSelectField/index.js";
-import { NativeField } from "../NativeField/index.js";
-import { TrueOnlyField } from "../TrueOnlyField/index.js";
-import { LegendDefinitionField } from "../LegendDefinitionField/index.js";
-import { LegendMinMax } from "../LegendMinMax/index.js";
-import { AgeField } from "../AgeField/index.js";
-import { OrgUnitSelectField } from "../OrgUnitSelectField/index.js";
-import { FileUploadField } from "../FileUploadField/index.js";
-import { CustomTextAreaField } from "../CustomTextAreaField/index.js";
-import { YesNoField } from "../YesNoField/index.js";
-import { LegendDefinitionsFormField } from "../LegendDefinitions/index.js";
-import { LegendMinMaxGroup } from "../LegendMinMaxGroup/index.js";
-import { RichTextEditor } from "../RichTextEditor/index.js";
+import { VALUE_TYPE, VALUE_TYPES } from "../../constants";
+import { CustomSelectField } from "../CustomSelectField";
+import { NativeField } from "../NativeField";
+import { TrueOnlyField } from "../TrueOnlyField";
+import { LegendDefinitionField } from "../LegendDefinitionField";
+import { LegendMinMax } from "../LegendMinMax";
+import { AgeField } from "../AgeField";
+import { OrgUnitSelectField } from "../OrgUnitSelectField";
+import { FileUploadField } from "../FileUploadField";
+import { CustomTextAreaField } from "../CustomTextAreaField";
+import { YesNoField } from "../YesNoField";
+import { LegendDefinitionsFormField } from "../LegendDefinitions";
+import { LegendMinMaxGroup } from "../LegendMinMaxGroup";
+import { RichTextEditor } from "../RichTextEditor";
 import { isEmpty } from "lodash";
+import { MultiTextInputField } from "../MultiTextInputField";
 
 export interface DHIS2FormFieldProps extends FieldProps {
 	optionSet?: OptionSet;
@@ -27,6 +28,9 @@ export interface DHIS2FormFieldProps extends FieldProps {
 
 function getField(valueType: VALUE_TYPE, optionSet?: OptionSet) {
 	if (!isEmpty(optionSet)) {
+		if (valueType === "MULTI_TEXT") {
+			return MultiTextInputField;
+		}
 		return CustomSelectField;
 	}
 	switch (valueType) {
@@ -80,17 +84,19 @@ function getField(valueType: VALUE_TYPE, optionSet?: OptionSet) {
  * @param {React.Ref} ref - The ref of the component.
  *
  */
-export const DHIS2FormField = React.forwardRef<
-	DHIS2FormFieldProps,
-	DHIS2FormFieldProps
->(({ valueType, optionSet, ...props }: DHIS2FormFieldProps, ref) => {
-	const Field = getField(valueType, optionSet);
-	return (
-		<Field
-			ref={ref}
-			valueType={valueType}
-			optionSet={optionSet}
-			{...props}
-		/>
-	);
-});
+export const DHIS2FormField = forwardRef<unknown, DHIS2FormFieldProps>(
+	({ valueType, optionSet, ...props }, ref) => {
+		const Field = getField(valueType, optionSet);
+
+		return (
+			<Field
+				/*
+      // @ts-ignore */
+				ref={ref}
+				valueType={valueType}
+				optionSet={optionSet}
+				{...props}
+			/>
+		);
+	},
+);

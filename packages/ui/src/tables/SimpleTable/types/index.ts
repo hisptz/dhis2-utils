@@ -1,4 +1,4 @@
-import React from "react";
+import { type ReactElement } from "react";
 import {
 	TableBodyProps,
 	TableCellHeadProps,
@@ -34,7 +34,7 @@ export interface SimpleTablePagination {
 export interface SimpleTableProps {
 	columns: SimpleTableColumn[];
 	rows?: SimpleTableRow[];
-	emptyLabel?: string | React.ReactElement;
+	emptyLabel?: string | ReactElement;
 	tableProps?: TableProps;
 	tableRowProps?: TableRowProps;
 	tableBodyProps?: TableBodyProps;

@@ -1,32 +1,29 @@
-import { Map as LeafletMap } from "leaflet";
-import React, { forwardRef } from "react";
 import MapArea from "./components/MapArea/index.js";
 import {
 	CustomBoundaryLayer,
 	CustomPointLayer,
 } from "./components/MapLayer/interfaces";
-import { MapProvider } from "./components/MapProvider/index.js";
-import { MapProps } from "./interfaces/index.js";
+import { MapProvider } from "./components/MapProvider";
+import { MapProps } from "./interfaces";
 import "leaflet/dist/leaflet.css";
-import { QueryClient, QueryClientProvider } from "react-query";
+import type { FC } from "react";
 
-const queryClient = new QueryClient();
-
-const MapComponent = (
-	{
-		orgUnitSelection,
-		pointLayer,
-		boundaryLayer,
-		thematicLayers,
-		earthEngineLayers,
-		periodSelection,
-		mapOptions,
-		key,
-		controls,
-		legends,
-	}: MapProps,
-	ref: React.Ref<LeafletMap> | undefined,
-) => {
+const MapComponent = ({
+	orgUnitSelection,
+	pointLayer,
+	boundaryLayer,
+	thematicLayers,
+	earthEngineLayers,
+	periodSelection,
+	mapOptions,
+	key,
+	controls,
+	showPeriodTitle,
+	legends,
+	setRef,
+	analyticsOptions,
+	base,
+}: MapProps) => {
 	const sanitizedPointLayers: CustomPointLayer[] = [
 		{
 			type: "point",
@@ -45,29 +42,32 @@ const MapComponent = (
 	];
 
 	return (
-		<QueryClientProvider client={queryClient}>
-			<MapProvider
-				periodSelection={periodSelection}
-				orgUnitSelection={orgUnitSelection}
-			>
-				<MapArea
-					layers={{
-						thematicLayers,
-						earthEngineLayers,
-						boundaryLayers: sanitizedBoundaryLayers,
-						pointLayers: sanitizedPointLayers,
-					}}
-					legends={legends}
-					controls={controls}
-					key={key}
-					ref={ref}
-					mapOptions={mapOptions}
-				/>
-			</MapProvider>
-		</QueryClientProvider>
+		<MapProvider
+			periodSelection={periodSelection}
+			orgUnitSelection={orgUnitSelection}
+		>
+			<MapArea
+				base={{
+					...base,
+				}}
+				layers={{
+					thematicLayers,
+					earthEngineLayers,
+					boundaryLayers: sanitizedBoundaryLayers,
+					pointLayers: sanitizedPointLayers,
+				}}
+				showPeriodTitle={showPeriodTitle}
+				analyticsOptions={analyticsOptions}
+				legends={legends}
+				controls={controls}
+				key={key}
+				ref={setRef}
+				mapOptions={mapOptions}
+			/>
+		</MapProvider>
 	);
 };
-export const DHIS2Map: React.FC<MapProps> = forwardRef(MapComponent);
+export const DHIS2Map: FC<MapProps> = MapComponent;
 
 /**
  * @deprecated since `v2`. Use `DHIS2Map` instead

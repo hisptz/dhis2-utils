@@ -1,8 +1,8 @@
 import i18n from "@dhis2/d2-i18n";
 import React from "react";
 import { Pane, Popup, Tooltip } from "react-leaflet";
-import { useMapPeriods } from "../../../../../MapProvider/hooks/index.js";
-import { ThematicLayerData } from "../../../../interfaces/index.js";
+import { useMapPeriods } from "../../../../../MapProvider/hooks";
+import { ThematicLayerData } from "../../../../interfaces";
 
 export default function CustomTooltip({
 	data: dataObject,
@@ -14,7 +14,8 @@ export default function CustomTooltip({
 
 	const formatter = Intl.NumberFormat(navigator.language, {}).format;
 
-	const formattedData = formatter(data as number);
+	const formattedData =
+		typeof data === "number" ? formatter(data as number) : "";
 
 	return (
 		<Pane

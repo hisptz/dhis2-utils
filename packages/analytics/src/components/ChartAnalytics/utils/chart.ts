@@ -2,15 +2,20 @@ import type {
 	Analytics,
 	AnalyticsHeader,
 	AnalyticsMetadata,
+	LegendSet,
 } from "@hisptz/dhis2-utils";
 import { compact, find, findIndex, head, isEmpty, set } from "lodash";
-import { DHIS2Chart } from "../models/index.js";
+import { DHIS2Chart } from "../models";
 import { DHIS2ColumnChart, DHIS2StackedColumnChart } from "../models/column.js";
 import { DHIS2LineChart } from "../models/line.js";
 import { DHIS2MultiSeriesChart } from "../models/multi-series.js";
 import { DHIS2PieChart } from "../models/pie.js";
 import { ChartConfig, ChartType } from "../types/props.js";
 import { DHIS2BarChart, DHIS2StackedBarChart } from "../models/bar.js";
+import { DHIS2GaugeChart } from "../models/gauge";
+import { DHIS2AreaChart, DHISStackedAreaChart } from "../models/area";
+import { DHIS2RadarChart } from "../models/radar";
+import { DHIS2ScatterChart } from "../models/scatter";
 
 export function getDimensionHeaderIndex(
 	headers: AnalyticsHeader[],
@@ -70,7 +75,7 @@ export function getColumnSeries(
 			);
 			return seriesDimensionValues?.map(
 				(seriesDimensionValue: string, index) => {
-					const data = categories?.map((category: string) => {
+					const data = categories?.map((category: string, index) => {
 						const row = find(
 							analytics?.rows,
 							(row: any) =>
@@ -78,11 +83,53 @@ export function getColumnSeries(
 									seriesDimensionValue &&
 								row[categoryDimensionIndex ?? -1] === category,
 						);
-						return row?.[valueIndex ?? -1]
+						const value = row?.[valueIndex ?? -1]
 							? parseFloat(row?.[valueIndex ?? -1])
-							: 0;
+							: null;
+
+						if (!config.legendSet) {
+							return value;
+						}
+
+						if (!Array.isArray(config.legendSet)) {
+							const color = getLegendColorFromValue({
+								legendSet: config.legendSet as LegendSet,
+								value: value ?? 0,
+							});
+							return {
+								x: index,
+								y: value,
+								value: value,
+								color: color,
+							};
+						}
+
+						const legendSet =
+							config.legendSet.find(
+								({ dataItem }) => dataItem === category,
+							)?.legendSet ??
+							config.legendSet.find(
+								({ dataItem }) =>
+									dataItem === seriesDimensionValue,
+							)?.legendSet;
+
+						if (!legendSet) {
+							return value;
+						}
+
+						const color = getLegendColorFromValue({
+							legendSet: legendSet,
+							value: value ?? 0,
+						});
+						return {
+							x: index,
+							y: value,
+							value: value,
+							color: color,
+						};
 					});
 					return {
+						id: seriesDimensionValue,
 						name: items?.[seriesDimensionValue as any]?.name,
 						data,
 						type: highchartsType,
@@ -158,6 +205,27 @@ export function updateLayout(
 	return updatedLayout;
 }
 
+export function getLegendColorFromValue({
+	legendSet,
+	value,
+}: {
+	legendSet?: LegendSet;
+	value?: number;
+}): string | null {
+	if (!legendSet && !value) {
+		return null;
+	}
+	const legends = legendSet?.legends ?? [];
+	const legend = legends.find((l) => {
+		return (
+			l.startValue === value ||
+			l.endValue === value ||
+			(l.startValue < value! && value! < l.endValue)
+		);
+	});
+	return legend?.color ?? null;
+}
+
 export function getChartInstance(
 	id: string,
 	analytics: Analytics,
@@ -176,8 +244,18 @@ export function getChartInstance(
 			return new DHIS2PieChart(id, analytics, config);
 		case "line":
 			return new DHIS2LineChart(id, analytics, config);
+		case "area":
+			return new DHIS2AreaChart(id, analytics, config);
+		case "stacked-area":
+			return new DHISStackedAreaChart(id, analytics, config);
 		case "multi-series":
 			return new DHIS2MultiSeriesChart(id, analytics, config);
+		case "gauge":
+			return new DHIS2GaugeChart(id, analytics, config);
+		case "radar":
+			return new DHIS2RadarChart(id, analytics, config);
+		case "scatter":
+			return new DHIS2ScatterChart(id, analytics, config);
 		default:
 			throw new Error(`Unsupported chart type: ${config.type}`);
 	}

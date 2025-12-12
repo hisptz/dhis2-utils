@@ -1,6 +1,6 @@
 import i18n from "@dhis2/d2-i18n";
 import { InputField } from "@dhis2/ui";
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { useFilterOrgUnits } from "../../hooks/index.js";
 
 export function OrgUnitSearch({ searchable }: { searchable?: boolean }) {

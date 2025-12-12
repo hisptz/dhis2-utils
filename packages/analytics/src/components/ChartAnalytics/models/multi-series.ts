@@ -16,8 +16,21 @@ export class DHIS2MultiSeriesChart extends DHIS2Chart {
 
 	getPlotOptions(): PlotOptions {
 		return {
-			column: {},
-			line: {},
+			column: {
+				dataLabels: {
+					enabled: true,
+				},
+			},
+			line: {
+				dataLabels: {
+					enabled: true,
+				},
+			},
+			bar: {
+				dataLabels: {
+					enabled: true,
+				},
+			},
 		};
 	}
 
@@ -68,14 +81,14 @@ export class DHIS2MultiSeriesChart extends DHIS2Chart {
 					);
 					return row?.[valueIndex]
 						? parseFloat(row?.[valueIndex])
-						: 0;
+						: null;
 				});
 
 				let cumulativeData: number[] = [];
 
 				if (cumulative) {
 					cumulativeData =
-						data?.reduce((acc, curr, index) => {
+						compact(data)?.reduce((acc, curr, index) => {
 							if (index === 0) {
 								return [...acc, curr];
 							}
@@ -84,6 +97,7 @@ export class DHIS2MultiSeriesChart extends DHIS2Chart {
 				}
 
 				return {
+					id,
 					name: dataItem?.name,
 					data: cumulative ? cumulativeData : data,
 					type: as,
@@ -106,7 +120,7 @@ export class DHIS2MultiSeriesChart extends DHIS2Chart {
 	}
 
 	getYAxis(): YAxisOptions[] {
-		let yAxes: YAxisOptions[] = [];
+		let yAxes: YAxisOptions[];
 
 		if (this.config.multiSeries?.yAxes) {
 			yAxes = this.config.multiSeries?.yAxes;

@@ -1,6 +1,6 @@
-import { FieldState } from "../state/index.js";
+import { FieldState } from "../state";
 import type { OptionSet } from "@hisptz/dhis2-utils";
-import React, { useMemo } from "react";
+import { memo, useMemo } from "react";
 import { useRecoilValue } from "recoil";
 
 export interface FieldProgramRuleChildrenProps {
@@ -11,21 +11,33 @@ export interface FieldProgramRuleChildrenProps {
 	optionSet?: OptionSet;
 	loading?: boolean;
 	validations?: Record<string, any>;
+	disabled?: boolean;
+	mandatory?: boolean;
 }
 
-export const FieldProgramRule = React.memo(function FieldProgramRule({
+export const FieldProgramRule = memo(function FieldProgramRule({
 	name,
 	children,
 	optionSet,
 	validations,
+	mandatory = false,
 }: {
 	name: string;
 	children: any;
 	optionSet?: OptionSet;
 	validations?: Record<string, any>;
+	mandatory?: boolean;
 }) {
-	const { loading, minMax, warning, disabled, hiddenOptions, hidden, error } =
-		useRecoilValue(FieldState(name)) ?? {};
+	const {
+		loading,
+		minMax,
+		warning,
+		disabled,
+		hiddenOptions,
+		hidden,
+		error,
+		mandatory: programRuleMandatory,
+	} = useRecoilValue(FieldState(name)) ?? {};
 	const filteredOptions =
 		optionSet?.options?.filter(
 			(option: { code: string }) => !hiddenOptions?.includes(option.code),
@@ -104,6 +116,7 @@ export const FieldProgramRule = React.memo(function FieldProgramRule({
 			? { ...optionSet, options: filteredOptions }
 			: undefined,
 		hidden,
+		mandatory: mandatory || programRuleMandatory,
 		warning,
 		loading,
 		disabled,

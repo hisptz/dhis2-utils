@@ -1,6 +1,25 @@
-import { Analytics, AnalyticsItem, LegendSet } from "@hisptz/dhis2-utils";
+import type { LegendSet } from "@hisptz/dhis2-utils";
+import { Analytics, AnalyticsItem } from "@hisptz/dhis2-utils";
 import { compact, findIndex, intersection, times, zip } from "lodash";
-import { DHIS2Dimension } from "../interfaces/index.js";
+import { DHIS2Dimension } from "../interfaces";
+import { getColorFromLegendSet } from "../../Map";
+
+export interface BaseLegendConfig {
+	strategy: "FIXED" | "BY_DATA_ITEM";
+	showKey: boolean;
+	style: "TEXT" | "FILL";
+}
+export interface FixedLegendConfig extends BaseLegendConfig {
+	strategy: "FIXED";
+	set: LegendSet;
+}
+
+export interface DataItemLegendConfig extends BaseLegendConfig {
+	strategy: "BY_DATA_ITEM";
+	legendMap: Map<string, LegendSet>;
+}
+
+export type LegendConfig = FixedLegendConfig | DataItemLegendConfig;
 
 export interface EngineConfig {
 	layout: {
@@ -9,13 +28,14 @@ export interface EngineConfig {
 		filter?: { dimension: DHIS2Dimension; label?: string }[];
 	};
 	options?: {
-		legendSets?: LegendSet[];
+		legend?: LegendConfig;
 		hideEmptyColumns?: boolean;
 		hideEmptyRows?: boolean;
 		showRowTotals?: boolean;
 		showColumnTotals?: boolean;
 		showRowSubtotals?: boolean;
 		showColumnSubtotals?: boolean;
+		showFilterAsTitle?: boolean;
 		fixColumnHeaders?: boolean;
 		fixRowHeaders?: boolean;
 		[key: string]: any;
@@ -54,6 +74,38 @@ export class DHIS2PivotTableEngine {
 		this.getColumnMap();
 	}
 
+	get title() {
+		const filters = this.config.layout.filter ?? [];
+		const labels =
+			filters?.map(({ dimension }) => {
+				const dimensions =
+					this.analyticsData.metaData?.dimensions[dimension];
+
+				return dimensions?.map((dimension) => {
+					const dimensionItem =
+						this.analyticsData.metaData?.items[dimension];
+					return dimensionItem?.name;
+				});
+			}) ?? [];
+
+		return compact(labels.flat()).join(", ");
+	}
+
+	get titleSpan() {
+		const rowHeaders = this.rowHeaders?.length ?? 0;
+		const columnHeaders =
+			this.columnHeaders?.reduce(
+				(acc, val) => acc + (val.items?.length ?? 0),
+				0,
+			) ?? 0;
+
+		return rowHeaders + columnHeaders;
+	}
+
+	get showTitle() {
+		return this.config?.options?.showFilterAsTitle;
+	}
+
 	get fixColumnHeaders() {
 		return this.config.options?.fixColumnHeaders ?? true;
 	}
@@ -68,6 +120,32 @@ export class DHIS2PivotTableEngine {
 
 	getItem(id: string) {
 		return this.analyticsData.metaData?.items[id as any];
+	}
+
+	getItemValueLegend(mapper: { [key: string]: any }) {
+		const legend = this.config.options?.legend;
+		if (!legend) return;
+		const value = this.getValue(mapper);
+		const strategy = legend?.strategy;
+		if (strategy === "FIXED") {
+			const legends = legend.set.legends;
+			const color = getColorFromLegendSet(legends, value);
+			return {
+				color,
+				style: legend.style,
+			};
+		}
+		if (strategy === "BY_DATA_ITEM") {
+			const legendSet = legend.legendMap.get(mapper.dx);
+			if (!legendSet) return;
+			const legends = legendSet.legends;
+			const color = getColorFromLegendSet(legends, value);
+			return {
+				color,
+				style: legend.style,
+			};
+		}
+		return;
 	}
 
 	getValue(mapper: { [key: string]: any }) {
@@ -107,11 +185,10 @@ export class DHIS2PivotTableEngine {
 		const columns = this.columnHeaders;
 		const sanitizedColumns =
 			compact(
-				columns?.map(
-					(column) =>
-						column.items?.map((item) => ({
-							[column.dimension]: item.uid,
-						})),
+				columns?.map((column) =>
+					column.items?.map((item) => ({
+						[column.dimension]: item.uid,
+					})),
 				),
 			) ?? [];
 		const size = sanitizedColumns.reduce((acc, items) => {

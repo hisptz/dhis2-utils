@@ -1,7 +1,7 @@
 import { uid } from "@hisptz/dhis2-utils";
 import { Map as LeafletMap } from "leaflet";
 import { isEmpty } from "lodash";
-import React, { forwardRef, useRef } from "react";
+import { forwardRef, type Ref, useRef } from "react";
 import { LayersControl, MapContainer, TileLayer } from "react-leaflet";
 import { useMapBounds } from "../../hooks/map.js";
 import MapControl from "../MapControls/index.js";
@@ -16,17 +16,19 @@ import {
 	MapLegendConfig,
 } from "./interfaces/index.js";
 import MapUpdater from "../MapUpdater/index.js";
+import { MapPeriodTitle } from "../MapTitle";
 
 function MapLayerArea({
 	id,
-	base,
+	base = { enabled: true },
 	controls,
 	legends,
 }: {
 	id: string;
 	base?: {
-		url: string;
-		attribution: string;
+		url?: string;
+		attribution?: string;
+		enabled?: boolean;
 	};
 	controls?: MapControls[];
 	legends?: MapLegendConfig;
@@ -35,17 +37,19 @@ function MapLayerArea({
 
 	return (
 		<>
-			<TileLayer
-				id={id}
-				attribution={
-					base?.attribution ??
-					'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> | &copy; <a href="https://carto.com/attribution">CARTO</a>'
-				}
-				url={
-					base?.url ??
-					"https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
-				}
-			/>
+			{base?.enabled && (
+				<TileLayer
+					id={id}
+					attribution={
+						base?.attribution ??
+						'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> | &copy; <a href="https://carto.com/attribution">CARTO</a>'
+					}
+					url={
+						base?.url ??
+						"https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
+					}
+				/>
+			)}
 			{controls?.map((control) => (
 				<MapControl
 					mapId={id}
@@ -78,14 +82,25 @@ function MapLayerArea({
 }
 
 const MapArea = (
-	{ base, controls, mapOptions, key, legends, layers }: MapAreaProps,
-	ref: React.Ref<LeafletMap> | undefined,
+	{
+		base,
+		controls,
+		mapOptions,
+		showPeriodTitle,
+		key,
+		legends,
+		layers,
+		analyticsOptions,
+	}: MapAreaProps,
+	ref: Ref<LeafletMap> | undefined,
 ) => {
 	const { center, bounds } = useMapBounds();
 	const { current: id } = useRef<string>(uid());
+	const containerRef = useRef<HTMLDivElement | null>(null);
 
 	return (
 		<div
+			ref={containerRef}
 			id={`${id}-"map-container`}
 			style={{ height: "100%", width: "100%" }}
 		>
@@ -101,15 +116,21 @@ const MapArea = (
 				trackResize
 				{...mapOptions}
 			>
-				<MapUpdater bounds={bounds} />
-				<MapLayersProvider layers={layers}>
-					<MapLayerArea
-						base={base}
-						id={id}
-						controls={controls}
-						legends={legends}
-					/>
-				</MapLayersProvider>
+				<>
+					{showPeriodTitle && <MapPeriodTitle />}
+					<MapUpdater containerRef={containerRef} bounds={bounds} />
+					<MapLayersProvider
+						analyticsOptions={analyticsOptions}
+						layers={layers}
+					>
+						<MapLayerArea
+							base={base}
+							id={id}
+							controls={controls}
+							legends={legends}
+						/>
+					</MapLayersProvider>
+				</>
 			</MapContainer>
 		</div>
 	);

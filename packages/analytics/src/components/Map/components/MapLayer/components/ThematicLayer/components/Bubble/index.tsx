@@ -5,7 +5,7 @@ import {
 	type LeafletEventHandlerFnMap,
 	type LeafletMouseEvent,
 } from "leaflet";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { CircleMarker } from "react-leaflet";
 import {
 	getColorFromLegendSet,

@@ -2,10 +2,10 @@ import i18n from "@dhis2/d2-i18n";
 import { Center, CircularLoader } from "@dhis2/ui";
 import { LayersControlEvent } from "leaflet";
 import { compact, find, head, set } from "lodash";
-import React, { useCallback, useEffect, useState } from "react";
+import { type ReactNode, useCallback, useEffect, useState } from "react";
 import { useMapEvents } from "react-leaflet";
-import { MapLayersContext } from "../../../../state/index.js";
-import { MapLayerConfig } from "../../../MapArea/interfaces/index.js";
+import { MapLayersContext } from "../../../../state";
+import { MapLayerConfig } from "../../../MapArea/interfaces";
 import {
 	CustomBoundaryLayer,
 	CustomGoogleEngineLayer,
@@ -13,20 +13,23 @@ import {
 	CustomPointLayer,
 	CustomThematicLayer,
 	ThematicLayerConfig,
-} from "../../../MapLayer/interfaces/index.js";
-import { useMapOrganisationUnit, useMapPeriods } from "../../hooks/index.js";
+} from "../../../MapLayer/interfaces";
+import { useMapOrganisationUnit, useMapPeriods } from "../../hooks";
 import {
 	useGoogleEngineLayers,
 	usePointLayer,
 	useThematicLayers,
-} from "./hooks/index.js";
+} from "./hooks";
+import type { MapAnalyticsOptions } from "../../../../interfaces";
 
 export function MapLayersProvider({
 	layers,
 	children,
+	analyticsOptions,
 }: {
 	layers: MapLayerConfig;
-	children: React.ReactNode;
+	children: ReactNode;
+	analyticsOptions?: MapAnalyticsOptions;
 }) {
 	const period = useMapPeriods();
 	const orgUnit = useMapOrganisationUnit();
@@ -38,8 +41,11 @@ export function MapLayersProvider({
 			| CustomGoogleEngineLayer
 		>
 	>([]);
-	const { sanitizeLayers: sanitizeThematicLayers, error } =
-		useThematicLayers();
+	const { sanitizeLayers: sanitizeThematicLayers, error } = useThematicLayers(
+		{
+			analyticsOptions,
+		},
+	);
 	const { sanitizeLayer: sanitizePointLayer } = usePointLayer();
 	const { sanitizeLayers: sanitizeEarthEngineLayers } =
 		useGoogleEngineLayers();
@@ -66,6 +72,7 @@ export function MapLayersProvider({
 			const sanitizedThematicLayers = await sanitizeThematicLayers([
 				...(thematicLayers ?? []),
 			] as ThematicLayerConfig[]);
+
 			const sanitizedBoundaryLayers = (boundaryLayers ??
 				[]) as CustomBoundaryLayer[];
 			const sanitizedPointLayer = head(pointLayers ?? [])
