@@ -5,6 +5,8 @@ on:
     # Trigger when a tag is pushed (e.g., v1.2.3)
     branches:
       - main
+  workflow_dispatch:
+
 
 jobs:
   release:
