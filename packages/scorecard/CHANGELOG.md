@@ -1,5 +1,18 @@
 # @hisptz/dhis2-scorecard
 
+## 1.2.33
+
+### Patch Changes
+
+- Updated dependencies
+    - @hisptz/dhis2-analytics@2.1.33
+
+## 1.2.32
+
+### Patch Changes
+
+- Fixes on legends view
+
 ## 1.2.31
 
 ### Patch Changes

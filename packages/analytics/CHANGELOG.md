@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.1.33
+
+### Patch Changes
+
+- Fixes on analytics requiring react-query
+
 ## 2.1.32
 
 ### Patch Changes

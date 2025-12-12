@@ -1,11 +1,11 @@
-import { EarthEngineOptions } from "../../MapLayer/components/GoogleEngineLayer/interfaces/index.js";
-import { useGoogleEngineToken } from "../../MapLayer/components/GoogleEngineLayer/hooks/index.js";
+import { EarthEngineOptions } from "../../MapLayer/components/GoogleEngineLayer/interfaces";
+import { useGoogleEngineToken } from "../../MapLayer/components/GoogleEngineLayer/hooks";
 import { EarthEngine } from "../../MapLayer/components/GoogleEngineLayer/services/engine.js";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "react-query";
 import { useMemo } from "react";
 import { useWatch } from "react-hook-form";
 import { find } from "lodash";
-import { EARTH_ENGINE_LAYERS } from "../../MapLayer/components/GoogleEngineLayer/constants/index.js";
+import { EARTH_ENGINE_LAYERS } from "../../MapLayer/components/GoogleEngineLayer/constants";
 
 export function useDatasetInfo(
 	shouldRun: boolean,
