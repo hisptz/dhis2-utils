@@ -1,11 +1,11 @@
 import { EarthEngineOptions } from "../../MapLayer/components/GoogleEngineLayer/interfaces";
 import { useGoogleEngineToken } from "../../MapLayer/components/GoogleEngineLayer/hooks";
 import { EarthEngine } from "../../MapLayer/components/GoogleEngineLayer/services/engine.js";
-import { useQuery } from "react-query";
 import { useMemo } from "react";
 import { useWatch } from "react-hook-form";
 import { find } from "lodash";
 import { EARTH_ENGINE_LAYERS } from "../../MapLayer/components/GoogleEngineLayer/constants";
+import { useQuery } from "@tanstack/react-query";
 
 export function useDatasetInfo(
 	shouldRun: boolean,
@@ -24,7 +24,11 @@ export function useDatasetInfo(
 		}
 	}
 
-	const { data, error, isLoading } = useQuery([config], getInfo);
+	const { data, error, isLoading } = useQuery({
+		queryKey: [config],
+		enabled: shouldRun,
+		queryFn: getInfo,
+	});
 
 	const periods = useMemo(() => {
 		const features = (data as any)?.features;
