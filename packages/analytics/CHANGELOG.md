@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.1.34
+
+### Patch Changes
+
+- removed react-query and updated useQuery in earth engine layers request
+
 ## 2.1.33
 
 ### Patch Changes
