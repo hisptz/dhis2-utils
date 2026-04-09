@@ -1095,9 +1095,6 @@ const immunizationConfig: ScorecardConfig = {
 			{
 				id: "LAST_YEAR",
 			},
-			{
-				id: "THIS_YEAR",
-			},
 		],
 	},
 	additionalLabels: [],
