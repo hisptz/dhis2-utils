@@ -42,9 +42,4 @@ jobs:
         run: pnpm run build --filter=@hisptz/docs^...
 
       - name: Publish with Changesets (pnpm release)
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          # Ensure npm is authenticated (setup-node uses NODE_AUTH_TOKEN)
-          npm whoami || echo "Authentication check failed; attempting publish anyway."
-          pnpm run release
+        run: pnpm run release
