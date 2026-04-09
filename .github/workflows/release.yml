@@ -1,5 +1,10 @@
 name: Release to npm
 
+
+permissions:
+  contents: write
+  id-token: write
+
 on:
   push:
     # Trigger when a tag is pushed (e.g., v1.2.3)
