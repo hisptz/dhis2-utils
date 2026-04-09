@@ -41,7 +41,7 @@ jobs:
         run: pnpm run build --filter=@hisptz/docs^...
 
       - name: Publish with Changesets (pnpm release)
-        uses: changesets/action@v1
+        uses: GarthDB/changesets-action@v1.6.8
         with:
           publish: npm run release
           oidcAuth: true
