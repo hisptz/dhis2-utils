@@ -43,6 +43,7 @@ jobs:
       - name: Publish with Changesets (pnpm release)
         uses: changesets/action@v1
         with:
-          publish: pnpm run publish
+          publish: npm run release
+          oidcAuth: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
