@@ -42,4 +42,8 @@ jobs:
         run: pnpm run build --filter=@hisptz/docs^...
 
       - name: Publish with Changesets (pnpm release)
-        run: pnpm run release
+        uses: changesets/action@v1
+        with:
+          publish: npm run release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
