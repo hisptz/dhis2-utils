@@ -15,6 +15,7 @@ export default function OrgUnitSelector({
 	showGroups,
 	singleSelection,
 	roots: defaultRoots,
+	filterByGroups,
 	searchable,
 	limitSelectionToLevels,
 }: OrgUnitSelectorProps) {
