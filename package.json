@@ -15,9 +15,15 @@
 		"docs:build": "turbo run build --filter=@hisptz/docs"
 	},
 	"devDependencies": {
-		"@changesets/cli": "^2.27.1",
+		"@changesets/cli": "^2.30.0",
 		"prettier": "^3.1.1",
 		"turbo": "^2.5.6"
+	},
+	"repository": {
+		"url": "https://github.com/hisptz/dhis2-utils"
+	},
+	"publishConfig": {
+		"provenance": true
 	},
 	"dependencies": {
 		"typescript": "^5.3.3"

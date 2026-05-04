@@ -13,7 +13,8 @@ jobs:
     name: Publish packages
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
+      id-token: write
     env:
       CI: true
     steps:
@@ -29,7 +30,6 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
 
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -37,9 +37,9 @@ jobs:
         run: pnpm run build --filter=@hisptz/docs^...
 
       - name: Publish with Changesets (pnpm release)
+        uses: GarthDB/changesets-action@v1.6.8
+        with:
+          publish: npm run release
+          oidcAuth: true
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          # Ensure npm is authenticated (setup-node uses NODE_AUTH_TOKEN)
-          npm whoami || echo "Authentication check failed; attempting publish anyway."
-          pnpm run release
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
