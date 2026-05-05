@@ -72,6 +72,7 @@
 		"leaflet": "^1.9.4",
 		"leaflet-easyprint": "^2.1.9",
 		"leaflet.fullscreen": "^4.0.0",
+		"leaflet.timeline.control": "^1.0.2",
 		"luxon": "^3.4.4",
 		"react-circular-progressbar": "^2.1.0",
 		"react-dnd": "^16.0.1",
