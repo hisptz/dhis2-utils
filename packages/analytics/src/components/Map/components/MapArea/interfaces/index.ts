@@ -7,12 +7,17 @@ import {
 	ThematicLayerConfig,
 } from "../../MapLayer/interfaces";
 import type { MapAnalyticsOptions } from "../../../interfaces";
+import type { TimelineControlOptions } from "../../MapControls/components/TimelineControl/index.js";
 
-export interface MapControls {
-	position: ControlPosition;
-	type: "zoom" | "rotate" | "fullscreen" | "compass" | "scale" | "print";
-	options?: Record<string, any>;
-}
+export type MapControls =
+	| {
+			position: ControlPosition;
+			type: "zoom" | "rotate" | "fullscreen" | "compass" | "scale" | "print";
+			options?: Record<string, any>;
+	  }
+	| ({
+			type: "timeline";
+	  } & TimelineControlOptions);
 
 export interface MapLegendConfig {
 	enabled: boolean;

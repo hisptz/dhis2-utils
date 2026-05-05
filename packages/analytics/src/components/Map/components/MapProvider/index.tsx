@@ -3,10 +3,14 @@ import i18n from "@dhis2/d2-i18n";
 import { Center, CircularLoader } from "@dhis2/ui";
 import { compact, isEmpty } from "lodash";
 import { useEffect, useState } from "react";
-import { MapOrgUnit, MapProviderProps } from "../../interfaces";
+import type { BasePeriod} from "@hisptz/dhis2-utils";
+import { PeriodUtility } from "@hisptz/dhis2-utils";
+import { inferPeriodType } from "../../utils/helpers.js";
+import type { DHIS2PeriodType } from "../../utils/helpers.js";
+import type { MapOrgUnit, MapProviderProps } from "../../interfaces";
 import { MapOrgUnitContext, MapPeriodContext } from "../../state";
 import { getOrgUnitsSelection, sanitizeOrgUnits, toGeoJson } from "../../utils";
-import { BasePeriod, PeriodUtility } from "@hisptz/dhis2-utils";
+import { MapPeriodFilterProvider } from "./components/MapPeriodFilterProvider/index.js";
 
 const boundaryQuery = {
 	boundaries: {
@@ -35,6 +39,7 @@ export function MapProvider({
 }: MapProviderProps) {
 	const [orgUnits, setOrgUnits] = useState<MapOrgUnit[]>([]);
 	const [periods, setPeriods] = useState<BasePeriod[]>([]);
+	const [detectedPeriodType, setDetectedPeriodType] = useState<DHIS2PeriodType | null>(null);
 	const { refetch, loading, error } = useDataQuery(boundaryQuery, {
 		lazy: true,
 	});
@@ -70,13 +75,15 @@ export function MapProvider({
 					};
 				}),
 			);
-			const periodIds =
-				analytics?.metaData?.dimensions?.pe ?? periodSelection?.periods;
+			const periodIds: string[] =
+				analytics?.metaData?.dimensions?.pe ?? periodSelection?.periods ?? [];
 			const periods = periodIds.map((pe: string) =>
 				PeriodUtility.getPeriodById(pe),
 			);
 			setPeriods(periods);
 			setOrgUnits(orgUnits);
+			const inferred = periodIds.length > 0 ? inferPeriodType(periodIds[0]) : null;
+			setDetectedPeriodType(inferred);
 		}
 		getOrgUnits().catch((error) => console.log(error));
 	}, [orgUnitSelection, refetch, periodSelection?.periods]);
@@ -109,7 +116,9 @@ export function MapProvider({
 				<MapPeriodContext.Provider
 					value={{ ...periodSelection, periods }}
 				>
-					{children}
+					<MapPeriodFilterProvider initialPeriodType={detectedPeriodType}>
+						{children}
+					</MapPeriodFilterProvider>
 				</MapPeriodContext.Provider>
 			</MapOrgUnitContext.Provider>
 		);
