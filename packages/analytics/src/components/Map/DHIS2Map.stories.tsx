@@ -420,3 +420,85 @@ GoogleEarthEngineLayers.args = {
 		},
 	},
 };
+
+export const TimelineControlStory: Story = {
+	name: "Timeline Control",
+};
+TimelineControlStory.args = {
+	orgUnitSelection: {
+		orgUnits: [],
+		userOrgUnit: true,
+		userSubUnit: true,
+		userSubX2Unit: false,
+	},
+	boundaryLayer: {
+		enabled: true,
+	},
+	thematicLayers: [
+		{
+			type: "choropleth",
+			id: "choropleth",
+			enabled: true,
+			dataItem: {
+				id: "Uvn6LCg7dVU",
+				displayName: "ANC 1 Coverage",
+				type: "indicator",
+				legendConfig: {
+					colorClass: COLOR_SCALES[0],
+					scale: 5,
+				},
+			},
+			control: {
+				enabled: true,
+				position: "topright",
+			},
+		},
+	],
+	legends: {
+		enabled: true,
+		position: "topright",
+		collapsible: true,
+	},
+	showPeriodTitle: true,
+	periodSelection: {
+		periods: ["2025"],
+	},
+	controls: [
+		{
+			type: "scale",
+			position: "bottomleft",
+			options: { imperial: false, metric: true },
+		},
+		{
+			type: "fullscreen",
+			position: "topleft",
+		},
+		{
+			type: "timeline",
+			position: "bottomleft",
+			autoplay: false,
+			interval: 1500,
+			button: {
+				pausedText: "▶ Play",
+				playingText: "⏸ Pause",
+			},
+			timeline: {
+				dateFormat: "yyyy-MM",
+				range: [
+					new Date("2025-01-01"),
+					new Date("2025-02-01"),
+					new Date("2025-03-01"),
+					new Date("2025-04-01"),
+					new Date("2025-05-01"),
+					new Date("2025-06-01"),
+					new Date("2025-07-01"),
+					new Date("2025-08-01"),
+					new Date("2025-09-01"),
+					new Date("2025-10-01"),
+					new Date("2025-11-01"),
+					new Date("2025-12-01"),
+				],
+			},
+		},
+	],
+};
