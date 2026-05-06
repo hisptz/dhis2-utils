@@ -22,6 +22,7 @@ const MapComponent = ({
 	legends,
 	setRef,
 	analyticsOptions,
+	renderingStrategy,
 	base,
 }: MapProps) => {
 	const sanitizedPointLayers: CustomPointLayer[] = [
@@ -43,8 +44,9 @@ const MapComponent = ({
 
 	return (
 		<MapProvider
-			periodSelection={periodSelection}
 			orgUnitSelection={orgUnitSelection}
+			periodSelection={periodSelection}
+			renderingStrategy={renderingStrategy}
 		>
 			<MapArea
 				base={{

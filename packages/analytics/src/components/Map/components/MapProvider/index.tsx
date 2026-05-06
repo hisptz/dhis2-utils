@@ -36,10 +36,12 @@ export function MapProvider({
 	children,
 	orgUnitSelection,
 	periodSelection,
+	renderingStrategy = "SINGLE",
 }: MapProviderProps) {
 	const [orgUnits, setOrgUnits] = useState<MapOrgUnit[]>([]);
 	const [periods, setPeriods] = useState<BasePeriod[]>([]);
 	const [detectedPeriodType, setDetectedPeriodType] = useState<DHIS2PeriodType | null>(null);
+	const [initialActivePeriod, setInitialActivePeriod] = useState<string | null>(null);
 	const { refetch, loading, error } = useDataQuery(boundaryQuery, {
 		lazy: true,
 	});
@@ -84,9 +86,12 @@ export function MapProvider({
 			setOrgUnits(orgUnits);
 			const inferred = periodIds.length > 0 ? inferPeriodType(periodIds[0]) : null;
 			setDetectedPeriodType(inferred);
+			if (renderingStrategy === "TIMELINE" && periodIds.length > 0) {
+				setInitialActivePeriod(periodIds[0]);
+			}
 		}
 		getOrgUnits().catch((error) => console.log(error));
-	}, [orgUnitSelection, refetch, periodSelection?.periods]);
+	}, [orgUnitSelection, refetch, periodSelection?.periods, renderingStrategy]);
 
 	if (loading) {
 		return (
@@ -116,7 +121,10 @@ export function MapProvider({
 				<MapPeriodContext.Provider
 					value={{ ...periodSelection, periods }}
 				>
-					<MapPeriodFilterProvider initialPeriodType={detectedPeriodType}>
+					<MapPeriodFilterProvider
+						initialActivePeriod={initialActivePeriod}
+						initialPeriodType={detectedPeriodType}
+					>
 						{children}
 					</MapPeriodFilterProvider>
 				</MapPeriodContext.Provider>
