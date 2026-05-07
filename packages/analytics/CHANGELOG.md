@@ -1,5 +1,11 @@
 # @hisptz/dhis2-analytics
 
+## 2.2.1
+
+### Patch Changes
+
+- fix: timeline feature in map now accepts relative periods
+
 ## 2.2.0
 
 ### Minor Changes
