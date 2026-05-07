@@ -14,7 +14,7 @@ import {
 	CustomThematicLayer,
 	ThematicLayerConfig,
 } from "../../../MapLayer/interfaces";
-import { useMapOrganisationUnit, useMapPeriods } from "../../hooks";
+import { useMapOrganisationUnit, useMapPeriodFilter, useMapPeriods } from "../../hooks";
 import {
 	useGoogleEngineLayers,
 	usePointLayer,
@@ -33,6 +33,7 @@ export function MapLayersProvider({
 }) {
 	const period = useMapPeriods();
 	const orgUnit = useMapOrganisationUnit();
+	const { activePeriod, periodType } = useMapPeriodFilter();
 	const [updatedLayers, setUpdatedLayers] = useState<
 		Array<
 			| CustomThematicLayer
@@ -41,7 +42,7 @@ export function MapLayersProvider({
 			| CustomGoogleEngineLayer
 		>
 	>([]);
-	const { sanitizeLayers: sanitizeThematicLayers, error } = useThematicLayers(
+	const { sanitizeLayers: sanitizeThematicLayers, refilterLayers: refilterThematicLayers, error } = useThematicLayers(
 		{
 			analyticsOptions,
 		},
@@ -116,7 +117,21 @@ export function MapLayersProvider({
 
 	useEffect(() => {
 		sanitizeLayers().catch(console.error);
-	}, [period, orgUnit]);
+	}, [period, orgUnit, periodType]);
+
+	useEffect(() => {
+		if (activePeriod === null) return;
+		const { thematicLayers } = layers;
+		if (!thematicLayers?.length) return;
+		refilterThematicLayers([...(thematicLayers as ThematicLayerConfig[])])
+			.then((updated: CustomThematicLayer[]) => {
+				setUpdatedLayers((prev) => [
+					...prev.filter((l) => !updated.find((u) => u.id === l.id)),
+					...updated,
+				]);
+			})
+			.catch(console.error);
+	}, [activePeriod]);
 
 	const setupLayerListeners = (
 		type: "add" | "remove",

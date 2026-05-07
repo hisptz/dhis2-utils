@@ -3,10 +3,14 @@ import i18n from "@dhis2/d2-i18n";
 import { Center, CircularLoader } from "@dhis2/ui";
 import { compact, isEmpty } from "lodash";
 import { useEffect, useState } from "react";
-import { MapOrgUnit, MapProviderProps } from "../../interfaces";
+import type { BasePeriod} from "@hisptz/dhis2-utils";
+import { PeriodUtility } from "@hisptz/dhis2-utils";
+import { inferPeriodType } from "../../utils/helpers.js";
+import type { DHIS2PeriodType } from "../../utils/helpers.js";
+import type { MapOrgUnit, MapProviderProps } from "../../interfaces";
 import { MapOrgUnitContext, MapPeriodContext } from "../../state";
 import { getOrgUnitsSelection, sanitizeOrgUnits, toGeoJson } from "../../utils";
-import { BasePeriod, PeriodUtility } from "@hisptz/dhis2-utils";
+import { MapPeriodFilterProvider } from "./components/MapPeriodFilterProvider/index.js";
 
 const boundaryQuery = {
 	boundaries: {
@@ -32,9 +36,12 @@ export function MapProvider({
 	children,
 	orgUnitSelection,
 	periodSelection,
+	renderingStrategy = "SINGLE",
 }: MapProviderProps) {
 	const [orgUnits, setOrgUnits] = useState<MapOrgUnit[]>([]);
 	const [periods, setPeriods] = useState<BasePeriod[]>([]);
+	const [detectedPeriodType, setDetectedPeriodType] = useState<DHIS2PeriodType | null>(null);
+	const [initialActivePeriod, setInitialActivePeriod] = useState<string | null>(null);
 	const { refetch, loading, error } = useDataQuery(boundaryQuery, {
 		lazy: true,
 	});
@@ -70,16 +77,21 @@ export function MapProvider({
 					};
 				}),
 			);
-			const periodIds =
-				analytics?.metaData?.dimensions?.pe ?? periodSelection?.periods;
+			const periodIds: string[] =
+				analytics?.metaData?.dimensions?.pe ?? periodSelection?.periods ?? [];
 			const periods = periodIds.map((pe: string) =>
 				PeriodUtility.getPeriodById(pe),
 			);
 			setPeriods(periods);
 			setOrgUnits(orgUnits);
+			const inferred = periodIds.length > 0 ? inferPeriodType(periodIds[0]) : null;
+			setDetectedPeriodType(inferred);
+			if (renderingStrategy === "TIMELINE" && periodIds.length > 0) {
+				setInitialActivePeriod(periodIds[0]);
+			}
 		}
 		getOrgUnits().catch((error) => console.log(error));
-	}, [orgUnitSelection, refetch, periodSelection?.periods]);
+	}, [orgUnitSelection, refetch, periodSelection?.periods, renderingStrategy]);
 
 	if (loading) {
 		return (
@@ -109,7 +121,12 @@ export function MapProvider({
 				<MapPeriodContext.Provider
 					value={{ ...periodSelection, periods }}
 				>
-					{children}
+					<MapPeriodFilterProvider
+						initialActivePeriod={initialActivePeriod}
+						initialPeriodType={detectedPeriodType}
+					>
+						{children}
+					</MapPeriodFilterProvider>
 				</MapPeriodContext.Provider>
 			</MapOrgUnitContext.Provider>
 		);

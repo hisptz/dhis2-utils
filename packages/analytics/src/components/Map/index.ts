@@ -7,3 +7,6 @@ export * from "./constants/colors.js";
 export * from "./components/MapArea/interfaces";
 export * from "./components/MapLayer/interfaces";
 export * from "./utils";
+export * from "./components/MapProvider/hooks/index.js";
+export * from "./components/MapControls/components/TimelineControl/index.js";
+export * from "./state/index.js";
