@@ -24,6 +24,7 @@ export const MapPeriodContext = createContext<
 	| {
 			periods?: BasePeriod[];
 			range?: { start: Date; end: Date };
+			renderingStrategy?: "SINGLE" | "TIMELINE";
 	  }
 	| undefined
 >({
