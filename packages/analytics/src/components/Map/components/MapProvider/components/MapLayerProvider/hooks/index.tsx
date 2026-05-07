@@ -7,15 +7,9 @@ import {
 	last,
 	sortBy,
 } from "lodash";
-import { useMapOrganisationUnit, useMapPeriods } from "../../../hooks";
-import { useCallback, useMemo, useState } from "react";
-import {
-	generateLegends,
-	getOrgUnitsSelection,
-	sanitizeDate,
-	sanitizeOrgUnits,
-	toGeoJson,
-} from "../../../../../utils";
+import { useMapOrganisationUnit, useMapPeriodFilter, useMapPeriods } from "../../../hooks";
+import { useCallback, useMemo, useRef, useState } from "react";
+import { generateLegends, getOrgUnitsSelection, sanitizeOrgUnits, toGeoJson } from "../../../../../utils";
 import { useDataEngine } from "@dhis2/app-runtime";
 import {
 	CustomGoogleEngineLayer,
@@ -31,6 +25,7 @@ import {
 } from "../../../../../interfaces/index.js";
 import { asyncify, map } from "async-es";
 import { LegendSet } from "@hisptz/dhis2-utils";
+import { computeTimelinePeriods } from "../../../../../utils/helpers.js";
 import {
 	defaultClasses,
 	defaultColorScaleName,
@@ -45,7 +40,8 @@ const analyticsQuery = {
 	analytics: {
 		resource: "analytics",
 		params: ({ ou, pe, dx, startDate, endDate, analyticsOptions }: any) => {
-			const peDimension = !isEmpty(pe)
+			const usingDateRange = !isEmpty(startDate) && !isEmpty(endDate);
+			const peDimension = !usingDateRange && !isEmpty(pe)
 				? `pe:${pe?.join(";")}`
 				: undefined;
 			const ouDimension = !isEmpty(ou)
@@ -57,8 +53,7 @@ const analyticsQuery = {
 
 			return {
 				dimension: compact([dxDimension, peDimension, ouDimension]),
-				startDate,
-				endDate,
+				...(usingDateRange ? { startDate, endDate } : {}),
 				displayProperty: "NAME",
 				...(analyticsOptions ?? {}),
 			};
@@ -118,25 +113,39 @@ export function useThematicLayers({
 	const [loading, setLoading] = useState(false);
 	const { orgUnits, orgUnitSelection } = useMapOrganisationUnit();
 	const { periods, range } = useMapPeriods() ?? {};
+	const { activePeriod, periodType } = useMapPeriodFilter();
 	const ou = useMemo(
 		() => getOrgUnitsSelection(orgUnitSelection),
 		[orgUnitSelection],
 	);
-	const pe = useMemo(() => periods?.map((pe: any) => pe.id), [periods]);
+ 
+	const timelinePeriods = useMemo(() => {
+		if (!range || !periodType) return null;
+		return computeTimelinePeriods(range, periodType);
+	}, [range, periodType]);
 
+	const pe = useMemo(() => {
+		if (timelinePeriods) return timelinePeriods;
+		return periods?.map((pe: any) => pe.id);
+	}, [periods, timelinePeriods]);
+
+	const toISODate = (date: Date): string =>
+		date.toISOString().slice(0, 10);
+ 
 	const { startDate, endDate } = useMemo(() => {
-		if (!range) {
-			return {
-				startDate: undefined,
-				endDate: undefined,
-			};
+		if (timelinePeriods || !range) {
+			return { startDate: undefined, endDate: undefined };
 		}
 		return {
-			startDate: sanitizeDate(range.start.toDateString()),
-			endDate: sanitizeDate(range.end.toDateString()),
+			startDate: toISODate(range.start),
+			endDate: toISODate(range.end),
 		};
-	}, [range]);
-	const sanitizeData = (data: any, layer: ThematicLayerConfig) => {
+	}, [range, timelinePeriods]);
+
+ 	const analyticsDataRef = useRef<any>(null);
+ 	const legendSetsRef = useRef<Map<string, any>>(new Map());
+
+	const sanitizeData = (data: any, layer: ThematicLayerConfig, currentPeriod?: string | null) => {
 		if (data) {
 			const { analytics } = data as any;
 			const rows = analytics?.rows;
@@ -149,21 +158,28 @@ export function useThematicLayers({
 			const valueIndex = analytics.headers.findIndex(
 				(header: any) => header.name === "value",
 			);
+			const peIndex = analytics.headers.findIndex(
+				(header: any) => header.name === "pe",
+			);
 
 			if (!isEmpty(rows)) {
 				return sortBy(
-					orgUnits?.map((ou: MapOrgUnit) => {
-						const row = rows.find(
+					orgUnits?.map((orgUnit: MapOrgUnit) => {
+						const matchingRows = rows.filter(
 							(row: any) =>
-								row[ouIndex] === ou.id &&
-								row[dxIndex] === layer.dataItem.id,
+								row[ouIndex] === orgUnit.id &&
+								row[dxIndex] === layer.dataItem.id &&
+								(currentPeriod && peIndex >= 0 ? row[peIndex] === currentPeriod : true),
 						);
+						const values = matchingRows
+							.map((row: any) => parseFloat(row[valueIndex]))
+							.filter((v: number) => !isNaN(v));
 						return {
-							orgUnit: ou,
-							data: row ? parseFloat(row[valueIndex]) : undefined,
-							dataItem: {
-								...layer.dataItem,
-							},
+							orgUnit,
+							data: values.length > 0
+								? values.reduce((sum: number, v: number) => sum + v, 0) / values.length
+								: undefined,
+							dataItem: { ...layer.dataItem },
 						};
 					}),
 					["data"],
@@ -183,16 +199,17 @@ export function useThematicLayers({
 				try {
 					const legends = [];
 					if (layer.dataItem.legendSet) {
-						const legendSetData = await engine.query(
-							legendSetsQuery,
-							{
-								variables: {
-									id: layer.dataItem.legendSet,
-								},
-							},
-						);
-						const legendSet: LegendSet =
-							legendSetData?.legendSets as LegendSet;
+ 						let legendSet = legendSetsRef.current.get(layer.dataItem.legendSet);
+						if (!legendSet) {
+							const legendSetData = await engine.query(
+								legendSetsQuery,
+								{ variables: { id: layer.dataItem.legendSet } },
+							);
+							legendSet = legendSetData?.legendSets as LegendSet;
+							if (legendSet) {
+								legendSetsRef.current.set(layer.dataItem.legendSet, legendSet);
+							}
+						}
 						if (legendSet) {
 							legends.push(...legendSet.legends);
 						}
@@ -209,17 +226,11 @@ export function useThematicLayers({
 						const autoLegends = generateLegends(
 							last(sortedData)?.data ?? 0,
 							head(sortedData)?.data ?? 0,
-							{
-								classesCount: scale,
-								colorClass,
-							},
+							{ classesCount: scale, colorClass },
 						);
 						legends.push(...autoLegends);
 					}
-					return {
-						...layer,
-						legends,
-					};
+					return { ...layer, legends };
 				} catch (e) {
 					return layer;
 				}
@@ -233,43 +244,28 @@ export function useThematicLayers({
 		try {
 			setLoading(true);
 			const layersWithoutData = layers?.filter((layer) => !layer.data);
-			const layersWithData = differenceBy(
-				layers,
-				layersWithoutData,
-				"id",
-			);
+			const layersWithData = differenceBy(layers, layersWithoutData, "id");
 			const dx = layersWithoutData.map((layer) => layer.dataItem.id);
 			let sanitizedLayersWithData: any = [];
 
 			if (!isEmpty(dx)) {
 				const data = await engine.query(analyticsQuery, {
-					variables: {
-						dx,
-						ou,
-						pe,
-						startDate,
-						endDate,
-						analyticsOptions,
-					},
+					variables: { dx, ou, pe, startDate, endDate, analyticsOptions },
 				});
+ 				analyticsDataRef.current = data;
 				sanitizedLayersWithData = layersWithoutData.map((layer) => ({
 					...layer,
-					name:
-						layer?.name ?? layer?.dataItem?.displayName ?? layer.id,
-					data: sanitizeData(data, layer),
+					name: layer?.name ?? layer?.dataItem?.displayName ?? layer.id,
+					data: sanitizeData(data, layer, activePeriod),
 				}));
 			}
 			const sanitizedLayersWithOrgUnits = layersWithData.map((layer) => ({
 				...layer,
 				data: layer.data?.map((datum) => ({
 					...datum,
-					orgUnit: find(orgUnits, [
-						"id",
-						datum.orgUnit,
-					]) as MapOrgUnit,
+					orgUnit: find(orgUnits, ["id", datum.orgUnit]) as MapOrgUnit,
 					dataItem: layer.dataItem,
-					name:
-						layer?.name ?? layer?.dataItem?.displayName ?? layer.id,
+					name: layer?.name ?? layer?.dataItem?.displayName ?? layer.id,
 				})),
 			}));
 			setLoading(false);
@@ -284,8 +280,24 @@ export function useThematicLayers({
 		}
 	};
 
+ 	const refilterLayers = useCallback(
+		async (layers: ThematicLayerConfig[]): Promise<CustomThematicLayer[]> => {
+			if (!analyticsDataRef.current) return [];
+			const processed = layers
+				.filter((layer) => !layer.data)
+				.map((layer) => ({
+					...layer,
+					name: layer?.name ?? layer?.dataItem?.displayName ?? layer.id,
+					data: sanitizeData(analyticsDataRef.current, layer, activePeriod),
+				}));
+			return sanitizeLegends(processed);
+		},
+		[activePeriod, orgUnits],
+	);
+
 	return {
 		sanitizeLayers,
+		refilterLayers,
 		loading,
 	};
 }

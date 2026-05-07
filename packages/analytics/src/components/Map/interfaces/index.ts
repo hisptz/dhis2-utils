@@ -22,6 +22,7 @@ export interface MapProviderProps {
 	analyticsOptions?: {
 		displayProperty?: "SHORTNAME" | "NAME";
 	};
+	renderingStrategy?: "TIMELINE" | "SINGLE";
 }
 
 export interface MapAnalyticsOptions {
@@ -67,6 +68,7 @@ export interface MapProps {
 	};
 	mapOptions?: MapContainerProps;
 	analyticsOptions?: MapAnalyticsOptions;
+	renderingStrategy?: "TIMELINE" | "SINGLE";
 	base?: {
 		url?: string;
 		attribution?: string;

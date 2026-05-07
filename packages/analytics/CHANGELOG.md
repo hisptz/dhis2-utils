@@ -1,5 +1,17 @@
 # @hisptz/dhis2-analytics
 
+## 2.1.37
+
+### Patch Changes
+
+- removed @dhis2/app-runtime from peer deps
+
+## 2.1.36
+
+### Patch Changes
+
+- Dependency fixes
+
 ## 2.1.35
 
 ### Patch Changes

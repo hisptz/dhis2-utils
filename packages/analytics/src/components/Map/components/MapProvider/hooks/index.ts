@@ -3,6 +3,7 @@ import {
 	MapLayersContext,
 	MapOrgUnitContext,
 	MapPeriodContext,
+	MapPeriodFilterContext,
 } from "../../../state/index.js";
 
 export function useMapOrganisationUnit() {
@@ -15,4 +16,8 @@ export function useMapPeriods() {
 
 export function useMapLayers() {
 	return useContext(MapLayersContext);
+}
+
+export function useMapPeriodFilter() {
+	return useContext(MapPeriodFilterContext);
 }
