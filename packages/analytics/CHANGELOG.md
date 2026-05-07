@@ -1,5 +1,17 @@
 # @hisptz/dhis2-analytics
 
+## 2.2.0
+
+### Minor Changes
+
+- feat: implements timeline controls for map component
+
+### Patch Changes
+
+- dependencies upgrade
+- Updated dependencies
+    - @hisptz/dhis2-ui@2.0.53
+
 ## 2.1.37
 
 ### Patch Changes
