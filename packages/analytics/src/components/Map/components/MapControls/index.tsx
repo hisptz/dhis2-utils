@@ -1,11 +1,9 @@
 import React from "react";
 import { ScaleControl, ZoomControl } from "react-leaflet";
-import { MapControls } from "../MapArea/interfaces/index.js";
+import { MapControls } from "../MapArea/interfaces";
 import FullscreenControl from "./components/FullscreenControl/index.js";
 import DownloadControl from "./components/DownloadControl/index.js";
-import { TimelineControl } from "./components/TimelineControl/index.js";
-
-export type MapControlProps = Extract<MapControls, { type: string }> & { mapId: string };
+import { TimelineControl } from "./components/TimelineControl";
 
 export default function MapControl(props: MapControls & { mapId: string }) {
 	const { type } = props;
@@ -13,9 +11,16 @@ export default function MapControl(props: MapControls & { mapId: string }) {
 		case "zoom":
 			return <ZoomControl position={props.position} {...props.options} />;
 		case "scale":
-			return <ScaleControl position={props.position} {...props.options} />;
+			return (
+				<ScaleControl position={props.position} {...props.options} />
+			);
 		case "fullscreen":
-			return <FullscreenControl position={props.position} {...props.options} />;
+			return (
+				<FullscreenControl
+					position={props.position}
+					{...props.options}
+				/>
+			);
 		case "print":
 			return (
 				<DownloadControl

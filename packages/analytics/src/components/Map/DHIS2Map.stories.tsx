@@ -459,14 +459,24 @@ TimelineControlStory.args = {
 		position: "topright",
 		collapsible: true,
 	},
-	showPeriodTitle: true, 
+	showPeriodTitle: true,
 	periodSelection: {
 		periods: [
-			"202501", "202502", "202503", "202504",
-			"202505", "202506", "202507", "202508",
-			"202509", "202510", "202511", "202512",
+			"202501",
+			"202502",
+			"202503",
+			"202504",
+			"202505",
+			"202506",
+			"202507",
+			"202508",
+			"202509",
+			"202510",
+			"202511",
+			"202512",
 		],
 	},
+
 	controls: [
 		{
 			type: "scale",
