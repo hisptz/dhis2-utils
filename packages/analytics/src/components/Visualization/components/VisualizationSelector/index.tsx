@@ -151,6 +151,7 @@ export function MapRenderer({
 
 	return (
 		<DHIS2Map
+			{...options}
 			periodSelection={{
 				periods: dimensions.pe,
 			}}
