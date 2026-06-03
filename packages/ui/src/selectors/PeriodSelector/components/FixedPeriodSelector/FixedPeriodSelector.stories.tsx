@@ -24,3 +24,10 @@ export const FuturePeriods: Story = {
 		allowFuturePeriods: true,
 	},
 };
+
+export const MultiplePeriods: Story = {
+	name: "Multiple periods",
+	args: {
+		multiple: true,
+	},
+};

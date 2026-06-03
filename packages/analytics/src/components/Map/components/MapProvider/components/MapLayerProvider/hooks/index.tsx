@@ -118,7 +118,7 @@ export function useThematicLayers({
 		() => getOrgUnitsSelection(orgUnitSelection),
 		[orgUnitSelection],
 	);
- 
+
 	const timelinePeriods = useMemo(() => {
 		if (!range || !periodType) return null;
 		return computeTimelinePeriods(range, periodType);
@@ -131,7 +131,7 @@ export function useThematicLayers({
 
 	const toISODate = (date: Date): string =>
 		date.toISOString().slice(0, 10);
- 
+
 	const { startDate, endDate } = useMemo(() => {
 		if (timelinePeriods || !range) {
 			return { startDate: undefined, endDate: undefined };
