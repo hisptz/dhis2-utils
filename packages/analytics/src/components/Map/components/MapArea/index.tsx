@@ -1,7 +1,7 @@
 import { uid } from "@hisptz/dhis2-utils";
 import { Map as LeafletMap } from "leaflet";
 import { isEmpty } from "lodash";
-import { forwardRef, type Ref, useRef } from "react";
+import { forwardRef, type Ref, useContext, useMemo, useRef } from "react";
 import { LayersControl, MapContainer, TileLayer } from "react-leaflet";
 import { useMapBounds } from "../../hooks/map.js";
 import MapControl from "../MapControls/index.js";
@@ -17,6 +17,8 @@ import {
 } from "./interfaces/index.js";
 import MapUpdater from "../MapUpdater/index.js";
 import { MapPeriodTitle } from "../MapTitle";
+import { MapPeriodContext } from "../../state/index.js";
+import { inferPeriodType } from "../../utils/helpers.js";
 
 function MapLayerArea({
 	id,
@@ -34,6 +36,22 @@ function MapLayerArea({
 	legends?: MapLegendConfig;
 }) {
 	const { layers } = useMapLayers();
+	const { periods, renderingStrategy } = useContext(MapPeriodContext) ?? {};
+
+	const allControls = useMemo((): MapControls[] => {
+		const baseControls = controls ?? [];
+		if (renderingStrategy !== "TIMELINE" || !periods || periods.length < 2) {
+			return baseControls;
+		}
+		const dates = periods.map((p) => p.start.toJSDate()) as [Date, Date, ...Date[]];
+		const periodType = inferPeriodType(periods[0].id) ?? "Monthly";
+		const timelineControl: MapControls = {
+			type: "timeline",
+			periodType,
+			timeline: { range: dates, dateFormat: "%Y" },
+		};
+		return [...baseControls, timelineControl];
+	}, [controls, periods, renderingStrategy]);
 
 	return (
 		<>
@@ -50,7 +68,7 @@ function MapLayerArea({
 					}
 				/>
 			)}
-			{controls?.map((control) => (
+			{allControls.map((control) => (
 				<MapControl
 					mapId={id}
 					key={`${control.type}-control`}

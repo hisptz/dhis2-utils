@@ -39,9 +39,12 @@ import { EarthEngineOptions } from "../../../../MapLayer/components/GoogleEngine
 const analyticsQuery = {
 	analytics: {
 		resource: "analytics",
-		params: ({ ou, pe, dx, startDate, endDate, analyticsOptions }: any) => {
+		params: ({ ou, pe, dx, startDate, endDate, analyticsOptions, peAsFilter }: any) => {
 			const usingDateRange = !isEmpty(startDate) && !isEmpty(endDate);
-			const peDimension = !usingDateRange && !isEmpty(pe)
+			const peDimension = !usingDateRange && !isEmpty(pe) && !peAsFilter
+				? `pe:${pe?.join(";")}`
+				: undefined;
+			const peFilter = !usingDateRange && !isEmpty(pe) && peAsFilter
 				? `pe:${pe?.join(";")}`
 				: undefined;
 			const ouDimension = !isEmpty(ou)
@@ -53,6 +56,7 @@ const analyticsQuery = {
 
 			return {
 				dimension: compact([dxDimension, peDimension, ouDimension]),
+				...(peFilter ? { filter: peFilter } : {}),
 				...(usingDateRange ? { startDate, endDate } : {}),
 				displayProperty: "NAME",
 				...(analyticsOptions ?? {}),
@@ -112,7 +116,7 @@ export function useThematicLayers({
 	const engine = useDataEngine();
 	const [loading, setLoading] = useState(false);
 	const { orgUnits, orgUnitSelection } = useMapOrganisationUnit();
-	const { periods, range } = useMapPeriods() ?? {};
+	const { periods, range, renderingStrategy } = useMapPeriods() ?? {};
 	const { activePeriod, periodType } = useMapPeriodFilter();
 	const ou = useMemo(
 		() => getOrgUnitsSelection(orgUnitSelection),
@@ -141,6 +145,8 @@ export function useThematicLayers({
 			endDate: toISODate(range.end),
 		};
 	}, [range, timelinePeriods]);
+
+	const peAsFilter = renderingStrategy !== "TIMELINE";
 
  	const analyticsDataRef = useRef<any>(null);
  	const legendSetsRef = useRef<Map<string, any>>(new Map());
@@ -250,7 +256,7 @@ export function useThematicLayers({
 
 			if (!isEmpty(dx)) {
 				const data = await engine.query(analyticsQuery, {
-					variables: { dx, ou, pe, startDate, endDate, analyticsOptions },
+					variables: { dx, ou, pe, startDate, endDate, analyticsOptions, peAsFilter },
 				});
  				analyticsDataRef.current = data;
 				sanitizedLayersWithData = layersWithoutData.map((layer) => ({

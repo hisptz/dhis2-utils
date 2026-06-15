@@ -91,9 +91,9 @@ function EarthEngineLegend(
 			<p style={{ margin: 0 }}>{options?.description ?? ""}</p>
 			{!isEmpty(legends) && <b>{options?.unit ?? ""}</b>}
 			<div className="legend-list">
-				{legends?.map((legend: any) => (
+				{legends?.map((legend: any, index: number) => (
 					<LegendItem
-						key={`${legend?.color}-legend-list`}
+						key={`${legend?.id ?? legend?.color ?? index}-legend-list`}
 						legend={legend}
 					/>
 				))}

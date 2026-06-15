@@ -11,6 +11,7 @@ import {
 	forEach,
 	isEmpty,
 	isString,
+	orderBy,
 	sortBy,
 } from "lodash";
 import {
@@ -38,9 +39,10 @@ export function getColorFromLegendSet(
 	if (typeof value !== "number") {
 		return "transparent";
 	}
+	const sorted = orderBy(legends ?? [], ["startValue"], ["desc"]);
 	const legend: any =
 		find(
-			legends ?? [],
+			sorted,
 			(legend: any) =>
 				legend?.startValue <= value && legend?.endValue >= value,
 		) ?? {};
@@ -49,7 +51,7 @@ export function getColorFromLegendSet(
 
 export function getLegendCount(legend: any, data: any) {
 	const { startValue, endValue } = legend;
-	return filter(data, (d: any) => d.data >= startValue && d.data <= endValue)
+	return filter(data, (d: any) => d.data >= startValue && d.data < endValue)
 		.length;
 }
 
