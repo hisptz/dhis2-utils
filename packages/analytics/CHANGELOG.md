@@ -1,5 +1,13 @@
 # @hisptz/dhis2-analytics
 
+## 2.2.4
+
+### Patch Changes
+
+- 5db550a: Thematic Map UI update
+- Updated dependencies [5db550a]
+    - @hisptz/dhis2-ui@2.0.56
+
 ## 2.2.3
 
 ### Patch Changes

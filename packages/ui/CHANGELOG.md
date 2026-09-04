@@ -1,5 +1,11 @@
 # @hisptz/dhis2-ui
 
+## 2.0.56
+
+### Patch Changes
+
+- 5db550a: Thematic Map UI update
+
 ## 2.0.55
 
 ### Patch Changes
