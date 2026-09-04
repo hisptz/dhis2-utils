@@ -1,5 +1,15 @@
 # @hisptz/dhis2-analytics
 
+## 2.2.3
+
+### Patch Changes
+
+- ac593d3: Thematic map UI enhancements
+- fef87e9: Thematic Map UI Enhancement
+- Updated dependencies [ac593d3]
+- Updated dependencies [fef87e9]
+    - @hisptz/dhis2-ui@2.0.55
+
 ## 2.2.2
 
 ### Patch Changes
