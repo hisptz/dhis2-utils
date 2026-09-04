@@ -2,7 +2,6 @@ name: Release to npm
 
 on:
   push:
-    # Trigger when a tag is pushed (e.g., v1.2.3)
     branches:
       - main
   workflow_dispatch:
@@ -15,6 +14,7 @@ jobs:
     permissions:
       contents: write
       id-token: write
+      pull-requests: write
     env:
       CI: true
     steps:
