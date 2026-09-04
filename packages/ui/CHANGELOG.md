@@ -1,5 +1,11 @@
 # @hisptz/dhis2-ui
 
+## 2.0.54
+
+### Patch Changes
+
+- Fixes issues with Fixed period selector
+
 ## 2.0.53
 
 ### Patch Changes

@@ -1,14 +1,14 @@
 import React from "react";
 import BoundaryLayer from "./components/BoundaryLayer/index.js";
 import GoogleEngineLayer from "./components/GoogleEngineLayer/index.js";
-import { PointLayer } from "./components/PointLayer/index.js";
+import { PointLayer } from "./components/PointLayer";
 import ThematicLayer from "./components/ThematicLayer/index.js";
 import {
 	CustomBoundaryLayer,
 	CustomGoogleEngineLayer,
 	CustomPointLayer,
 	CustomThematicLayer,
-} from "./interfaces/index.js";
+} from "./interfaces";
 
 export default function MapLayer({
 	layer,

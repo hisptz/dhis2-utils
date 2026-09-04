@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { CustomSelectField } from "../../../../forms";
+import { CustomMultiSelectField, CustomSelectField } from "../../../../forms";
 import i18n from "@dhis2/d2-i18n";
 import { useMap } from "usehooks-ts";
 import { head, isEmpty, uniqBy } from "lodash";
@@ -14,6 +14,7 @@ export interface FixedPeriodSelectorProps {
 	onSelect: ({ items }: { items: Array<string> }) => void;
 	selectedPeriods?: Array<string>;
 	allowFuturePeriods?: boolean;
+	multiple?: boolean;
 }
 
 /**
@@ -21,6 +22,7 @@ export interface FixedPeriodSelectorProps {
  *
  * @param {Object} props - The component props.
  * @param {boolean} props.allowFuturePeriods - Whether to allow future periodsIds. Default is false.
+ * @param {boolean} props.multiple - Whether to allow multiple period selection. Default is false.
  * @param {Array} props.selectedPeriods - The selected periodsIds.
  * @param {function} props.onSelect - The callback function when a period is selected.
  *
@@ -30,6 +32,7 @@ export function FixedPeriodSelector({
 	allowFuturePeriods,
 	selectedPeriods,
 	onSelect,
+	multiple = false,
 }: FixedPeriodSelectorProps) {
 	const defaultValue = useMemo(() => {
 		if (isEmpty(selectedPeriods)) {
@@ -143,16 +146,34 @@ export function FixedPeriodSelector({
 					/>
 				)}
 			</div>
-			<CustomSelectField
-				helpText={
-					!periodType ? i18n.t("Select period type first") : undefined
-				}
-				label={i18n.t("Period")}
-				value={head(selectedPeriods)}
-				optionSet={{ options: periodsIds }}
-				name="periodsIds"
-				onChange={(value: string) => onSelect({ items: [value] })}
-			/>
+			{!multiple && (
+				<CustomSelectField
+					helpText={
+						!periodType
+							? i18n.t("Select period type first")
+							: undefined
+					}
+					label={i18n.t("Period")}
+					value={head(selectedPeriods)}
+					optionSet={{ options: periodsIds }}
+					name="periodsIds"
+					onChange={(value: string) => onSelect({ items: [value] })}
+				/>
+			)}
+			{multiple && (
+				<CustomMultiSelectField
+					helpText={
+						!periodType
+							? i18n.t("Select period type first")
+							: undefined
+					}
+					label={i18n.t("Period")}
+					value={selectedPeriods}
+					optionSet={{ options: periodsIds }}
+					name="periodsIds"
+					onChange={(value: string[]) => onSelect({ items: value })}
+				/>
+			)}
 		</div>
 	);
 }
