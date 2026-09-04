@@ -1,5 +1,12 @@
 # @hisptz/dhis2-ui
 
+## 2.0.55
+
+### Patch Changes
+
+- ac593d3: Thematic map UI enhancements
+- fef87e9: Thematic Map UI Enhancement
+
 ## 2.0.54
 
 ### Patch Changes
